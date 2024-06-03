@@ -1,9 +1,7 @@
-import { Button } from 'antd';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { HeartIcon } from '../Icon/HeartIcon';
-import { LocationIcon } from '../Icon/LocationIcon';
 import { WishListButton } from '../Button/WishListButton';
+import { LocationIcon } from '../Icon/LocationIcon';
 
 interface ICuratorCard {
   imageUrl?: string;
@@ -30,7 +28,7 @@ export const CuratorCard = ({
         onMutateWishList={onWishlistClick}
         className="absolute right-2 top-2"
       />
-      <div className="bg-ny-gray-100 rounded-lg w-full aspect-square">
+      <div className="bg-ny-gray-100 w-full aspect-square">
         {imageUrl && (
           <div className="relative w-full aspect-square">
             <Image
