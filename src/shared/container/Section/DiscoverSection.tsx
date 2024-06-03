@@ -13,8 +13,8 @@ export const DiscoverSection = ({
   title,
 }: IDiscoverSection) => {
   return (
-    <section className="px-4">
-      <div className="flex items-center justify-between gap-2 mb-4">
+    <section>
+      <div className="px-4 flex items-center justify-between gap-2 mb-4">
         <h2 className="text-caption-1 font-medium">{title}</h2>
         <Link href={navigateTo}>
           <Button className="text-xs text-ny-primary-500 bg-ny-primary-100 border-ny-primary-100 font-medium">

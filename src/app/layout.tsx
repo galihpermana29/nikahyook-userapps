@@ -1,9 +1,10 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './globals.scss';
 import ClientSideLayout from '@/shared/container/ClientSideLayout/ClientSideLayout';
-import { CookiesProvider } from 'next-client-cookies/server';
 import { ConfigProvider } from 'antd';
+import type { Metadata } from 'next';
+import { CookiesProvider } from 'next-client-cookies/server';
+import { Inter } from 'next/font/google';
+import 'swiper/css';
+import './globals.scss';
 
 const inter = Inter({ subsets: ['latin'] });
 

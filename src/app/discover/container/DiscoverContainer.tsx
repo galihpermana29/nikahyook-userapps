@@ -5,33 +5,55 @@ import { ProductCard } from '@/shared/container/Card/ProductCard';
 import { VendorCard } from '@/shared/container/Card/VendorCard';
 import { InspirationGrid } from '@/shared/container/Grid/InspirationGrid';
 import { DiscoverSection } from '@/shared/container/Section/DiscoverSection';
+import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
+import { SwiperSlide } from 'swiper/react';
 
 const DiscoverContainer = () => {
   // INFO: get client side session
   // const sessionData = getClientSession();
 
+  const dummyData = [...Array(10)];
+
   return (
     <main className="py-10 flex flex-col gap-10">
       <DiscoverSection title="Top Curators Pick" navigateTo="/">
-        <CuratorCard
-          navigateTo="/"
-          onWishlistClick={() => {}}
-          location="Malang"
-          title="Rustic Wedding"
-          imageUrl="https://images.unsplash.com/photo-1588963200960-44cf8e2b6fed?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cnVzdGljJTIwd2VkZGluZ3xlbnwwfHwwfHx8MA%3D%3D"
-        />
+        <SwiperContainer>
+          {dummyData.map((_, index) => (
+            <SwiperSlide
+              className={`w-fit ${index === 0 && 'ml-4'} ${
+                index + 1 === dummyData.length && 'mr-4'
+              }`}>
+              <CuratorCard
+                navigateTo="/"
+                onWishlistClick={() => {}}
+                location="Malang"
+                title="Rustic Wedding"
+                imageUrl="https://images.unsplash.com/photo-1588963200960-44cf8e2b6fed?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cnVzdGljJTIwd2VkZGluZ3xlbnwwfHwwfHx8MA%3D%3D"
+              />
+            </SwiperSlide>
+          ))}
+        </SwiperContainer>
       </DiscoverSection>
 
       <DiscoverSection title="Top Products" navigateTo="/">
-        <ProductCard
-          navigateTo="/"
-          onWishlistClick={() => {}}
-          title="Hampers Mewah Souvenir Pernikahan Ulang Tahun"
-          location="Malang"
-          price={200_000}
-          rating={4.5}
-          imageUrl="https://images.unsplash.com/photo-1521478706270-f2e33c203d95?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d2VkZGluZyUyMGhhbXBlcnN8ZW58MHx8MHx8fDA%3D"
-        />
+        <SwiperContainer>
+          {dummyData.map((_, index) => (
+            <SwiperSlide
+              className={`w-fit ${index === 0 && 'ml-4'} ${
+                index + 1 === dummyData.length && 'mr-4'
+              }`}>
+              <ProductCard
+                navigateTo="/"
+                onWishlistClick={() => {}}
+                title="Hampers Mewah Souvenir Pernikahan Ulang Tahun"
+                location="Malang"
+                price={200_000}
+                rating={4.5}
+                imageUrl="https://images.unsplash.com/photo-1521478706270-f2e33c203d95?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d2VkZGluZyUyMGhhbXBlcnN8ZW58MHx8MHx8fDA%3D"
+              />
+            </SwiperSlide>
+          ))}
+        </SwiperContainer>
       </DiscoverSection>
 
       <DiscoverSection title="Top Inspirations" navigateTo="/">
