@@ -26,18 +26,16 @@ export const CuratorCard = ({
       className="shadow-lg relative cursor-pointer rounded-lg w-[140px] overflow-hidden">
       <WishListButton
         onMutateWishList={onWishlistClick}
-        className="absolute right-2 top-2"
+        className="absolute right-2 top-2 z-10"
       />
-      <div className="bg-ny-gray-100 w-full aspect-square">
+      <div className="bg-ny-gray-100 relative w-full aspect-square">
         {imageUrl && (
-          <div className="relative w-full aspect-square">
-            <Image
-              src={imageUrl}
-              alt={`${title} Image`}
-              fill
-              className="object-cover"
-            />
-          </div>
+          <Image
+            src={imageUrl}
+            alt={`${title} Image`}
+            fill
+            className="object-cover"
+          />
         )}
       </div>
       <div className="px-2 py-3">
