@@ -1,5 +1,6 @@
 'use client';
 
+import { CuratorCard } from '@/shared/container/Card/CuratorCard';
 import { getClientSession } from '@/shared/usecase/getClientSession';
 
 const DiscoverContainer = () => {
@@ -11,6 +12,10 @@ const DiscoverContainer = () => {
       <div>{sessionData.email}</div>
       <div>curator</div>
       <div>product</div>
+
+      <section className="flex gap-2">
+        <CuratorCard navigateTo="/" onWishlistClick={() => {}} />
+      </section>
     </div>
   );
 };
