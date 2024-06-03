@@ -26,6 +26,7 @@ const config: Config = {
       },
       colors: {
         'ny-gray': {
+          50: '#FFF',
           100: '#E2E2E2',
           200: '#C8C8C8',
           300: '#AEAEAE',
