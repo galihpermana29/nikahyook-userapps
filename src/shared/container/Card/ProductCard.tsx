@@ -39,8 +39,8 @@ export const ProductCard = ({
         {imageUrl && (
           <div className="relative w-full aspect-square">
             <Image
-              src={`${title} Image`}
-              alt="image"
+              src={imageUrl}
+              alt={`${title} Image`}
               fill
               className="object-cover"
             />
@@ -66,7 +66,7 @@ export const ProductCard = ({
               <Rate
                 disabled
                 allowHalf
-                defaultValue={rating}
+                value={rating}
                 character={<StarIcon className="-ml-2" />}
                 className="w-full -translate-y-1"
               />

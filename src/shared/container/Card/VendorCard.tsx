@@ -81,7 +81,7 @@ export const VendorCard = ({
           <Rate
             disabled
             allowHalf
-            defaultValue={rating}
+            value={rating}
             character={<StarIcon className="-ml-2" />}
             className="w-full -translate-y-1"
           />

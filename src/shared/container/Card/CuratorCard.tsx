@@ -32,8 +32,8 @@ export const CuratorCard = ({
         {imageUrl && (
           <div className="relative w-full aspect-square">
             <Image
-              src={`${title} Image`}
-              alt="image"
+              src={imageUrl}
+              alt={`${title} Image`}
               fill
               className="object-cover"
             />
@@ -46,7 +46,9 @@ export const CuratorCard = ({
         </h2>
         <div className="flex items-center gap-1">
           <LocationIcon className="text-ny-primary-500" />
-          <p className="text-caption-3 text-ny-gray-400">{location ?? '-'}</p>
+          <p className="text-caption-3 text-ny-gray-400 line-clamp-1">
+            {location ?? '-'}
+          </p>
         </div>
       </div>
     </div>
