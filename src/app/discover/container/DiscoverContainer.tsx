@@ -7,6 +7,7 @@ import { InspirationGrid } from '@/shared/container/Grid/InspirationGrid';
 import { DiscoverSection } from '@/shared/container/Section/DiscoverSection';
 import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
 import { SwiperSlide } from 'swiper/react';
+import { HeroSection } from './Section/HeroSection';
 
 const DiscoverContainer = () => {
   // INFO: get client side session
@@ -15,7 +16,9 @@ const DiscoverContainer = () => {
   const dummyData = [...Array(10)];
 
   return (
-    <main className="py-10 flex flex-col gap-10">
+    <main className="flex flex-col gap-10">
+      <HeroSection />
+
       <DiscoverSection title="Top Curators Pick" navigateTo="/">
         <SwiperContainer>
           {dummyData.map((_, index) => (

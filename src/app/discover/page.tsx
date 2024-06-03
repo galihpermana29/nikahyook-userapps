@@ -1,6 +1,6 @@
 import { getAllProducts } from '@/shared/actions/productService';
-import DiscoverContainer from './container/DiscoverContainer';
 import { BottomNav } from '@/shared/container/Navigation/BottomNav';
+import DiscoverContainer from './container/DiscoverContainer';
 
 const Discover = async () => {
   const { data } = await getAllProducts();

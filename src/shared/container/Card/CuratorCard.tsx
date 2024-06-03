@@ -23,7 +23,7 @@ export const CuratorCard = ({
   return (
     <div
       onClick={() => router.push(navigateTo)}
-      className="shadow-lg relative cursor-pointer rounded-lg w-[140px] overflow-hidden">
+      className="shadow-lg relative cursor-pointer rounded-lg w-[140px] overflow-hidden hover:bg-ny-gray-100/25 transition-colors duration-150">
       <WishListButton
         onMutateWishList={onWishlistClick}
         className="absolute right-2 top-2 z-10"
