@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="max-w-screen-md mx-auto">
+        <div className="max-w-screen-sm mx-auto">
           <ConfigProvider
             theme={{
               token: {

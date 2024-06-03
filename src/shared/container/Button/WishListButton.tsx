@@ -21,6 +21,7 @@ export const WishListButton = ({
           }`}
         />
       }
+      style={{ border: 'none' }}
       onClick={(e) => {
         e.stopPropagation();
         onMutateWishList();
