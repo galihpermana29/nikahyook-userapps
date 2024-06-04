@@ -17,3 +17,10 @@ export interface IMetaData {
   next_page: number;
   previous_page: number;
 }
+
+export interface IReview {
+  profile_image_url: string;
+  name: string;
+  rating: number;
+  comment: string;
+}
