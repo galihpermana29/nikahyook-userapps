@@ -30,7 +30,7 @@ const DiscoverContainer = async () => {
   }
 
   return (
-    <main className="flex flex-col gap-10 pb-24">
+    <main className="flex flex-col gap-5 pb-24">
       <HeroSection />
       <TopCuratorsPickSection data={curatorialsData.data} />
       <TopProductsSection data={productsData.data} />

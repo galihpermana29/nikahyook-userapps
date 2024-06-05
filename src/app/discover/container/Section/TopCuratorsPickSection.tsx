@@ -4,7 +4,6 @@ import { CuratorCard } from '@/shared/container/Card/CuratorCard';
 import CustomErrorBoundary from '@/shared/container/ErrorBoundary/ErrorBoundary';
 import { DiscoverSection } from '@/shared/container/Section/DiscoverSection';
 import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
-import { IFetchGeneralSuccessResponse } from '@/shared/models/generalInterfaces';
 import { IAllCuratorialsResponse } from '@/shared/models/productInterfaces';
 import { ErrorBoundary } from 'react-error-boundary';
 import { SwiperSlide } from 'swiper/react';
