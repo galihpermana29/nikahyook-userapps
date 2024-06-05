@@ -2,7 +2,9 @@
 
 // put anything fetch request that related to our user service in here
 
-import { IFetchGeneralResponse } from '@/shared/models/generalInterfaces';
+import {
+  IFetchGeneralResponse,
+} from '@/shared/models/generalInterfaces';
 import {
   ILoginPayloadRoot,
   ILoginResponseRoot,
