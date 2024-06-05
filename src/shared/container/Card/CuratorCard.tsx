@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import { WishListButton } from '../Button/WishListButton';
 import { LocationIcon } from '../Icon/LocationIcon';
 
@@ -18,11 +18,9 @@ export const CuratorCard = ({
   navigateTo,
   onWishlistClick,
 }: ICuratorCard) => {
-  const router = useRouter();
-
   return (
     <div
-      onClick={() => router.push(navigateTo)}
+      onClick={() => redirect(navigateTo)}
       className="shadow-lg relative cursor-pointer rounded-lg w-[140px] overflow-hidden hover:bg-ny-gray-100/25 transition-colors duration-150">
       <WishListButton
         onMutateWishList={onWishlistClick}

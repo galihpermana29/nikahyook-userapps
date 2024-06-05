@@ -16,3 +16,22 @@ export interface Tag {
   id: number;
   name: string;
 }
+
+export interface IAllCuratorialsResponse {
+  id: number;
+  name: string;
+  expert_name: string;
+  expert_photo: string;
+  images: string[];
+  total_price: number;
+  description: string;
+  status: string;
+}
+
+export interface IAllInspirationsResponse {
+  id: number;
+  name: string;
+  image: string;
+  tags: Tag[];
+  status: string;
+}

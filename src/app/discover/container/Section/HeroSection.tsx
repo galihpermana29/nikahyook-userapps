@@ -1,11 +1,14 @@
 import { CartIcon } from '@/shared/container/Icon/CartIcon';
 import { NotificationIcon } from '@/shared/container/Icon/NotificationIcon';
 import { SearchIcon } from '@/shared/container/Icon/SearchIcon';
+import { getServerSession } from '@/shared/usecase/getServerSession';
 import { Input } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export const HeroSection = () => {
+export const HeroSection = async () => {
+  const sessionData = await getServerSession();
+
   return (
     <section className="w-full bg-ny-primary-500 py-5 px-4 z-0 h-[248px] relative rounded-b-2xl overflow-hidden flex flex-col justify-between">
       <Image
@@ -30,7 +33,16 @@ export const HeroSection = () => {
             <NotificationIcon />
           </Link>
           <Link href={'/profile'}>
-            <div className="w-6 h-6 bg-ny-gray-100 rounded-lg border border-white"></div>
+            <div className="w-6 h-6 bg-ny-gray-100 rounded-lg border border-white relative overflow-hidden">
+              <Image
+                src={
+                  sessionData.profile_picture_uri ??
+                  '/assets/default-profile-picture.jpg'
+                }
+                alt="Profile Picture"
+                fill
+              />
+            </div>
           </Link>
         </div>
       </header>
