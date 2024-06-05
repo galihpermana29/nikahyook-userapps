@@ -4,17 +4,14 @@
 
 import {
   IFetchGeneralResponse,
-  IFetchGeneralSuccessResponse,
 } from '@/shared/models/generalInterfaces';
 import {
-  IDetailUserResponseRoot,
   ILoginPayloadRoot,
   ILoginResponseRoot,
 } from '@/shared/models/userInterfaces';
 import { errorHandling } from '@/shared/usecase/errorHandling';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { getServerSession } from '../usecase/getServerSession';
 
 const baseURL = process.env.NEXT_PUBLIC_API as string;
 
@@ -50,31 +47,4 @@ export async function login(
   setSessions(data.data);
 
   redirect('/discover');
-}
-
-export async function getDetailUser(
-  id: string
-): Promise<
-  IFetchGeneralResponse<
-    IFetchGeneralSuccessResponse<IDetailUserResponseRoot> | string
-  >
-> {
-  const sessionData = await getServerSession();
-  const res = await fetch(baseURL + '/users/' + id, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${sessionData.token}`,
-    },
-  });
-
-  if (!res.ok) {
-    return errorHandling(res);
-  }
-
-  const {
-    data,
-  }: { data: IFetchGeneralSuccessResponse<IDetailUserResponseRoot> } =
-    await res.json();
-
-  return { success: true, data };
 }

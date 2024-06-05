@@ -36,10 +36,3 @@ export interface IUserDetailData {
   vendor_type_id?: string;
   vendor_type_name?: string;
 }
-
-export interface IUserVendorDetail {
-  vendor_description?: string;
-  vendor_location?: string;
-  vendor_type?: string;
-  vendor_album?: string | string[];
-}

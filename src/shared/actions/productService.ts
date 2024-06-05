@@ -54,8 +54,7 @@ export async function getProductDetail(
     return errorHandling(res);
   }
 
-  const { data }: { data: IFetchGeneralSuccessResponse<IAllProductsResponse> } =
-    await res.json();
+  const data = await res.json();
 
   return { success: true, data };
 }

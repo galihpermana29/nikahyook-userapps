@@ -2,16 +2,15 @@
 
 import { Button } from 'antd';
 import { CartIcon } from '@/shared/container/Icon/CartIcon';
-import { IAllProductsResponse } from '../../../../shared/models/productInterfaces';
+import {
+  IAllProductsResponse,
+  IUserVendorDetail,
+} from '@/shared/models/productInterfaces';
 import { IReview } from '@/shared/models/generalInterfaces';
 import { MessageIcon } from '@/shared/container/Icon/MessageIcon';
 import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
 import { SwiperSlide } from 'swiper/react';
 import { VendorCard } from '@/shared/container/Card/VendorCard';
-import {
-  IDetailUserData,
-  IUserVendorDetail,
-} from '@/shared/models/userInterfaces';
 import DetailFooter from '@/shared/container/DetailFooter/DetailFooter';
 import DetailHeader from '@/shared/container/DetailHeader/DetailHeader';
 import DetailInfoSection from '@/shared/container/Section/DetailInfoSection';
@@ -21,22 +20,12 @@ import ReviewSection from '@/shared/container/Section/ReviewSection';
 
 const ProductDetailContainer = ({
   product,
-  vendor,
 }: {
   product: IAllProductsResponse;
-  vendor: IDetailUserData;
 }) => {
-  const vendorDetail: IUserVendorDetail = vendor.detail.json_text
-    ? JSON.parse(vendor.detail.json_text)
+  const vendorDetail: IUserVendorDetail = product.vendor.json_text
+    ? JSON.parse(product.vendor.json_text)
     : {};
-
-  const vendorAlbum: string[] | undefined = Array.isArray(
-    vendorDetail.vendor_album
-  )
-    ? vendorDetail.vendor_album
-    : vendorDetail.vendor_album
-      ? [vendorDetail.vendor_album]
-      : undefined;
 
   // This is just temporary data while waiting for backend
   const reviewMockData: IReview[] = [
@@ -103,13 +92,13 @@ const ProductDetailContainer = ({
           <VendorCard
             navigateTo="/"
             onWishlistClick={() => {}}
-            vendor_name={vendor.name}
-            product_type_name={vendor.detail.vendor_type_name}
-            price={15000}
-            rating={4}
-            location={vendor.detail.location}
-            profile_picture_uri={vendor.profile_image_uri}
-            images={vendorAlbum}
+            vendor_name={product.vendor.name}
+            product_type_name={product.vendor.type_name}
+            price={parseInt(product.vendor.lowest_price)}
+            rating={parseInt(product.vendor.avg_rating)}
+            location={product.vendor.location}
+            profile_picture_uri={product.vendor.image}
+            images={vendorDetail.vendor_album}
           />
         </section>
         <ReviewSection
