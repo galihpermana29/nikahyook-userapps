@@ -23,9 +23,11 @@ const ProductDetailContainer = ({
 }: {
   product: IAllProductsResponse;
 }) => {
-  const vendorDetail: IUserVendorDetail = product.vendor.json_text
-    ? JSON.parse(product.vendor.json_text)
-    : {};
+  // Uncomment once backend is ready
+
+  // const vendorDetail: IUserVendorDetail = product.vendor.json_text
+  //   ? JSON.parse(product.vendor.json_text)
+  //   : {};
 
   // This is just temporary data while waiting for backend
   const reviewMockData: IReview[] = [
@@ -46,6 +48,23 @@ const ProductDetailContainer = ({
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vulputate, nulla ut commodo fermentum, augue enim consectetur diam, ac vulputate dui turpis non ipsum. ',
     },
   ];
+
+  const vendorDetailMockData = {
+    id: '10f301c',
+    name: 'Batam Wedding',
+    type_name: 'Vendor Type A',
+    type_id: 2,
+    location: 'Arjosari, 65126, Blimbing, Malang, East Java, Indonesia',
+    lowest_price: 15000,
+    image:
+      'https://res.cloudinary.com/dcvnwpyd9/image/upload/v1717122421/nikahyook/gxsgo2wdyhnykrgfoxg6.png',
+    avg_rating: 4,
+    vendor_album: [
+      'https://res.cloudinary.com/dcvnwpyd9/image/upload/v1717122497/nikahyook/eg9oxcnaogjal2agrbpu.png',
+      'https://res.cloudinary.com/dcvnwpyd9/image/upload/v1717122505/nikahyook/k1b9tfwnuqosoyxvshnb.jpg',
+      'https://res.cloudinary.com/dcvnwpyd9/image/upload/v1717122518/nikahyook/i0wyvpft3ho0gi9flywk.jpg',
+    ],
+  };
 
   return (
     <div>
@@ -92,13 +111,13 @@ const ProductDetailContainer = ({
           <VendorCard
             navigateTo="/"
             onWishlistClick={() => {}}
-            vendor_name={product.vendor.name}
-            product_type_name={product.vendor.type_name}
-            price={parseInt(product.vendor.lowest_price)}
-            rating={parseInt(product.vendor.avg_rating)}
-            location={product.vendor.location}
-            profile_picture_uri={product.vendor.image}
-            images={vendorDetail.vendor_album}
+            vendor_name={vendorDetailMockData.name}
+            product_type_name={vendorDetailMockData.type_name}
+            price={vendorDetailMockData.lowest_price}
+            rating={vendorDetailMockData.avg_rating}
+            location={vendorDetailMockData.location}
+            profile_picture_uri={vendorDetailMockData.image}
+            images={vendorDetailMockData.vendor_album}
           />
         </section>
         <ReviewSection

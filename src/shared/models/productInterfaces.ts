@@ -22,10 +22,10 @@ export interface IVendor {
   id: string;
   name: string;
   type_name: string;
-  type_id: string;
+  type_id: number;
   location: string;
-  lowest_price: string;
-  avg_rating: string;
+  lowest_price: number;
+  avg_rating: number;
   image: string;
   json_text: string;
 }
