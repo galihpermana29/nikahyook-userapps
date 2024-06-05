@@ -85,9 +85,8 @@ const ProductDetailContainer = ({
           {product.images.map((image, index) => (
             <SwiperSlide
               key={index}
-              className={`w-[180px] h-[135px] ${index === 0 && 'ml-4'} ${
-                index + 1 === product.images.length && 'mr-4'
-              }`}
+              className={`w-[180px] h-[135px] ${index === 0 && 'ml-4'} ${index + 1 === product.images.length && 'mr-4'
+                }`}
             >
               <Image
                 src={image}
@@ -99,7 +98,7 @@ const ProductDetailContainer = ({
           ))}
         </SwiperContainer>
       </section>
-      <div className="space-y-5">
+      <div className="space-y-5 mb-[64px]">
         <section className="space-y-3 px-4">
           <h3 className="text-body-2 font-medium">Description</h3>
           <p className="text-caption-1 text-ny-gray-400">
@@ -110,7 +109,7 @@ const ProductDetailContainer = ({
           <h2 className="text-body-2 font-medium">Vendor</h2>
           <VendorCard
             navigateTo="/"
-            onWishlistClick={() => {}}
+            onWishlistClick={() => { }}
             vendor_name={vendorDetailMockData.name}
             product_type_name={vendorDetailMockData.type_name}
             price={vendorDetailMockData.lowest_price}
