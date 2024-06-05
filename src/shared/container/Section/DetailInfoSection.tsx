@@ -1,6 +1,7 @@
 import { Rate } from 'antd';
 import React from 'react';
 import { StarIcon } from '../Icon/StarIcon';
+import formatToRupiah from '@/shared/usecase/formatToRupiah';
 
 type IDetailInfoSection = {
   price?: number;
@@ -22,15 +23,15 @@ const DetailInfoSection = ({
   return (
     <section className="space-y-[6px] px-4 py-3">
       <div className="flex items-center justify-between">
-        <p className="text-body-2 text-ny-primary-500 font-semibold">
-          Rp {price}
+        <p className="text-body-2 text-ny-primary-500 font-medium">
+          {formatToRupiah(price ?? 0)}
         </p>
         <p className="text-caption-1">{product_type}</p>
       </div>
       <h2 className="text-body-2 font-medium">{title} </h2>
       <div className="flex items-center justify-between">
         <p className="text-caption-2 text-ny-gray-400">Terjual {sold}</p>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-[2px]">
           <p className="text-caption-2 text-ny-gray-400">
             {rating} ({totalReview})
           </p>

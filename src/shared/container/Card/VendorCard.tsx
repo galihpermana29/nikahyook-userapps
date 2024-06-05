@@ -34,9 +34,10 @@ export const VendorCard = ({
   return (
     <div
       onClick={() => router.push(navigateTo)}
-      className="shadow flex flex-col gap-[6px] bg-white rounded-lg w-full p-2 text-caption-2">
+      className="shadow flex flex-col gap-[6px] bg-white rounded-lg w-full p-2 text-caption-2"
+    >
       <div className="flex gap-2 items-center">
-        <div className="w-[50px] relative overflow-hidden rounded-md bg-ny-gray-100 aspect-square">
+        <div className="min-w-[50px] min-h-[50px] relative overflow-hidden rounded-md bg-ny-gray-100 aspect-square ">
           {profile_picture_uri && (
             <Image
               src={profile_picture_uri}
@@ -48,7 +49,9 @@ export const VendorCard = ({
         </div>
         <div className="flex w-full justify-between gap-2">
           <div>
-            <h3 className="font-medium line-clamp-1">{vendor_name ?? '-'}</h3>
+            <h3 className="text-caption-2 font-medium line-clamp-1">
+              {vendor_name ?? '-'}
+            </h3>
             <p className="text-caption-3 text-ny-gray-400">
               {product_type_name ?? '-'}
             </p>
@@ -56,11 +59,13 @@ export const VendorCard = ({
           <WishListButton onMutateWishList={onWishlistClick} />
         </div>
       </div>
-      <p className="text-ny-primary-500">Price From {formatToRupiah(price)}</p>
-      <div className="grid grid-cols-4 gap-2">
+      <p className="text-caption-2 text-ny-primary-500">
+        Price From {formatToRupiah(price)}
+      </p>
+      <div className="grid grid-cols-4 gap-[6px]">
         {images &&
           images.map((img, index) => (
-            <div className="relative overflow-hidden rounded-md bg-ny-gray-100 aspect-square">
+            <div className="relative overflow-hidden rounded-md bg-ny-gray-100 aspect-square size-[74px]">
               <Image
                 src={img}
                 alt={`Product Image ${index + 1}`}
@@ -82,7 +87,7 @@ export const VendorCard = ({
             disabled
             allowHalf
             value={rating}
-            character={<StarIcon className="-ml-2" />}
+            character={<StarIcon className="size-[10px] -ml-2" />}
             className="w-full -translate-y-1"
           />
         </div>

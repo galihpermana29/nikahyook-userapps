@@ -8,9 +8,7 @@ const ReviewCard = ({ profile_image_url, name, rating, comment }: IReview) => {
   return (
     <div className="space-y-2 p-3 border border-gray-300 rounded-lg">
       <div className="flex items-start gap-2">
-        <div
-          style={{ position: 'relative', width: `${40}px`, height: `${40}px` }}
-        >
+        <div className="relative size-[40px]">
           <Image
             src={profile_image_url}
             alt={`${name} Profile picture`}
@@ -19,15 +17,20 @@ const ReviewCard = ({ profile_image_url, name, rating, comment }: IReview) => {
           />
         </div>
         <div>
-          <p className="text-sm font-semibold">{name}</p>
-          <div className="flex shrink-0 justify-center items-start">
-            <Rate
-              disabled
-              allowHalf
-              value={rating}
-              character={<StarIcon className="-ml-2" />}
-              className="w-full -translate-y-1 translate-x-1 ml-1"
-            />
+          <p className="text-caption-1 font-medium">{name}</p>
+          <div className="flex items-center gap-1">
+            <p className="text-caption-2 text-ny-gray-400">
+              {rating.toFixed(1)}
+            </p>
+            <div className="flex shrink-0 justify-center items-start">
+              <Rate
+                disabled
+                allowHalf
+                value={rating}
+                character={<StarIcon className="-ml-2" />}
+                className="w-full -translate-y-1 translate-x-1 ml-1"
+              />
+            </div>
           </div>
         </div>
       </div>

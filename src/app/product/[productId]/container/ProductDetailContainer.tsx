@@ -10,7 +10,7 @@ import { SwiperSlide } from 'swiper/react';
 import { VendorCard } from '@/shared/container/Card/VendorCard';
 import {
   IDetailUserData,
-  IUserVendorDetail 
+  IUserVendorDetail,
 } from '@/shared/models/userInterfaces';
 import DetailFooter from '@/shared/container/DetailFooter/DetailFooter';
 import DetailHeader from '@/shared/container/DetailHeader/DetailHeader';
@@ -72,33 +72,34 @@ const ProductDetailContainer = ({
         totalReview={12}
         rating={4}
       />
+      <section>
+        <SwiperContainer>
+          {product.images.map((image, index) => (
+            <SwiperSlide
+              key={index}
+              className={`w-[180px] h-[135px] ${index === 0 && 'ml-4'} ${
+                index + 1 === product.images.length && 'mr-4'
+              }`}
+            >
+              <Image
+                src={image}
+                alt={product.title}
+                className="object-cover rounded-lg"
+                fill
+              />
+            </SwiperSlide>
+          ))}
+        </SwiperContainer>
+      </section>
       <div className="space-y-5">
-        <section>
-          <SwiperContainer>
-            {product.images.map((image, index) => (
-              <SwiperSlide
-                key={index}
-                className={`w-[180px] h-[135px] ${index === 0 && 'ml-4'} ${
-                  index + 1 === product.images.length && 'mr-4'
-                }`}
-              >
-                <Image
-                  src={image}
-                  alt={product.title}
-                  className="object-cover rounded-lg"
-                  fill
-                />
-              </SwiperSlide>
-            ))}
-          </SwiperContainer>
-        </section>
         <section className="space-y-3 px-4">
           <h3 className="text-body-2 font-medium">Description</h3>
           <p className="text-caption-1 text-ny-gray-400">
             {product.description}
           </p>
         </section>
-        <section className="px-4">
+        <section className="space-y-3 px-4">
+          <h2 className="text-body-2 font-medium">Vendor</h2>
           <VendorCard
             navigateTo="/"
             onWishlistClick={() => {}}
