@@ -1,18 +1,25 @@
-'use client';
-
-import { Skeleton } from 'antd';
-
-// you can modify this loading page
+import generateUUID from '@/shared/usecase/generateUUID';
 
 const DiscoverLoading = () => {
   return (
-    <div>
-      <div className="flex gap-[12px]">
-        <Skeleton.Node active />
-        <Skeleton.Node active />
-        <Skeleton.Node active />
-        <Skeleton.Node active />
-      </div>
+    <div className="flex p-5 flex-col gap-5">
+      <div className="w-full h-[248px] bg-ny-gray-100 rounded-lg animate-pulse"></div>
+
+      {[...Array(3)].map(() => (
+        <div key={generateUUID()}>
+          <div className="flex mb-5 justify-between items-center gap-5">
+            <div className="w-44 h-7 rounded-md bg-ny-gray-100 animate-pulse"></div>
+            <div className="w-20 h-7 rounded-lg bg-ny-gray-100 animate-pulse"></div>
+          </div>
+          <div className="grid grid-cols-3 gap-3">
+            {[...Array(3)].map(() => (
+              <div
+                key={generateUUID()}
+                className="bg-ny-gray-100 rounded-lg animate-pulse aspect-[4/5]"></div>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

@@ -10,6 +10,19 @@ export interface IAllProductsResponse {
   description: string;
   images: string[];
   status: string;
+  vendor?: IProductVendorDetail;
+}
+
+export interface IProductVendorDetail {
+  id: string;
+  name: string;
+  type_name: string;
+  type_id: number;
+  location: string;
+  lowest_price: number;
+  avg_rating: number;
+  image: string;
+  json_text: string;
 }
 
 export interface Tag {
@@ -26,6 +39,7 @@ export interface IAllCuratorialsResponse {
   total_price: number;
   description: string;
   status: string;
+  location: string;
 }
 
 export interface IAllInspirationsResponse {

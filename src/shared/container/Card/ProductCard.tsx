@@ -53,7 +53,7 @@ export const ProductCard = ({
           </p>
           <div className="flex gap-2 justify-between">
             <div className="flex items-center gap-1">
-              <LocationIcon className="text-ny-primary-500" />
+              <LocationIcon className="text-ny-primary-500 shrink-0" />
               <p className="text-caption-3 line-clamp-1 text-ny-gray-400">
                 {location ?? '-'}
               </p>

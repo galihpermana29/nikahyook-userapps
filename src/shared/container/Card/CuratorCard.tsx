@@ -41,7 +41,7 @@ export const CuratorCard = ({
           {title ?? '-'}
         </h2>
         <div className="flex items-center gap-1">
-          <LocationIcon className="text-ny-primary-500" />
+          <LocationIcon className="text-ny-primary-500 shrink-0" />
           <p className="text-caption-3 text-ny-gray-400 line-clamp-1">
             {location ?? '-'}
           </p>

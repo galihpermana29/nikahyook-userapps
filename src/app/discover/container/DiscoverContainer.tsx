@@ -11,10 +11,23 @@ import { TopProductsSection } from './Section/TopProductsSection';
 import { TopVendorsSection } from './Section/TopVendorsSection';
 
 const DiscoverContainer = async () => {
-  const { data: curatorialsData } = await getAllCuratorials({ limit: 10 });
-  const { data: productsData } = await getAllProducts({ limit: 10 });
-  const { data: inspirationsData } = await getAllInspirations({ limit: 4 });
-  const { data: vendorsData } = await getAllUsers({ limit: 5, type: 'vendor' });
+  const { data: curatorialsData } = await getAllCuratorials({
+    limit: 10,
+    status: 'active',
+  });
+  const { data: productsData } = await getAllProducts({
+    limit: 10,
+    status: 'active',
+  });
+  const { data: inspirationsData } = await getAllInspirations({
+    limit: 4,
+    status: 'active',
+  });
+  const { data: vendorsData } = await getAllUsers({
+    limit: 5,
+    type: 'vendor',
+    status: 'active',
+  });
 
   if (typeof curatorialsData === 'string') {
     throw Error(curatorialsData);

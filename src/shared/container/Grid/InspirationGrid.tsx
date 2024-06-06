@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { WishListButton } from '../Button/WishListButton';
 import splitArrayToChunks from '@/shared/usecase/splitArrayToChunks';
+import generateUUID from '@/shared/usecase/generateUUID';
 
 interface IInspirationGrid {
   data: any[];
@@ -19,6 +20,7 @@ export const InspirationGrid = ({
         <div className="grid grid-cols-2 grid-rows-3 gap-2">
           {chunk.map((item, index) => (
             <div
+              key={generateUUID()}
               className={`bg-ny-gray-100 relative overflow-hidden rounded-lg ${
                 (index + 1) % 2 === 0 ? 'aspect-[4/3]' : 'row-span-2'
               }`}>

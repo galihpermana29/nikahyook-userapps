@@ -18,8 +18,9 @@ export const TopProductsSection = ({
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
       <DiscoverSection title="Top Products" navigateTo="/search?tab=product">
         <SwiperContainer>
-          {data.map((item: any, index: number) => (
+          {data.map((item, index) => (
             <SwiperSlide
+              key={item.id}
               className={`w-fit ${index === 0 && 'ml-4'} ${
                 index + 1 === data.length && 'mr-4'
               }`}>

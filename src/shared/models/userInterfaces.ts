@@ -32,6 +32,8 @@ export interface IUserVendorDetail {
   location: string;
   vendor_type_id: number;
   vendor_type_name: string;
+  lowest_price: number;
+  avg_rating: number;
 }
 
 export interface IUserVendorAdditionalDetail {
