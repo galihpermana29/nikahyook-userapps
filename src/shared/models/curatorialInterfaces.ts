@@ -18,6 +18,8 @@ export interface IProduct {
   id: number;
   title: string;
   price: number;
+  location: string;
+  rating: number;
   images: string[];
 }
 

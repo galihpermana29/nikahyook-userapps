@@ -11,6 +11,7 @@ import { ProductCard } from '@/shared/container/Card/ProductCard';
 import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
 import { SwiperSlide } from 'swiper/react';
 import { VendorCard } from '@/shared/container/Card/VendorCard';
+import CuratorialAuthorSection from '../section/CuratorialAuthorSection';
 import CuratorialItemSection from '../section/CuratorialItemSection';
 import DetailFooter from '@/shared/container/DetailFooter/DetailFooter';
 import DetailHeader from '@/shared/container/DetailHeader/DetailHeader';
@@ -30,46 +31,31 @@ const CuratorialDetailContainer = ({
         title={curatorial.name}
         header_image_url={curatorial.images[0]}
       />
-      <DetailInfoSection title={curatorial.name} />
-      <section>
-        <SwiperContainer>
-          {curatorial.images.map((image, index) => (
-            <SwiperSlide
-              key={index}
-              className={`w-[180px] h-[135px] ${index === 0 && 'ml-4'} ${
-                index + 1 === curatorial.images.length && 'mr-4'
-              }`}
-            >
-              <Image
-                src={image}
-                alt={curatorial.name}
-                className="object-cover rounded-lg"
-                fill
-              />
-            </SwiperSlide>
-          ))}
-        </SwiperContainer>
-      </section>
       <div className="space-y-5 mb-[64px]">
-        <section className="px-4 flex items-center gap-2">
-          <div className="relative size-[40px]">
-            <Image
-              src={curatorial.expert_photo}
-              alt={`${curatorial.name} Expert Photo`}
-              fill
-              className="rounded-full"
-            />
-          </div>
-          <div>
-            <p className="text-caption-2 text-ny-primary-500">
-              Meet the Expert
-            </p>
-            <p className="text-caption-1 font-medium">
-              {curatorial.expert_name}{' '}
-              <span className="text-caption-2 text-ny-gray-400">| Curator</span>
-            </p>
-          </div>
+        <DetailInfoSection title={curatorial.name} />
+        <section>
+          <SwiperContainer>
+            {curatorial.images.map((image, index) => (
+              <SwiperSlide
+                key={index}
+                className={`w-[180px] h-[135px] ${index === 0 && 'ml-4'} ${
+                  index + 1 === curatorial.images.length && 'mr-4'
+                }`}
+              >
+                <Image
+                  src={image}
+                  alt={curatorial.name}
+                  className="object-cover rounded-lg"
+                  fill
+                />
+              </SwiperSlide>
+            ))}
+          </SwiperContainer>
         </section>
+        <CuratorialAuthorSection
+          expert_name={curatorial.expert_name}
+          expert_photo={curatorial.expert_photo}
+        />
         <section className="space-y-3 px-4">
           <h3 className="text-body-2 font-medium">Description</h3>
           <p className="text-caption-1 text-ny-gray-400">
@@ -78,46 +64,50 @@ const CuratorialDetailContainer = ({
         </section>
         <CuratorialItemSection title="Top Inspirations">
           <InspirationGrid
-            data={curatorial.inspirations}
+            data={curatorial.inspirations.slice(0, 4)}
             onWishlistClick={() => {}}
           />
         </CuratorialItemSection>
         <CuratorialItemSection title="Products">
           <SwiperContainer>
-            {curatorial.products.map((item: IProduct, index: number) => (
-              <SwiperSlide
-                key={item.id}
-                className={`w-fit ${index === 0 && 'ml-4'} ${
-                  index + 1 === curatorial.products.length && 'mr-4'
-                }`}
-              >
-                <ProductCard
-                  navigateTo="/"
-                  onWishlistClick={() => {}}
-                  title={item.title}
-                  location={'Malang'}
-                  price={item.price}
-                  rating={4}
-                  imageUrl={item.images[0]}
-                />
-              </SwiperSlide>
-            ))}
+            {curatorial.products
+              .slice(0, 5)
+              .map((item: IProduct, index: number) => (
+                <SwiperSlide
+                  key={item.id}
+                  className={`w-fit ${index === 0 && 'ml-4'} ${
+                    index + 1 === curatorial.products.length && 'mr-4'
+                  }`}
+                >
+                  <ProductCard
+                    navigateTo="/"
+                    onWishlistClick={() => {}}
+                    title={item.title}
+                    location={item.location}
+                    price={item.price}
+                    rating={item.rating}
+                    imageUrl={item.images[0]}
+                  />
+                </SwiperSlide>
+              ))}
           </SwiperContainer>
         </CuratorialItemSection>
         <CuratorialItemSection title="Vendors">
           <div className="space-y-3 px-4">
-            {curatorial.vendor.map((vendor) => (
-              <VendorCard
-                navigateTo="/"
-                onWishlistClick={() => {}}
-                vendor_name={vendor.name}
-                product_type_name={vendor.type}
-                price={vendor.lowest_price}
-                rating={vendor.avg_rating}
-                location={vendor.location}
-                profile_picture_uri={vendor.image}
-                images={vendor.vendor_detail.vendor_album}
-              />
+            {curatorial.vendor.slice(0, 3).map((vendor) => (
+              <div key={vendor.id}>
+                <VendorCard
+                  navigateTo="/"
+                  onWishlistClick={() => {}}
+                  vendor_name={vendor.name}
+                  product_type_name={vendor.type}
+                  price={vendor.lowest_price}
+                  rating={vendor.avg_rating}
+                  location={vendor.location}
+                  profile_picture_uri={vendor.image}
+                  images={vendor.vendor_detail.vendor_album}
+                />
+              </div>
             ))}
           </div>
         </CuratorialItemSection>
