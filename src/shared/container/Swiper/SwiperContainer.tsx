@@ -7,7 +7,7 @@ export const SwiperContainer = ({ children }: { children: ReactNode }) => {
       spaceBetween={10}
       slidesPerView={'auto'}
       grabCursor
-      className="py-5 -mt-5">
+      className="py-5 -my-5">
       {children}
     </Swiper>
   );

@@ -1,10 +1,10 @@
+import formatToRupiah from '@/shared/usecase/formatToRupiah';
 import { Rate } from 'antd';
+import Image from 'next/image';
+import { redirect } from 'next/navigation';
+import { WishListButton } from '../Button/WishListButton';
 import { LocationIcon } from '../Icon/LocationIcon';
 import { StarIcon } from '../Icon/StarIcon';
-import Image from 'next/image';
-import formatToRupiah from '@/shared/usecase/formatToRupiah';
-import { useRouter } from 'next/navigation';
-import { WishListButton } from '../Button/WishListButton';
 
 interface IVendorCard {
   profile_picture_uri?: string;
@@ -29,13 +29,10 @@ export const VendorCard = ({
   price = 0,
   rating = 0,
 }: IVendorCard) => {
-  const router = useRouter();
-
   return (
     <div
-      onClick={() => router.push(navigateTo)}
-      className="shadow flex flex-col gap-[6px] bg-white rounded-lg w-full p-2 text-caption-2"
-    >
+      onClick={() => redirect(navigateTo)}
+      className="shadow cursor-pointer flex flex-col gap-[6px] bg-white rounded-lg w-full p-2 text-caption-2 hover:bg-ny-gray-100/25 transition-colors duration-150">
       <div className="flex gap-2 items-center">
         <div className="min-w-[50px] min-h-[50px] relative overflow-hidden rounded-md bg-ny-gray-100 aspect-square ">
           {profile_picture_uri && (
