@@ -24,3 +24,14 @@ export interface IReview {
   rating: number;
   comment: string;
 }
+
+// Interface for json_text in vendor
+export interface IVendorDetail {
+  vendor_description?: string;
+  vendor_album?: string[];
+  bride_name: string;
+  groom_name: string;
+  plan_for: number;
+  wedding_role: number;
+  wedding_theme: number;
+}
