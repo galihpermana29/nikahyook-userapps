@@ -48,3 +48,8 @@ export interface IVendor {
   image: string;
   json_text: string;
 }
+
+export enum IProductCardSize {
+  Normal = 'normal',
+  Large = 'large',
+}

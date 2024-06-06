@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 import { WishListButton } from '../Button/WishListButton';
 import { LocationIcon } from '../Icon/LocationIcon';
 import { StarIcon } from '../Icon/StarIcon';
+import { IProductCardSize } from '@/shared/models/productInterfaces';
 
 interface IProductCard {
   imageUrl?: string;
@@ -13,6 +14,7 @@ interface IProductCard {
   rating?: number;
   price?: number;
   navigateTo: string;
+  size?: IProductCardSize;
   onWishlistClick: () => void;
 }
 
@@ -21,6 +23,7 @@ export const ProductCard = ({
   location,
   title,
   navigateTo,
+  size = IProductCardSize.Normal,
   onWishlistClick,
   rating = 0,
   price = 0,
@@ -28,7 +31,8 @@ export const ProductCard = ({
   return (
     <div
       onClick={() => redirect(navigateTo)}
-      className="shadow-lg relative cursor-pointer rounded-lg w-[140px] overflow-hidden hover:bg-ny-gray-100/25 transition-colors duration-150">
+      className={`${size === IProductCardSize.Normal ? 'w-[140px]' : 'w-[160px]'} shadow-lg relative cursor-pointer rounded-lg  overflow-hidden hover:bg-ny-gray-100/25 transition-colors duration-150`}
+    >
       <WishListButton
         onMutateWishList={onWishlistClick}
         className="absolute right-2 top-2 z-10"
