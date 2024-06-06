@@ -24,3 +24,9 @@ export interface IReview {
   rating: number;
   comment: string;
 }
+
+// Interface for json_text in vendor
+export interface IVendorDetail {
+  vendor_description?: string;
+  vendor_album?: string[];
+}

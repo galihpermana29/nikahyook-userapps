@@ -4,7 +4,6 @@ import { Button } from 'antd';
 import { CartIcon } from '@/shared/container/Icon/CartIcon';
 import {
   IAllProductsResponse,
-  IUserVendorDetail,
 } from '@/shared/models/productInterfaces';
 import { IReview } from '@/shared/models/generalInterfaces';
 import { MessageIcon } from '@/shared/container/Icon/MessageIcon';

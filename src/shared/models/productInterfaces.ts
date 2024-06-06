@@ -29,8 +29,3 @@ export interface IVendor {
   image: string;
   json_text: string;
 }
-
-export interface IUserVendorDetail {
-  vendor_description?: string;
-  vendor_album?: string[];
-}

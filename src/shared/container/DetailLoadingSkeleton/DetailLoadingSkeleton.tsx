@@ -3,7 +3,7 @@
 import { Skeleton } from 'antd';
 import React from 'react';
 
-const ProductDetailLoading = () => {
+const DetailLoadingSkeleton = () => {
   return (
     <div className="w-full h-screen">
       <div className="flex items-center gap-3 p-4">
@@ -28,4 +28,4 @@ const ProductDetailLoading = () => {
   );
 };
 
-export default ProductDetailLoading;
+export default DetailLoadingSkeleton;

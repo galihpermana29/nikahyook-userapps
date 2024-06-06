@@ -26,9 +26,7 @@ export const InspirationGrid = ({
                 <>
                   {item?.image && (
                     <Image
-                      src={
-                        'https://images.unsplash.com/photo-1716827527719-9ed75218a0f1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8'
-                      }
+                      src={item.image}
                       alt="Inspiration Picture"
                       fill
                       className="object-cover"
