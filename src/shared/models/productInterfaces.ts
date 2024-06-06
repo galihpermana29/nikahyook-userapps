@@ -36,7 +36,7 @@ export interface IAllInspirationsResponse {
   image: string;
   tags: Tag[];
   status: string;
-=======
+}
 export interface IVendor {
   id: string;
   name: string;
