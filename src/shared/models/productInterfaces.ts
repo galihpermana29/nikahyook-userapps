@@ -18,6 +18,25 @@ export interface Tag {
   name: string;
 }
 
+export interface IAllCuratorialsResponse {
+  id: number;
+  name: string;
+  expert_name: string;
+  expert_photo: string;
+  images: string[];
+  total_price: number;
+  description: string;
+  status: string;
+  location: string;
+}
+
+export interface IAllInspirationsResponse {
+  id: number;
+  name: string;
+  image: string;
+  tags: Tag[];
+  status: string;
+}
 export interface IVendor {
   id: string;
   name: string;
