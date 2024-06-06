@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const HeartIcon = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg

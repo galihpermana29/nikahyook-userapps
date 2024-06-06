@@ -10,19 +10,7 @@ export interface IAllProductsResponse {
   description: string;
   images: string[];
   status: string;
-  vendor?: IProductVendorDetail;
-}
-
-export interface IProductVendorDetail {
-  id: string;
-  name: string;
-  type_name: string;
-  type_id: number;
-  location: string;
-  lowest_price: number;
-  avg_rating: number;
-  image: string;
-  json_text: string;
+  vendor: IVendor;
 }
 
 export interface Tag {
@@ -48,4 +36,20 @@ export interface IAllInspirationsResponse {
   image: string;
   tags: Tag[];
   status: string;
+=======
+export interface IVendor {
+  id: string;
+  name: string;
+  type_name: string;
+  type_id: number;
+  location: string;
+  lowest_price: number;
+  avg_rating: number;
+  image: string;
+  json_text: string;
+}
+
+export interface IUserVendorDetail {
+  vendor_description?: string;
+  vendor_album?: string[];
 }
