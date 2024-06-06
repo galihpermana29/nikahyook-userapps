@@ -118,5 +118,11 @@ export async function getProductDetail(
 
   const data = await res.json();
 
+  if (data.data && data.data.vendor) {
+    data.data.vendor.vendor_detail = data.data.vendor.json_text
+      ? JSON.parse(data.data.vendor.json_text)
+      : {};
+  }
+
   return { success: true, data };
 }

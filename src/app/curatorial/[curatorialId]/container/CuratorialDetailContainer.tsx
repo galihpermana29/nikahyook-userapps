@@ -90,7 +90,7 @@ const CuratorialDetailContainer = ({
                   }`}
                 >
                   <ProductCard
-                    navigateTo="/"
+                    navigateTo={`/product/${item.id}`}
                     onWishlistClick={() => {}}
                     title={item.title}
                     location={item.location}

@@ -42,7 +42,7 @@ const DetailInfoSection = ({
               <Rate
                 disabled
                 allowHalf
-                value={4}
+                value={rating}
                 character={<StarIcon className="size-[15px] -ml-2" />}
                 className="w-full -translate-y-[1px] ml-2"
               />

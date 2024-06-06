@@ -1,3 +1,5 @@
+import { IVendorDetail } from "./generalInterfaces";
+
 export interface IAllProductsResponse {
   id: number;
   product_type_id: number;
@@ -7,6 +9,7 @@ export interface IAllProductsResponse {
   vendor_id: string;
   vendor_name: string;
   price: number;
+  rating: number;
   description: string;
   images: string[];
   status: string;
@@ -47,6 +50,7 @@ export interface IVendor {
   avg_rating: number;
   image: string;
   json_text: string;
+  vendor_detail: IVendorDetail;
 }
 
 export enum IProductCardSize {

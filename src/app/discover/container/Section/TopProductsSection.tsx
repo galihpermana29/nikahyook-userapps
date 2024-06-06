@@ -25,7 +25,7 @@ export const TopProductsSection = ({
                 index + 1 === data.length && 'mr-4'
               }`}>
               <ProductCard
-                navigateTo="/"
+                navigateTo="/product/41"
                 onWishlistClick={() => {}}
                 title={item.title}
                 location={item.vendor?.location}
