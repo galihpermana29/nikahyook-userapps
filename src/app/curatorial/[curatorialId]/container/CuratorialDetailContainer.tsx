@@ -10,21 +10,23 @@ import { LovelyIcon } from '@/shared/container/Icon/LovelyIcon';
 import { ProductCard } from '@/shared/container/Card/ProductCard';
 import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
 import { SwiperSlide } from 'swiper/react';
+import { useRouter } from 'next/navigation';
 import { VendorCard } from '@/shared/container/Card/VendorCard';
-import CuratorialAuthorSection from '../section/CuratorialAuthorSection';
-import CuratorialItemSection from '../section/CuratorialItemSection';
+import CuratorialAuthorSection from './section/CuratorialAuthorSection';
+import CuratorialItemSection from './section/CuratorialItemSection';
 import DetailFooter from '@/shared/container/DetailFooter/DetailFooter';
 import DetailHeader from '@/shared/container/DetailHeader/DetailHeader';
 import DetailInfoSection from '@/shared/container/Section/DetailInfoSection';
 import formatToRupiah from '@/shared/usecase/formatToRupiah';
 import Image from 'next/image';
 import React from 'react';
-
 const CuratorialDetailContainer = ({
   curatorial,
 }: {
   curatorial: IAllCuratorialResponseRoot;
 }) => {
+  const router = useRouter();
+
   return (
     <div>
       <DetailHeader
@@ -62,13 +64,21 @@ const CuratorialDetailContainer = ({
             {curatorial.description}
           </p>
         </section>
-        <CuratorialItemSection title="Top Inspirations">
+        <CuratorialItemSection
+          title="Top Inspirations"
+          buttonLabel="See More"
+          onClick={() => {}}
+        >
           <InspirationGrid
             data={curatorial.inspirations.slice(0, 4)}
             onWishlistClick={() => {}}
           />
         </CuratorialItemSection>
-        <CuratorialItemSection title="Products">
+        <CuratorialItemSection
+          title="Products"
+          buttonLabel="See All"
+          onClick={() => router.push(`/curatorial/${curatorial.id}/product`)}
+        >
           <SwiperContainer>
             {curatorial.products
               .slice(0, 5)
@@ -92,7 +102,11 @@ const CuratorialDetailContainer = ({
               ))}
           </SwiperContainer>
         </CuratorialItemSection>
-        <CuratorialItemSection title="Vendors">
+        <CuratorialItemSection
+          title="Vendors"
+          buttonLabel="See All"
+          onClick={() => router.push(`/curatorial/${curatorial.id}/vendor`)}
+        >
           <div className="space-y-3 px-4">
             {curatorial.vendor.slice(0, 3).map((vendor) => (
               <div key={vendor.id}>
