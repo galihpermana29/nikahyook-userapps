@@ -1,6 +1,5 @@
 import FormItem from '@/shared/container/ClientAntd/FormItem/FormItem';
 import ResetPasswordFormContainer from '../_container/ResetPasswordFormContainer';
-import Title from '../_container/Title';
 import { Button } from 'antd';
 import { SkeletonInput } from '@/shared/container/ClientAntd/Skeleton/Skeleton';
 
