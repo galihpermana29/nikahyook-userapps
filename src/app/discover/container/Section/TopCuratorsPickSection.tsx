@@ -26,7 +26,7 @@ export const TopCuratorsPickSection = ({
                 index + 1 === data.length && 'mr-4'
               }`}>
               <CuratorCard
-                navigateTo="/"
+                id={item.id}
                 onWishlistClick={() => {}}
                 location={item.location}
                 title={item.name}

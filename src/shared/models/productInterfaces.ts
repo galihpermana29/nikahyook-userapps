@@ -18,6 +18,18 @@ export interface Tag {
   name: string;
 }
 
+export interface IAllProductTypeResponse {
+  id: number;
+  name: string;
+  status: string;
+}
+
+export interface IAllVendorTypeResponse {
+  id: number;
+  name: string;
+  status: string;
+}
+
 export interface IAllCuratorialsResponse {
   id: number;
   name: string;

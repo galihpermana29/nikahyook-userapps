@@ -24,3 +24,11 @@ export interface IReview {
   rating: number;
   comment: string;
 }
+
+export interface IGeneralFilter {
+  keyword?: string;
+  min_price?: number;
+  max_price?: number;
+  product_type?: number;
+  vendor_type?: number;
+}
