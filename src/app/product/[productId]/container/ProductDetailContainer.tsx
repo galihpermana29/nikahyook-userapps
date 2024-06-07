@@ -2,9 +2,7 @@
 
 import { Button } from 'antd';
 import { CartIcon } from '@/shared/container/Icon/CartIcon';
-import {
-  IAllProductsResponse,
-} from '@/shared/models/productInterfaces';
+import { IAllProductsResponse } from '@/shared/models/productInterfaces';
 import { IReview } from '@/shared/models/generalInterfaces';
 import { MessageIcon } from '@/shared/container/Icon/MessageIcon';
 import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
@@ -22,7 +20,6 @@ const ProductDetailContainer = ({
 }: {
   product: IAllProductsResponse;
 }) => {
-
   // This is just temporary data while waiting for backend
   const reviewMockData: IReview[] = [
     {
@@ -49,33 +46,34 @@ const ProductDetailContainer = ({
         title={product.title}
         header_image_url={product.images[0]}
       />
-      <DetailInfoSection
-        title={product.title}
-        price={product.price}
-        product_type={product.product_type_name}
-        sold={20}
-        totalReview={12}
-        rating={product.rating}
-      />
-      <section>
-        <SwiperContainer>
-          {product.images.map((image, index) => (
-            <SwiperSlide
-              key={index}
-              className={`w-[180px] h-[135px] ${index === 0 && 'ml-4'} ${index + 1 === product.images.length && 'mr-4'
-                }`}
-            >
-              <Image
-                src={image}
-                alt={product.title}
-                className="object-cover rounded-lg"
-                fill
-              />
-            </SwiperSlide>
-          ))}
-        </SwiperContainer>
-      </section>
       <div className="space-y-5 mb-[64px]">
+        <DetailInfoSection
+          title={product.title}
+          price={product.price}
+          product_type={product.product_type_name}
+          sold={20}
+          totalReview={12}
+          rating={product.rating}
+        />
+        <section>
+          <SwiperContainer>
+            {product.images.map((image, index) => (
+              <SwiperSlide
+                key={index}
+                className={`w-[180px] h-[135px] ${index === 0 && 'ml-4'} ${
+                  index + 1 === product.images.length && 'mr-4'
+                }`}
+              >
+                <Image
+                  src={image}
+                  alt={product.title}
+                  className="object-cover rounded-lg"
+                  fill
+                />
+              </SwiperSlide>
+            ))}
+          </SwiperContainer>
+        </section>
         <section className="space-y-3 px-4">
           <h3 className="text-body-2 font-medium">Description</h3>
           <p className="text-caption-1 text-ny-gray-400">
@@ -86,7 +84,7 @@ const ProductDetailContainer = ({
           <h2 className="text-body-2 font-medium">Vendor</h2>
           <VendorCard
             navigateTo="/"
-            onWishlistClick={() => { }}
+            onWishlistClick={() => {}}
             vendor_name={product.vendor.name}
             product_type_name={product.vendor.type_name}
             price={product.vendor.lowest_price}
@@ -106,13 +104,13 @@ const ProductDetailContainer = ({
         <div className="flex items-center gap-2">
           <Button
             icon={<MessageIcon />}
-            className="flex-1 rounded-[8px] h-[40px] bg-ny-primary-100 text-ny-primary-500 text-body-2"
+            className="flex items-center justify-center flex-1 rounded-[8px] h-[40px] bg-ny-primary-100 text-ny-primary-500 text-body-2"
           >
             Message
           </Button>
           <Button
             icon={<CartIcon />}
-            className="flex-1 rounded-[8px] h-[40px] bg-ny-primary-500 text-white text-body-2"
+            className="flex items-center justify-center flex-1 rounded-[8px] h-[40px] bg-ny-primary-500 text-white text-body-2"
           >
             Add to Cart
           </Button>

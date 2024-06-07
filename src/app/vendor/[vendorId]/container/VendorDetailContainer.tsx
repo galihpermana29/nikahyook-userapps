@@ -113,7 +113,7 @@ const VendorDetailContainer = ({ vendor }: { vendor: IAllUserResponse }) => {
           <div className="flex items-center gap-2">
             <Button
               icon={<MessageIcon />}
-              className="w-full rounded-[8px] h-[40px] bg-ny-primary-100 text-ny-primary-500 text-body-2"
+              className="flex items-center justify-center w-full rounded-[8px] h-[40px] bg-ny-primary-100 text-ny-primary-500 text-body-2"
             >
               Message
             </Button>

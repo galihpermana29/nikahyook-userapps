@@ -25,8 +25,6 @@ const CuratorialDetailContainer = ({
 }: {
   curatorial: IAllCuratorialResponseRoot;
 }) => {
-  const router = useRouter();
-
   return (
     <div>
       <DetailHeader
@@ -138,7 +136,7 @@ const CuratorialDetailContainer = ({
       <DetailFooter>
         <Button
           icon={<LovelyIcon />}
-          className="w-full rounded-[8px] h-[40px] bg-ny-primary-500 text-white text-body-2"
+          className="flex items-center justify-center w-full rounded-[8px] h-[40px] bg-ny-primary-500 text-white text-body-2"
         >
           Add to Plan
         </Button>
