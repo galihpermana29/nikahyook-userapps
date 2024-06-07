@@ -37,7 +37,6 @@ export async function setSessions(sessionData: ILoginResponseRoot) {
 export async function login(
   payload: ILoginPayloadRoot
 ): Promise<IFetchGeneralResponse<ILoginResponseRoot | string>> {
-  console.log(payload);
   const res = await fetch(baseURL + '/auth/login', {
     method: 'POST',
     body: JSON.stringify(payload),
