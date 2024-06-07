@@ -7,15 +7,12 @@ import Link from 'next/link';
 import { Dispatch, SetStateAction } from 'react';
 import useFilterAction from '../../usecase/useFilterAction';
 import useGenerateFilterItems from '../../usecase/useGenerateFilterItems';
+import { IGeneralFilter } from '@/shared/models/generalInterfaces';
 
 interface IHeaderDiscover {
   inputPlaceholder: string;
   inputDefaultValue: string;
-  onSearchChange: Dispatch<
-    SetStateAction<{
-      keyword: string | undefined;
-    }>
-  >;
+  onSearchChange: Dispatch<SetStateAction<IGeneralFilter>>;
 }
 
 function HeaderDiscover({
