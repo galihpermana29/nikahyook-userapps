@@ -10,7 +10,7 @@ export default function OTPVerificationLayout({
     <>
       <Title
         title="OTP Verification"
-        subtitle="We have sent OTP code to your email, check your email address"
+        subtitle="We have sent OTP code to your email."
       />
 
       {children}
