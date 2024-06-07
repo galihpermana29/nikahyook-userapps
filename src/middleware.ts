@@ -1,8 +1,16 @@
 import { type NextRequest } from 'next/server';
 
+const authPaths = [
+  '/login',
+  '/forgot-password',
+  '/register',
+  '/otp-verification',
+];
+
 export function middleware(request: NextRequest) {
   const currentUser = request.cookies.get('session')?.value;
-  if (!currentUser && request.nextUrl.pathname !== '/login') {
+
+  if (!currentUser && !authPaths.includes(request.nextUrl.pathname)) {
     return Response.redirect(new URL('/login', request.url));
   }
 
