@@ -1,8 +1,7 @@
-import { Button } from 'antd';
 import React from 'react';
-import { LetfArrowIcon } from '../Icon/LeftArrow';
 import { WishListButton } from '../Button/WishListButton';
 import Image from 'next/image';
+import DetailTitle from './DetailTitle';
 
 type IDetailHeader = {
   title: string;
@@ -12,10 +11,7 @@ type IDetailHeader = {
 const DetailHeader = ({ title, header_image_url }: IDetailHeader) => {
   return (
     <>
-      <div className="px-4 py-2 flex items-center gap-3">
-        <Button type="link" icon={<LetfArrowIcon />} />
-        <h1 className="text-body-1 font-semibold truncate">{title}</h1>
-      </div>
+      <DetailTitle title={title} />
       <div className="min-h-[270px] relative">
         <WishListButton
           onMutateWishList={() => {}}

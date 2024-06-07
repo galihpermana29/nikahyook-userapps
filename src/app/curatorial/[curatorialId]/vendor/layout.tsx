@@ -1,17 +1,17 @@
 import { ErrorBoundary } from 'react-error-boundary';
 import { Suspense } from 'react';
+import CuratorialVendorLoading from './loading';
 import CustomErrorBoundary from '@/shared/container/ErrorBoundary/ErrorBoundary';
-import DetailLoadingSkeleton from '@/shared/container/DetailLoadingSkeleton/DetailLoadingSkeleton';
 import React from 'react';
 
-export default function DiscoverLayout({
+export default function CuratorialVendorLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
-      <Suspense fallback={<DetailLoadingSkeleton />}>{children}</Suspense>
+      <Suspense fallback={<CuratorialVendorLoading />}>{children}</Suspense>
     </ErrorBoundary>
   );
 }
