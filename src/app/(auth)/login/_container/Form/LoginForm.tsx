@@ -1,5 +1,8 @@
 import FormItem from '@/shared/container/ClientAntd/FormItem/FormItem';
-import Input from '@/shared/container/ClientAntd/Input/Input';
+import {
+  Input,
+  InputPassword,
+} from '@/shared/container/ClientAntd/Input/Input';
 import { Button } from 'antd';
 import Link from 'next/link';
 
@@ -21,7 +24,7 @@ export default function LoginForm() {
         required
         name="password"
         label="Password">
-        <Input type="password" placeholder="Enter your password here!" />
+        <InputPassword placeholder="Enter your password here!" />
       </FormItem>
 
       <Link

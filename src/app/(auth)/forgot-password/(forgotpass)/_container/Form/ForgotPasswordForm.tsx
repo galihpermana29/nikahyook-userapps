@@ -1,5 +1,5 @@
 import FormItem from '@/shared/container/ClientAntd/FormItem/FormItem';
-import Input from '@/shared/container/ClientAntd/Input/Input';
+import { Input } from '@/shared/container/ClientAntd/Input/Input';
 
 export default function ForgotPasswordForm() {
   return (

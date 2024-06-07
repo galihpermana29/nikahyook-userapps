@@ -1,6 +1,6 @@
 import DatePicker from '@/shared/container/ClientAntd/DatePicker/DatePicker';
 import FormItem from '@/shared/container/ClientAntd/FormItem/FormItem';
-import Input from '@/shared/container/ClientAntd/Input/Input';
+import { Input } from '@/shared/container/ClientAntd/Input/Input';
 import Select from '@/shared/container/ClientAntd/Select/Select';
 import { Button } from 'antd';
 

@@ -3,8 +3,8 @@ import { type NextRequest } from 'next/server';
 const authPaths = [
   '/login',
   '/forgot-password',
+  '/forgot-password/otp-verification',
   '/register',
-  '/otp-verification',
   '/register/create-profile',
 ];
 

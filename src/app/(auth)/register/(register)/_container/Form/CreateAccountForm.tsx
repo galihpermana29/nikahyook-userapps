@@ -1,6 +1,9 @@
 import DatePicker from '@/shared/container/ClientAntd/DatePicker/DatePicker';
 import FormItem from '@/shared/container/ClientAntd/FormItem/FormItem';
-import Input from '@/shared/container/ClientAntd/Input/Input';
+import {
+  Input,
+  InputPassword,
+} from '@/shared/container/ClientAntd/Input/Input';
 import { Button, Select } from 'antd';
 
 export default function CreateAccountForm() {
@@ -33,7 +36,7 @@ export default function CreateAccountForm() {
         label="Password"
         name="password"
         rules={[{ required: true, message: 'Please enter your password!' }]}>
-        <Input type="password" placeholder="Enter your password here!" />
+        <InputPassword placeholder="Enter your password here!" />
       </FormItem>
 
       <FormItem
