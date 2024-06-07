@@ -42,15 +42,15 @@ const VendorDetailContainer = ({ vendor }: { vendor: IAllUserResponse }) => {
         title={vendor.name}
         header_image_url={vendor.profile_image_uri}
       />
-      <DetailInfoSection
-        title={vendor.name}
-        price={vendor.detail?.lowest_price}
-        product_type={vendor.detail?.vendor_type_name}
-        sold={20}
-        totalReview={12}
-        rating={vendor.detail?.avg_rating}
-      />
       <div className="space-y-5 mb-[64px]">
+        <DetailInfoSection
+          title={vendor.name}
+          price={vendor.detail?.lowest_price}
+          product_type={vendor.detail?.vendor_type_name}
+          sold={20}
+          totalReview={12}
+          rating={vendor.detail?.avg_rating}
+        />
         <section>
           <SwiperContainer>
             {vendor.detail?.vendor_detail.vendor_album?.map((image, index) => (
@@ -79,8 +79,8 @@ const VendorDetailContainer = ({ vendor }: { vendor: IAllUserResponse }) => {
         </section>
         <TitledSection
           title="Products From This Vendor"
-          titleSize='large'
-          navigateTo='product'
+          titleSize="large"
+          navigateTo="product"
         >
           <SwiperContainer>
             {Array.from({ length: 10 }).map((_, index: number) => (
