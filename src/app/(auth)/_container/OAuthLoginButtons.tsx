@@ -16,7 +16,7 @@ const OAuthProviders = [
 
 export default function OAuthLoginButtons(props: OAuthLoginButtonsProps) {
   return (
-    <>
+    <div className="flex flex-col gap-0 w-full justify-center items-center">
       {props.withDivider && (
         <Divider plain className="text-caption-2">
           {props.dividerText}
@@ -33,6 +33,6 @@ export default function OAuthLoginButtons(props: OAuthLoginButtonsProps) {
           {provider.icon} Continue with {provider.name}
         </Button>
       ))}
-    </>
+    </div>
   );
 }

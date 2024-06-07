@@ -5,6 +5,7 @@ const authPaths = [
   '/forgot-password',
   '/register',
   '/otp-verification',
+  '/register/create-profile',
 ];
 
 export function middleware(request: NextRequest) {
