@@ -1,4 +1,4 @@
-import { Button, Divider } from 'antd';
+import { Button } from 'antd';
 import Link from 'next/link';
 import { SkeletonInput } from '@/shared/container/ClientAntd/Skeleton/Skeleton';
 import OAuthLoginButtons from '../_container/OAuthLoginButtons';
