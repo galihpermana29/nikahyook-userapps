@@ -5,6 +5,7 @@ import formatToRupiah from '@/shared/usecase/formatToRupiah';
 
 type IDetailInfoSection = {
   price?: number;
+  startFrom?: boolean;
   product_type?: string;
   title: string;
   sold?: number;
@@ -14,6 +15,7 @@ type IDetailInfoSection = {
 
 const DetailInfoSection = ({
   price,
+  startFrom = false,
   product_type,
   title,
   sold,
@@ -25,7 +27,7 @@ const DetailInfoSection = ({
       {price && product_type && (
         <div className="flex items-center justify-between">
           <p className="text-body-2 text-ny-primary-500 font-medium">
-            {formatToRupiah(price ?? 0)}
+            {`${startFrom ? 'Price From' : '' } ${formatToRupiah(price ?? 0)}`}
           </p>
           <p className="text-caption-1">{product_type}</p>
         </div>

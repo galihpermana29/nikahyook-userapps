@@ -46,6 +46,7 @@ const VendorDetailContainer = ({ vendor }: { vendor: IAllUserResponse }) => {
         <DetailInfoSection
           title={vendor.name}
           price={vendor.detail?.lowest_price}
+          startFrom={true}
           product_type={vendor.detail?.vendor_type_name}
           sold={20}
           totalReview={12}
