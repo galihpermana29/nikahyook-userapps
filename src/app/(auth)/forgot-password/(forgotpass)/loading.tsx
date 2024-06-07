@@ -1,7 +1,7 @@
 import FormItem from '@/shared/container/ClientAntd/FormItem/FormItem';
 import { Button } from 'antd';
 import { SkeletonInput } from '@/shared/container/ClientAntd/Skeleton/Skeleton';
-import ResetPasswordFormContainer from './(forgotpass)/_container/ResetPasswordFormContainer';
+import ResetPasswordFormContainer from './_container/ResetPasswordFormContainer';
 
 export default function ForgotPasswordLoading() {
   return (
