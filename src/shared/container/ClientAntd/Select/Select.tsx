@@ -1,7 +1,16 @@
 'use client';
 
-import { Select as SelectAntd, type SelectProps } from 'antd';
+import React from 'react';
+import { Select as SelectAntd, type GetRef, type SelectProps } from 'antd';
 
-export default function Select(props: SelectProps) {
-  return <SelectAntd {...props} />;
-}
+type SelectRefType = GetRef<typeof SelectAntd>;
+
+const Select = React.forwardRef<SelectRefType, SelectProps>(
+  (props: SelectProps, ref) => {
+    return <SelectAntd ref={ref} {...props} />;
+  }
+);
+
+Select.displayName = 'Select';
+
+export { Select };

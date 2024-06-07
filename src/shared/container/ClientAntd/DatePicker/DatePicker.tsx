@@ -1,7 +1,20 @@
 'use client';
 
-import { DatePicker as DatePickerAntd, type DatePickerProps } from 'antd';
+import {
+  DatePicker as DatePickerAntd,
+  type DatePickerProps,
+  type GetRef,
+} from 'antd';
+import React from 'react';
 
-export default function DatePicker(props: DatePickerProps) {
-  return <DatePickerAntd {...props} />;
-}
+type DatePickerRefType = GetRef<typeof DatePickerAntd>;
+
+const DatePicker = React.forwardRef<DatePickerRefType, DatePickerProps>(
+  (props: DatePickerProps, ref) => {
+    return <DatePickerAntd ref={ref} {...props} />;
+  }
+);
+
+DatePicker.displayName = 'DatePicker';
+
+export { DatePicker };

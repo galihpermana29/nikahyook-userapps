@@ -1,4 +1,4 @@
-import DatePicker from '@/shared/container/ClientAntd/DatePicker/DatePicker';
+import { DatePicker } from '@/shared/container/ClientAntd/DatePicker/DatePicker';
 import FormItem from '@/shared/container/ClientAntd/FormItem/FormItem';
 import {
   Input,

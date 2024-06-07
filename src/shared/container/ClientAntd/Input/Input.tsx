@@ -1,30 +1,52 @@
 'use client';
 
+import React from 'react';
 import useMounted from '@/shared/usecase/useMounted';
-import { Input as InputAntd, Skeleton, type InputProps } from 'antd';
+import {
+  Input as InputAntd,
+  Skeleton,
+  type GetRef,
+  type InputProps,
+} from 'antd';
 import type { PasswordProps } from 'antd/es/input';
 import type { OTPProps } from 'antd/es/input/OTP';
 
-export function Input(props: InputProps) {
-  const mounted = useMounted();
+type InputRefType = GetRef<typeof InputAntd>;
+type InputPasswordRefType = GetRef<typeof InputAntd.Password>;
+type InputOTPRefType = GetRef<typeof InputAntd.OTP>;
 
-  if (!mounted) return <Skeleton.Input block active className="w-full" />;
+const Input = React.forwardRef<InputRefType, InputProps>(
+  (props: InputProps, ref) => {
+    const mounted = useMounted();
 
-  return <InputAntd {...props} />;
-}
+    if (!mounted) return <Skeleton.Input block active className="w-full" />;
 
-export function InputPassword(props: PasswordProps) {
-  const mounted = useMounted();
+    return <InputAntd ref={ref} {...props} />;
+  }
+);
 
-  if (!mounted) return <Skeleton.Input block active className="w-full" />;
+const InputPassword = React.forwardRef<InputPasswordRefType, PasswordProps>(
+  (props: PasswordProps, ref) => {
+    const mounted = useMounted();
 
-  return <InputAntd.Password {...props} />;
-}
+    if (!mounted) return <Skeleton.Input block active className="w-full" />;
 
-export function InputOTP(props: OTPProps) {
-  const mounted = useMounted();
+    return <InputAntd.Password ref={ref} {...props} />;
+  }
+);
 
-  if (!mounted) return <Skeleton.Input block active className="w-full" />;
+const InputOTP = React.forwardRef<InputOTPRefType, OTPProps>(
+  (props: OTPProps, ref) => {
+    const mounted = useMounted();
 
-  return <InputAntd.OTP {...props} />;
-}
+    if (!mounted) return <Skeleton.Input block active className="w-full" />;
+
+    return <InputAntd.OTP ref={ref} {...props} />;
+  }
+);
+
+Input.displayName = 'Input';
+InputPassword.displayName = 'InputPassword';
+InputOTP.displayName = 'InputOTP';
+
+export { Input, InputPassword, InputOTP };
