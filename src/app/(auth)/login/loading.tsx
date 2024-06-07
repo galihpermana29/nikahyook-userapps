@@ -1,7 +1,7 @@
 import { Button, Divider } from 'antd';
-import GoogleIcon from '@/shared/container/Icon/GoogleIcon';
 import Link from 'next/link';
 import { SkeletonInput } from '@/shared/container/ClientAntd/Skeleton/Skeleton';
+import OAuthLoginButtons from '../_container/OAuthLoginButtons';
 
 export default function LoginLoading() {
   return (
@@ -27,17 +27,7 @@ export default function LoginLoading() {
         </Button>
       </div>
 
-      <Divider plain className="text-caption-2">
-        Or continue with
-      </Divider>
-
-      <Button
-        disabled
-        className="w-full flex items-center justify-center gap-2 bg-ny-primary-100 text-ny-primary-500"
-        size="large"
-        type="primary">
-        <GoogleIcon /> Continue with Google
-      </Button>
+      <OAuthLoginButtons loading withDivider dividerText="Or continue with" />
 
       <div className="text-caption-1 mt-5 text-center w-full">
         Don&apos;t have an account?{' '}
