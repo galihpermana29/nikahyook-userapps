@@ -13,13 +13,13 @@ import { SwiperSlide } from 'swiper/react';
 import { useRouter } from 'next/navigation';
 import { VendorCard } from '@/shared/container/Card/VendorCard';
 import CuratorialAuthorSection from './section/CuratorialAuthorSection';
-import CuratorialItemSection from './section/CuratorialItemSection';
 import DetailFooter from '@/shared/container/DetailFooter/DetailFooter';
 import DetailHeader from '@/shared/container/DetailHeader/DetailHeader';
 import DetailInfoSection from '@/shared/container/Section/DetailInfoSection';
 import formatToRupiah from '@/shared/usecase/formatToRupiah';
 import Image from 'next/image';
 import React from 'react';
+import { TitledSection } from '@/shared/container/Section/TitledSection';
 const CuratorialDetailContainer = ({
   curatorial,
 }: {
@@ -64,20 +64,20 @@ const CuratorialDetailContainer = ({
             {curatorial.description}
           </p>
         </section>
-        <CuratorialItemSection
+        <TitledSection
           title="Top Inspirations"
-          buttonLabel="See More"
-          onClick={() => {}}
+          titleSize='large'
+          onLoadMore={() => {}}
         >
           <InspirationGrid
             data={curatorial.inspirations.slice(0, 4)}
             onWishlistClick={() => {}}
           />
-        </CuratorialItemSection>
-        <CuratorialItemSection
+        </TitledSection>
+        <TitledSection
           title="Products"
-          buttonLabel="See All"
-          onClick={() => router.push(`/curatorial/${curatorial.id}/product`)}
+          titleSize='large'
+          navigateTo={`/curatorial/${curatorial.id}/product`}
         >
           <SwiperContainer>
             {curatorial.products
@@ -101,11 +101,11 @@ const CuratorialDetailContainer = ({
                 </SwiperSlide>
               ))}
           </SwiperContainer>
-        </CuratorialItemSection>
-        <CuratorialItemSection
+        </TitledSection>
+        <TitledSection
           title="Vendors"
-          buttonLabel="See All"
-          onClick={() => router.push(`/curatorial/${curatorial.id}/vendor`)}
+          titleSize='large'
+          navigateTo={`/curatorial/${curatorial.id}/vendor`}
         >
           <div className="space-y-3 px-4">
             {curatorial.vendor.slice(0, 3).map((vendor) => (
@@ -124,7 +124,7 @@ const CuratorialDetailContainer = ({
               </div>
             ))}
           </div>
-        </CuratorialItemSection>
+        </TitledSection>
         <section className="flex flex-col justify-center items-center gap-[2px] text-center mx-4 py-[6px] bg-ny-info-100 border border-solid border-ny-info-400 rounded-lg">
           <p className="text-caption-2 text-ny-gray-400">Budget Total</p>
           <p className="text-body-2 text-ny-primary-500 font-medium">

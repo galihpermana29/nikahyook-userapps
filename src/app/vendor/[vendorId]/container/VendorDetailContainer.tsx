@@ -1,19 +1,19 @@
 'use client';
 
-import CuratorialItemSection from '@/app/curatorial/[curatorialId]/container/section/CuratorialItemSection';
+import { Button } from 'antd';
+import { IAllUserResponse } from '@/shared/models/userInterfaces';
+import { IReview } from '@/shared/models/generalInterfaces';
+import { MessageIcon } from '@/shared/container/Icon/MessageIcon';
 import { ProductCard } from '@/shared/container/Card/ProductCard';
+import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
+import { SwiperSlide } from 'swiper/react';
+import { TitledSection } from '@/shared/container/Section/TitledSection';
 import DetailFooter from '@/shared/container/DetailFooter/DetailFooter';
 import DetailHeader from '@/shared/container/DetailHeader/DetailHeader';
-import { MessageIcon } from '@/shared/container/Icon/MessageIcon';
 import DetailInfoSection from '@/shared/container/Section/DetailInfoSection';
-import ReviewSection from '@/shared/container/Section/ReviewSection';
-import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
-import { IReview } from '@/shared/models/generalInterfaces';
-import { IAllUserResponse } from '@/shared/models/userInterfaces';
-import { Button } from 'antd';
 import Image from 'next/image';
 import React from 'react';
-import { SwiperSlide } from 'swiper/react';
+import ReviewSection from '@/shared/container/Section/ReviewSection';
 
 const VendorDetailContainer = ({ vendor }: { vendor: IAllUserResponse }) => {
   // This is just temporary data while waiting for backend
@@ -77,10 +77,10 @@ const VendorDetailContainer = ({ vendor }: { vendor: IAllUserResponse }) => {
             {vendor.detail?.vendor_detail.vendor_description}
           </p>
         </section>
-        <CuratorialItemSection
+        <TitledSection
           title="Products From This Vendor"
-          buttonLabel="See All"
-          onClick={() => {}}
+          titleSize='large'
+          navigateTo='product'
         >
           <SwiperContainer>
             {Array.from({ length: 10 }).map((_, index: number) => (
@@ -103,7 +103,7 @@ const VendorDetailContainer = ({ vendor }: { vendor: IAllUserResponse }) => {
               </SwiperSlide>
             ))}
           </SwiperContainer>
-        </CuratorialItemSection>
+        </TitledSection>
         <ReviewSection
           avgRating={4}
           totalReviews={12}
