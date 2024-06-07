@@ -7,7 +7,7 @@ export default function LoginLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="flex flex-col gap-5 justify-center min-h-screen w-full max-w-sm items-center mx-auto">
+    <main className="flex flex-col gap-5 justify-center w-full max-w-sm items-center mx-auto">
       <Title title="Login to your account" />
 
       {children}

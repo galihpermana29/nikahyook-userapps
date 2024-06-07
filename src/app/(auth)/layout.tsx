@@ -8,7 +8,7 @@ export default function LoginLayout({
 }>) {
   return (
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
-      <div className="p-6">{children}</div>
+      <div className="p-6 h-screen flex items-center">{children}</div>
     </ErrorBoundary>
   );
 }
