@@ -6,12 +6,9 @@ import { Button } from 'antd';
 export default function OTPVerificationLoading() {
   return (
     <section className="w-full">
-      <OTPVerificationFormContainer
-        disabled
-        className="flex flex-col gap-3 w-full"
-        layout="vertical">
+      <div className="flex flex-col gap-3 w-full">
         <SkeletonInput active block />
-      </OTPVerificationFormContainer>
+      </div>
 
       <div className="text-caption-1 mt-5 text-center w-full">
         Didn&apos;t receive an OTP code?{' '}

@@ -10,9 +10,11 @@ export default function LoginLayout({
 }>) {
   return (
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
-      <div className="p-6 h-screen flex items-center">
-        <Suspense fallback={<AuthGroupLoading />}>{children}</Suspense>
-      </div>
+      <Suspense fallback={<AuthGroupLoading />}>
+        <div className="p-6 flex min-h-screen items-center justify-center">
+          {children}
+        </div>
+      </Suspense>
     </ErrorBoundary>
   );
 }
