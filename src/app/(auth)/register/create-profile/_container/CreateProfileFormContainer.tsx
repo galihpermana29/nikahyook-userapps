@@ -1,24 +1,37 @@
 'use client';
 
+import { createProfile } from '@/shared/actions/userService';
 import type { ICreateProfilePayloadRoot } from '@/shared/models/authInterfaces';
+import { getClientSession } from '@/shared/usecase/getClientSession';
 import { Form, message, type FormProps } from 'antd';
-import dayjs from 'dayjs';
+import { useRouter } from 'next/navigation';
 import type { ReactNode } from 'react';
+import { useMutation } from 'react-query';
 
 export default function CreateProfileFormContainer(props: FormProps) {
   const [form] = Form.useForm();
+  const router = useRouter();
+  const session = getClientSession();
+  const userId = session.user_id;
 
   // mutate function here
-  const mutate = (payload: ICreateProfilePayloadRoot) =>
-    message.success(
-      JSON.stringify({
-        ...payload,
-        wedding_date: dayjs(payload.wedding_date).format('YYYY-MM-DD'),
-      })
-    );
+  const { mutate, isLoading } = useMutation({
+    mutationFn: (payload: ICreateProfilePayloadRoot) =>
+      createProfile(payload, userId),
+    onMutate: () => {
+      message.loading('We are creating your profile...', 2);
+    },
+    onSuccess: () => {
+      message.success('We successfully created your profile!');
+      router.replace('/discover');
+    },
+    onError: (error: any) => {
+      message.error(error);
+    },
+  });
 
   return (
-    <Form onFinish={mutate} form={form} {...props}>
+    <Form disabled={isLoading} onFinish={mutate} form={form} {...props}>
       {props.children as ReactNode}
     </Form>
   );
