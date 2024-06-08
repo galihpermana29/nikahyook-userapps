@@ -1,14 +1,5 @@
-import Image from 'next/image';
-import logo from '@/../public/assets/logo-white.png';
+import { Spin } from 'antd';
 
 export default function AuthGroupLoading() {
-  return (
-    <div
-      style={{
-        background: 'radial-gradient(50% 50% at 50% 50%, #f76a8b, #e60b6a)',
-      }}
-      className="h-screen w-screen m-auto flex items-center justify-center">
-      <Image src={logo} alt="logo" width={237} height={48} />
-    </div>
-  );
+  return <Spin size="large" spinning className="size-full" />;
 }
