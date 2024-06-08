@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import LoginFormContainer from './_container/LoginFormContainer';
-import LoginForm from './_container/Form/LoginForm';
-import OAuthLoginButtons from '../_container/OAuthLoginButtons';
+import LoginFormContainer from './container/LoginFormContainer';
+import LoginForm from './container/Form/LoginForm';
+import OAuthLoginButtons from '../container/OAuthLoginButtons';
 
 export default function LoginPage() {
   return (

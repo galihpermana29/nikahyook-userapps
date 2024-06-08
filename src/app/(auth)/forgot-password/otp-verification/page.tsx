@@ -1,6 +1,6 @@
 import React from 'react';
-import OTPVerificationFormContainer from './_container/OTPVerificationFormContainer';
-import OTPVerificationForm from './_container/Form/OTPVerificationForm';
+import OTPVerificationFormContainer from './container/OTPVerificationFormContainer';
+import OTPVerificationForm from './container/Form/OTPVerificationForm';
 import { Button } from 'antd';
 
 export default function OTPVerificationPage() {

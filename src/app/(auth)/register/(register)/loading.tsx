@@ -1,7 +1,7 @@
 import { Button } from 'antd';
-import OAuthLoginButtons from '../../_container/OAuthLoginButtons';
-import CreateAccountFormContainer from './_container/CreateAccountFormContainer';
-import CreateAccountFormLoading from './_container/CreateAccountFormLoading';
+import OAuthLoginButtons from '../../container/OAuthLoginButtons';
+import CreateAccountFormContainer from './container/CreateAccountFormContainer';
+import CreateAccountFormLoading from './container/CreateAccountFormLoading';
 
 export default function RegisterLoading() {
   return (

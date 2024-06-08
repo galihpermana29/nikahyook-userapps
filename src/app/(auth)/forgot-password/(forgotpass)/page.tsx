@@ -1,6 +1,6 @@
 import { Button } from 'antd';
-import ResetPasswordFormContainer from './_container/ResetPasswordFormContainer';
-import ForgotPasswordForm from './_container/Form/ForgotPasswordForm';
+import ResetPasswordFormContainer from './container/ResetPasswordFormContainer';
+import ForgotPasswordForm from './container/Form/ForgotPasswordForm';
 
 export default function ForgotPasswordPage() {
   return (

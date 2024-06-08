@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import CreateAccountFormContainer from './_container/CreateAccountFormContainer';
-import CreateAccountForm from './_container/Form/CreateAccountForm';
-import OAuthLoginButtons from '../../_container/OAuthLoginButtons';
+import CreateAccountFormContainer from './container/CreateAccountFormContainer';
+import CreateAccountForm from './container/Form/CreateAccountForm';
+import OAuthLoginButtons from '../../container/OAuthLoginButtons';
 
 export default function RegisterPage() {
   return (

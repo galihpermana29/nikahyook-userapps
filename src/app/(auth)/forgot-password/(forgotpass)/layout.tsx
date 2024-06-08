@@ -1,5 +1,5 @@
 import React from 'react';
-import Title from '../../_container/Title';
+import Title from '../../container/Title';
 
 export default function ForgotPasswordLayout({
   children,

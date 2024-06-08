@@ -1,6 +1,6 @@
 import React from 'react';
-import CreateProfileFormContainer from './_container/CreateProfileFormContainer';
-import CreateProfileForm from './_container/Form/CreateProfileForm';
+import CreateProfileFormContainer from './container/CreateProfileFormContainer';
+import CreateProfileForm from './container/Form/CreateProfileForm';
 
 export default function CreateProfilePage() {
   return (

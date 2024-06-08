@@ -1,5 +1,5 @@
 import React from 'react';
-import OTPVerificationFormContainer from './_container/OTPVerificationFormContainer';
+import OTPVerificationFormContainer from './container/OTPVerificationFormContainer';
 import { SkeletonInput } from '@/shared/container/ClientAntd/Skeleton/Skeleton';
 import { Button } from 'antd';
 
