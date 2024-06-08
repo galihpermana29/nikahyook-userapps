@@ -1,10 +1,10 @@
 'use client';
 
-import CustomErrorBoundary from '@/shared/container/ErrorBoundary/ErrorBoundary';
-import { InspirationGrid } from '@/shared/container/Grid/InspirationGrid';
-import { DiscoverSection } from '@/shared/container/Section/DiscoverSection';
-import { IAllInspirationsResponse } from '@/shared/models/productInterfaces';
 import { ErrorBoundary } from 'react-error-boundary';
+import { IAllInspirationsResponse } from '@/shared/models/productInterfaces';
+import { InspirationGrid } from '@/shared/container/Grid/InspirationGrid';
+import { TitledSection } from '@/shared/container/Section/TitledSection';
+import CustomErrorBoundary from '@/shared/container/ErrorBoundary/ErrorBoundary';
 
 export const TopInspirationsSection = ({
   data,
@@ -13,11 +13,11 @@ export const TopInspirationsSection = ({
 }) => {
   return (
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
-      <DiscoverSection
+      <TitledSection
         title="Top Inspirations"
         navigateTo="/search?tab=inspiration">
         <InspirationGrid data={data} onWishlistClick={() => {}} />
-      </DiscoverSection>
+      </TitledSection>
     </ErrorBoundary>
   );
 };

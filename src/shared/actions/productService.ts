@@ -97,6 +97,42 @@ export async function getAllCuratorials(
   return { success: true, data };
 }
 
+export async function getAllProduct(
+  params?: Record<string, any>
+): Promise<
+  IFetchGeneralResponse<
+    IFetchGeneralSuccessResponse<IAllProductsResponse[]> | string
+  >
+> {
+  const sessionData = await getServerSession();
+  const res = await fetch(
+    baseURL + '/products?' + new URLSearchParams(params),
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${sessionData.token}`,
+      },
+    }
+  );
+
+  if (!res.ok) {
+    return errorHandling(res);
+  }
+
+  const data = await res.json();
+
+  if (data.data && Array.isArray(data.data)) {
+    data.data = data.data.map((product: IAllProductsResponse) => {
+      if (product.vendor && product.vendor.json_text) {
+        product.vendor.vendor_detail = JSON.parse(product.vendor.json_text);
+      }
+      return product;
+    });
+  }
+
+  return { success: true, data };
+}
+
 export async function getProductDetail(
   id: string
 ): Promise<
