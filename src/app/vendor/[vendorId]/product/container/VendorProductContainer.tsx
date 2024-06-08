@@ -1,26 +1,33 @@
 'use client';
 
 import { ProductCard } from '@/shared/container/Card/ProductCard';
+import {
+  IAllProductsResponse,
+  IProductCardSize,
+} from '@/shared/models/productInterfaces';
 import DetailTitle from '@/shared/container/DetailHeader/DetailTitle';
-import { IProductCardSize } from '@/shared/models/productInterfaces';
 import React from 'react';
 
-const VendorProductContainer = () => {
+const VendorProductContainer = ({
+  products,
+}: {
+  products: IAllProductsResponse[];
+}) => {
   return (
     <div>
       <DetailTitle title="Products From This Vendor" />
       <div className="grid grid-cols-2 gap-4 px-4 py-3 border-t border-ny-gray-400">
-        {Array.from({ length: 12 }).map((_, index) => (
+        {products.map((product) => (
           <ProductCard
-            key={index}
-            navigateTo="/"
-            onWishlistClick={() => {}}
-            title="Kempinski Wedding Hall 2"
-            location="Arjosari, 65126, Blimbing, Malang, East Java, Indonesia"
-            price={15000}
-            rating={5}
-            imageUrl="https://res.cloudinary.com/dcvnwpyd9/image/upload/v1716742049/nikahyook/tffegtyvok7py9j49tbj.jpg"
+            key={product.id}
             size={IProductCardSize.Large}
+            navigateTo={`/product/${product.id}`}
+            onWishlistClick={() => {}}
+            title={product.title}
+            location={product.vendor.location}
+            price={product.price}
+            rating={product.rating}
+            imageUrl={product.images[0]}
           />
         ))}
       </div>

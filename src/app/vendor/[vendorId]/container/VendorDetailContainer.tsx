@@ -14,8 +14,15 @@ import DetailInfoSection from '@/shared/container/Section/DetailInfoSection';
 import Image from 'next/image';
 import React from 'react';
 import ReviewSection from '@/shared/container/Section/ReviewSection';
+import { IAllProductsResponse } from '@/shared/models/productInterfaces';
 
-const VendorDetailContainer = ({ vendor }: { vendor: IAllUserResponse }) => {
+const VendorDetailContainer = ({
+  vendor,
+  products,
+}: {
+  vendor: IAllUserResponse;
+  products: IAllProductsResponse[];
+}) => {
   // This is just temporary data while waiting for backend
   const reviewMockData: IReview[] = [
     {
@@ -81,25 +88,25 @@ const VendorDetailContainer = ({ vendor }: { vendor: IAllUserResponse }) => {
         <TitledSection
           title="Products From This Vendor"
           titleSize="large"
-          navigateTo="product"
+          navigateTo={`${vendor.id}/product`}
         >
           <SwiperContainer>
-            {Array.from({ length: 10 }).map((_, index: number) => (
+            {products.map((product, index: number) => (
               <SwiperSlide
-                key={index}
+                key={product.id}
                 className={`w-fit ${index === 0 && 'ml-4'} ${
                   index + 1 === 12 && 'mr-4'
                 }`}
               >
                 <ProductCard
-                  key={index}
-                  navigateTo="/"
+                  key={product.id}
+                  navigateTo={`/product/${product.id}`}
                   onWishlistClick={() => {}}
-                  title="Kempinski Wedding Hall 2"
-                  location="Arjosari, 65126, Blimbing, Malang, East Java, Indonesia"
-                  price={15000}
-                  rating={5}
-                  imageUrl="https://res.cloudinary.com/dcvnwpyd9/image/upload/v1716742049/nikahyook/tffegtyvok7py9j49tbj.jpg"
+                  title={product.title}
+                  location={product.vendor.location}
+                  price={product.price}
+                  rating={product.rating}
+                  imageUrl={product.images[0]}
                 />
               </SwiperSlide>
             ))}
