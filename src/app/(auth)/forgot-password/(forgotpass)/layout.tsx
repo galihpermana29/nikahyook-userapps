@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Title from '../../container/Title';
+import ForgotPasswordLoading from './loading';
 
 export default function ForgotPasswordLayout({
   children,
@@ -13,7 +14,7 @@ export default function ForgotPasswordLayout({
         subtitle="Please enter your email address to request a password reset"
       />
 
-      {children}
+      <Suspense fallback={<ForgotPasswordLoading />}>{children}</Suspense>
     </>
   );
 }

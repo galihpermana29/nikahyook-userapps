@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Title from '../container/Title';
+import LoginLoading from './loading';
 
 export default function LoginLayout({
   children,
@@ -10,7 +11,7 @@ export default function LoginLayout({
     <main className="flex flex-col gap-5 justify-center w-full max-w-sm items-center mx-auto">
       <Title title="Login to your account" />
 
-      {children}
+      <Suspense fallback={<LoginLoading />}>{children}</Suspense>
     </main>
   );
 }

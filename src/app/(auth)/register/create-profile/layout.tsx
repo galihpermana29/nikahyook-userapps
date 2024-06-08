@@ -1,4 +1,6 @@
+import { Suspense } from 'react';
 import Title from '../../container/Title';
+import CreateProfileLoading from './loading';
 
 export default function CreateProfileLayout({
   children,
@@ -7,7 +9,8 @@ export default function CreateProfileLayout({
 }>) {
   return (
     <>
-      <Title title="Tell us who you are" /> {children}
+      <Title title="Tell us who you are" />
+      <Suspense fallback={<CreateProfileLoading />}>{children}</Suspense>
     </>
   );
 }

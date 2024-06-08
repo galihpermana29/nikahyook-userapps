@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Title from '../../container/Title';
+import OTPVerificationLoading from './loading';
 
 export default function OTPVerificationLayout({
   children,
@@ -13,7 +14,7 @@ export default function OTPVerificationLayout({
         subtitle="We have sent OTP code to your email."
       />
 
-      {children}
+      <Suspense fallback={<OTPVerificationLoading />}>{children}</Suspense>
     </>
   );
 }
