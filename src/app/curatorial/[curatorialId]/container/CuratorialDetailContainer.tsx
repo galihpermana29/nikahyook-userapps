@@ -1,25 +1,23 @@
 'use client';
 
-import { Button } from 'antd';
+import { ProductCard } from '@/shared/container/Card/ProductCard';
+import { VendorCard } from '@/shared/container/Card/VendorCard';
+import DetailFooter from '@/shared/container/DetailFooter/DetailFooter';
+import DetailHeader from '@/shared/container/DetailHeader/DetailHeader';
+import { InspirationGrid } from '@/shared/container/Grid/InspirationGrid';
+import { LovelyIcon } from '@/shared/container/Icon/LovelyIcon';
+import DetailInfoSection from '@/shared/container/Section/DetailInfoSection';
+import { TitledSection } from '@/shared/container/Section/TitledSection';
+import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
 import {
   IAllCuratorialResponseRoot,
   IProduct,
 } from '@/shared/models/curatorialInterfaces';
-import { InspirationGrid } from '@/shared/container/Grid/InspirationGrid';
-import { LovelyIcon } from '@/shared/container/Icon/LovelyIcon';
-import { ProductCard } from '@/shared/container/Card/ProductCard';
-import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
-import { SwiperSlide } from 'swiper/react';
-import { useRouter } from 'next/navigation';
-import { VendorCard } from '@/shared/container/Card/VendorCard';
-import CuratorialAuthorSection from './section/CuratorialAuthorSection';
-import DetailFooter from '@/shared/container/DetailFooter/DetailFooter';
-import DetailHeader from '@/shared/container/DetailHeader/DetailHeader';
-import DetailInfoSection from '@/shared/container/Section/DetailInfoSection';
 import formatToRupiah from '@/shared/usecase/formatToRupiah';
+import { Button } from 'antd';
 import Image from 'next/image';
-import React from 'react';
-import { TitledSection } from '@/shared/container/Section/TitledSection';
+import { SwiperSlide } from 'swiper/react';
+import CuratorialAuthorSection from './section/CuratorialAuthorSection';
 const CuratorialDetailContainer = ({
   curatorial,
 }: {
@@ -40,8 +38,7 @@ const CuratorialDetailContainer = ({
                 key={index}
                 className={`w-[180px] h-[135px] ${index === 0 && 'ml-4'} ${
                   index + 1 === curatorial.images.length && 'mr-4'
-                }`}
-              >
+                }`}>
                 <Image
                   src={image}
                   alt={curatorial.name}
@@ -64,9 +61,8 @@ const CuratorialDetailContainer = ({
         </section>
         <TitledSection
           title="Top Inspirations"
-          titleSize='large'
-          onLoadMore={() => {}}
-        >
+          titleSize="large"
+          onLoadMore={() => {}}>
           <InspirationGrid
             data={curatorial.inspirations.slice(0, 4)}
             onWishlistClick={() => {}}
@@ -74,9 +70,8 @@ const CuratorialDetailContainer = ({
         </TitledSection>
         <TitledSection
           title="Products"
-          titleSize='large'
-          navigateTo={`/curatorial/${curatorial.id}/product`}
-        >
+          titleSize="large"
+          navigateTo={`/curatorial/${curatorial.id}/product`}>
           <SwiperContainer>
             {curatorial.products
               .slice(0, 5)
@@ -85,10 +80,9 @@ const CuratorialDetailContainer = ({
                   key={item.id}
                   className={`w-fit ${index === 0 && 'ml-4'} ${
                     index + 1 === curatorial.products.length && 'mr-4'
-                  }`}
-                >
+                  }`}>
                   <ProductCard
-                    navigateTo={`/product/${item.id}`}
+                    id={item.id}
                     onWishlistClick={() => {}}
                     title={item.title}
                     location={item.location}
@@ -102,9 +96,8 @@ const CuratorialDetailContainer = ({
         </TitledSection>
         <TitledSection
           title="Vendors"
-          titleSize='large'
-          navigateTo={`/curatorial/${curatorial.id}/vendor`}
-        >
+          titleSize="large"
+          navigateTo={`/curatorial/${curatorial.id}/vendor`}>
           <div className="space-y-3 px-4">
             {curatorial.vendor.slice(0, 3).map((vendor) => (
               <div key={vendor.id}>
@@ -136,8 +129,7 @@ const CuratorialDetailContainer = ({
       <DetailFooter>
         <Button
           icon={<LovelyIcon />}
-          className="flex items-center justify-center w-full rounded-[8px] h-[40px] bg-ny-primary-500 text-white text-body-2"
-        >
+          className="flex items-center justify-center w-full rounded-[8px] h-[40px] bg-ny-primary-500 text-white text-body-2">
           Add to Plan
         </Button>
       </DetailFooter>

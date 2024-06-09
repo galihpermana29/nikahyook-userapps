@@ -1,9 +1,3 @@
-import formatToRupiah from '@/shared/usecase/formatToRupiah';
-import { Rate } from 'antd';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { WishListButton } from '../Button/WishListButton';
-import { IProductCardSize } from '@/shared/models/productInterfaces';
 import { LocationIcon } from '../Icon/LocationIcon';
 import { Rate } from 'antd';
 import { StarIcon } from '../Icon/StarIcon';
@@ -20,8 +14,6 @@ interface IProductCard {
   rating?: number;
   price?: number;
   responsive?: boolean;
-  navigateTo: string;
-  size?: IProductCardSize;
   onWishlistClick: () => void;
 }
 
@@ -30,8 +22,6 @@ export const ProductCard = ({
   imageUrl,
   location,
   title,
-  navigateTo,
-  size = IProductCardSize.Normal,
   onWishlistClick,
   responsive = false,
   rating = 0,

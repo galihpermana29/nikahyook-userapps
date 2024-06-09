@@ -1,8 +1,7 @@
 import { getAllVendorTypes } from '@/shared/actions/productService';
 import { Form, Select } from 'antd';
-import { useQuery } from 'react-query';
-import useUrlQuery from '../../usecase/useUrlQuery';
 import { useSearchParams } from 'next/navigation';
+import { useQuery } from 'react-query';
 
 function FilterVendor() {
   const searchParams = useSearchParams();
@@ -27,8 +26,6 @@ function FilterVendor() {
       value: id,
     };
   });
-
-  const { urlQuery } = useUrlQuery();
 
   return (
     <>
