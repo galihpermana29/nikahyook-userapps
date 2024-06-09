@@ -67,8 +67,7 @@ const VendorDetailContainer = ({
                 className={`w-[180px] h-[135px] ${index === 0 && 'ml-4'} ${
                   index + 1 ===
                     vendor.detail?.vendor_detail.vendor_album?.length && 'mr-4'
-                }`}
-              >
+                }`}>
                 <Image
                   src={image}
                   alt={vendor.name}
@@ -88,19 +87,17 @@ const VendorDetailContainer = ({
         <TitledSection
           title="Products From This Vendor"
           titleSize="large"
-          navigateTo={`${vendor.id}/product`}
-        >
+          navigateTo={`${vendor.id}/product`}>
           <SwiperContainer>
             {products.map((product, index: number) => (
               <SwiperSlide
                 key={product.id}
                 className={`w-fit ${index === 0 && 'ml-4'} ${
                   index + 1 === 12 && 'mr-4'
-                }`}
-              >
+                }`}>
                 <ProductCard
+                  id={product.id}
                   key={product.id}
-                  navigateTo={`/product/${product.id}`}
                   onWishlistClick={() => {}}
                   title={product.title}
                   location={product.vendor.location}
@@ -121,8 +118,7 @@ const VendorDetailContainer = ({
           <div className="flex items-center gap-2">
             <Button
               icon={<MessageIcon />}
-              className="flex items-center justify-center w-full rounded-[8px] h-[40px] bg-ny-primary-100 text-ny-primary-500 text-body-2"
-            >
+              className="flex items-center justify-center w-full rounded-[8px] h-[40px] bg-ny-primary-100 text-ny-primary-500 text-body-2">
               Message
             </Button>
           </div>

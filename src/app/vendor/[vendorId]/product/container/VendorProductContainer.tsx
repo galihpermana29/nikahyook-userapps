@@ -1,10 +1,7 @@
 'use client';
 
 import { ProductCard } from '@/shared/container/Card/ProductCard';
-import {
-  IAllProductsResponse,
-  IProductCardSize,
-} from '@/shared/models/productInterfaces';
+import { IAllProductsResponse } from '@/shared/models/productInterfaces';
 import DetailTitle from '@/shared/container/DetailHeader/DetailTitle';
 import React from 'react';
 
@@ -19,9 +16,8 @@ const VendorProductContainer = ({
       <div className="grid grid-cols-2 gap-4 px-4 py-3 border-t border-ny-gray-400">
         {products.map((product) => (
           <ProductCard
+            id={product.id}
             key={product.id}
-            size={IProductCardSize.Large}
-            navigateTo={`/product/${product.id}`}
             onWishlistClick={() => {}}
             title={product.title}
             location={product.vendor.location}
