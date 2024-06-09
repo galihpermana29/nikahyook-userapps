@@ -4,7 +4,7 @@ import CustomErrorBoundary from '@/shared/container/ErrorBoundary/ErrorBoundary'
 import DetailLoadingSkeleton from '@/shared/container/DetailLoadingSkeleton/DetailLoadingSkeleton';
 import React from 'react';
 
-export default function DiscoverLayout({
+export default function VendorDetailLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

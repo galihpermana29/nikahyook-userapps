@@ -1,3 +1,5 @@
+import { IVendorDetail } from "./generalInterfaces";
+
 export interface ILoginResponseRoot {
   user_id: string;
   email: string;
@@ -34,6 +36,7 @@ export interface IUserVendorDetail {
   vendor_type_name: string;
   lowest_price: number;
   avg_rating: number;
+  vendor_detail: IVendorDetail
 }
 
 export interface IUserVendorAdditionalDetail {

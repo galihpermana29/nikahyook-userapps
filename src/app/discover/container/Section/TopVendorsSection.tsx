@@ -1,15 +1,15 @@
 'use client';
 
+import { ErrorBoundary } from 'react-error-boundary';
+import { IAllUserResponse } from '@/shared/models/userInterfaces';
+import { TitledSection } from '@/shared/container/Section/TitledSection';
 import { VendorCard } from '@/shared/container/Card/VendorCard';
 import CustomErrorBoundary from '@/shared/container/ErrorBoundary/ErrorBoundary';
-import { DiscoverSection } from '@/shared/container/Section/DiscoverSection';
-import { IAllUserResponse } from '@/shared/models/userInterfaces';
-import { ErrorBoundary } from 'react-error-boundary';
 
 export const TopVendorsSection = ({ data }: { data: IAllUserResponse[] }) => {
   return (
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
-      <DiscoverSection title="Top Vendors" navigateTo="/search?tab=vendor">
+      <TitledSection title="Top Vendors" navigateTo="/search?tab=vendor">
         <div className="flex flex-col px-4 gap-3">
           {data.map((item) => (
             <VendorCard
@@ -26,7 +26,7 @@ export const TopVendorsSection = ({ data }: { data: IAllUserResponse[] }) => {
             />
           ))}
         </div>
-      </DiscoverSection>
+      </TitledSection>
     </ErrorBoundary>
   );
 };
