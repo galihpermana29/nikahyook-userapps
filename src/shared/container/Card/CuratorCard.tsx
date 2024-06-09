@@ -1,27 +1,29 @@
 import Image from 'next/image';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { WishListButton } from '../Button/WishListButton';
-import { LocationIcon } from '../Icon/LocationIcon';
 
 interface ICuratorCard {
+  id: number;
   imageUrl?: string;
   title?: string;
-  location?: string;
-  navigateTo: string;
+  responsive?: boolean;
   onWishlistClick: () => void;
 }
 
 export const CuratorCard = ({
+  id,
   imageUrl,
-  location,
   title,
-  navigateTo,
   onWishlistClick,
+  responsive = false,
 }: ICuratorCard) => {
+  const router = useRouter();
   return (
     <div
-      onClick={() => redirect(navigateTo)}
-      className="shadow-lg relative cursor-pointer rounded-lg w-[140px] overflow-hidden hover:bg-ny-gray-100/25 transition-colors duration-150">
+      onClick={() => router.push(`/curatorial/${id}`)}
+      className={`shadow-md relative cursor-pointer rounded-lg overflow-hidden hover:bg-ny-gray-100/25 transition-colors duration-150 ${
+        responsive ? 'w-full' : 'w-[140px]'
+      }`}>
       <WishListButton
         onMutateWishList={onWishlistClick}
         className="absolute right-2 top-2 z-10"
@@ -36,16 +38,10 @@ export const CuratorCard = ({
           />
         )}
       </div>
-      <div className="px-2 py-3">
-        <h2 className="text-caption-2 font-medium line-clamp-1 mb-1">
+      <div className={`px-2 py-3 ${responsive ? 'h-max' : 'h-[60px]'}`}>
+        <h2 className="text-caption-2 font-medium line-clamp-2 mb-1">
           {title ?? '-'}
         </h2>
-        <div className="flex items-center gap-1">
-          <LocationIcon className="text-ny-primary-500 shrink-0" />
-          <p className="text-caption-3 text-ny-gray-400 line-clamp-1">
-            {location ?? '-'}
-          </p>
-        </div>
       </div>
     </div>
   );

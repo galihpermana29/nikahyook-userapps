@@ -32,7 +32,7 @@ export const VendorCard = ({
   return (
     <div
       onClick={() => redirect(navigateTo)}
-      className="shadow cursor-pointer flex flex-col gap-[6px] bg-white rounded-lg w-full p-2 text-caption-2 hover:bg-ny-gray-100/25 transition-colors duration-150">
+      className="shadow-md cursor-pointer flex flex-col gap-[6px] bg-white rounded-lg w-full p-2 text-caption-2 hover:bg-ny-gray-100/25 transition-colors duration-150">
       <div className="flex gap-2 items-center">
         <div className="min-w-[50px] min-h-[50px] relative overflow-hidden rounded-md bg-ny-gray-100 aspect-square ">
           {profile_picture_uri && (
@@ -62,7 +62,9 @@ export const VendorCard = ({
       <div className="grid grid-cols-4 gap-[6px]">
         {images &&
           images.map((img, index) => (
-            <div className="relative overflow-hidden rounded-md bg-ny-gray-100 aspect-square size-[74px]">
+            <div
+              key={index}
+              className="relative overflow-hidden rounded-md bg-ny-gray-100 aspect-square size-[74px]">
               <Image
                 src={img}
                 alt={`Product Image ${index + 1}`}
