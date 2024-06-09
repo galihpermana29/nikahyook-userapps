@@ -1,3 +1,3 @@
 export default function Home() {
-  return <div>testing ssdasd</div>;
+  return <div>testing</div>;
 }
