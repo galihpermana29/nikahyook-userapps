@@ -37,7 +37,6 @@ function TabCuratorial() {
               id={item.id}
               responsive
               onWishlistClick={() => {}}
-              location={item.location}
               title={item.name}
               imageUrl={item.images[0]}
             />

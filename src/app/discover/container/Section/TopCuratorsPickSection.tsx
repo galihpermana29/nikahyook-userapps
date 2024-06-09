@@ -28,7 +28,6 @@ export const TopCuratorsPickSection = ({
               <CuratorCard
                 id={item.id}
                 onWishlistClick={() => {}}
-                location={item.location}
                 title={item.name}
                 imageUrl={item.images[0]}
               />

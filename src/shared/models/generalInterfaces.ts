@@ -25,15 +25,6 @@ export interface IReview {
   comment: string;
 }
 
-
-export interface IGeneralFilter {
-  keyword?: string;
-  min_price?: number;
-  max_price?: number;
-  product_type?: number;
-  vendor_type?: number;
-}
-
 // Interface for json_text in vendor
 export interface IVendorDetail {
   vendor_description?: string;
@@ -43,5 +34,12 @@ export interface IVendorDetail {
   plan_for: number;
   wedding_role: number;
   wedding_theme: number;
+}
 
+export interface IGeneralFilter {
+  keyword?: string;
+  min_price?: number;
+  max_price?: number;
+  product_type?: number;
+  vendor_type?: number;
 }

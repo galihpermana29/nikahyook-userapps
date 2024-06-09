@@ -42,7 +42,6 @@ export interface IAllCuratorialsResponse {
   total_price: number;
   description: string;
   status: string;
-  location: string;
 }
 
 export interface IAllInspirationsResponse {

@@ -1,13 +1,11 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { WishListButton } from '../Button/WishListButton';
-import { LocationIcon } from '../Icon/LocationIcon';
 
 interface ICuratorCard {
   id: number;
   imageUrl?: string;
   title?: string;
-  location?: string;
   responsive?: boolean;
   onWishlistClick: () => void;
 }
@@ -15,7 +13,6 @@ interface ICuratorCard {
 export const CuratorCard = ({
   id,
   imageUrl,
-  location,
   title,
   onWishlistClick,
   responsive = false,

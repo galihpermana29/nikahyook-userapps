@@ -9,7 +9,7 @@ function TabProduct() {
   const searchParams = useSearchParams();
   const urlQuery = Object.fromEntries(searchParams.entries());
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['search-product', { ...urlQuery }],
     queryFn: () =>
       getAllProducts({ status: 'active', is_pagination: false, ...urlQuery }),
