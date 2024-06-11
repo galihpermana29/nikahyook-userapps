@@ -62,7 +62,9 @@ export const VendorCard = ({
       <div className="grid grid-cols-4 gap-[6px]">
         {images &&
           images.map((img, index) => (
-            <div className="relative overflow-hidden rounded-md bg-ny-gray-100 aspect-square size-[74px]">
+            <div
+              key={index}
+              className="relative overflow-hidden rounded-md bg-ny-gray-100 aspect-square size-[74px]">
               <Image
                 src={img}
                 alt={`Product Image ${index + 1}`}

@@ -15,10 +15,7 @@ export default function CreateProfileForm() {
         rules={[{ required: true, message: 'Please enter wedding role!' }]}>
         <Select
           placeholder="Select your wedding role!"
-          options={[
-            { label: 'Groom', value: 'groom' },
-            { label: 'Bride', value: 'bride' },
-          ]}
+          options={[{ label: 'Wedding Planner', value: 1 }]}
         />
       </FormItem>
 
@@ -49,8 +46,8 @@ export default function CreateProfileForm() {
         <Select
           placeholder="Enter your plan here!"
           options={[
-            { label: 'Reception', value: 'reception' },
-            { label: 'Akad', value: 'akad' },
+            { label: 'Reception', value: 1 },
+            { label: 'Marriage Ceremony', value: 2 },
           ]}
         />
       </FormItem>
@@ -65,7 +62,10 @@ export default function CreateProfileForm() {
         ]}>
         <Select
           placeholder="Enter your wedding theme here!"
-          options={[{ label: 'Modern', value: 'modern' }]}
+          options={[
+            { label: 'Modern', value: 1 },
+            { label: 'Classic', value: 2 },
+          ]}
         />
       </FormItem>
 

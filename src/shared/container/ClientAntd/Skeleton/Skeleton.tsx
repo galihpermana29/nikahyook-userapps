@@ -14,7 +14,7 @@ type SkeletonInputRefType = GetRef<typeof SkeletonAntd.Input>;
 type SkeletonButtonRefType = GetRef<typeof SkeletonAntd.Button>;
 
 const Skeleton = React.forwardRef<SkeletonRefType, SkeletonPropsAntd>(
-  (props: SkeletonPropsAntd, ref) => {
+  (props: SkeletonPropsAntd) => {
     return <SkeletonAntd {...props} />;
   }
 );
@@ -22,14 +22,14 @@ const Skeleton = React.forwardRef<SkeletonRefType, SkeletonPropsAntd>(
 const SkeletonInput = React.forwardRef<
   SkeletonInputRefType,
   SkeletonInputPropsAntd
->((props: SkeletonInputPropsAntd, ref) => {
+>((props: SkeletonInputPropsAntd) => {
   return <SkeletonAntd.Input {...props} />;
 });
 
 const SkeletonButton = React.forwardRef<
   SkeletonButtonRefType,
   SkeletonButtonPropsAntd
->((props: SkeletonButtonPropsAntd, ref) => {
+>((props: SkeletonButtonPropsAntd) => {
   return <SkeletonAntd.Button {...props} />;
 });
 

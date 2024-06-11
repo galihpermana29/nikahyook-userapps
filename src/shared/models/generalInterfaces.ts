@@ -25,6 +25,12 @@ export interface IReview {
   comment: string;
 }
 
+// Interface for location in detail user
+export interface ILocationDetail {
+  value: string;
+  label: string;
+}
+
 // Interface for json_text in vendor
 export interface IVendorDetail {
   vendor_description?: string;

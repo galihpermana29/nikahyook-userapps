@@ -42,6 +42,17 @@ export default function CreateAccountForm() {
       <FormItem
         className="my-0"
         required
+        label="Phone number"
+        name="phone_number"
+        rules={[
+          { required: true, message: 'Please enter your phone number!' },
+        ]}>
+        <Input placeholder="Enter your phone number here!" />
+      </FormItem>
+
+      <FormItem
+        className="my-0"
+        required
         label="Gender"
         name="gender"
         rules={[{ required: true, message: 'Please enter your gender!' }]}>

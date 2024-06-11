@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
-import Title from '../../container/Title';
 import CreateProfileLoading from './loading';
+import Title from '@/app/(auth)/container/Title';
 
 export default function CreateProfileLayout({
   children,

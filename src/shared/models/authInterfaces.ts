@@ -1,31 +1,34 @@
+import { IRegisterResponseRoot } from './authInterfaces';
+import type { ILocationDetail } from './generalInterfaces';
+
 export interface IRegisterInputRoot {
   name: string;
   email: string;
   password: string;
   gender: string;
+  phone_number: string;
   date_of_birth: string;
 }
 
 export interface IRegisterDetailPayloadRoot {
   json_text: string;
   gender: string;
-  location: string;
+  location: ILocationDetail;
   wedding_date: string;
+  date_of_birth: string;
 }
 
-export interface IRegisterPayloadRoot {
-  name: string;
-  email: string;
-  password: string;
+export interface IRegisterPayloadRoot
+  extends Omit<IRegisterInputRoot, 'date_of_birth'> {
   type: string;
   role_id: number;
   profile_image_uri: string;
-  date_of_birth: string;
   detail: IRegisterDetailPayloadRoot;
 }
 
+export type TRegisterResponseData = string;
 export interface IRegisterResponseRoot {
-  data: string;
+  data: TRegisterResponseData;
   status: string;
 }
 
@@ -40,16 +43,14 @@ export interface ICreateProfileInputRoot {
 }
 
 export interface ICreateProfilePayloadRoot {
-  wedding_role: string;
-  groom_name: string;
-  bride_name: string;
-  plan_for: string;
-  wedding_theme: string;
-  location: string;
-  wedding_date: string;
+  detail: Omit<
+    IRegisterDetailPayloadRoot,
+    'gender' | 'wedding_date' | 'date_of_birth'
+  >;
 }
 
+export type TCreateProfileResponseData = string;
 export interface ICreateProfileResponseRoot {
-  data: string;
+  data: TCreateProfileResponseData;
   status: string;
 }

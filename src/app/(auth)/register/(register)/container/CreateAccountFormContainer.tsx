@@ -1,7 +1,8 @@
 'use client';
 
-import { login, register } from '@/shared/actions/userService';
 import type { IRegisterInputRoot } from '@/shared/models/authInterfaces';
+import { clientSideReactQueryErrorDetection } from '@/shared/usecase/errorHandling';
+import { registerThenLogin } from '@/shared/usecase/registerThenLogin';
 import { Form, message, type FormProps } from 'antd';
 import { useRouter } from 'next/navigation';
 import type { ReactNode } from 'react';
@@ -11,27 +12,33 @@ export default function CreateAccountFormContainer(props: FormProps) {
   const [form] = Form.useForm();
   const router = useRouter();
 
-  // mutate function here
   const { mutate, isLoading } = useMutation({
-    mutationFn: async (payload: IRegisterInputRoot) => {
-      const data = await register(payload);
-      await login({ email: payload.email, password: payload.password });
-
-      return data;
-    },
+    mutationFn: registerThenLogin,
     onMutate: () => {
-      message.loading('Please wait, we are creating your account...', 5);
+      message.loading('Please wait, we are creating your account...', 2);
     },
-    onSuccess: async () => {
-      router.push(`/register/create-profile`);
+    onSuccess: (data) => {
+      // throws when data.success is false, or when mutation errored
+      clientSideReactQueryErrorDetection(data);
+      router.push(`/register/create-profile/${data.data}`);
     },
-    onError: (error: any) => {
-      message.error(error);
+    // this should never fire,
+    // unless something else happened.
+    onError: (error: string | Error) => {
+      if (error instanceof Error) {
+        message.error(error.message);
+      } else {
+        message.error(error as string);
+      }
     },
   });
 
   return (
-    <Form disabled={isLoading} onFinish={mutate} form={form} {...props}>
+    <Form<IRegisterInputRoot>
+      disabled={isLoading}
+      onFinish={mutate}
+      form={form}
+      {...props}>
       {props.children as ReactNode}
     </Form>
   );

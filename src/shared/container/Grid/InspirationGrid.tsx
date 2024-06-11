@@ -17,7 +17,9 @@ export const InspirationGrid = ({
   return (
     <div className="flex flex-col gap-2 px-4">
       {dataChunks.map((chunk) => (
-        <div className="grid grid-cols-2 grid-rows-3 gap-2">
+        <div
+          key={generateUUID()}
+          className="grid grid-cols-2 grid-rows-3 gap-2">
           {chunk.map((item, index) => (
             <div
               key={generateUUID()}
