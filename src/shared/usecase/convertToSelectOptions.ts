@@ -11,7 +11,9 @@ export default function convertToSelectOptions<
   T2 extends TRecordKeys,
   T3 extends TRecordType
 >(items: T3[], { valueField, labelField }: IOptionsParams<T1, T2>) {
-  return items.map((item) => ({
+  if (items.length === 0 || !items) return [];
+
+  return items?.map((item) => ({
     value: item[valueField],
     label: item[labelField],
   }));

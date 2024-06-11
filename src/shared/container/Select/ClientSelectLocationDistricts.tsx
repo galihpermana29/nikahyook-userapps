@@ -8,7 +8,7 @@ import useQueryAllDistricts from '@/shared/usecase/useQueryAllDistricts';
 
 type Props = SelectProps & { cityId: string };
 
-export default async function ClientSelectLocationDistricts({
+export default function ClientSelectLocationDistricts({
   cityId,
   ...props
 }: Props) {

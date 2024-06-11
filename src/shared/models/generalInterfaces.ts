@@ -26,9 +26,11 @@ export interface IReview {
 }
 
 // Interface for location in detail user
+// NOTE: label field shouldn't be optional,
+// TODO: figure out how to get label value from its form
 export interface ILocationDetail {
   value: string;
-  label: string;
+  label?: string;
 }
 
 // Interface for json_text in vendor

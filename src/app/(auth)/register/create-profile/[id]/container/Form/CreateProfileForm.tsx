@@ -2,7 +2,10 @@ import { DatePicker } from '@/shared/container/ClientAntd/DatePicker/DatePicker'
 import FormItem from '@/shared/container/ClientAntd/FormItem/FormItem';
 import { Input } from '@/shared/container/ClientAntd/Input/Input';
 import { Select } from '@/shared/container/ClientAntd/Select/Select';
+import LocationFormItem from '@/shared/container/Location/LocationFormItem';
+import LocationFormItemLoading from '@/shared/container/Location/LocationFormItemLoading';
 import { Button } from 'antd';
+import { Suspense } from 'react';
 
 export default function CreateProfileForm() {
   return (
@@ -69,14 +72,13 @@ export default function CreateProfileForm() {
         />
       </FormItem>
 
-      <FormItem
-        className="my-0"
-        required
-        label="Location"
-        name="location"
-        rules={[{ required: true, message: 'Please enter your location!' }]}>
-        <Input placeholder="Enter your wedding location here!" />
-      </FormItem>
+      <Suspense fallback={<LocationFormItemLoading showCity />}>
+        <LocationFormItem
+          locationFieldName="location"
+          containerProps={{ className: 'w-full flex flex-col gap-3' }}
+          showCity
+        />
+      </Suspense>
 
       <FormItem
         className="my-0"
