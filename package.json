@@ -11,6 +11,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@uidotdev/usehooks": "^2.4.1",
     "antd": "^5.17.4",
     "dayjs": "^1.11.11",
     "next": "14.2.3",

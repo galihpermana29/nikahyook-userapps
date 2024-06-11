@@ -41,3 +41,11 @@ export interface IVendorDetail {
   wedding_role: number;
   wedding_theme: number;
 }
+
+export interface IGeneralFilter {
+  keyword?: string;
+  min_price?: number;
+  max_price?: number;
+  product_type?: number;
+  vendor_type?: number;
+}

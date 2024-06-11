@@ -1,12 +1,12 @@
 'use client';
 
 import { CuratorCard } from '@/shared/container/Card/CuratorCard';
-import CustomErrorBoundary from '@/shared/container/ErrorBoundary/ErrorBoundary';
-import { DiscoverSection } from '@/shared/container/Section/DiscoverSection';
-import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
-import { IAllCuratorialsResponse } from '@/shared/models/productInterfaces';
 import { ErrorBoundary } from 'react-error-boundary';
+import { IAllCuratorialsResponse } from '@/shared/models/productInterfaces';
+import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
 import { SwiperSlide } from 'swiper/react';
+import { TitledSection } from '@/shared/container/Section/TitledSection';
+import CustomErrorBoundary from '@/shared/container/ErrorBoundary/ErrorBoundary';
 
 export const TopCuratorsPickSection = ({
   data,
@@ -15,7 +15,7 @@ export const TopCuratorsPickSection = ({
 }) => {
   return (
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
-      <DiscoverSection
+      <TitledSection
         title="Top Curators Pick"
         navigateTo="/search?tab=curatorial">
         <SwiperContainer>
@@ -26,16 +26,15 @@ export const TopCuratorsPickSection = ({
                 index + 1 === data.length && 'mr-4'
               }`}>
               <CuratorCard
-                navigateTo="/"
+                id={item.id}
                 onWishlistClick={() => {}}
-                location={item.location}
                 title={item.name}
                 imageUrl={item.images[0]}
               />
             </SwiperSlide>
           ))}
         </SwiperContainer>
-      </DiscoverSection>
+      </TitledSection>
     </ErrorBoundary>
   );
 };

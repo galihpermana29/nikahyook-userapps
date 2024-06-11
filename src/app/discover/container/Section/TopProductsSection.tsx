@@ -1,13 +1,13 @@
 'use client';
 
-import { ProductCard } from '@/shared/container/Card/ProductCard';
-import CustomErrorBoundary from '@/shared/container/ErrorBoundary/ErrorBoundary';
-import { DiscoverSection } from '@/shared/container/Section/DiscoverSection';
-import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
-import { IAllProductsResponse } from '@/shared/models/productInterfaces';
-import React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import { IAllProductsResponse } from '@/shared/models/productInterfaces';
+import { ProductCard } from '@/shared/container/Card/ProductCard';
+import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
 import { SwiperSlide } from 'swiper/react';
+import { TitledSection } from '@/shared/container/Section/TitledSection';
+import CustomErrorBoundary from '@/shared/container/ErrorBoundary/ErrorBoundary';
+import React from 'react';
 
 export const TopProductsSection = ({
   data,
@@ -16,7 +16,7 @@ export const TopProductsSection = ({
 }) => {
   return (
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
-      <DiscoverSection title="Top Products" navigateTo="/search?tab=product">
+      <TitledSection title="Top Products" navigateTo="/search?tab=product">
         <SwiperContainer>
           {data.map((item, index) => (
             <SwiperSlide
@@ -25,7 +25,7 @@ export const TopProductsSection = ({
                 index + 1 === data.length && 'mr-4'
               }`}>
               <ProductCard
-                navigateTo="/product/41"
+                id={item.id}
                 onWishlistClick={() => {}}
                 title={item.title}
                 location={item.vendor?.location}
@@ -36,7 +36,7 @@ export const TopProductsSection = ({
             </SwiperSlide>
           ))}
         </SwiperContainer>
-      </DiscoverSection>
+      </TitledSection>
     </ErrorBoundary>
   );
 };

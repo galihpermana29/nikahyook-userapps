@@ -1,24 +1,27 @@
 'use client';
 
 import { Button } from 'antd';
-import { CartIcon } from '@/shared/container/Icon/CartIcon';
-import { IAllProductsResponse } from '@/shared/models/productInterfaces';
+import { IAllUserResponse } from '@/shared/models/userInterfaces';
 import { IReview } from '@/shared/models/generalInterfaces';
 import { MessageIcon } from '@/shared/container/Icon/MessageIcon';
+import { ProductCard } from '@/shared/container/Card/ProductCard';
 import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
 import { SwiperSlide } from 'swiper/react';
-import { VendorCard } from '@/shared/container/Card/VendorCard';
+import { TitledSection } from '@/shared/container/Section/TitledSection';
 import DetailFooter from '@/shared/container/DetailFooter/DetailFooter';
 import DetailHeader from '@/shared/container/DetailHeader/DetailHeader';
 import DetailInfoSection from '@/shared/container/Section/DetailInfoSection';
 import Image from 'next/image';
 import React from 'react';
 import ReviewSection from '@/shared/container/Section/ReviewSection';
+import { IAllProductsResponse } from '@/shared/models/productInterfaces';
 
-const ProductDetailContainer = ({
-  product,
+const VendorDetailContainer = ({
+  vendor,
+  products,
 }: {
-  product: IAllProductsResponse;
+  vendor: IAllUserResponse;
+  products: IAllProductsResponse[];
 }) => {
   // This is just temporary data while waiting for backend
   const reviewMockData: IReview[] = [
@@ -43,30 +46,31 @@ const ProductDetailContainer = ({
   return (
     <div>
       <DetailHeader
-        title={product.title}
-        header_image_url={product.images[0]}
+        title={vendor.name}
+        header_image_url={vendor.profile_image_uri}
       />
       <div className="space-y-5 mb-[64px]">
         <DetailInfoSection
-          title={product.title}
-          price={product.price}
-          product_type={product.product_type_name}
+          title={vendor.name}
+          price={vendor.detail?.lowest_price}
+          startFrom={true}
+          product_type={vendor.detail?.vendor_type_name}
           sold={20}
           totalReview={12}
-          rating={product.rating}
+          rating={vendor.detail?.avg_rating}
         />
         <section>
           <SwiperContainer>
-            {product.images.map((image, index) => (
+            {vendor.detail?.vendor_detail.vendor_album?.map((image, index) => (
               <SwiperSlide
                 key={index}
                 className={`w-[180px] h-[135px] ${index === 0 && 'ml-4'} ${
-                  index + 1 === product.images.length && 'mr-4'
-                }`}
-              >
+                  index + 1 ===
+                    vendor.detail?.vendor_detail.vendor_album?.length && 'mr-4'
+                }`}>
                 <Image
                   src={image}
-                  alt={product.title}
+                  alt={vendor.name}
                   className="object-cover rounded-lg"
                   fill
                 />
@@ -77,47 +81,51 @@ const ProductDetailContainer = ({
         <section className="space-y-3 px-4">
           <h3 className="text-body-2 font-medium">Description</h3>
           <p className="text-caption-1 text-ny-gray-400">
-            {product.description}
+            {vendor.detail?.vendor_detail.vendor_description}
           </p>
         </section>
-        <section className="space-y-3 px-4">
-          <h2 className="text-body-2 font-medium">Vendor</h2>
-          <VendorCard
-            navigateTo="/"
-            onWishlistClick={() => {}}
-            vendor_name={product.vendor.name}
-            product_type_name={product.vendor.type_name}
-            price={product.vendor.lowest_price}
-            rating={product.vendor.avg_rating}
-            location={product.vendor.location}
-            profile_picture_uri={product.vendor.image}
-            images={product.vendor.vendor_detail.vendor_album}
-          />
-        </section>
+        <TitledSection
+          title="Products From This Vendor"
+          titleSize="large"
+          navigateTo={`${vendor.id}/product`}>
+          <SwiperContainer>
+            {products.map((product, index: number) => (
+              <SwiperSlide
+                key={product.id}
+                className={`w-fit ${index === 0 && 'ml-4'} ${
+                  index + 1 === 12 && 'mr-4'
+                }`}>
+                <ProductCard
+                  id={product.id}
+                  key={product.id}
+                  onWishlistClick={() => {}}
+                  title={product.title}
+                  location={product.vendor.location}
+                  price={product.price}
+                  rating={product.rating}
+                  imageUrl={product.images[0]}
+                />
+              </SwiperSlide>
+            ))}
+          </SwiperContainer>
+        </TitledSection>
         <ReviewSection
           avgRating={4}
           totalReviews={12}
           reviews={reviewMockData}
         />
+        <DetailFooter>
+          <div className="flex items-center gap-2">
+            <Button
+              icon={<MessageIcon />}
+              className="flex items-center justify-center w-full rounded-[8px] h-[40px] bg-ny-primary-100 text-ny-primary-500 text-body-2">
+              Message
+            </Button>
+          </div>
+        </DetailFooter>
       </div>
-      <DetailFooter>
-        <div className="flex items-center gap-2">
-          <Button
-            icon={<MessageIcon />}
-            className="flex items-center justify-center flex-1 rounded-[8px] h-[40px] bg-ny-primary-100 text-ny-primary-500 text-body-2"
-          >
-            Message
-          </Button>
-          <Button
-            icon={<CartIcon />}
-            className="flex items-center justify-center flex-1 rounded-[8px] h-[40px] bg-ny-primary-500 text-white text-body-2"
-          >
-            Add to Cart
-          </Button>
-        </div>
-      </DetailFooter>
     </div>
   );
 };
 
-export default ProductDetailContainer;
+export default VendorDetailContainer;

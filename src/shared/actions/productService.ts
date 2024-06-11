@@ -8,6 +8,8 @@ import {
   IAllCuratorialsResponse,
   IAllInspirationsResponse,
   IAllProductsResponse,
+  IAllProductTypeResponse,
+  IAllVendorTypeResponse,
 } from '@/shared/models/productInterfaces';
 import { errorHandling } from '@/shared/usecase/errorHandling';
 import { getServerSession } from '../usecase/getServerSession';
@@ -97,6 +99,42 @@ export async function getAllCuratorials(
   return { success: true, data };
 }
 
+export async function getAllProduct(
+  params?: Record<string, any>
+): Promise<
+  IFetchGeneralResponse<
+    IFetchGeneralSuccessResponse<IAllProductsResponse[]> | string
+  >
+> {
+  const sessionData = await getServerSession();
+  const res = await fetch(
+    baseURL + '/products?' + new URLSearchParams(params),
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${sessionData.token}`,
+      },
+    }
+  );
+
+  if (!res.ok) {
+    return errorHandling(res);
+  }
+
+  const data = await res.json();
+
+  if (data.data && Array.isArray(data.data)) {
+    data.data = data.data.map((product: IAllProductsResponse) => {
+      if (product.vendor && product.vendor.json_text) {
+        product.vendor.vendor_detail = JSON.parse(product.vendor.json_text);
+      }
+      return product;
+    });
+  }
+
+  return { success: true, data };
+}
+
 export async function getProductDetail(
   id: string
 ): Promise<
@@ -123,6 +161,60 @@ export async function getProductDetail(
       ? JSON.parse(data.data.vendor.json_text)
       : {};
   }
+
+  return { success: true, data };
+}
+
+export async function getAllProductTypes(
+  params?: Record<string, any>
+): Promise<
+  IFetchGeneralResponse<
+    IFetchGeneralSuccessResponse<IAllProductTypeResponse[]> | string
+  >
+> {
+  const sessionData = await getServerSession();
+  const res = await fetch(
+    baseURL + '/product-types?' + new URLSearchParams(params),
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${sessionData.token}`,
+      },
+    }
+  );
+
+  if (!res.ok) {
+    return errorHandling(res);
+  }
+
+  const data = await res.json();
+
+  return { success: true, data };
+}
+
+export async function getAllVendorTypes(
+  params?: Record<string, any>
+): Promise<
+  IFetchGeneralResponse<
+    IFetchGeneralSuccessResponse<IAllVendorTypeResponse[]> | string
+  >
+> {
+  const sessionData = await getServerSession();
+  const res = await fetch(
+    baseURL + '/vendor-types?' + new URLSearchParams(params),
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${sessionData.token}`,
+      },
+    }
+  );
+
+  if (!res.ok) {
+    return errorHandling(res);
+  }
+
+  const data = await res.json();
 
   return { success: true, data };
 }

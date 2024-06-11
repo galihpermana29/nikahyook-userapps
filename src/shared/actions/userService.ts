@@ -120,3 +120,31 @@ export async function getAllUsers(
 
   return { success: true, data };
 }
+
+export async function getUserDetail(
+  id: string
+): Promise<
+  IFetchGeneralResponse<IFetchGeneralSuccessResponse<IAllUserResponse> | string>
+> {
+  const sessionData = await getServerSession();
+  const res = await fetch(baseURL + '/users/' + id, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${sessionData.token}`,
+    },
+  });
+
+  if (!res.ok) {
+    return errorHandling(res);
+  }
+
+  const data = await res.json();
+
+  if (data.data && data.data.detail) {
+    data.data.detail.vendor_detail = data.data.detail.json_text
+      ? JSON.parse(data.data.detail.json_text)
+      : {};
+  }
+
+  return { success: true, data };
+}

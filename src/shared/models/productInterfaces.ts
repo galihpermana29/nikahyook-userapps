@@ -1,4 +1,4 @@
-import { IVendorDetail } from "./generalInterfaces";
+import { IVendorDetail } from './generalInterfaces';
 
 export interface IAllProductsResponse {
   id: number;
@@ -21,6 +21,18 @@ export interface Tag {
   name: string;
 }
 
+export interface IAllProductTypeResponse {
+  id: number;
+  name: string;
+  status: string;
+}
+
+export interface IAllVendorTypeResponse {
+  id: number;
+  name: string;
+  status: string;
+}
+
 export interface IAllCuratorialsResponse {
   id: number;
   name: string;
@@ -30,7 +42,6 @@ export interface IAllCuratorialsResponse {
   total_price: number;
   description: string;
   status: string;
-  location: string;
 }
 
 export interface IAllInspirationsResponse {
@@ -51,9 +62,4 @@ export interface IVendor {
   image: string;
   json_text: string;
   vendor_detail: IVendorDetail;
-}
-
-export enum IProductCardSize {
-  Normal = 'normal',
-  Large = 'large',
 }
