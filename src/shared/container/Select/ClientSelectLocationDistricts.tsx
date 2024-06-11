@@ -6,13 +6,13 @@ import SkeletonInput from 'antd/es/skeleton/Input';
 import type { TAllLocationDistrictResponse } from '@/shared/models/locationInterfaces';
 import useQueryAllDistricts from '@/shared/usecase/useQueryAllDistricts';
 
-type Props = SelectProps & { cityId: string };
+type Props = SelectProps & { provinceAndCityId: string };
 
 export default async function ClientSelectLocationDistricts({
-  cityId,
+  provinceAndCityId,
   ...props
 }: Props) {
-  const { data, isLoading, isError } = useQueryAllDistricts(cityId);
+  const { data, isLoading, isError } = useQueryAllDistricts(provinceAndCityId);
 
   if (isError)
     return <Select {...props} disabled value="Can't retrieve locations data" />;
