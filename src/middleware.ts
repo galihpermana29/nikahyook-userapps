@@ -19,7 +19,7 @@ export function middleware(request: NextRequest) {
     forgotPassChildren.includes(pathname) &&
     !referer?.endsWith('/forgot-password')
   ) {
-    return Response.redirect(new URL('/forgot-password', request.url));
+    return Response.redirect(new URL('/', request.url));
   }
 
   // whenever user is not logged in and tries to access paths other than authPaths
