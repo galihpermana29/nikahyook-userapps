@@ -6,15 +6,13 @@ import SkeletonInput from 'antd/es/skeleton/Input';
 import type { TAllLocationVillageResponse } from '@/shared/models/locationInterfaces';
 import useQueryAllVillages from '@/shared/usecase/useQueryAllVillages';
 
-type Props = SelectProps & { provinceCityAndDistrictId: string };
+type Props = SelectProps & { districtId: string };
 
 export default async function SelectLocationVillages({
-  provinceCityAndDistrictId,
+  districtId,
   ...props
 }: Props) {
-  const { data, isLoading, isError } = useQueryAllVillages(
-    provinceCityAndDistrictId
-  );
+  const { data, isLoading, isError } = useQueryAllVillages(districtId);
 
   if (isError)
     return <Select {...props} disabled value="Can't retrieve locations data" />;

@@ -40,9 +40,9 @@ export async function getAllCities(
 }
 
 export async function getAllDistricts(
-  provinceAndCityId: string
+  cityId: string
 ): Promise<IFetchGeneralResponse<string | TAllLocationDistrictResponse>> {
-  const res = await fetch(apiURL + `/districts/${provinceAndCityId}.json`);
+  const res = await fetch(apiURL + `/districts/${cityId}.json`);
 
   if (!res.ok) {
     return errorHandling(res);
@@ -54,11 +54,9 @@ export async function getAllDistricts(
 }
 
 export async function getAllVillages(
-  provinceCityAndDistrictId: string
+  districtId: string
 ): Promise<IFetchGeneralResponse<string | TAllLocationVillageResponse>> {
-  const res = await fetch(
-    apiURL + `/villages/${provinceCityAndDistrictId}.json`
-  );
+  const res = await fetch(apiURL + `/villages/${districtId}.json`);
 
   if (!res.ok) {
     return errorHandling(res);
