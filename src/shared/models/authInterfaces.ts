@@ -1,4 +1,3 @@
-import { IRegisterResponseRoot } from './authInterfaces';
 import type { ILocationDetail } from './generalInterfaces';
 
 export interface IRegisterInputRoot {
