@@ -1,17 +1,13 @@
 'use client';
 
-import { getAllProvinces } from '@/shared/actions/locationService';
-import { useQuery } from 'react-query';
 import { Select, type SelectProps } from 'antd';
 import convertToSelectOptions from '@/shared/usecase/convertToSelectOptions';
 import type { TAllLocationProvinceResponse } from '@/shared/models/locationInterfaces';
 import SkeletonInput from 'antd/es/skeleton/Input';
+import useQueryAllProvinces from '@/shared/usecase/useQueryAllProvinces';
 
 export default function ClientSelectLocationProvinces(props: SelectProps) {
-  const { data, isLoading, isError } = useQuery({
-    queryFn: async () => getAllProvinces(),
-    queryKey: ['all-provinces'],
-  });
+  const { data, isLoading, isError } = useQueryAllProvinces();
 
   if (isError)
     return <Select {...props} disabled value="Can't retrieve locations data" />;

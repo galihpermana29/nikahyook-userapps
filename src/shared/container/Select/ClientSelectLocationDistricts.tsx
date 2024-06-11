@@ -1,11 +1,10 @@
 'use client';
 
-import { getAllDistricts } from '@/shared/actions/locationService';
-import { useQuery } from 'react-query';
 import { Select, type SelectProps } from 'antd';
 import convertToSelectOptions from '@/shared/usecase/convertToSelectOptions';
 import SkeletonInput from 'antd/es/skeleton/Input';
 import type { TAllLocationDistrictResponse } from '@/shared/models/locationInterfaces';
+import useQueryAllDistricts from '@/shared/usecase/useQueryAllDistricts';
 
 type Props = SelectProps & { cityId: string };
 
@@ -13,10 +12,7 @@ export default async function ClientSelectLocationDistricts({
   cityId,
   ...props
 }: Props) {
-  const { data, isLoading, isError } = useQuery({
-    queryFn: async () => getAllDistricts(cityId),
-    queryKey: ['all-districts'],
-  });
+  const { data, isLoading, isError } = useQueryAllDistricts(cityId);
 
   if (isError)
     return <Select {...props} disabled value="Can't retrieve locations data" />;
