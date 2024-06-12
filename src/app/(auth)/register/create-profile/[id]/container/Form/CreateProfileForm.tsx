@@ -76,6 +76,8 @@ export default function CreateProfileForm() {
         <LocationFormItem
           locationFieldName="location"
           containerProps={{ className: 'w-full flex flex-col gap-3' }}
+          provinceProps={{ placeholder: 'Enter your province here!' }}
+          cityProps={{ placeholder: 'Enter your city here!' }}
           showCity
         />
       </Suspense>
