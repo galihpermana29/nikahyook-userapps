@@ -20,8 +20,8 @@ export function formatRegisterPayload(
       json_text: '',
       gender: input.gender,
       location: {
-        value: '2782',
-        label: 'Malang',
+        value: '',
+        label: '',
       },
       date_of_birth: dayjs(input.date_of_birth).format('YYYY-MM-DD'),
       wedding_date: dayjs(undefined).format('YYYY-MM-DD'),
