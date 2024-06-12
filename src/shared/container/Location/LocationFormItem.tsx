@@ -7,6 +7,7 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import ClientSelectLocationCities from '../Select/ClientSelectLocationCities';
 import LocationFormItemLoading from './LocationFormItemLoading';
+import generateUUID from '@/shared/usecase/generateUUID';
 
 // only import components when it will be shown
 const ClientSelectLocationProvinces = dynamic(
@@ -78,6 +79,7 @@ export default function LocationFormItem({
         name={provinceItemName}
         rules={[{ required: true, message: 'Please enter your province!' }]}>
         <ClientSelectLocationProvinces
+          value={selected['province']}
           onChange={(value) =>
             setSelected({
               province: value,
@@ -99,6 +101,8 @@ export default function LocationFormItem({
           name={cityItemName}
           rules={[{ required: true, message: 'Please enter your city!' }]}>
           <ClientSelectLocationCities
+            value={selected['city']}
+            key={selected['province'] + generateUUID()}
             onChange={(value) =>
               setSelected((prev) => ({
                 ...prev,
@@ -122,6 +126,7 @@ export default function LocationFormItem({
           name={districtItemName}
           rules={[{ required: true, message: 'Please enter your district!' }]}>
           <ClientSelectLocationDistricts
+            key={selected['city'] + generateUUID()}
             onChange={(value) =>
               setSelected((prev) => ({
                 ...prev,
@@ -144,6 +149,7 @@ export default function LocationFormItem({
           name={villageItemName}
           rules={[{ required: true, message: 'Please enter your village!' }]}>
           <ClientSelectLocationVillages
+            key={selected['district'] + generateUUID()}
             onChange={(value) =>
               setSelected((prev) => ({ ...prev, village: value }))
             }
