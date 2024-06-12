@@ -26,8 +26,8 @@ export const TopProductsSection = ({
               }`}>
               <ProductCard
                 id={item.id}
-                onWishlistClick={() => {}}
                 title={item.title}
+                isInWishlist={item.is_wishlist}
                 location={item.location.city.label}
                 price={item.price}
                 rating={item.rating}

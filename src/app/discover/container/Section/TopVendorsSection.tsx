@@ -14,8 +14,9 @@ export const TopVendorsSection = ({ data }: { data: IAllUserResponse[] }) => {
           {data.map((item) => (
             <VendorCard
               key={item.id}
+              id={item.id}
               navigateTo="/"
-              onWishlistClick={() => {}}
+              isInWishlist={item.detail?.is_wishlist}
               vendor_name={item.name}
               product_type_name={item.detail?.vendor_type_name}
               price={item.detail?.lowest_price}

@@ -60,6 +60,7 @@ export interface IAllInspirationsResponse {
   image: string;
   tags: Tag[];
   status: string;
+  is_wishlist: boolean;
 }
 export interface IVendor {
   id: string;
@@ -73,3 +74,5 @@ export interface IVendor {
   json_text: string;
   vendor_detail: IVendorDetail;
 }
+
+export type TWishlist = 'inspiration' | 'product' | 'vendor' | 'curatorial';

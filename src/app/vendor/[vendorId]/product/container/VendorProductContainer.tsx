@@ -18,7 +18,6 @@ const VendorProductContainer = ({
           <ProductCard
             id={product.id}
             key={product.id}
-            onWishlistClick={() => {}}
             title={product.title}
             location={product.vendor.location}
             price={product.price}

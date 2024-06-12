@@ -16,7 +16,7 @@ export const TopInspirationsSection = ({
       <TitledSection
         title="Top Inspirations"
         navigateTo="/search?tab=inspiration">
-        <InspirationGrid data={data} onWishlistClick={() => {}} />
+        <InspirationGrid data={data} />
       </TitledSection>
     </ErrorBoundary>
   );

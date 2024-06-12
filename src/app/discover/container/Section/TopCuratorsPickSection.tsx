@@ -27,8 +27,8 @@ export const TopCuratorsPickSection = ({
               }`}>
               <CuratorCard
                 id={item.id}
-                onWishlistClick={() => {}}
                 title={item.name}
+                isInWishlist={item.is_wishlist}
                 imageUrl={item.images[0]}
               />
             </SwiperSlide>

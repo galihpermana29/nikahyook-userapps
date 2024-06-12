@@ -14,7 +14,9 @@ const DetailHeader = ({ title, header_image_url }: IDetailHeader) => {
       <DetailTitle title={title} />
       <div className="min-h-[270px] relative">
         <WishListButton
-          onMutateWishList={() => {}}
+          // please adjust this
+          target_id={2}
+          wishlist_type="product"
           className="absolute right-2 bottom-2 z-10"
         />
         <Image

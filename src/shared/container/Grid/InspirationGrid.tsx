@@ -3,19 +3,22 @@ import { WishListButton } from '../Button/WishListButton';
 import splitArrayToChunks from '@/shared/usecase/splitArrayToChunks';
 import generateUUID from '@/shared/usecase/generateUUID';
 import { NikahyookLogoIcon } from '../Icon/NikahyookLogoIcon';
+import { IAllInspirationsResponse } from '@/shared/models/productInterfaces';
 
 interface IInspirationGrid {
-  data: any[];
-  onWishlistClick?: () => void;
+  data: IAllInspirationsResponse[];
   animated?: boolean;
+  showWishlist?: boolean;
+  refetchFn?: any;
 }
 
 export const InspirationGrid = ({
   data,
-  onWishlistClick,
+  refetchFn,
+  showWishlist = true,
   animated = false,
 }: IInspirationGrid) => {
-  const dataChunks = splitArrayToChunks(data);
+  const dataChunks: IAllInspirationsResponse[][] = splitArrayToChunks(data);
 
   return (
     <div className="flex flex-col gap-2 px-4">
@@ -43,9 +46,12 @@ export const InspirationGrid = ({
                       className="object-cover"
                     />
                   )}
-                  {onWishlistClick && (
+                  {showWishlist && (
                     <WishListButton
-                      onMutateWishList={onWishlistClick}
+                      target_id={item.id}
+                      isActive={item.is_wishlist}
+                      wishlist_type="inspiration"
+                      refetch={refetchFn}
                       className="absolute bottom-2 right-2"
                     />
                   )}
