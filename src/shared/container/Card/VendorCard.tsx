@@ -7,6 +7,7 @@ import { LocationIcon } from '../Icon/LocationIcon';
 import { StarIcon } from '../Icon/StarIcon';
 
 interface IVendorCard {
+  id: string;
   profile_picture_uri?: string;
   vendor_name?: string;
   product_type_name?: string;
@@ -14,18 +15,21 @@ interface IVendorCard {
   images?: string[];
   location?: string;
   rating?: number;
+  isInWishlist?: boolean;
   navigateTo: string;
-  onWishlistClick: () => void;
+  refetchFn?: any;
 }
 
 export const VendorCard = ({
+  id,
   profile_picture_uri,
   images,
   location,
   product_type_name,
   vendor_name,
   navigateTo,
-  onWishlistClick,
+  refetchFn,
+  isInWishlist = false,
   price = 0,
   rating = 0,
 }: IVendorCard) => {
@@ -55,7 +59,12 @@ export const VendorCard = ({
               {product_type_name ?? '-'}
             </p>
           </div>
-          <WishListButton onMutateWishList={onWishlistClick} />
+          <WishListButton
+            target_id={id}
+            wishlist_type="vendor"
+            isActive={isInWishlist}
+            refetch={refetchFn}
+          />
         </div>
       </div>
       <p className="text-caption-2 text-ny-primary-500">

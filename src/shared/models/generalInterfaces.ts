@@ -9,6 +9,16 @@ export interface IFetchGeneralSuccessResponse<T> {
   meta_data: IMetaData;
 }
 
+export interface IPostGeneralResponse<T> {
+  success: boolean;
+  data: T;
+}
+
+export interface IPostGeneralSuccessResponse<T> {
+  status: string;
+  data: T;
+}
+
 export interface IMetaData {
   total_items: number;
   total_pages: number;

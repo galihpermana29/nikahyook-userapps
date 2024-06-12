@@ -15,8 +15,9 @@ interface IProductCard {
   location?: string;
   rating?: number;
   price?: number;
+  isInWishlist?: boolean;
   responsive?: boolean;
-  onWishlistClick: () => void;
+  refetchFn?: any;
 }
 
 export const ProductCard = ({
@@ -24,7 +25,8 @@ export const ProductCard = ({
   imageUrl,
   location,
   title,
-  onWishlistClick,
+  refetchFn,
+  isInWishlist = false,
   responsive = false,
   rating = 0,
   price = 0,
@@ -53,7 +55,10 @@ export const ProductCard = ({
         responsive ? 'w-full' : 'w-[140px]'
       }`}>
       <WishListButton
-        onMutateWishList={onWishlistClick}
+        target_id={id}
+        wishlist_type="product"
+        isActive={isInWishlist}
+        refetch={refetchFn}
         className="absolute right-2 top-2 z-10"
       />
       <div className="bg-ny-gray-100 relative w-full aspect-square flex items-center justify-center">
