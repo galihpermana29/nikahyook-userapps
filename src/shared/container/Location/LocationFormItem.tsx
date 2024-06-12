@@ -79,7 +79,6 @@ export default function LocationFormItem({
         name={provinceItemName}
         rules={[{ required: true, message: 'Please enter your province!' }]}>
         <ClientSelectLocationProvinces
-          value={selected['province']}
           onChange={(value) =>
             setSelected({
               province: value,
@@ -101,7 +100,6 @@ export default function LocationFormItem({
           name={cityItemName}
           rules={[{ required: true, message: 'Please enter your city!' }]}>
           <ClientSelectLocationCities
-            value={selected['city']}
             key={selected['province'] + generateUUID()}
             onChange={(value) =>
               setSelected((prev) => ({
