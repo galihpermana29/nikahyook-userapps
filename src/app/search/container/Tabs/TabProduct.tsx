@@ -34,9 +34,9 @@ function TabProduct() {
               responsive
               onWishlistClick={() => {}}
               title={item.title}
-              location={item.vendor?.location}
+              location={item.location.city.label}
               price={item.price}
-              rating={item.vendor?.avg_rating}
+              rating={item.rating}
               imageUrl={item.images[0]}
             />
           );

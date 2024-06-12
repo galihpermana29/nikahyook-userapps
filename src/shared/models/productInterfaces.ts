@@ -1,4 +1,8 @@
-import { IVendorDetail } from './generalInterfaces';
+import {
+  ICoverageArea,
+  IFullLocation,
+  IVendorDetail,
+} from './generalInterfaces';
 
 export interface IAllProductsResponse {
   id: number;
@@ -7,13 +11,15 @@ export interface IAllProductsResponse {
   title: string;
   tags: Tag[];
   vendor_id: string;
-  vendor_name: string;
   price: number;
   rating: number;
   description: string;
   images: string[];
   status: string;
   vendor: IVendor;
+  location: IFullLocation;
+  coverage_area: ICoverageArea;
+  is_wishlist: boolean;
 }
 
 export interface Tag {
@@ -42,6 +48,10 @@ export interface IAllCuratorialsResponse {
   total_price: number;
   description: string;
   status: string;
+  is_wishlist: boolean;
+  ispirations: IAllInspirationsResponse[];
+  product: IAllProductsResponse;
+  vendor: IVendor[];
 }
 
 export interface IAllInspirationsResponse {
