@@ -17,7 +17,13 @@ export function formatRegisterPayload(
     phone_number: input.phone_number,
     gender: input.gender,
     detail: {
-      json_text: '',
+      json_text: JSON.stringify({
+        wedding_role: null,
+        groom_name: null,
+        bride_name: null,
+        plan_for: null,
+        wedding_theme: null,
+      }),
       gender: input.gender,
       location: {
         value: '',
