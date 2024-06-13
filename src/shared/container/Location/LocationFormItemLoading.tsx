@@ -1,5 +1,3 @@
-'use client';
-
 import generateUUID from '@/shared/usecase/generateUUID';
 import { SkeletonInput } from '../ClientAntd/Skeleton/Skeleton';
 
