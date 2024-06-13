@@ -76,7 +76,7 @@ const CuratorialDetailContainer = ({
           navigateTo={`/curatorial/${curatorial.id}/product`}>
           <SwiperContainer>
             {curatorial.products
-              .slice(0, 5)
+              .slice(0, 10)
               .map((item: IProduct, index: number) => (
                 <SwiperSlide
                   key={item.id}
@@ -86,7 +86,7 @@ const CuratorialDetailContainer = ({
                   <ProductCard
                     id={item.id}
                     title={item.title}
-                    location={item.location}
+                    location={item.location.city.label}
                     price={item.price}
                     rating={item.rating}
                     imageUrl={item.images[0]}
@@ -100,7 +100,7 @@ const CuratorialDetailContainer = ({
           titleSize="large"
           navigateTo={`/curatorial/${curatorial.id}/vendor`}>
           <div className="space-y-3 px-4">
-            {curatorial.vendor.slice(0, 3).map((vendor) => (
+            {curatorial.vendor.slice(0, 10).map((vendor) => (
               <div key={vendor.id}>
                 <VendorCard
                   id={vendor.id}
@@ -109,7 +109,7 @@ const CuratorialDetailContainer = ({
                   product_type_name={vendor.type}
                   price={vendor.lowest_price}
                   rating={vendor.avg_rating}
-                  location={vendor.location}
+                  location={vendor.location.city.label}
                   profile_picture_uri={vendor.image}
                   images={vendor.vendor_detail.vendor_album}
                 />

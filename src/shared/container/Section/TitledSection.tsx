@@ -34,9 +34,11 @@ export const TitledSection = ({
       </div>
       {children}
       {onLoadMore && (
-        <Button className="w-full text-body-2 text-ny-primary-500 border-ny-primary-100 font-medium mx-4 mt-3">
-          Load More
-        </Button>
+        <div className="px-4">
+          <Button className="w-full text-body-2 text-ny-primary-500 border-ny-primary-100 font-medium mt-3">
+            Load More
+          </Button>
+        </div>
       )}
     </section>
   );

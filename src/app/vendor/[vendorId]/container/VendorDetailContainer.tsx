@@ -58,6 +58,7 @@ const VendorDetailContainer = ({
           sold={20}
           totalReview={12}
           rating={vendor.detail?.avg_rating}
+          location={vendor.detail?.location.city.label}
         />
         <section>
           <SwiperContainer>
@@ -99,7 +100,7 @@ const VendorDetailContainer = ({
                   id={product.id}
                   key={product.id}
                   title={product.title}
-                  location={product.vendor.location}
+                  location={product.location.city.label}
                   price={product.price}
                   rating={product.rating}
                   imageUrl={product.images[0]}

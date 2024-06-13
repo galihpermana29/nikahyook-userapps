@@ -1,4 +1,7 @@
-import { IVendorDetail } from './generalInterfaces';
+import { 
+  IFullLocation, 
+  IVendorDetail 
+} from './generalInterfaces';
 
 export interface IAllCuratorialResponseRoot {
   id: number;
@@ -18,7 +21,7 @@ export interface IProduct {
   id: number;
   title: string;
   price: number;
-  location: string;
+  location: IFullLocation;
   rating: number;
   images: string[];
 }
@@ -26,7 +29,7 @@ export interface IProduct {
 export interface IVendor {
   id: string;
   name: string;
-  location: string;
+  location: IFullLocation;
   type: string;
   image: string;
   lowest_price: number;

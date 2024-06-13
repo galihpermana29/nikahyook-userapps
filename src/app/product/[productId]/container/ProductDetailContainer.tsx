@@ -54,6 +54,7 @@ const ProductDetailContainer = ({
           sold={20}
           totalReview={12}
           rating={product.rating}
+          coverage_area={product.coverage_area}
         />
         <section>
           <SwiperContainer>
@@ -88,7 +89,7 @@ const ProductDetailContainer = ({
             product_type_name={product.vendor.type_name}
             price={product.vendor.lowest_price}
             rating={product.vendor.avg_rating}
-            location={product.vendor.location}
+            location={product.vendor.location.city.label}
             profile_picture_uri={product.vendor.image}
             images={product.vendor.vendor_detail.vendor_album}
           />
