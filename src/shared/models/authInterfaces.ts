@@ -1,4 +1,9 @@
 import type { ILocationDetail } from './generalInterfaces';
+import type { IDetailUserData, ILoginResponseRoot } from './userInterfaces';
+
+export interface ISessionData extends ILoginResponseRoot {
+  user_detail: IDetailUserData;
+}
 
 export interface IRegisterInputRoot {
   name: string;

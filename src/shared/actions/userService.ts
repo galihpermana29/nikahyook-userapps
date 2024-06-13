@@ -19,11 +19,12 @@ import type {
   IRegisterPayloadRoot,
   IRegisterResponseRoot,
   ICreateProfileResponseRoot,
+  ISessionData,
 } from '../models/authInterfaces';
 
 const baseURL = process.env.NEXT_PUBLIC_API as string;
 
-export async function setSessions(sessionData: ILoginResponseRoot) {
+export async function setSessions(sessionData: ISessionData) {
   cookies().set('session', JSON.stringify(sessionData), {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
@@ -82,19 +83,33 @@ export async function createProfile(
 export async function login(
   payload: ILoginPayloadRoot
 ): Promise<IFetchGeneralResponse<ILoginResponseRoot | string>> {
-  const res = await fetch(baseURL + '/auth/login', {
+  const loginRes = await fetch(baseURL + '/auth/login', {
     method: 'POST',
     body: JSON.stringify(payload),
   });
 
-  if (!res.ok) {
-    return errorHandling(res);
+  if (!loginRes.ok) {
+    return errorHandling(loginRes);
   }
 
-  const data = await res.json();
-  setSessions(data.data);
+  const loginData = await loginRes.json();
 
-  return { success: true, data };
+  const detailRes = await fetch(baseURL + '/users/' + loginData.data.user_id, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${loginData.data.token}`,
+    },
+  });
+
+  if (!detailRes.ok) {
+    return errorHandling(detailRes);
+  }
+
+  const userDetail = await detailRes.json();
+
+  await setSessions({ ...loginData.data, user_detail: userDetail.data });
+
+  return { success: true, data: loginData.data };
 }
 
 export async function getAllUsers(
