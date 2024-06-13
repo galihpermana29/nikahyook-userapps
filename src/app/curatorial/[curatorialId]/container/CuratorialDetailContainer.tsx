@@ -1,29 +1,40 @@
 'use client';
 
-import { ProductCard } from '@/shared/container/Card/ProductCard';
-import { VendorCard } from '@/shared/container/Card/VendorCard';
-import DetailFooter from '@/shared/container/DetailFooter/DetailFooter';
-import DetailHeader from '@/shared/container/DetailHeader/DetailHeader';
-import { InspirationGrid } from '@/shared/container/Grid/InspirationGrid';
-import { LovelyIcon } from '@/shared/container/Icon/LovelyIcon';
-import DetailInfoSection from '@/shared/container/Section/DetailInfoSection';
-import { TitledSection } from '@/shared/container/Section/TitledSection';
-import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
+import { Button } from 'antd';
 import {
   IAllCuratorialResponseRoot,
   IProduct,
 } from '@/shared/models/curatorialInterfaces';
-import formatToRupiah from '@/shared/usecase/formatToRupiah';
-import { Button } from 'antd';
-import Image from 'next/image';
-import { SwiperSlide } from 'swiper/react';
-import CuratorialAuthorSection from './section/CuratorialAuthorSection';
 import { IAllInspirationsResponse } from '@/shared/models/productInterfaces';
+import { InspirationGrid } from '@/shared/container/Grid/InspirationGrid';
+import { LovelyIcon } from '@/shared/container/Icon/LovelyIcon';
+import { ProductCard } from '@/shared/container/Card/ProductCard';
+import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
+import { SwiperSlide } from 'swiper/react';
+import { TitledSection } from '@/shared/container/Section/TitledSection';
+import { useState } from 'react';
+import { VendorCard } from '@/shared/container/Card/VendorCard';
+import CuratorialAuthorSection from './section/CuratorialAuthorSection';
+import DetailFooter from '@/shared/container/DetailFooter/DetailFooter';
+import DetailHeader from '@/shared/container/DetailHeader/DetailHeader';
+import DetailInfoSection from '@/shared/container/Section/DetailInfoSection';
+import formatToRupiah from '@/shared/usecase/formatToRupiah';
+import Image from 'next/image';
 const CuratorialDetailContainer = ({
   curatorial,
 }: {
   curatorial: IAllCuratorialResponseRoot;
 }) => {
+  const [inspirationLimit, setInspirationLimit] = useState(4);
+
+  const handleLoadMoreInspirations = () => {
+    setInspirationLimit((prev) => prev + 4);
+  };
+
+  const handleLoadLessInspirations = () => {
+    setInspirationLimit(4);
+  };
+
   return (
     <div>
       <DetailHeader
@@ -39,7 +50,8 @@ const CuratorialDetailContainer = ({
                 key={index}
                 className={`w-[180px] h-[135px] ${index === 0 && 'ml-4'} ${
                   index + 1 === curatorial.images.length && 'mr-4'
-                }`}>
+                }`}
+              >
                 <Image
                   src={image}
                   alt={curatorial.name}
@@ -63,17 +75,25 @@ const CuratorialDetailContainer = ({
         <TitledSection
           title="Top Inspirations"
           titleSize="large"
-          onLoadMore={() => {}}>
+          onLoadMore={handleLoadMoreInspirations}
+          onLoadLess={handleLoadLessInspirations}
+          inspirationLimit={inspirationLimit}
+          inspirationLength={curatorial.inspirations.length}
+        >
           <InspirationGrid
             data={
-              curatorial.inspirations.slice(0, 4) as IAllInspirationsResponse[]
+              curatorial.inspirations.slice(
+                0,
+                inspirationLimit
+              ) as IAllInspirationsResponse[]
             }
           />
         </TitledSection>
         <TitledSection
           title="Products"
           titleSize="large"
-          navigateTo={`/curatorial/${curatorial.id}/product`}>
+          navigateTo={`/curatorial/${curatorial.id}/product`}
+        >
           <SwiperContainer>
             {curatorial.products
               .slice(0, 10)
@@ -82,7 +102,8 @@ const CuratorialDetailContainer = ({
                   key={item.id}
                   className={`w-fit ${index === 0 && 'ml-4'} ${
                     index + 1 === curatorial.products.length && 'mr-4'
-                  }`}>
+                  }`}
+                >
                   <ProductCard
                     id={item.id}
                     title={item.title}
@@ -98,7 +119,8 @@ const CuratorialDetailContainer = ({
         <TitledSection
           title="Vendors"
           titleSize="large"
-          navigateTo={`/curatorial/${curatorial.id}/vendor`}>
+          navigateTo={`/curatorial/${curatorial.id}/vendor`}
+        >
           <div className="space-y-3 px-4">
             {curatorial.vendor.slice(0, 10).map((vendor) => (
               <div key={vendor.id}>
@@ -130,7 +152,8 @@ const CuratorialDetailContainer = ({
       <DetailFooter>
         <Button
           icon={<LovelyIcon />}
-          className="flex items-center justify-center w-full rounded-[8px] h-[40px] bg-ny-primary-500 text-white text-body-2">
+          className="flex items-center justify-center w-full rounded-[8px] h-[40px] bg-ny-primary-500 text-white text-body-2"
+        >
           Add to Plan
         </Button>
       </DetailFooter>

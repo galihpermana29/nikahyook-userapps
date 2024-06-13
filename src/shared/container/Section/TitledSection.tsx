@@ -7,6 +7,9 @@ interface ITitledSection {
   navigateTo?: string;
   children: React.ReactNode;
   onLoadMore?: () => void;
+  onLoadLess?: () => void;
+  inspirationLimit?: number;
+  inspirationLength?: number;
 }
 
 export const TitledSection = ({
@@ -15,12 +18,24 @@ export const TitledSection = ({
   title,
   titleSize = 'normal',
   onLoadMore,
+  onLoadLess,
+  inspirationLimit,
+  inspirationLength,
 }: ITitledSection) => {
+  const shouldShowLoadMoreButton =
+    onLoadMore &&
+    onLoadLess &&
+    inspirationLimit &&
+    inspirationLength &&
+    inspirationLength > 4;
+
   return (
     <section>
       <div className="px-4 flex items-center justify-between gap-2 mb-4">
         <h2
-          className={`${titleSize === 'normal' ? 'text-caption-1' : 'text-body-2'} font-medium`}
+          className={`${
+            titleSize === 'normal' ? 'text-caption-1' : 'text-body-2'
+          } font-medium`}
         >
           {title}
         </h2>
@@ -33,10 +48,15 @@ export const TitledSection = ({
         )}
       </div>
       {children}
-      {onLoadMore && (
+      {shouldShowLoadMoreButton && (
         <div className="px-4">
-          <Button className="w-full text-body-2 text-ny-primary-500 border-ny-primary-100 font-medium mt-3">
-            Load More
+          <Button
+            onClick={
+              inspirationLimit >= inspirationLength ? onLoadLess : onLoadMore
+            }
+            className="w-full text-body-2 text-ny-primary-500 border-ny-primary-100 font-medium mt-3"
+          >
+            {inspirationLimit >= inspirationLength ? 'Load Less' : 'Load More'}
           </Button>
         </div>
       )}
