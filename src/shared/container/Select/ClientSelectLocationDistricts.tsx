@@ -5,6 +5,7 @@ import convertToSelectOptions from '@/shared/usecase/convertToSelectOptions';
 import SkeletonInput from 'antd/es/skeleton/Input';
 import type { TAllLocationDistrictResponse } from '@/shared/models/locationInterfaces';
 import useQueryAllDistricts from '@/shared/usecase/useQueryAllDistricts';
+import generalFilterOption from '@/shared/usecase/generalFilterOption';
 
 type Props = SelectProps & { cityId: string };
 
@@ -24,10 +25,17 @@ export default function ClientSelectLocationDistricts({
   const options = convertToSelectOptions(
     districts as TAllLocationDistrictResponse,
     {
-      labelField: 'name',
-      valueField: 'id',
+      label: 'name',
+      value: 'id',
     }
   );
 
-  return <Select {...props} options={options} />;
+  return (
+    <Select
+      showSearch
+      filterOption={generalFilterOption}
+      {...props}
+      options={options}
+    />
+  );
 }

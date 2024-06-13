@@ -3,6 +3,7 @@ import { Select } from '../ClientAntd/Select/Select';
 import type { TAllLocationCityResponse } from '@/shared/models/locationInterfaces';
 import convertToSelectOptions from '@/shared/usecase/convertToSelectOptions';
 import type { SelectProps } from 'antd';
+import generalFilterOption from '@/shared/usecase/generalFilterOption';
 
 type Props = SelectProps & { provinceId: string };
 
@@ -16,9 +17,16 @@ export default async function SelectLocationCities({
     return <Select {...props} disabled value="Can't retrieve locations data" />;
 
   const options = convertToSelectOptions(cities as TAllLocationCityResponse, {
-    labelField: 'name',
-    valueField: 'id',
+    label: 'name',
+    value: 'id',
   });
 
-  return <Select {...props} options={options} />;
+  return (
+    <Select
+      showSearch
+      filterOption={generalFilterOption}
+      {...props}
+      options={options}
+    />
+  );
 }

@@ -3,6 +3,7 @@ import { Select } from '../ClientAntd/Select/Select';
 import type { TAllLocationDistrictResponse } from '@/shared/models/locationInterfaces';
 import convertToSelectOptions from '@/shared/usecase/convertToSelectOptions';
 import type { SelectProps } from 'antd';
+import generalFilterOption from '@/shared/usecase/generalFilterOption';
 
 type Props = SelectProps & { cityId: string };
 
@@ -18,10 +19,17 @@ export default async function SelectLocationDistricts({
   const options = convertToSelectOptions(
     districts as TAllLocationDistrictResponse,
     {
-      labelField: 'name',
-      valueField: 'id',
+      label: 'name',
+      value: 'id',
     }
   );
 
-  return <Select {...props} options={options} />;
+  return (
+    <Select
+      showSearch
+      filterOption={generalFilterOption}
+      {...props}
+      options={options}
+    />
+  );
 }

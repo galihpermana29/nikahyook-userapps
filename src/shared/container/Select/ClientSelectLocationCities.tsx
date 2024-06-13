@@ -5,6 +5,7 @@ import convertToSelectOptions from '@/shared/usecase/convertToSelectOptions';
 import type { TAllLocationCityResponse } from '@/shared/models/locationInterfaces';
 import SkeletonInput from 'antd/es/skeleton/Input';
 import useQueryAllCities from '@/shared/usecase/useQueryAllCities';
+import generalFilterOption from '@/shared/usecase/generalFilterOption';
 
 type Props = SelectProps & { provinceId: string };
 
@@ -22,9 +23,16 @@ export default function ClientSelectLocationCities({
   const cities = data?.data ?? [];
 
   const options = convertToSelectOptions(cities as TAllLocationCityResponse, {
-    labelField: 'name',
-    valueField: 'id',
+    label: 'name',
+    value: 'id',
   });
 
-  return <Select {...props} options={options} />;
+  return (
+    <Select
+      showSearch
+      filterOption={generalFilterOption}
+      {...props}
+      options={options}
+    />
+  );
 }

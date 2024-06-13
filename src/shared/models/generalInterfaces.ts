@@ -51,3 +51,14 @@ export interface IGeneralFilter {
   product_type?: number;
   vendor_type?: number;
 }
+
+export type TOptionsRecordKeys = string | number | symbol;
+export type TOptionsRecordType = Record<TOptionsRecordKeys, unknown>;
+
+export interface IOptionsParams<
+  T1 extends TOptionsRecordKeys,
+  T2 extends TOptionsRecordKeys
+> {
+  value: T1;
+  label: T2;
+}

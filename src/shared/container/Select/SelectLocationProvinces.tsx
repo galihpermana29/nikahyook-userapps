@@ -3,6 +3,7 @@ import { Select } from '../ClientAntd/Select/Select';
 import type { TAllLocationProvinceResponse } from '@/shared/models/locationInterfaces';
 import convertToSelectOptions from '@/shared/usecase/convertToSelectOptions';
 import type { SelectProps } from 'antd';
+import generalFilterOption from '@/shared/usecase/generalFilterOption';
 
 export default async function SelectLocationProvinces(props: SelectProps) {
   const { data: provinces, success } = await getAllProvinces();
@@ -13,10 +14,17 @@ export default async function SelectLocationProvinces(props: SelectProps) {
   const options = convertToSelectOptions(
     provinces as TAllLocationProvinceResponse,
     {
-      labelField: 'name',
-      valueField: 'id',
+      label: 'name',
+      value: 'id',
     }
   );
 
-  return <Select {...props} options={options} />;
+  return (
+    <Select
+      showSearch
+      filterOption={generalFilterOption}
+      {...props}
+      options={options}
+    />
+  );
 }

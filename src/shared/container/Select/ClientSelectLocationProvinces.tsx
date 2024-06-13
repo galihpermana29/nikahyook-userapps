@@ -5,6 +5,7 @@ import convertToSelectOptions from '@/shared/usecase/convertToSelectOptions';
 import type { TAllLocationProvinceResponse } from '@/shared/models/locationInterfaces';
 import SkeletonInput from 'antd/es/skeleton/Input';
 import useQueryAllProvinces from '@/shared/usecase/useQueryAllProvinces';
+import generalFilterOption from '@/shared/usecase/generalFilterOption';
 
 export default function ClientSelectLocationProvinces(props: SelectProps) {
   const { data, isLoading, isError } = useQueryAllProvinces();
@@ -19,10 +20,17 @@ export default function ClientSelectLocationProvinces(props: SelectProps) {
   const options = convertToSelectOptions(
     provinces as TAllLocationProvinceResponse,
     {
-      labelField: 'name',
-      valueField: 'id',
+      label: 'name',
+      value: 'id',
     }
   );
 
-  return <Select {...props} options={options} />;
+  return (
+    <Select
+      showSearch
+      filterOption={generalFilterOption}
+      {...props}
+      options={options}
+    />
+  );
 }
