@@ -47,11 +47,15 @@ export interface ILocationDetail {
 export interface IVendorDetail {
   vendor_description?: string;
   vendor_album?: string[];
-  bride_name: string;
-  groom_name: string;
-  plan_for: number;
-  wedding_role: number;
-  wedding_theme: number;
+  bride_name?: string;
+  groom_name?: string;
+  plan_for?: number;
+  wedding_role?: number;
+  wedding_theme?: number;
+  website?: string;
+  instagram?: string;
+  tiktok?: string;
+  facebook?: string;
 }
 
 export interface IGeneralFilter {
