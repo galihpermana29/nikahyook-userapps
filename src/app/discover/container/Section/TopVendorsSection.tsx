@@ -17,7 +17,7 @@ export const TopVendorsSection = ({
   return (
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
       <TitledSection
-        title={`Vendors Near ${location}`}
+        title={`Vendors Near ${location.toLowerCase()}`}
         navigateTo="/search?tab=vendor">
         <div className="flex flex-col px-4 gap-3">
           {data.length === 0 ? (
