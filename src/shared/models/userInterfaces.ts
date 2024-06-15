@@ -1,4 +1,4 @@
-import { IFullLocation, IVendorDetail } from './generalInterfaces';
+import { IFullLocation, ILocation, IVendorDetail } from './generalInterfaces';
 
 export interface ILoginResponseRoot {
   user_id: string;
@@ -66,7 +66,7 @@ export interface IDetailUserResponseRoot {
 
 export interface IUserDetailData {
   json_text?: string;
-  location?: string;
+  location?: ILocation;
   vendor_type_id?: string;
   vendor_type_name?: string;
 }
