@@ -1,10 +1,8 @@
-import { ICoverageArea } from '@/shared/models/generalInterfaces';
-import { LocationIcon } from '../Icon/LocationIcon';
 import { Rate } from 'antd';
 import { StarIcon } from '../Icon/StarIcon';
 import formatRating from '@/shared/usecase/formatRating';
 import formatToRupiah from '@/shared/usecase/formatToRupiah';
-import React, { useMemo } from 'react';
+import React from 'react';
 
 type IDetailInfoSection = {
   price?: number;
@@ -14,8 +12,6 @@ type IDetailInfoSection = {
   sold?: number;
   rating?: number;
   totalReview?: number;
-  coverage_area?: ICoverageArea[];
-  location?: string;
 };
 
 const DetailInfoSection = ({
@@ -26,23 +22,7 @@ const DetailInfoSection = ({
   sold,
   rating,
   totalReview,
-  coverage_area,
-  location,
 }: IDetailInfoSection) => {
-  const formatCoverageArea = (areas?: ICoverageArea[]) => {
-    if (!areas || areas.length === 0) return '';
-    const cities = areas.map((area) => area.city.label).slice(0, 3);
-    const remainingCitiesCount = areas.length - cities.length;
-    return remainingCitiesCount > 0
-      ? `${cities.join(', ')} ++ ${remainingCitiesCount} more`
-      : cities.join(', ');
-  };
-
-  const formattedCoverageArea = useMemo(
-    () => formatCoverageArea(coverage_area),
-    [coverage_area]
-  );
-
   return (
     <section className="space-y-[6px] px-4 py-3">
       {price && product_type && (
@@ -75,22 +55,6 @@ const DetailInfoSection = ({
             </div>
           </div>
         )}
-      {coverage_area && coverage_area.length > 0 && (
-        <div className="flex items-center gap-1">
-          <LocationIcon className="text-ny-primary-500 shrink-0" />
-          <p className="text-caption-3 line-clamp-1 text-ny-gray-400">
-            {formattedCoverageArea}
-          </p>
-        </div>
-      )}
-      {location && (
-        <div className="flex items-center gap-1">
-          <LocationIcon className="text-ny-primary-500 shrink-0" />
-          <p className="text-caption-3 line-clamp-1 text-ny-gray-400">
-            {location}
-          </p>
-        </div>
-      )}
     </section>
   );
 };

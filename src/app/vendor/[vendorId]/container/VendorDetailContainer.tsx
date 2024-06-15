@@ -68,26 +68,33 @@ const VendorDetailContainer = ({
           sold={20}
           totalReview={12}
           rating={vendor.detail?.avg_rating}
-          location={vendor.detail?.location.city.label}
         />
-        <section>
-          <SwiperContainer>
-            {vendor_album?.map((image, index) => (
-              <SwiperSlide
-                key={index}
-                className={`w-[180px] h-[135px] ${index === 0 && 'ml-4'} ${
-                  index + 1 === vendor_album?.length && 'mr-4'
-                }`}
-              >
-                <Image
-                  src={image}
-                  alt={vendor.name}
-                  className="object-cover rounded-lg"
-                  fill
-                />
-              </SwiperSlide>
-            ))}
-          </SwiperContainer>
+        {vendor_album && vendor_album.length > 0 && (
+          <section>
+            <SwiperContainer>
+              {vendor_album?.map((image, index) => (
+                <SwiperSlide
+                  key={index}
+                  className={`w-[180px] h-[135px] ${index === 0 ? 'ml-4' : ''} ${
+                    index + 1 === vendor_album?.length ? 'mr-4' : ''
+                  }`}
+                >
+                  <Image
+                    src={image}
+                    alt={vendor.name}
+                    className="object-cover rounded-lg"
+                    fill
+                  />
+                </SwiperSlide>
+              ))}
+            </SwiperContainer>
+          </section>
+        )}
+        <section className="space-y-3 px-4">
+          <h3 className="text-body-2 font-medium">Vendor Location</h3>
+          <p className="text-caption-1 text-ny-gray-400">
+            {vendor.detail?.location.city.label}
+          </p>
         </section>
         <section className="space-y-3 px-4">
           <h3 className="text-body-2 font-medium">Description</h3>
@@ -112,8 +119,8 @@ const VendorDetailContainer = ({
             {products.map((product, index: number) => (
               <SwiperSlide
                 key={product.id}
-                className={`w-fit ${index === 0 && 'ml-4'} ${
-                  index + 1 === 12 && 'mr-4'
+                className={`w-fit ${index === 0 ? 'ml-4' : ''} ${
+                  index + 1 === products.length ? 'mr-4' : ''
                 }`}
               >
                 <ProductCard
