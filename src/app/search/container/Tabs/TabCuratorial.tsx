@@ -9,7 +9,7 @@ function TabCuratorial() {
   const searchParams = useSearchParams();
   const urlQuery = Object.fromEntries(searchParams.entries());
 
-  const { data, isLoading, refetch } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['search-curatorial', { ...urlQuery }],
     queryFn: () =>
       getAllCuratorials({
@@ -17,7 +17,6 @@ function TabCuratorial() {
         is_pagination: false,
         ...urlQuery,
       }),
-    refetchOnWindowFocus: false,
   });
 
   if (isLoading) {
@@ -34,13 +33,12 @@ function TabCuratorial() {
         data.data.data.map((item) => {
           return (
             <CuratorCard
-              responsive
               key={item.id}
               id={item.id}
-              isInWishlist={item.is_wishlist}
+              responsive
+              onWishlistClick={() => {}}
               title={item.name}
               imageUrl={item.images[0]}
-              refetchFn={refetch}
             />
           );
         })

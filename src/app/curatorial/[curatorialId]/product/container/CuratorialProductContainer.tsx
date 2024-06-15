@@ -12,7 +12,7 @@ const CuratorialProductContainer = () => {
           <ProductCard
             id={index}
             key={index}
-            isInWishlist={false}
+            onWishlistClick={() => {}}
             title="Kempinski Wedding Hall 2"
             location="Arjosari, 65126, Blimbing, Malang, East Java, Indonesia"
             price={15000}

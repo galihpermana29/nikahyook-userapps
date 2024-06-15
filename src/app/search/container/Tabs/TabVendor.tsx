@@ -9,7 +9,7 @@ function TabVendor() {
   const searchParams = useSearchParams();
   const urlQuery = Object.fromEntries(searchParams.entries());
 
-  const { data, isLoading, refetch } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['search-vendor', { ...urlQuery }],
     queryFn: () =>
       getAllUsers({
@@ -34,17 +34,15 @@ function TabVendor() {
           return (
             <VendorCard
               key={item.id}
-              id={item.id}
               navigateTo="/"
-              isInWishlist={item.detail?.is_wishlist}
+              onWishlistClick={() => {}}
               vendor_name={item.name}
               product_type_name={item.detail?.vendor_type_name}
               price={item.detail?.lowest_price}
               rating={item.detail?.avg_rating}
-              location={item.detail?.location.city.label}
+              location={item.detail?.location}
               profile_picture_uri={item.profile_image_uri}
               images={JSON.parse(item.detail?.json_text as string).vendor_album}
-              refetchFn={refetch}
             />
           );
         })

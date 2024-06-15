@@ -12,8 +12,8 @@ const CuratorialVendorContainer = () => {
         {Array.from({ length: 6 }).map((_, index) => (
           <VendorCard
             key={index}
-            id={'test'}
             navigateTo="/"
+            onWishlistClick={() => {}}
             vendor_name="Batam Weddings"
             product_type_name="Vendor Type A"
             price={15000}

@@ -9,22 +9,15 @@ import { TopCuratorsPickSection } from './Section/TopCuratorsPickSection';
 import { TopInspirationsSection } from './Section/TopInspirationsSection';
 import { TopProductsSection } from './Section/TopProductsSection';
 import { TopVendorsSection } from './Section/TopVendorsSection';
-import { getServerSession } from '@/shared/usecase/getServerSession';
 
 const DiscoverContainer = async () => {
-  const session = await getServerSession();
-  const userLocationCode = session.user_detail.detail.location?.value;
-  const userLocationName = session.user_detail.detail.location?.label;
-
   const { data: curatorialsData } = await getAllCuratorials({
     limit: 10,
     status: 'active',
-    location: userLocationCode,
   });
   const { data: productsData } = await getAllProducts({
     limit: 10,
     status: 'active',
-    location: userLocationCode,
   });
   const { data: inspirationsData } = await getAllInspirations({
     limit: 4,
@@ -34,7 +27,6 @@ const DiscoverContainer = async () => {
     limit: 5,
     type: 'vendor',
     status: 'active',
-    location: userLocationCode,
   });
 
   if (typeof curatorialsData === 'string') {
@@ -54,12 +46,9 @@ const DiscoverContainer = async () => {
     <main className="flex flex-col gap-5 pb-24">
       <HeroSection />
       <TopCuratorsPickSection data={curatorialsData.data} />
-      <TopProductsSection
-        data={productsData.data}
-        location={userLocationName}
-      />
+      <TopProductsSection data={productsData.data} />
       <TopInspirationsSection data={inspirationsData.data} />
-      <TopVendorsSection data={vendorsData.data} location={userLocationName} />
+      <TopVendorsSection data={vendorsData.data} />
     </main>
   );
 };

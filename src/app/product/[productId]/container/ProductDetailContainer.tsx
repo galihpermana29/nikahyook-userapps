@@ -62,7 +62,8 @@ const ProductDetailContainer = ({
                 key={index}
                 className={`w-[180px] h-[135px] ${index === 0 && 'ml-4'} ${
                   index + 1 === product.images.length && 'mr-4'
-                }`}>
+                }`}
+              >
                 <Image
                   src={image}
                   alt={product.title}
@@ -83,7 +84,7 @@ const ProductDetailContainer = ({
           <h2 className="text-body-2 font-medium">Vendor</h2>
           <VendorCard
             navigateTo="/"
-            id={product.vendor.id}
+            onWishlistClick={() => {}}
             vendor_name={product.vendor.name}
             product_type_name={product.vendor.type_name}
             price={product.vendor.lowest_price}
@@ -103,12 +104,14 @@ const ProductDetailContainer = ({
         <div className="flex items-center gap-2">
           <Button
             icon={<MessageIcon />}
-            className="flex items-center justify-center flex-1 rounded-[8px] h-[40px] bg-ny-primary-100 text-ny-primary-500 text-body-2">
+            className="flex items-center justify-center flex-1 rounded-[8px] h-[40px] bg-ny-primary-100 text-ny-primary-500 text-body-2"
+          >
             Message
           </Button>
           <Button
             icon={<CartIcon />}
-            className="flex items-center justify-center flex-1 rounded-[8px] h-[40px] bg-ny-primary-500 text-white text-body-2">
+            className="flex items-center justify-center flex-1 rounded-[8px] h-[40px] bg-ny-primary-500 text-white text-body-2"
+          >
             Add to Cart
           </Button>
         </div>
