@@ -22,8 +22,6 @@ import type {
   ICreateProfileResponseRoot,
   ISessionData,
 } from '../models/authInterfaces';
-import { getAllCities } from './locationService';
-import type { TAllLocationCityResponse } from '../models/locationInterfaces';
 
 const baseURL = process.env.NEXT_PUBLIC_API as string;
 
@@ -80,28 +78,12 @@ export async function createProfile(
 
   const data = await res.json();
 
-  const locationPayloadCity = payload.detail.location.value.slice(0, 2);
-  const locationCitiesRes = await getAllCities(locationPayloadCity);
-
-  if (!locationCitiesRes.success) {
-    return { success: false, data: locationCitiesRes.data as string };
-  }
-
-  const locationData = locationCitiesRes.data as TAllLocationCityResponse;
-  const locationLabel =
-    locationData.find(
-      (location) => location.id === payload.detail.location.value
-    )?.name ?? '';
-
   const oldUserDetail = sessionData.user_detail;
 
   const newUserDetail = {
     ...sessionData.user_detail.detail,
     json_text: payload.detail.json_text,
-    location: {
-      label: locationLabel,
-      value: payload.detail.location.value,
-    },
+    location: payload.detail.location,
   } as IUserDetailData;
 
   const newSessionData = {

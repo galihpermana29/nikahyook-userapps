@@ -17,10 +17,7 @@ export function formatCreateProfilePayload(
         wedding_theme: input.wedding_theme,
       }),
       wedding_date: dayjs(input.wedding_date).format('YYYY-MM-DD'),
-      location: {
-        label: input.location,
-        value: input.location,
-      },
+      location: input.location,
     },
   };
 }

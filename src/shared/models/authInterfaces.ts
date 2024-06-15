@@ -42,7 +42,7 @@ export interface ICreateProfileInputRoot {
   bride_name: string;
   plan_for: string;
   wedding_theme: string;
-  location: string;
+  location: ILocation;
   wedding_date: string;
 }
 
