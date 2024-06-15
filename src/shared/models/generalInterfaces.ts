@@ -62,3 +62,19 @@ export interface IOptionsParams<
   value: T1;
   label: T2;
 }
+
+export interface ILocation {
+  label: string;
+  value: number;
+}
+
+export interface ICoverageArea {
+  province: ILocation;
+  city: ILocation;
+}
+
+export interface IFullLocation extends ICoverageArea {
+  district: ILocation;
+  village: ILocation;
+  postal_code: number;
+}

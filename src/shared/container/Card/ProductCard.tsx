@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { WishListButton } from '../Button/WishListButton';
 import formatToRupiah from '@/shared/usecase/formatToRupiah';
 import Image from 'next/image';
+import { NikahyookLogoIcon } from '../Icon/NikahyookLogoIcon';
+import validateUrl from '@/shared/usecase/validateUrl';
 
 interface IProductCard {
   id: number;
@@ -28,6 +30,22 @@ export const ProductCard = ({
   price = 0,
 }: IProductCard) => {
   const router = useRouter();
+
+  let displayedImage = (
+    <NikahyookLogoIcon className="w-10 h-10 text-ny-gray-200" />
+  );
+
+  if (imageUrl && validateUrl(imageUrl)) {
+    displayedImage = (
+      <Image
+        src={imageUrl}
+        alt={`${title} Image`}
+        fill
+        className="object-cover"
+      />
+    );
+  }
+
   return (
     <div
       onClick={() => router.push(`/product/${id}`)}
@@ -38,15 +56,8 @@ export const ProductCard = ({
         onMutateWishList={onWishlistClick}
         className="absolute right-2 top-2 z-10"
       />
-      <div className="bg-ny-gray-100 relative w-full aspect-square">
-        {imageUrl && (
-          <Image
-            src={imageUrl}
-            alt={`${title} Image`}
-            fill
-            className="object-cover"
-          />
-        )}
+      <div className="bg-ny-gray-100 relative w-full aspect-square flex items-center justify-center">
+        {displayedImage}
       </div>
       <div className="px-2 py-3 flex flex-col justify-between h-[105px]">
         <h2 className="text-caption-2 font-medium line-clamp-2 mb-1">

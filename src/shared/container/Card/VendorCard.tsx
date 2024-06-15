@@ -29,6 +29,8 @@ export const VendorCard = ({
   price = 0,
   rating = 0,
 }: IVendorCard) => {
+  const filteredImages = images?.filter((_, index) => index < 4);
+
   return (
     <div
       onClick={() => redirect(navigateTo)}
@@ -60,11 +62,11 @@ export const VendorCard = ({
         Price From {formatToRupiah(price)}
       </p>
       <div className="grid grid-cols-4 gap-[6px]">
-        {images &&
-          images.map((img, index) => (
+        {filteredImages &&
+          filteredImages.map((img, index) => (
             <div
               key={index}
-              className="relative overflow-hidden rounded-md bg-ny-gray-100 aspect-square size-[74px]">
+              className="relative overflow-hidden rounded-md bg-ny-gray-100 aspect-square">
               <Image
                 src={img}
                 alt={`Product Image ${index + 1}`}

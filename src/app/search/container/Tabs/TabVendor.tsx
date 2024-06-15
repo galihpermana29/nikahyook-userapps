@@ -40,7 +40,7 @@ function TabVendor() {
               product_type_name={item.detail?.vendor_type_name}
               price={item.detail?.lowest_price}
               rating={item.detail?.avg_rating}
-              location={item.detail?.location}
+              location={item.detail?.location.city.label}
               profile_picture_uri={item.profile_image_uri}
               images={JSON.parse(item.detail?.json_text as string).vendor_album}
             />
