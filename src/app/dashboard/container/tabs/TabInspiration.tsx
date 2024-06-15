@@ -1,15 +1,33 @@
+import { getAllWishlist } from '@/shared/actions/productService';
+import { IAllInspirationsWishlistResponse } from '@/shared/models/productInterfaces';
 import { InspirationGrid } from '@/shared/container/Grid/InspirationGrid';
+import { useQuery } from 'react-query';
+import NoResult from '@/shared/container/NoResult/NoResult';
 import React from 'react';
 
 const TabInspiration = () => {
-  const InspirationMockData = [
-    'https://res.cloudinary.com/dcvnwpyd9/image/upload/v1718087524/nikahyook/ttfgvawny9lurpr0p6ew.webp',
-    'https://res.cloudinary.com/dcvnwpyd9/image/upload/v1718087524/nikahyook/ttfgvawny9lurpr0p6ew.webp',
-    'https://res.cloudinary.com/dcvnwpyd9/image/upload/v1718087524/nikahyook/ttfgvawny9lurpr0p6ew.webp',
-    'https://res.cloudinary.com/dcvnwpyd9/image/upload/v1718087524/nikahyook/ttfgvawny9lurpr0p6ew.webp',
-  ];
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ['inspiration-wishlist'],
+    queryFn: () => getAllWishlist('inspiration'),
+    refetchOnWindowFocus: false,
+  });
+
+  if (isLoading) {
+    return <InspirationGrid data={[...Array(4)]} animated />;
+  }
+
+  if (typeof data === 'string') {
+    throw Error(data);
+  }
+
+  const inspirationData = data?.data.data as IAllInspirationsWishlistResponse;
+
+  if (inspirationData.inspirations.length === 0) {
+    return <NoResult />;
+  }
+
   return (
-    <InspirationGrid data={InspirationMockData} onWishlistClick={() => {}} />
+    <InspirationGrid data={inspirationData.inspirations} refetchFn={refetch} />
   );
 };
 

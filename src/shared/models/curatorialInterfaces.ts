@@ -1,4 +1,7 @@
-import { IVendorDetail } from './generalInterfaces';
+import { 
+  IGeneralWishlistResponse, 
+  IVendorDetail 
+} from './generalInterfaces';
 
 export interface IAllCuratorialResponseRoot {
   id: number;
@@ -39,4 +42,9 @@ export interface IInspiration {
   id: number;
   name: string;
   image: string;
+}
+
+export interface IAllCuratorialWishlistResponse
+  extends IGeneralWishlistResponse {
+  curatorials: IAllCuratorialResponseRoot[];
 }

@@ -1,20 +1,44 @@
 import { CuratorCard } from '@/shared/container/Card/CuratorCard';
+import { getAllWishlist } from '@/shared/actions/productService';
+import { IAllCuratorialWishlistResponse } from '@/shared/models/curatorialInterfaces';
+import { useQuery } from 'react-query';
 import generateUUID from '@/shared/usecase/generateUUID';
+import NoResult from '@/shared/container/NoResult/NoResult';
 import React from 'react';
+import SkeletonVerticalCards from '@/shared/container/Skeleton/SkeletonVerticalCards';
 
 const TabCuratorial = () => {
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ['curatorial-wishlist'],
+    queryFn: () => getAllWishlist('curatorial'),
+    refetchOnWindowFocus: false,
+  });
+
+  if (isLoading) {
+    return <SkeletonVerticalCards />;
+  }
+
+  if (typeof data === 'string') {
+    throw Error(data);
+  }
+
+  const curatorialData = data?.data.data as IAllCuratorialWishlistResponse;
+
+  if (curatorialData.curatorials.length === 0) {
+    return <NoResult />;
+  }
+
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-      {Array.from({ length: 6 }, () => (
+      {curatorialData.curatorials.map((curatorial) => (
         <CuratorCard
           key={generateUUID()}
-          id={12345}
+          id={curatorial.id}
           responsive
-          onWishlistClick={() => {}}
-          title={'curatorial name'}
-          imageUrl={
-            'https://res.cloudinary.com/dcvnwpyd9/image/upload/v1718087555/nikahyook/gjvbev5zgf32kpn0nyrw.webp'
-          }
+          title={curatorial.name}
+          imageUrl={curatorial.images[0]}
+          isInWishlist={true}
+          refetchFn={refetch}
         />
       ))}
     </div>

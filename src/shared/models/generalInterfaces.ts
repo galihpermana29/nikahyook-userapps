@@ -69,3 +69,7 @@ export interface IFullLocation extends ICoverageArea {
   village: ILocation;
   postal_code: number;
 }
+
+export interface IGeneralWishlistResponse {
+  user_id: string;
+}

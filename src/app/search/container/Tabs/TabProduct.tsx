@@ -1,9 +1,9 @@
 import { getAllProducts } from '@/shared/actions/productService';
 import { ProductCard } from '@/shared/container/Card/ProductCard';
 import { useQuery } from 'react-query';
-import SkeletonVerticalCards from '../Skeleton/SkeletonVerticalCards';
 import { useSearchParams } from 'next/navigation';
-import NoResult from '../NoResult/NoResult';
+import NoResult from '@/shared/container/NoResult/NoResult';
+import SkeletonVerticalCards from '@/shared/container/Skeleton/SkeletonVerticalCards';
 
 function TabProduct() {
   const searchParams = useSearchParams();

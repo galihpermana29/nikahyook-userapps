@@ -1,9 +1,9 @@
-import { getAllCuratorials } from '@/shared/actions/productService';
 import { CuratorCard } from '@/shared/container/Card/CuratorCard';
+import { getAllCuratorials } from '@/shared/actions/productService';
 import { useQuery } from 'react-query';
-import SkeletonVerticalCards from '../Skeleton/SkeletonVerticalCards';
 import { useSearchParams } from 'next/navigation';
-import NoResult from '../NoResult/NoResult';
+import NoResult from '@/shared/container/NoResult/NoResult';
+import SkeletonVerticalCards from '@/shared/container/Skeleton/SkeletonVerticalCards';
 
 function TabCuratorial() {
   const searchParams = useSearchParams();

@@ -1,9 +1,9 @@
 import { getAllUsers } from '@/shared/actions/userService';
-import { VendorCard } from '@/shared/container/Card/VendorCard';
 import { useQuery } from 'react-query';
-import SkeletonHorizontalCards from '../Skeleton/SkeletonHorizontalCard';
 import { useSearchParams } from 'next/navigation';
-import NoResult from '../NoResult/NoResult';
+import { VendorCard } from '@/shared/container/Card/VendorCard';
+import NoResult from '@/shared/container/NoResult/NoResult';
+import SkeletonHorizontalCards from '@/shared/container/Skeleton/SkeletonHorizontalCard';
 
 function TabVendor() {
   const searchParams = useSearchParams();
