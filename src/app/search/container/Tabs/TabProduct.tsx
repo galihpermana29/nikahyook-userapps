@@ -9,7 +9,7 @@ function TabProduct() {
   const searchParams = useSearchParams();
   const urlQuery = Object.fromEntries(searchParams.entries());
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ['search-product', { ...urlQuery }],
     queryFn: () =>
       getAllProducts({ status: 'active', is_pagination: false, ...urlQuery }),
@@ -29,15 +29,16 @@ function TabProduct() {
         data.data.data.map((item) => {
           return (
             <ProductCard
+              responsive
               key={item.id}
               id={item.id}
-              responsive
-              onWishlistClick={() => {}}
+              isInWishlist={item.is_wishlist}
               title={item.title}
-              location={item.vendor?.location}
+              location={item.location.city.label}
               price={item.price}
-              rating={item.vendor?.avg_rating}
+              rating={item.rating}
               imageUrl={item.images[0]}
+              refetchFn={refetch}
             />
           );
         })

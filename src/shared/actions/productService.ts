@@ -3,6 +3,8 @@
 import {
   IFetchGeneralResponse,
   IFetchGeneralSuccessResponse,
+  IPostGeneralResponse,
+  IPostGeneralSuccessResponse,
 } from '@/shared/models/generalInterfaces';
 import {
   IAllCuratorialsResponse,
@@ -10,6 +12,7 @@ import {
   IAllProductsResponse,
   IAllProductTypeResponse,
   IAllVendorTypeResponse,
+  TWishlist,
 } from '@/shared/models/productInterfaces';
 import { errorHandling } from '@/shared/usecase/errorHandling';
 import { getServerSession } from '../usecase/getServerSession';
@@ -207,6 +210,64 @@ export async function getAllVendorTypes(
       headers: {
         Authorization: `Bearer ${sessionData.token}`,
       },
+    }
+  );
+
+  if (!res.ok) {
+    return errorHandling(res);
+  }
+
+  const data = await res.json();
+
+  return { success: true, data };
+}
+
+export async function createWishlist(
+  type: TWishlist,
+  target_id: string | number
+): Promise<IPostGeneralResponse<IPostGeneralSuccessResponse<any> | string>> {
+  const sessionData = await getServerSession();
+  const payload = {
+    [`${type}_id`]: target_id,
+  };
+
+  const res = await fetch(
+    baseURL + `/wishlists/${sessionData.user_id}/${type}s`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${sessionData.token}`,
+      },
+      body: JSON.stringify(payload),
+    }
+  );
+
+  if (!res.ok) {
+    return errorHandling(res);
+  }
+
+  const data = await res.json();
+
+  return { success: true, data };
+}
+
+export async function deleteWishlist(
+  type: TWishlist,
+  target_id: string | number
+): Promise<IPostGeneralResponse<IPostGeneralSuccessResponse<any> | string>> {
+  const sessionData = await getServerSession();
+  const payload = {
+    [`${type}_id`]: target_id,
+  };
+
+  const res = await fetch(
+    baseURL + `/wishlists/${sessionData.user_id}/${type}s`,
+    {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${sessionData.token}`,
+      },
+      body: JSON.stringify(payload),
     }
   );
 
