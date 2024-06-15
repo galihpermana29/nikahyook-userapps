@@ -10,7 +10,7 @@ function TabInspiration() {
   const searchParams = useSearchParams();
   const urlQuery = Object.fromEntries(searchParams.entries());
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ['search-inspiration', { ...urlQuery }],
     queryFn: () =>
       getAllInspirations({
@@ -32,7 +32,7 @@ function TabInspiration() {
   return (
     <section>
       {data?.data && data.data.data?.length > 0 ? (
-        <InspirationGrid data={data.data.data} onWishlistClick={() => {}} />
+        <InspirationGrid data={data.data.data} refetchFn={refetch} />
       ) : (
         <NoResult />
       )}

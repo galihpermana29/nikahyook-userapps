@@ -9,6 +9,16 @@ export interface IFetchGeneralSuccessResponse<T> {
   meta_data: IMetaData;
 }
 
+export interface IPostGeneralResponse<T> {
+  success: boolean;
+  data: T;
+}
+
+export interface IPostGeneralSuccessResponse<T> {
+  status: string;
+  data: T;
+}
+
 export interface IMetaData {
   total_items: number;
   total_pages: number;
@@ -23,14 +33,6 @@ export interface IReview {
   name: string;
   rating: number;
   comment: string;
-}
-
-// Interface for location in detail user
-// NOTE: label field shouldn't be optional,
-// TODO: figure out how to get label value from its form
-export interface ILocationDetail {
-  value: string;
-  label?: string;
 }
 
 // Interface for json_text in vendor
@@ -61,4 +63,20 @@ export interface IOptionsParams<
 > {
   value: T1;
   label: T2;
+}
+
+export interface ILocation {
+  label: string;
+  value: string;
+}
+
+export interface ICoverageArea {
+  province: ILocation;
+  city: ILocation;
+}
+
+export interface IFullLocation extends ICoverageArea {
+  district: ILocation;
+  village: ILocation;
+  postal_code: number;
 }

@@ -18,6 +18,7 @@ import { Button } from 'antd';
 import Image from 'next/image';
 import { SwiperSlide } from 'swiper/react';
 import CuratorialAuthorSection from './section/CuratorialAuthorSection';
+import { IAllInspirationsResponse } from '@/shared/models/productInterfaces';
 const CuratorialDetailContainer = ({
   curatorial,
 }: {
@@ -64,8 +65,9 @@ const CuratorialDetailContainer = ({
           titleSize="large"
           onLoadMore={() => {}}>
           <InspirationGrid
-            data={curatorial.inspirations.slice(0, 4)}
-            onWishlistClick={() => {}}
+            data={
+              curatorial.inspirations.slice(0, 4) as IAllInspirationsResponse[]
+            }
           />
         </TitledSection>
         <TitledSection
@@ -83,7 +85,6 @@ const CuratorialDetailContainer = ({
                   }`}>
                   <ProductCard
                     id={item.id}
-                    onWishlistClick={() => {}}
                     title={item.title}
                     location={item.location}
                     price={item.price}
@@ -102,8 +103,8 @@ const CuratorialDetailContainer = ({
             {curatorial.vendor.slice(0, 3).map((vendor) => (
               <div key={vendor.id}>
                 <VendorCard
+                  id={vendor.id}
                   navigateTo="/"
-                  onWishlistClick={() => {}}
                   vendor_name={vendor.name}
                   product_type_name={vendor.type}
                   price={vendor.lowest_price}
