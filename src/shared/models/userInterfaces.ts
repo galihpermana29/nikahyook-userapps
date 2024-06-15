@@ -67,6 +67,9 @@ export interface IDetailUserResponseRoot {
 export interface IUserDetailData {
   json_text?: string;
   location?: ILocation;
+  date_of_birth?: string;
+  gender?: string;
+  wedding_date?: string;
   vendor_type_id?: string;
   vendor_type_name?: string;
 }

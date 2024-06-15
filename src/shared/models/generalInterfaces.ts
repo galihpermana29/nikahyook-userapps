@@ -75,7 +75,7 @@ export interface IOptionsParams<
 
 export interface ILocation {
   label: string;
-  value: number;
+  value: string;
 }
 
 export interface ICoverageArea {
