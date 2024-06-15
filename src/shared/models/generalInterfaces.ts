@@ -35,6 +35,14 @@ export interface IReview {
   comment: string;
 }
 
+// Interface for location in detail user
+// NOTE: label field shouldn't be optional,
+// TODO: figure out how to get label value from its form
+export interface ILocationDetail {
+  value: string;
+  label?: string;
+}
+
 // Interface for json_text in vendor
 export interface IVendorDetail {
   vendor_description?: string;
@@ -52,6 +60,17 @@ export interface IGeneralFilter {
   max_price?: number;
   product_type?: number;
   vendor_type?: number;
+}
+
+export type TOptionsRecordKeys = string | number | symbol;
+export type TOptionsRecordType = Record<TOptionsRecordKeys, unknown>;
+
+export interface IOptionsParams<
+  T1 extends TOptionsRecordKeys,
+  T2 extends TOptionsRecordKeys
+> {
+  value: T1;
+  label: T2;
 }
 
 export interface ILocation {
