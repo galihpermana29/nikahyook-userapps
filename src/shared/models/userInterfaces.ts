@@ -1,4 +1,4 @@
-import { IVendorDetail } from "./generalInterfaces";
+import { IFullLocation, IVendorDetail } from './generalInterfaces';
 
 export interface ILoginResponseRoot {
   user_id: string;
@@ -31,12 +31,13 @@ export interface IAllUserResponse {
 
 export interface IUserVendorDetail {
   json_text: string;
-  location: string;
+  location: IFullLocation;
   vendor_type_id: number;
   vendor_type_name: string;
   lowest_price: number;
   avg_rating: number;
-  vendor_detail: IVendorDetail
+  vendor_detail: IVendorDetail;
+  is_wishlist: boolean;
 }
 
 export interface IUserVendorAdditionalDetail {
@@ -45,7 +46,6 @@ export interface IUserVendorAdditionalDetail {
   vendor_type?: string;
   vendor_album?: string | string[];
 }
-
 
 export interface IDetailUserData {
   id: string;

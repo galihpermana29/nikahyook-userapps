@@ -7,6 +7,7 @@ import { LocationIcon } from '../Icon/LocationIcon';
 import { StarIcon } from '../Icon/StarIcon';
 
 interface IVendorCard {
+  id: string;
   profile_picture_uri?: string;
   vendor_name?: string;
   product_type_name?: string;
@@ -14,21 +15,26 @@ interface IVendorCard {
   images?: string[];
   location?: string;
   rating?: number;
+  isInWishlist?: boolean;
   navigateTo: string;
-  onWishlistClick: () => void;
+  refetchFn?: any;
 }
 
 export const VendorCard = ({
+  id,
   profile_picture_uri,
   images,
   location,
   product_type_name,
   vendor_name,
   navigateTo,
-  onWishlistClick,
+  refetchFn,
+  isInWishlist = false,
   price = 0,
   rating = 0,
 }: IVendorCard) => {
+  const filteredImages = images?.filter((_, index) => index < 4);
+
   return (
     <div
       onClick={() => redirect(navigateTo)}
@@ -53,18 +59,23 @@ export const VendorCard = ({
               {product_type_name ?? '-'}
             </p>
           </div>
-          <WishListButton onMutateWishList={onWishlistClick} />
+          <WishListButton
+            target_id={id}
+            wishlist_type="vendor"
+            isActive={isInWishlist}
+            refetch={refetchFn}
+          />
         </div>
       </div>
       <p className="text-caption-2 text-ny-primary-500">
         Price From {formatToRupiah(price)}
       </p>
       <div className="grid grid-cols-4 gap-[6px]">
-        {images &&
-          images.map((img, index) => (
+        {filteredImages &&
+          filteredImages.map((img, index) => (
             <div
               key={index}
-              className="relative overflow-hidden rounded-md bg-ny-gray-100 aspect-square size-[74px]">
+              className="relative overflow-hidden rounded-md bg-ny-gray-100 aspect-square">
               <Image
                 src={img}
                 alt={`Product Image ${index + 1}`}

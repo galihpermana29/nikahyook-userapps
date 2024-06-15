@@ -26,11 +26,11 @@ export const TopProductsSection = ({
               }`}>
               <ProductCard
                 id={item.id}
-                onWishlistClick={() => {}}
                 title={item.title}
-                location={item.vendor?.location}
+                isInWishlist={item.is_wishlist}
+                location={item.location.city.label}
                 price={item.price}
-                rating={item.vendor?.avg_rating}
+                rating={item.rating}
                 imageUrl={item.images[0]}
               />
             </SwiperSlide>
