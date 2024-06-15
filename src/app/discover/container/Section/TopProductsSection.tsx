@@ -19,7 +19,7 @@ export const TopProductsSection = ({
   return (
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
       <TitledSection
-        title={`Products Near ${location}`}
+        title={`Products Near ${location.toLowerCase()}`}
         navigateTo="/search?tab=product">
         <SwiperContainer>
           {data.length === 0 ? (
