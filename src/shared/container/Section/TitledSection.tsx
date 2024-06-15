@@ -35,8 +35,7 @@ export const TitledSection = ({
         <h2
           className={`${
             titleSize === 'normal' ? 'text-caption-1' : 'text-body-2'
-          } font-medium`}
-        >
+          } capitalize font-medium`}>
           {title}
         </h2>
         {navigateTo && (
