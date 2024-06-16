@@ -71,7 +71,7 @@ export interface IDetailUserResponseRoot {
 
 export interface IUserDetailData {
   json_text?: string;
-  location?: ILocation | IFullLocation;
+  location?: ILocation;
   date_of_birth?: string;
   gender?: string;
   wedding_date?: string;
@@ -82,7 +82,7 @@ export interface IUserDetailData {
 export interface IVendorWishlist {
   id: string;
   name: string;
-  location: ILocation;
+  location: IFullLocation;
   type: string;
   image: string;
   lowest_price: number;
