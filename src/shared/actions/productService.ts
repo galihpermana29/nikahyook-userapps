@@ -12,6 +12,7 @@ import {
   IAllProductsResponse,
   IAllProductTypeResponse,
   IAllVendorTypeResponse,
+  Tag,
   TWishlist,
 } from '@/shared/models/productInterfaces';
 import { errorHandling } from '@/shared/usecase/errorHandling';
@@ -270,6 +271,28 @@ export async function deleteWishlist(
       body: JSON.stringify(payload),
     }
   );
+
+  if (!res.ok) {
+    return errorHandling(res);
+  }
+
+  const data = await res.json();
+
+  return { success: true, data };
+}
+
+export async function getAllTags(
+  params?: Record<string, any>
+): Promise<
+  IFetchGeneralResponse<IFetchGeneralSuccessResponse<Tag[]> | string>
+> {
+  const sessionData = await getServerSession();
+  const res = await fetch(baseURL + '/tags?' + new URLSearchParams(params), {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${sessionData.token}`,
+    },
+  });
 
   if (!res.ok) {
     return errorHandling(res);
