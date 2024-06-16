@@ -46,6 +46,9 @@ const ProductDetailContainer = ({
       <DetailHeader
         title={product.title}
         header_image_url={product.images[0]}
+        target_id={product.id}
+        wishlist_type='product'
+        isWishlisted={product.is_wishlist}
       />
       <div className="space-y-5 mb-[64px]">
         <DetailInfoSection

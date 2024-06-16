@@ -15,6 +15,7 @@ export interface IAllCuratorialResponseRoot {
   products: IProduct[];
   vendor: IVendor[];
   inspirations: IInspiration[];
+  is_wishlist: boolean;
 }
 
 export interface IProduct {
@@ -24,6 +25,7 @@ export interface IProduct {
   location: IFullLocation;
   rating: number;
   images: string[];
+  is_wishlist: boolean;
 }
 
 export interface IVendor {

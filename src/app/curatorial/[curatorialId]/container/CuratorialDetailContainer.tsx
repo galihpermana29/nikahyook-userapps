@@ -40,6 +40,9 @@ const CuratorialDetailContainer = ({
       <DetailHeader
         title={curatorial.name}
         header_image_url={curatorial.images[0]}
+        target_id={curatorial.id}
+        wishlist_type='curatorial'
+        isWishlisted={curatorial.is_wishlist}
       />
       <div className="space-y-5 mb-[64px]">
         <DetailInfoSection title={curatorial.name} />
@@ -111,6 +114,7 @@ const CuratorialDetailContainer = ({
                     price={item.price}
                     rating={item.rating}
                     imageUrl={item.images[0]}
+                    isInWishlist={item.is_wishlist}
                   />
                 </SwiperSlide>
               ))}

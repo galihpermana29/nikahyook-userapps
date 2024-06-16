@@ -58,6 +58,9 @@ const VendorDetailContainer = ({
       <DetailHeader
         title={vendor.name}
         header_image_url={vendor.profile_image_uri}
+        target_id={vendor.id}
+        wishlist_type="vendor"
+        isWishlisted={vendor.detail?.is_wishlist}
       />
       <div className="space-y-5 mb-[64px]">
         <DetailInfoSection
@@ -131,6 +134,7 @@ const VendorDetailContainer = ({
                   price={product.price}
                   rating={product.rating}
                   imageUrl={product.images[0]}
+                  isInWishlist={product.is_wishlist}
                 />
               </SwiperSlide>
             ))}
