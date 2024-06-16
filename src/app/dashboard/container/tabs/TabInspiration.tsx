@@ -27,7 +27,11 @@ const TabInspiration = () => {
   }
 
   return (
-    <InspirationGrid data={inspirationData.inspirations} refetchFn={refetch} />
+    <InspirationGrid
+      data={inspirationData.inspirations}
+      refetchFn={refetch}
+      wishlisted={true}
+    />
   );
 };
 

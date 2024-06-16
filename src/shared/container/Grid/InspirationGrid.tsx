@@ -11,6 +11,7 @@ interface IInspirationGrid {
   animated?: boolean;
   showWishlist?: boolean;
   refetchFn?: any;
+  wishlisted?: boolean;
 }
 
 export const InspirationGrid = ({
@@ -18,6 +19,7 @@ export const InspirationGrid = ({
   refetchFn,
   showWishlist = true,
   animated = false,
+  wishlisted = false,
 }: IInspirationGrid) => {
   const dataChunks: IAllInspirationsResponse[][] = splitArrayToChunks(data);
 
@@ -53,7 +55,7 @@ export const InspirationGrid = ({
                     {showWishlist && (
                       <WishListButton
                         target_id={item.id}
-                        isActive={item.is_wishlist}
+                        isActive={wishlisted ? wishlisted : item.is_wishlist}
                         wishlist_type="inspiration"
                         refetch={refetchFn}
                         className="absolute bottom-2 right-2"
