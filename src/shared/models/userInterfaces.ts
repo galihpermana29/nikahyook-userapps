@@ -8,7 +8,6 @@ export interface ILoginResponseRoot {
   type: string;
   role_id: number;
   role_name: string;
-  profile_picture_uri?: string;
 }
 
 export interface ILoginPayloadRoot {
@@ -52,6 +51,7 @@ export interface IDetailUserData {
   name: string;
   email: string;
   date_of_birth: string;
+  phone_number: string;
   type: string;
   role_id: number;
   role_name: string;
@@ -72,4 +72,21 @@ export interface IUserDetailData {
   wedding_date?: string;
   vendor_type_id?: string;
   vendor_type_name?: string;
+}
+
+export interface IEditProfileInputRoot {
+  name: string;
+  email: string;
+  gender: string;
+  phone_number: string;
+  date_of_birth: string;
+  profile_image_uri?: string;
+}
+
+export interface IUserJSONDetail {
+  wedding_role: string | null;
+  groom_name: string | null;
+  bride_name: string | null;
+  plan_for: string | null;
+  wedding_theme: string | null;
 }

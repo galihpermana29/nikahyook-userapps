@@ -10,6 +10,7 @@ import {
   IAllUserResponse,
   ILoginPayloadRoot,
   ILoginResponseRoot,
+  type IEditProfileInputRoot,
   type IUserDetailData,
 } from '@/shared/models/userInterfaces';
 import { errorHandling } from '@/shared/usecase/errorHandling';
@@ -22,6 +23,7 @@ import type {
   ICreateProfileResponseRoot,
   ISessionData,
 } from '../models/authInterfaces';
+import { redirect } from 'next/navigation';
 
 const baseURL = process.env.NEXT_PUBLIC_API as string;
 
@@ -39,6 +41,13 @@ export async function setSessions(sessionData: ISessionData) {
     maxAge: 60 * 60 * 24 * 7, // One week
     path: '/',
   });
+}
+
+export async function clearSessions() {
+  cookies().delete('session');
+  cookies().delete('client-session');
+
+  return redirect('/login');
 }
 
 export async function register(
@@ -91,6 +100,51 @@ export async function createProfile(
     user_detail: {
       ...oldUserDetail,
       detail: newUserDetail,
+    },
+  } as ISessionData;
+
+  await setSessions(newSessionData);
+
+  return { success: true, data };
+}
+
+export async function editProfile(
+  payload: IEditProfileInputRoot,
+  id: string
+): Promise<
+  IFetchGeneralResponse<IFetchGeneralSuccessResponse<string> | string>
+> {
+  const sessionData = await getServerSession();
+
+  const res = await fetch(baseURL + '/users/' + id, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${sessionData.token}`,
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    return errorHandling(res);
+  }
+
+  const data = await res.json();
+
+  const oldUserDetail = sessionData.user_detail;
+  const oldDetail = sessionData.user_detail.detail;
+  const newSessionData = {
+    ...sessionData,
+    user_detail: {
+      ...oldUserDetail,
+      email: payload.email,
+      date_of_birth: payload.date_of_birth,
+      name: payload.name,
+      phone_number: payload.phone_number,
+      profile_image_uri: payload.profile_image_uri,
+      detail: {
+        ...oldDetail,
+        gender: payload.gender,
+      },
     },
   } as ISessionData;
 
