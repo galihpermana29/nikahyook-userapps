@@ -10,6 +10,7 @@ import {
   IAllUserResponse,
   ILoginPayloadRoot,
   ILoginResponseRoot,
+  type IUserDetailData,
 } from '@/shared/models/userInterfaces';
 import { errorHandling } from '@/shared/usecase/errorHandling';
 import { cookies } from 'next/headers';
@@ -76,6 +77,24 @@ export async function createProfile(
   }
 
   const data = await res.json();
+
+  const oldUserDetail = sessionData.user_detail;
+
+  const newUserDetail = {
+    ...sessionData.user_detail.detail,
+    json_text: payload.detail.json_text,
+    location: payload.detail.location,
+  } as IUserDetailData;
+
+  const newSessionData = {
+    ...sessionData,
+    user_detail: {
+      ...oldUserDetail,
+      detail: newUserDetail,
+    },
+  } as ISessionData;
+
+  await setSessions(newSessionData);
 
   return { success: true, data };
 }

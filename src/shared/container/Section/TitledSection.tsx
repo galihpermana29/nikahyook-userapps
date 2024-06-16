@@ -20,8 +20,9 @@ export const TitledSection = ({
     <section>
       <div className="px-4 flex items-center justify-between gap-2 mb-4">
         <h2
-          className={`${titleSize === 'normal' ? 'text-caption-1' : 'text-body-2'} font-medium`}
-        >
+          className={`${
+            titleSize === 'normal' ? 'text-caption-1' : 'text-body-2'
+          } capitalize font-medium`}>
           {title}
         </h2>
         {navigateTo && (

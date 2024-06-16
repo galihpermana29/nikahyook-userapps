@@ -9,6 +9,7 @@ import ClientSelectLocationCities from '../Select/ClientSelectLocationCities';
 import LocationFormItemLoading from './LocationFormItemLoading';
 import generateUUID from '@/shared/usecase/generateUUID';
 import useFormInstance from 'antd/es/form/hooks/useFormInstance';
+import type { DefaultOptionType } from 'antd/es/select';
 
 // only import components when it will be shown
 const ClientSelectLocationProvinces = dynamic(
@@ -70,7 +71,11 @@ export default function LocationFormItem({
 
   const villageItemName = showVillage ? locationFieldName : 'village-select';
 
-  function handleValueChange(changedField: string, value: string) {
+  function handleValueChange(
+    changedField: string,
+    value: string,
+    option: DefaultOptionType
+  ) {
     // INFO: field name order matters
     // this maps form name to key name in selected state
     const selectStateMap = {
@@ -112,7 +117,7 @@ export default function LocationFormItem({
     }));
 
     // set changedField form field to new value
-    form.setFieldValue(changedField, value);
+    form.setFieldValue(changedField, option);
 
     // reset every form fields needed to be reset
     form.setFieldsValue(formFieldsToResetKeyValue);
@@ -132,7 +137,9 @@ export default function LocationFormItem({
         name={provinceItemName}
         rules={[{ required: true, message: 'Please enter your province!' }]}>
         <ClientSelectLocationProvinces
-          onChange={(value) => handleValueChange(provinceItemName, value)}
+          onChange={(value, option) =>
+            handleValueChange(provinceItemName, value, option)
+          }
           {...provinceProps}
         />
       </FormItem>
@@ -147,7 +154,9 @@ export default function LocationFormItem({
           rules={[{ required: true, message: 'Please enter your city!' }]}>
           <ClientSelectLocationCities
             key={selected['province'] + generateUUID()}
-            onChange={(value) => handleValueChange(cityItemName, value)}
+            onChange={(value, option) =>
+              handleValueChange(cityItemName, value, option)
+            }
             provinceId={selected['province']}
             {...cityProps}
           />
@@ -164,7 +173,9 @@ export default function LocationFormItem({
           rules={[{ required: true, message: 'Please enter your district!' }]}>
           <ClientSelectLocationDistricts
             key={selected['city'] + generateUUID()}
-            onChange={(value) => handleValueChange(districtItemName, value)}
+            onChange={(value, option) =>
+              handleValueChange(districtItemName, value, option)
+            }
             cityId={selected['city']}
             {...districtProps}
           />
@@ -181,7 +192,9 @@ export default function LocationFormItem({
           rules={[{ required: true, message: 'Please enter your village!' }]}>
           <ClientSelectLocationVillages
             key={selected['district'] + generateUUID()}
-            onChange={(value) => handleValueChange(villageItemName, value)}
+            onChange={(value, option) =>
+              handleValueChange(villageItemName, value, option)
+            }
             districtId={selected['district']}
             {...villageProps}
           />

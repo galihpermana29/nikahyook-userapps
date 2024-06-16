@@ -1,4 +1,4 @@
-import type { ILocationDetail } from './generalInterfaces';
+import type { ILocation } from './generalInterfaces';
 import type { IDetailUserData, ILoginResponseRoot } from './userInterfaces';
 
 export interface ISessionData extends ILoginResponseRoot {
@@ -17,7 +17,7 @@ export interface IRegisterInputRoot {
 export interface IRegisterDetailPayloadRoot {
   json_text: string;
   gender: string;
-  location: ILocationDetail;
+  location: ILocation;
   wedding_date: string;
   date_of_birth: string;
 }
@@ -42,15 +42,12 @@ export interface ICreateProfileInputRoot {
   bride_name: string;
   plan_for: string;
   wedding_theme: string;
-  location: string;
+  location: ILocation;
   wedding_date: string;
 }
 
 export interface ICreateProfilePayloadRoot {
-  detail: Omit<
-    IRegisterDetailPayloadRoot,
-    'gender' | 'wedding_date' | 'date_of_birth'
-  >;
+  detail: Omit<IRegisterDetailPayloadRoot, 'gender' | 'date_of_birth'>;
 }
 
 export type TCreateProfileResponseData = string;

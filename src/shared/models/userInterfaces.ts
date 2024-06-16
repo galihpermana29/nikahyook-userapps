@@ -1,6 +1,7 @@
 import {
   IFullLocation,
   IGeneralWishlistResponse,
+  ILocation,
   IVendorDetail,
 } from './generalInterfaces';
 
@@ -70,7 +71,10 @@ export interface IDetailUserResponseRoot {
 
 export interface IUserDetailData {
   json_text?: string;
-  location?: string;
+  location?: ILocation | IFullLocation;
+  date_of_birth?: string;
+  gender?: string;
+  wedding_date?: string;
   vendor_type_id?: string;
   vendor_type_name?: string;
 }
@@ -78,7 +82,7 @@ export interface IUserDetailData {
 export interface IVendorWishlist {
   id: string;
   name: string;
-  location: IFullLocation;
+  location: ILocation;
   type: string;
   image: string;
   lowest_price: number;
