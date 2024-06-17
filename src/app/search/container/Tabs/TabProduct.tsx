@@ -25,7 +25,7 @@ function TabProduct() {
 
   return (
     <section className="px-4 grid grid-cols-2 sm:grid-cols-3 gap-2">
-      {data?.data && data.data.data.length > 0 ? (
+      {data?.data && data?.data?.data?.length > 0 ? (
         data.data.data.map((item) => {
           return (
             <ProductCard

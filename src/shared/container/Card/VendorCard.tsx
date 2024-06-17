@@ -7,6 +7,7 @@ import { LocationIcon } from '../Icon/LocationIcon';
 import { StarIcon } from '../Icon/StarIcon';
 import { NikahyookLogoIcon } from '../Icon/NikahyookLogoIcon';
 import validateUrl from '@/shared/usecase/validateUrl';
+import formatToCapitalWord from '@/shared/usecase/formatToCapitalWord';
 
 interface IVendorCard {
   id: string;
@@ -103,7 +104,7 @@ export const VendorCard = ({
         <div className="flex items-center gap-1">
           <LocationIcon className="text-ny-primary-500" />
           <p className="text-caption-3 line-clamp-1 text-ny-gray-400">
-            {location ?? '-'}
+            {formatToCapitalWord(location ?? '-')}
           </p>
         </div>
         <div className="flex shrink-0 justify-center items-start">

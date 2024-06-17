@@ -26,8 +26,12 @@ function FilterProduct({
 
   const { cityValidator } = useLocationInputValidator(form);
 
-  const product_type = searchParams.get('product_type') ?? undefined;
-  const tags = searchParams.get('tags') ?? undefined;
+  const product_type = searchParams.get('product_type_id') ?? undefined;
+  const tags =
+    searchParams
+      .get('tags')
+      ?.split(',')
+      .map((id) => parseInt(id)) ?? undefined;
   const min_price = searchParams.get('min_price') ?? undefined;
   const max_price = searchParams.get('max_price') ?? undefined;
 
@@ -72,7 +76,7 @@ function FilterProduct({
   return (
     <>
       <Form.Item
-        name={'product_type'}
+        name={'product_type_id'}
         label="Product Type"
         initialValue={product_type && parseInt(product_type)}
         className="my-[10px]">
@@ -85,11 +89,13 @@ function FilterProduct({
       <Form.Item
         name={'tags'}
         label="Tag"
-        initialValue={tags && parseInt(tags)}
+        initialValue={tags}
         className="my-[10px]">
         <Select
           className="h-[35px]"
           placeholder="Choose tag"
+          mode="multiple"
+          maxTagCount={2}
           options={tagOptions}
         />
       </Form.Item>
@@ -97,7 +103,7 @@ function FilterProduct({
         <LocationFormItem
           locationFieldName="location"
           containerProps={{ className: 'w-full flex flex-col gap-3' }}
-          provinceProps={{ placeholder: 'Choose province' }}
+          provinceProps={{ placeholder: 'Choose location' }}
           cityProps={{ placeholder: 'Choose city' }}
           formItemRules={{
             province: [{ required: false }],

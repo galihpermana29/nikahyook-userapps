@@ -6,7 +6,11 @@ import { useQuery } from 'react-query';
 function FilterInspiration() {
   const searchParams = useSearchParams();
 
-  const tags = searchParams.get('tags') ?? undefined;
+  const tags =
+    searchParams
+      .get('tags')
+      ?.split(',')
+      .map((id) => parseInt(id)) ?? undefined;
 
   const { data: queryTags } = useQuery({
     queryKey: ['get-tags'],
@@ -32,11 +36,13 @@ function FilterInspiration() {
       <Form.Item
         name={'tags'}
         label="Tag"
-        initialValue={tags && parseInt(tags)}
+        initialValue={tags}
         className="my-[10px]">
         <Select
           className="h-[35px]"
           placeholder="Choose tag"
+          mode="multiple"
+          maxTagCount={2}
           options={tagOptions}
         />
       </Form.Item>

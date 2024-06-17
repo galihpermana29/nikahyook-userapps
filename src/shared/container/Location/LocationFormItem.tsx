@@ -156,7 +156,7 @@ export default function LocationFormItem({
       {/* always show province as fist select */}
       <FormItem
         className="my-0"
-        label="Province"
+        label={selected['province'] ? 'Province' : 'Location'}
         name={provinceItemName}
         rules={rules.province}>
         <ClientSelectLocationProvinces

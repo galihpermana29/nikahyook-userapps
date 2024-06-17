@@ -52,7 +52,7 @@ function FilterVendor() {
         <LocationFormItem
           locationFieldName="location"
           containerProps={{ className: 'w-full flex flex-col gap-3' }}
-          provinceProps={{ placeholder: 'Choose province' }}
+          provinceProps={{ placeholder: 'Choose location' }}
           cityProps={{ placeholder: 'Choose city' }}
           showCity
           formItemRules={{
