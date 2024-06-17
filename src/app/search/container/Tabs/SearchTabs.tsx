@@ -1,6 +1,6 @@
 'use client';
 
-import { Tabs, TabsProps } from 'antd';
+import { FormInstance, Tabs, TabsProps } from 'antd';
 import { useRouter, useSearchParams } from 'next/navigation';
 import TabCuratorial from './TabCuratorial';
 import TabInspiration from './TabInspiration';
@@ -9,6 +9,7 @@ import TabVendor from './TabVendor';
 import CustomErrorBoundary from '@/shared/container/ErrorBoundary/ErrorBoundary';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useEffect, useState } from 'react';
+import useFilterAction from '../../usecase/useFilterAction';
 
 const items: TabsProps['items'] = [
   {
@@ -33,12 +34,22 @@ const items: TabsProps['items'] = [
   },
 ];
 
-function SearchTabs({ defaultTab }: { defaultTab: string }) {
+function SearchTabs({
+  defaultTab,
+  searchForm,
+  filterForm,
+}: {
+  defaultTab: string;
+  searchForm: FormInstance;
+  filterForm: FormInstance;
+}) {
   const [activeTab, setActiveTab] = useState(defaultTab);
 
   const router = useRouter();
   const searcParams = useSearchParams();
   const tabKey = searcParams.get('tab') ?? 'inspiration';
+
+  const { onResetFilter } = useFilterAction(filterForm);
 
   useEffect(() => {
     setActiveTab(tabKey);
@@ -47,11 +58,16 @@ function SearchTabs({ defaultTab }: { defaultTab: string }) {
   return (
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
       <Tabs
+        centered
         defaultActiveKey={defaultTab}
         activeKey={activeTab}
         items={items}
         tabBarStyle={{ padding: '0 16px' }}
-        onChange={(key) => router.push(`search?tab=${key}`)}
+        onChange={(key) => {
+          searchForm.setFieldValue('keyword', undefined);
+          onResetFilter();
+          router.push(`search?tab=${key}`);
+        }}
       />
     </ErrorBoundary>
   );
