@@ -11,7 +11,7 @@ import React from 'react';
 
 const MyDashboardSection = () => {
   return (
-    <section className="grid grid-cols-2 gap-3">
+    <section className="grid grid-cols-2 gap-3 pt-3">
       <div className="col-span-2">
         <DashboardCard title="Progress" icon={<HeartIcon />}>
           <Progress

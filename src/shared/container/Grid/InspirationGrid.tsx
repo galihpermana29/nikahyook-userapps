@@ -12,6 +12,7 @@ interface IInspirationGrid {
   showWishlist?: boolean;
   refetchFn?: any;
   wishlisted?: boolean;
+  padding?: boolean
 }
 
 export const InspirationGrid = ({
@@ -20,11 +21,12 @@ export const InspirationGrid = ({
   showWishlist = true,
   animated = false,
   wishlisted = false,
+  padding = true
 }: IInspirationGrid) => {
   const dataChunks: IAllInspirationsResponse[][] = splitArrayToChunks(data);
 
   return (
-    <div className="flex flex-col gap-2 px-4">
+    <div className={`flex flex-col gap-2 ${padding ? 'px-4' : ''}`}>
       {data.length === 0 ? (
         <EmptySection message="There are currently no inspirations..." />
       ) : (

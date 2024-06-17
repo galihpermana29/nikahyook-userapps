@@ -52,6 +52,7 @@ function DashboardTabs({ defaultTab }: { defaultTab: string }) {
         items={items}
         tabBarStyle={{ backgroundColor: colorBgContainer }}
         onChange={handleTabChange}
+        centered
       />
     </ErrorBoundary>
   );

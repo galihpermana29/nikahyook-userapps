@@ -39,7 +39,7 @@ const DashboardTabHeader = ({
 const DashboardTabContent = ({ activeTab, tabs }: IDashboardTab) => {
   const activeTabContent = tabs.find((tab) => tab.key === activeTab)?.content;
 
-  return <div className="p-4 mb-[54px]">{activeTabContent}</div>;
+  return <div className="px-4 mb-[80px]">{activeTabContent}</div>;
 };
 
 export { DashboardTabHeader, DashboardTabContent };

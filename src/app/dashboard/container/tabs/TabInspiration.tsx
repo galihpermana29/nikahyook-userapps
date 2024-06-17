@@ -13,7 +13,9 @@ const TabInspiration = () => {
   });
 
   if (isLoading) {
-    return <InspirationGrid data={[...Array(4)]} animated />;
+    return (
+      <InspirationGrid data={[...Array(4)]} animated />
+    )
   }
 
   if (typeof data === 'string') {
@@ -31,6 +33,7 @@ const TabInspiration = () => {
       data={inspirationData.inspirations}
       refetchFn={refetch}
       wishlisted={true}
+      padding={false}
     />
   );
 };
