@@ -1,11 +1,11 @@
-import formatToRupiah from '@/shared/usecase/formatToRupiah';
-import { Rate } from 'antd';
-import Image from 'next/image';
-import { redirect } from 'next/navigation';
-import { WishListButton } from '../Button/WishListButton';
 import { LocationIcon } from '../Icon/LocationIcon';
-import { StarIcon } from '../Icon/StarIcon';
 import { NikahyookLogoIcon } from '../Icon/NikahyookLogoIcon';
+import { Rate } from 'antd';
+import { StarIcon } from '../Icon/StarIcon';
+import { useRouter } from 'next/navigation';
+import { WishListButton } from '../Button/WishListButton';
+import formatToRupiah from '@/shared/usecase/formatToRupiah';
+import Image from 'next/image';
 import validateUrl from '@/shared/usecase/validateUrl';
 
 interface IVendorCard {
@@ -52,9 +52,11 @@ export const VendorCard = ({
     );
   }
 
+  const router = useRouter();
+
   return (
     <div
-      onClick={() => redirect(navigateTo)}
+      onClick={() => router.push(navigateTo)}
       className="shadow-md cursor-pointer flex flex-col gap-[6px] bg-white rounded-lg w-full p-2 text-caption-2 hover:bg-ny-gray-100/25 transition-colors duration-150">
       <div className="flex gap-2 items-center">
         <div className="min-w-[50px] min-h-[50px] relative overflow-hidden rounded-md bg-ny-gray-100 aspect-square flex justify-center items-center">
