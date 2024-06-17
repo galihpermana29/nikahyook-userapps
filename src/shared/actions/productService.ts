@@ -303,3 +303,26 @@ export async function getAllTags(
 
   return { success: true, data };
 }
+
+export async function getAllWishlist(
+  type: TWishlist
+): Promise<IFetchGeneralResponse<IFetchGeneralSuccessResponse<any | string>>> {
+  const sessionData = await getServerSession();
+  const res = await fetch(
+    baseURL + `/wishlists/${sessionData.user_id}/${type}s`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${sessionData.token}`,
+      },
+    }
+  );
+
+  if (!res.ok) {
+    return errorHandling(res);
+  }
+
+  const data = await res.json();
+
+  return { success: true, data };
+}

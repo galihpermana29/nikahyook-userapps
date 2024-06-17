@@ -1,4 +1,9 @@
-import { IFullLocation, ILocation, IVendorDetail } from './generalInterfaces';
+import {
+  IFullLocation,
+  IGeneralWishlistResponse,
+  ILocation,
+  IVendorDetail,
+} from './generalInterfaces';
 
 export interface ILoginResponseRoot {
   user_id: string;
@@ -72,4 +77,19 @@ export interface IUserDetailData {
   wedding_date?: string;
   vendor_type_id?: string;
   vendor_type_name?: string;
+}
+
+export interface IVendorWishlist {
+  id: string;
+  name: string;
+  location: IFullLocation;
+  type: string;
+  image: string;
+  lowest_price: number;
+  avg_rating: number;
+  json_text: string;
+}
+
+export interface IAllVendorWishlistResponse extends IGeneralWishlistResponse {
+  vendors: IVendorWishlist[];
 }
