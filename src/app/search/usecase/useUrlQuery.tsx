@@ -14,7 +14,7 @@ function useUrlQuery() {
   const keyword = searchParams.get('keyword') ?? undefined;
   const min_price = searchParams.get('min_price') ?? undefined;
   const max_price = searchParams.get('max_price') ?? undefined;
-  const product_type = searchParams.get('product_type') ?? undefined;
+  const product_type = searchParams.get('product_type_id') ?? undefined;
   const vendor_type = searchParams.get('vendor_type') ?? undefined;
 
   const [urlQuery, setUrlQuery] = useState<IGeneralFilter>({

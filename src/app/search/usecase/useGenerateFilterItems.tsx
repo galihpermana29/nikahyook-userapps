@@ -26,12 +26,7 @@ function useGenerateFilterItems(form: FormInstance) {
     case 'vendor':
       return <FilterVendor />;
     case 'curatorial':
-      return (
-        <FilterCuratorial
-          minPriceRules={minPriceRules}
-          maxPriceRules={maxPriceRules}
-        />
-      );
+      return <FilterCuratorial />;
   }
 }
 

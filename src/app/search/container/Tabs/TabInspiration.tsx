@@ -31,7 +31,7 @@ function TabInspiration() {
 
   return (
     <section>
-      {data?.data && data.data.data?.length > 0 ? (
+      {data?.data && data?.data?.data?.length > 0 ? (
         <InspirationGrid data={data.data.data} refetchFn={refetch} />
       ) : (
         <NoResult />

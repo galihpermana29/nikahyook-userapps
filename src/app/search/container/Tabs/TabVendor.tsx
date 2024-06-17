@@ -29,7 +29,7 @@ function TabVendor() {
 
   return (
     <section className="px-4 flex flex-col gap-2">
-      {data?.data && data.data.data.length > 0 ? (
+      {data?.data && data?.data?.data?.length > 0 ? (
         data.data.data.map((item) => {
           return (
             <VendorCard
