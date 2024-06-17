@@ -19,7 +19,7 @@ export interface IAllProductsResponse {
   status: string;
   vendor: IVendor;
   location: IFullLocation;
-  coverage_area: ICoverageArea;
+  coverage_area: ICoverageArea[];
   is_wishlist: boolean;
 }
 
@@ -68,7 +68,7 @@ export interface IVendor {
   name: string;
   type_name: string;
   type_id: number;
-  location: string;
+  location: IFullLocation;
   lowest_price: number;
   avg_rating: number;
   image: string;

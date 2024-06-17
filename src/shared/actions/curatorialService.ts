@@ -38,6 +38,6 @@ export async function getCuratorialDetail(
       vendor_detail: vendor.json_text ? JSON.parse(vendor.json_text) : {},
     }));
   }
-
+  
   return { success: true, data };
 }
