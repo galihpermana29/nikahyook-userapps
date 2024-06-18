@@ -30,7 +30,7 @@ export default function ProfilePage() {
 
         <div className="flex flex-col gap-3 w-full">
           <ProfileNavigationButton
-            href="/change-password"
+            href="/profile/change-password"
             label="Change Password"
           />
 

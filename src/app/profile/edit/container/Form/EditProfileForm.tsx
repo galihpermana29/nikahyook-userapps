@@ -35,7 +35,7 @@ export default function EditProfileForm() {
             { required: true, message: 'Please enter your email!' },
             { type: 'email', message: 'Please enter a valid email!' },
           ]}>
-          <Input placeholder="Enter your email here!" />
+          <Input disabled placeholder="Enter your email here!" />
         </FormItem>
 
         <FormItem
@@ -46,7 +46,7 @@ export default function EditProfileForm() {
           rules={[
             { required: true, message: 'Please enter your phone number!' },
           ]}>
-          <Input placeholder="Enter your phone number here!" />
+          <Input type="number" placeholder="Enter your phone number here!" />
         </FormItem>
 
         <FormItem

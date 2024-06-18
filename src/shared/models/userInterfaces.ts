@@ -90,3 +90,9 @@ export interface IUserJSONDetail {
   plan_for: string | null;
   wedding_theme: string | null;
 }
+
+export interface IChangePasswordPayloadRoot {
+  user_id: string;
+  old_password: string;
+  new_password: string;
+}

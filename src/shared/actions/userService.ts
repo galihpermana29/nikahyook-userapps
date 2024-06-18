@@ -10,6 +10,7 @@ import {
   IAllUserResponse,
   ILoginPayloadRoot,
   ILoginResponseRoot,
+  type IChangePasswordPayloadRoot,
   type IEditProfileInputRoot,
   type IUserDetailData,
 } from '@/shared/models/userInterfaces';
@@ -183,6 +184,48 @@ export async function login(
   await setSessions({ ...loginData.data, user_detail: userDetail.data });
 
   return { success: true, data: loginData.data };
+}
+
+export async function editPassword(payload: IChangePasswordPayloadRoot) {
+  const session = await getServerSession();
+  const loginRes = await login({
+    email: session.email,
+    password: payload.old_password,
+  });
+
+  if (!loginRes.success) {
+    // this is to give error that makes sense
+    // if we dont do this, its just gonna return error 500: something went wrong
+    // and not 'old password is invalid` etc.
+    // it can also be used to renew user cookie
+    if (loginRes.data === 'INVALID_PASSWORD') {
+      return { success: false, data: 'Your old password is wrong!' };
+    }
+
+    return { success: false, data: loginRes.data };
+  }
+
+  const newPayload = {
+    user_id: session.user_id,
+    old_password: payload.old_password,
+    new_password: payload.new_password,
+  } as IChangePasswordPayloadRoot;
+
+  const res = await fetch(baseURL + '/users/password', {
+    method: 'PATCH',
+    body: JSON.stringify(newPayload),
+    headers: {
+      Authorization: `Bearer ${session.token}`,
+    },
+  });
+
+  if (!res.ok) {
+    return errorHandling(res);
+  }
+
+  const data = await res.json();
+
+  return { success: true, data };
 }
 
 export async function getAllUsers(
