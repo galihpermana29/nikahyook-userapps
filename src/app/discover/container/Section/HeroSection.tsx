@@ -36,7 +36,7 @@ export const HeroSection = async () => {
             <div className="w-6 h-6 bg-ny-gray-100 rounded-lg border border-white relative overflow-hidden">
               <Image
                 src={
-                  sessionData.profile_picture_uri ??
+                  sessionData.user_detail.profile_image_uri ??
                   '/assets/default-profile-picture.jpg'
                 }
                 alt="Profile Picture"

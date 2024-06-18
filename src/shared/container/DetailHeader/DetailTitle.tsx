@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from 'antd';
 import { LetfArrowIcon } from '../Icon/LeftArrow';
 import React from 'react';
