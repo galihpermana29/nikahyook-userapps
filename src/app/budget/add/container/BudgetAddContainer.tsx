@@ -37,12 +37,12 @@ function BudgetAddContainer() {
           rules={[{ required: true, message: 'Category is required!' }]}>
           <Select placeholder="Choose budget allocation category" />
         </Form.Item>
-
-        <FormButtonGroup
-          onCancel={() => addBudgetForm.resetFields()}
-          onSubmit={() => {}}
-        />
       </Form>
+
+      <FormButtonGroup
+        onCancel={() => addBudgetForm.resetFields()}
+        onSubmit={() => {}}
+      />
     </main>
   );
 }

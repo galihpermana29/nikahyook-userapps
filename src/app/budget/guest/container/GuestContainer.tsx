@@ -16,12 +16,12 @@ function GuestContainer() {
           rules={[{ required: true, message: 'Target guest is required!' }]}>
           <Input placeholder="Enter your target guest attending number" />
         </Form.Item>
-
-        <FormButtonGroup
-          onCancel={() => guestForm.resetFields()}
-          onSubmit={() => {}}
-        />
       </Form>
+
+      <FormButtonGroup
+        onCancel={() => guestForm.resetFields()}
+        onSubmit={() => {}}
+      />
     </main>
   );
 }
