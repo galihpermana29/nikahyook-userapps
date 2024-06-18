@@ -9,6 +9,9 @@ function useFilterAction(form: FormInstance) {
   const pathname = usePathname();
 
   const onApplyFilter = (val: any) => {
+    if (val['province-select']) val['province-select'] = undefined;
+    if (val?.location) val.location = val.location.value;
+
     const filteredVal = removeUndefinedObjectValue(val);
     const existingParams = Object.fromEntries(searchParams.entries());
 
@@ -31,9 +34,11 @@ function useFilterAction(form: FormInstance) {
   const onResetFilter = () => {
     form.setFieldValue('min_price', undefined);
     form.setFieldValue('max_price', undefined);
-    form.setFieldValue('product_type', undefined);
-    form.setFieldValue('vendor_type', undefined);
+    form.setFieldValue('product_type_id', undefined);
+    form.setFieldValue('vendor_type_id', undefined);
     form.setFieldValue('location', undefined);
+    form.setFieldValue('tags', undefined);
+    form.setFieldValue('province-select', undefined);
   };
 
   return { onApplyFilter, onResetFilter };

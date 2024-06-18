@@ -1,4 +1,8 @@
-import { IVendorDetail } from './generalInterfaces';
+import { 
+  IGeneralWishlistResponse, 
+  IFullLocation, 
+  IVendorDetail 
+} from './generalInterfaces';
 
 export interface IAllCuratorialResponseRoot {
   id: number;
@@ -12,21 +16,23 @@ export interface IAllCuratorialResponseRoot {
   products: IProduct[];
   vendor: IVendor[];
   inspirations: IInspiration[];
+  is_wishlist: boolean;
 }
 
 export interface IProduct {
   id: number;
   title: string;
   price: number;
-  location: string;
+  location: IFullLocation;
   rating: number;
   images: string[];
+  is_wishlist: boolean;
 }
 
 export interface IVendor {
   id: string;
   name: string;
-  location: string;
+  location: IFullLocation;
   type: string;
   image: string;
   lowest_price: number;
@@ -39,4 +45,9 @@ export interface IInspiration {
   id: number;
   name: string;
   image: string;
+}
+
+export interface IAllCuratorialWishlistResponse
+  extends IGeneralWishlistResponse {
+  curatorials: IAllCuratorialResponseRoot[];
 }

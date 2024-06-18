@@ -276,6 +276,6 @@ export async function getUserDetail(
       ? JSON.parse(data.data.detail.json_text)
       : {};
   }
-
+  
   return { success: true, data };
 }

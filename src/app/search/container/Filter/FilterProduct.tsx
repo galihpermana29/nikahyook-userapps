@@ -1,7 +1,15 @@
-import { getAllProductTypes } from '@/shared/actions/productService';
-import { Form, Input, Select } from 'antd';
+import {
+  getAllProductTypes,
+  getAllTags,
+} from '@/shared/actions/productService';
+import LocationFormItem from '@/shared/container/Location/LocationFormItem';
+import LocationFormItemLoading from '@/shared/container/Location/LocationFormItemLoading';
+import useLocationInputValidator from '@/shared/usecase/useLocationInputValidator';
+import { Form, InputNumber, Select } from 'antd';
 import { Rule } from 'antd/es/form';
+import useFormInstance from 'antd/es/form/hooks/useFormInstance';
 import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 import { useQuery } from 'react-query';
 
 interface IFilterProduct {
@@ -14,8 +22,16 @@ function FilterProduct({
   maxPriceRules = [],
 }: IFilterProduct) {
   const searchParams = useSearchParams();
+  const form = useFormInstance();
 
-  const product_type = searchParams.get('product_type') ?? undefined;
+  const { cityValidator } = useLocationInputValidator(form);
+
+  const product_type = searchParams.get('product_type_id') ?? undefined;
+  const tags =
+    searchParams
+      .get('tags')
+      ?.split(',')
+      .map((id) => parseInt(id)) ?? undefined;
   const min_price = searchParams.get('min_price') ?? undefined;
   const max_price = searchParams.get('max_price') ?? undefined;
 
@@ -27,8 +43,18 @@ function FilterProduct({
       }),
   });
 
+  const { data: queryTags } = useQuery({
+    queryKey: ['get-tags'],
+    queryFn: () =>
+      getAllTags({
+        status: 'active',
+      }),
+  });
+
   if (typeof queryProductTypes?.data === 'string') {
     throw Error(queryProductTypes.data);
+  } else if (typeof queryTags?.data === 'string') {
+    throw Error(queryTags.data);
   }
 
   const productTypeOptions = queryProductTypes?.data.data.map(
@@ -40,10 +66,17 @@ function FilterProduct({
     }
   );
 
+  const tagOptions = queryTags?.data.data.map(({ name, id }) => {
+    return {
+      label: name,
+      value: id,
+    };
+  });
+
   return (
     <>
       <Form.Item
-        name={'product_type'}
+        name={'product_type_id'}
         label="Product Type"
         initialValue={product_type && parseInt(product_type)}
         className="my-[10px]">
@@ -53,17 +86,52 @@ function FilterProduct({
           options={productTypeOptions}
         />
       </Form.Item>
-      <Form.Item name={'location'} label="Location" className="my-[10px]">
-        <Select className="h-[35px]" placeholder="Choose location" />
+      <Form.Item
+        name={'tags'}
+        label="Tag"
+        initialValue={tags}
+        className="my-[10px]">
+        <Select
+          className="h-[35px]"
+          placeholder="Choose tag"
+          mode="multiple"
+          maxTagCount={2}
+          options={tagOptions}
+        />
       </Form.Item>
+      <Suspense fallback={<LocationFormItemLoading showCity />}>
+        <LocationFormItem
+          locationFieldName="location"
+          containerProps={{ className: 'w-full flex flex-col gap-3' }}
+          provinceProps={{ placeholder: 'Choose location' }}
+          cityProps={{ placeholder: 'Choose city' }}
+          formItemRules={{
+            province: [{ required: false }],
+            city: [
+              { required: false },
+              {
+                validator: cityValidator,
+              },
+            ],
+          }}
+          showCity
+        />
+      </Suspense>
       <Form.Item
         name={'min_price'}
         label="Min Price"
         initialValue={min_price}
         className="my-[10px]"
         rules={minPriceRules}>
-        <Input
+        <InputNumber<number>
           placeholder="Add min price"
+          className="w-full"
+          formatter={(value) =>
+            `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+          }
+          parser={(value) =>
+            value?.replace(/IDR\s?|\.\s?|/g, '') as unknown as number
+          }
           prefix={<div className="border-r pr-2 mr-2">IDR</div>}
         />
       </Form.Item>
@@ -73,8 +141,15 @@ function FilterProduct({
         initialValue={max_price}
         className="my-[10px]"
         rules={maxPriceRules}>
-        <Input
+        <InputNumber<number>
           placeholder="Add max price"
+          className="w-full"
+          formatter={(value) =>
+            `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+          }
+          parser={(value) =>
+            value?.replace(/IDR\s?|\.\s?|/g, '') as unknown as number
+          }
           prefix={<div className="border-r pr-2 mr-2">IDR</div>}
         />
       </Form.Item>
