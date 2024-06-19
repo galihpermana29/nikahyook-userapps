@@ -1,19 +1,24 @@
 'use client';
 
-import FormItem from 'antd/es/form/FormItem';
-import { type SelectProps } from 'antd';
-import useMounted from '@/shared/usecase/useMounted';
-import { useState } from 'react';
-import dynamic from 'next/dynamic';
-import ClientSelectLocationCities from '../Select/ClientSelectLocationCities';
-import LocationFormItemLoading from './LocationFormItemLoading';
 import generateUUID from '@/shared/usecase/generateUUID';
+import useMounted from '@/shared/usecase/useMounted';
+import { type SelectProps } from 'antd';
+import { FormInstance, Rule } from 'antd/es/form';
+import FormItem from 'antd/es/form/FormItem';
 import useFormInstance from 'antd/es/form/hooks/useFormInstance';
+import dynamic from 'next/dynamic';
+import { useState } from 'react';
+import LocationFormItemLoading from './LocationFormItemLoading';
+import type { IOptionsParams } from '@/shared/models/generalInterfaces';
 import type { DefaultOptionType } from 'antd/es/select';
 
 // only import components when it will be shown
+
 const ClientSelectLocationProvinces = dynamic(
   () => import('../Select/ClientSelectLocationProvinces')
+);
+const ClientSelectLocationCities = dynamic(
+  () => import('../Select/ClientSelectLocationCities')
 );
 const ClientSelectLocationDistricts = dynamic(
   () => import('../Select/ClientSelectLocationDistricts')
@@ -21,6 +26,13 @@ const ClientSelectLocationDistricts = dynamic(
 const ClientSelectLocationVillages = dynamic(
   () => import('../Select/ClientSelectLocationVillages')
 );
+
+interface ILocationFormItemRules {
+  province?: Rule[];
+  city?: Rule[];
+  district?: Rule[];
+  village?: Rule[];
+}
 
 type TLocationFormItemProps = {
   containerProps?: React.HTMLAttributes<HTMLDivElement>;
@@ -32,6 +44,15 @@ type TLocationFormItemProps = {
   districtProps?: SelectProps;
   showVillage?: boolean;
   villageProps?: SelectProps;
+  formItemRules?: ILocationFormItemRules;
+  formInstance?: FormInstance;
+};
+
+const defaultRules: ILocationFormItemRules = {
+  province: [{ required: true, message: 'Please enter your province!' }],
+  city: [{ required: true, message: 'Please enter your city!' }],
+  district: [{ required: true, message: 'Please enter your district!' }],
+  village: [{ required: true, message: 'Please enter your village!' }],
 };
 
 export default function LocationFormItem({
@@ -44,15 +65,71 @@ export default function LocationFormItem({
   districtProps,
   showVillage,
   villageProps,
+  formInstance,
+  formItemRules = {},
 }: TLocationFormItemProps) {
   const mounted = useMounted();
-  const form = useFormInstance();
-  const [selected, setSelected] = useState({
-    province: undefined,
-    city: undefined,
-    district: undefined,
-    village: undefined,
-  });
+  const form = formInstance ?? useFormInstance();
+  const [selected, setSelected] = useState(getInitialState());
+
+  function getInitialState() {
+    const initialFormValue = form.getFieldValue('location') as
+      | IOptionsParams<string, string>
+      | undefined;
+
+    if (!initialFormValue)
+      return {
+        province: undefined,
+        city: undefined,
+        district: undefined,
+        village: undefined,
+      };
+
+    const values = initialFormValue.value;
+
+    switch (values.length) {
+      case 2:
+        return {
+          province: values,
+          city: undefined,
+          district: undefined,
+          village: undefined,
+        };
+      case 4:
+        return {
+          province: values.slice(0, 2),
+          city: values.slice(2),
+          district: undefined,
+          village: undefined,
+        };
+      case 7:
+        return {
+          province: values.slice(0, 2),
+          city: values.slice(2, 4),
+          district: values.slice(4),
+          village: undefined,
+        };
+      case 10:
+        return {
+          province: values.slice(0, 2),
+          city: values.slice(2, 4),
+          district: values.slice(4, 7),
+          village: values.slice(7),
+        };
+      default:
+        return {
+          province: undefined,
+          city: undefined,
+          district: undefined,
+          village: undefined,
+        };
+    }
+  }
+
+  const rules: ILocationFormItemRules = {
+    ...defaultRules,
+    ...formItemRules,
+  };
 
   // field name conditionals, the last element shown will have "name"
   // as "name" = locationFieldName in the form
@@ -71,27 +148,27 @@ export default function LocationFormItem({
 
   const villageItemName = showVillage ? locationFieldName : 'village-select';
 
+  // INFO: field name order matters
+  // this maps form name to key name in selected state
+  const selectStateMap = {
+    [provinceItemName]: 'province' as const,
+    [cityItemName]: 'city' as const,
+    [districtItemName]: 'district' as const,
+    [villageItemName]: 'village' as const,
+  };
+
   function handleValueChange(
     changedField: string,
     value: string,
     option: DefaultOptionType
   ) {
-    // INFO: field name order matters
-    // this maps form name to key name in selected state
-    const selectStateMap = {
-      [provinceItemName]: 'province' as const,
-      [cityItemName]: 'city' as const,
-      [districtItemName]: 'district' as const,
-      [villageItemName]: 'village' as const,
-    };
-
     // get only the field name as an array
     const fieldNames = Object.keys(selectStateMap);
 
     // get the index of the field that changed
-    const changedIndex = fieldNames.findIndex((fieldName) => {
-      return fieldName === changedField;
-    });
+    const changedIndex = fieldNames.findIndex(
+      (fieldName) => fieldName === changedField
+    );
 
     // get the fields name that will have to reset its value
     const fieldsToReset = fieldNames.slice(changedIndex + 1);
@@ -132,10 +209,9 @@ export default function LocationFormItem({
       {/* always show province as fist select */}
       <FormItem
         className="my-0"
-        required
-        label="Province"
+        label={selected['province'] ? 'Province' : 'Location'}
         name={provinceItemName}
-        rules={[{ required: true, message: 'Please enter your province!' }]}>
+        rules={rules.province}>
         <ClientSelectLocationProvinces
           onChange={(value, option) =>
             handleValueChange(provinceItemName, value, option)
@@ -148,10 +224,9 @@ export default function LocationFormItem({
       {selected['province'] && showCity ? (
         <FormItem
           className="my-0"
-          required
           label="City"
           name={cityItemName}
-          rules={[{ required: true, message: 'Please enter your city!' }]}>
+          rules={rules.city}>
           <ClientSelectLocationCities
             key={selected['province'] + generateUUID()}
             onChange={(value, option) =>
@@ -167,10 +242,9 @@ export default function LocationFormItem({
       {selected['city'] && showDistrict ? (
         <FormItem
           className="my-0"
-          required
           label="District"
           name={districtItemName}
-          rules={[{ required: true, message: 'Please enter your district!' }]}>
+          rules={rules.district}>
           <ClientSelectLocationDistricts
             key={selected['city'] + generateUUID()}
             onChange={(value, option) =>
@@ -186,10 +260,9 @@ export default function LocationFormItem({
       {selected['district'] && showVillage ? (
         <FormItem
           className="my-0"
-          required
           label="Village"
           name={villageItemName}
-          rules={[{ required: true, message: 'Please enter your village!' }]}>
+          rules={rules.village}>
           <ClientSelectLocationVillages
             key={selected['district'] + generateUUID()}
             onChange={(value, option) =>

@@ -1,6 +1,7 @@
 import {
   ICoverageArea,
   IFullLocation,
+  IGeneralWishlistResponse,
   IVendorDetail,
 } from './generalInterfaces';
 
@@ -74,6 +75,15 @@ export interface IVendor {
   json_text: string;
   vendor_detail: IVendorDetail;
   is_wishlist: boolean;
+}
+
+export interface IAllProductWhislistResponse extends IGeneralWishlistResponse {
+  products: IAllProductsResponse[];
+}
+
+export interface IAllInspirationsWishlistResponse
+  extends IGeneralWishlistResponse {
+  inspirations: IAllInspirationsResponse[];
 }
 
 export type TWishlist = 'inspiration' | 'product' | 'vendor' | 'curatorial';

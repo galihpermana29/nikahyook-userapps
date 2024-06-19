@@ -1,9 +1,9 @@
-import { getAllCuratorials } from '@/shared/actions/productService';
 import { CuratorCard } from '@/shared/container/Card/CuratorCard';
+import { getAllCuratorials } from '@/shared/actions/productService';
 import { useQuery } from 'react-query';
-import SkeletonVerticalCards from '../Skeleton/SkeletonVerticalCards';
 import { useSearchParams } from 'next/navigation';
-import NoResult from '../NoResult/NoResult';
+import NoResult from '@/shared/container/NoResult/NoResult';
+import SkeletonVerticalCards from '@/shared/container/Skeleton/SkeletonVerticalCards';
 
 function TabCuratorial() {
   const searchParams = useSearchParams();
@@ -30,7 +30,7 @@ function TabCuratorial() {
 
   return (
     <section className="px-4 grid grid-cols-2 sm:grid-cols-3 gap-2">
-      {data?.data && data.data.data.length > 0 ? (
+      {data?.data && data?.data?.data?.length > 0 ? (
         data.data.data.map((item) => {
           return (
             <CuratorCard

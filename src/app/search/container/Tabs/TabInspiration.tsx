@@ -2,9 +2,9 @@
 
 import { getAllInspirations } from '@/shared/actions/productService';
 import { InspirationGrid } from '@/shared/container/Grid/InspirationGrid';
-import { useSearchParams } from 'next/navigation';
 import { useQuery } from 'react-query';
-import NoResult from '../NoResult/NoResult';
+import { useSearchParams } from 'next/navigation';
+import NoResult from '@/shared/container/NoResult/NoResult';
 
 function TabInspiration() {
   const searchParams = useSearchParams();
@@ -31,7 +31,7 @@ function TabInspiration() {
 
   return (
     <section>
-      {data?.data && data.data.data?.length > 0 ? (
+      {data?.data && data?.data?.data?.length > 0 ? (
         <InspirationGrid data={data.data.data} refetchFn={refetch} />
       ) : (
         <NoResult />

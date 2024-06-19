@@ -1,34 +1,36 @@
 import FilterIcon from '@/shared/container/Icon/FilterIcon';
 import { LetfArrowIcon } from '@/shared/container/Icon/LeftArrow';
 import { SearchIcon } from '@/shared/container/Icon/SearchIcon';
+import { IGeneralFilter } from '@/shared/models/generalInterfaces';
 import { Button, Form, Input, Popover } from 'antd';
-import { useForm } from 'antd/es/form/Form';
+import { FormInstance } from 'antd/es/form/Form';
 import Link from 'next/link';
 import { Dispatch, SetStateAction } from 'react';
 import useFilterAction from '../../usecase/useFilterAction';
 import useGenerateFilterItems from '../../usecase/useGenerateFilterItems';
-import { IGeneralFilter } from '@/shared/models/generalInterfaces';
 
 interface IHeaderDiscover {
   inputPlaceholder: string;
   inputDefaultValue: string;
   onSearchChange: Dispatch<SetStateAction<IGeneralFilter>>;
+  searchForm: FormInstance;
+  filterForm: FormInstance;
 }
 
 function HeaderDiscover({
   inputDefaultValue,
   inputPlaceholder,
   onSearchChange,
+  searchForm,
+  filterForm,
 }: IHeaderDiscover) {
-  const [form] = useForm();
+  const filterItems = useGenerateFilterItems(filterForm);
 
-  const filterItems = useGenerateFilterItems(form);
-
-  const { onApplyFilter, onResetFilter } = useFilterAction(form);
+  const { onApplyFilter, onResetFilter } = useFilterAction(filterForm);
 
   const filterContent = (
     <Form
-      form={form}
+      form={filterForm}
       layout="vertical"
       className="min-w-[200px] flex flex-col divide-y gap-1"
       onFinish={onApplyFilter}>
@@ -56,16 +58,23 @@ function HeaderDiscover({
           className="hover:bg-ny-gray-100/30 transition-colors duration-150 rounded-lg">
           <LetfArrowIcon className="shrink-0" />
         </Link>
-        <Input
-          placeholder={`Search ${inputPlaceholder}`}
-          prefix={<SearchIcon />}
-          className="py-2 rounded-lg"
-          autoFocus
-          defaultValue={inputDefaultValue}
-          onChange={(e) => {
-            onSearchChange((prev) => ({ ...prev, keyword: e.target.value }));
-          }}
-        />
+        <Form form={searchForm} className="w-full">
+          <Form.Item name={'keyword'} className="w-full !m-0">
+            <Input
+              placeholder={`Search ${inputPlaceholder}`}
+              prefix={<SearchIcon />}
+              className="py-2 rounded-lg"
+              autoFocus
+              defaultValue={inputDefaultValue}
+              onChange={(e) => {
+                onSearchChange((prev) => ({
+                  ...prev,
+                  keyword: e.target.value,
+                }));
+              }}
+            />
+          </Form.Item>
+        </Form>
         <Popover
           content={filterContent}
           trigger="click"
