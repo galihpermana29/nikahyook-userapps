@@ -13,12 +13,14 @@ function BudgetAddContainer() {
         <Form.Item
           name={'name'}
           label="Name"
+          className="mb-3"
           rules={[{ required: true, message: 'Name is required!' }]}>
           <Input placeholder="Enter budget name" />
         </Form.Item>
         <Form.Item
           name={'price'}
           label="Nominal"
+          className="mb-3"
           rules={[{ required: true, message: 'Nominal is required!' }]}>
           <InputNumber
             placeholder="Enter the price of the budget"
@@ -34,6 +36,7 @@ function BudgetAddContainer() {
         <Form.Item
           name={'category'}
           label="Category"
+          className="mb-3"
           rules={[{ required: true, message: 'Category is required!' }]}>
           <Select placeholder="Choose budget allocation category" />
         </Form.Item>
@@ -41,7 +44,7 @@ function BudgetAddContainer() {
 
       <FormButtonGroup
         onCancel={() => addBudgetForm.resetFields()}
-        onSubmit={() => {}}
+        onSubmit={() => addBudgetForm.submit()}
       />
     </main>
   );

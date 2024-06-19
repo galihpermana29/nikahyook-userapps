@@ -11,7 +11,7 @@ const dummyDataset: ChartDataset<'doughnut', number[]>[] = [
   },
 ];
 
-function SecionBudgetAllocation() {
+function SectionBudgetAllocation() {
   ChartJS.register(ArcElement, Tooltip);
 
   return (
@@ -90,4 +90,4 @@ function SecionBudgetAllocation() {
   );
 }
 
-export default SecionBudgetAllocation;
+export default SectionBudgetAllocation;

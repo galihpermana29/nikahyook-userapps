@@ -20,7 +20,7 @@ function GuestContainer() {
 
       <FormButtonGroup
         onCancel={() => guestForm.resetFields()}
-        onSubmit={() => {}}
+        onSubmit={() => guestForm.submit()}
       />
     </main>
   );
