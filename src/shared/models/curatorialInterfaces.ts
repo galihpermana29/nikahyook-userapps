@@ -39,6 +39,7 @@ export interface IVendor {
   avg_rating: number;
   json_text: string;
   vendor_detail: IVendorDetail;
+  is_wishlist: boolean;
 }
 
 export interface IInspiration {
