@@ -138,6 +138,7 @@ const CuratorialDetailContainer = ({
                   location={vendor.location.city.label}
                   profile_picture_uri={vendor.image}
                   images={vendor.vendor_detail.vendor_album}
+                  isInWishlist={vendor.is_wishlist}
                 />
               </div>
             ))}

@@ -73,6 +73,7 @@ export interface IVendor {
   image: string;
   json_text: string;
   vendor_detail: IVendorDetail;
+  is_wishlist: boolean;
 }
 
 export type TWishlist = 'inspiration' | 'product' | 'vendor' | 'curatorial';
