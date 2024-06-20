@@ -9,8 +9,8 @@ export default function ColorfulBackgroundCard(
   return (
     <div
       {...props}
-      className={`relative [background:linear-gradient(90deg,_#ffc8ca,_#feebec)] shadow-[0px_0px_4px_rgba(0,_0,_0,_0.05)_inset] ${props.className}`}>
-      {props.children}
+      className={`relative [background:linear-gradient(90deg,_#ffc8ca,_#feebec)] shadow-[0px_0px_4px_rgba(0,_0,_0,_0.05)_inset] overflow-hidden ${props.className}`}>
+      <div className="z-[1] relative">{props.children}</div>
 
       {/* Background shapes */}
       <Image
