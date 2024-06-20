@@ -97,6 +97,7 @@ const ProductDetailContainer = ({
             location={product.vendor.location.city.label}
             profile_picture_uri={product.vendor.image}
             images={product.vendor.vendor_detail.vendor_album}
+            isInWishlist={product.vendor.is_wishlist}
           />
         </section>
         <ReviewSection

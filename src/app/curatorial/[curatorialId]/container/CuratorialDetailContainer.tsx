@@ -130,7 +130,7 @@ const CuratorialDetailContainer = ({
               <div key={vendor.id}>
                 <VendorCard
                   id={vendor.id}
-                  navigateTo="/"
+                  navigateTo={`/vendor/${vendor.id}`}
                   vendor_name={vendor.name}
                   product_type_name={vendor.type}
                   price={vendor.lowest_price}
@@ -138,6 +138,7 @@ const CuratorialDetailContainer = ({
                   location={vendor.location.city.label}
                   profile_picture_uri={vendor.image}
                   images={vendor.vendor_detail.vendor_album}
+                  isInWishlist={vendor.is_wishlist}
                 />
               </div>
             ))}

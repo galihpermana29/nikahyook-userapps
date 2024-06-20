@@ -74,6 +74,7 @@ export interface IVendor {
   image: string;
   json_text: string;
   vendor_detail: IVendorDetail;
+  is_wishlist: boolean;
 }
 
 export interface IAllProductWhislistResponse extends IGeneralWishlistResponse {
