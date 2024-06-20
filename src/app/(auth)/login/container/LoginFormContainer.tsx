@@ -1,7 +1,7 @@
 'use client';
 
 import { login } from '@/shared/actions/userService';
-import type { ILoginPayloadRoot } from '@/shared/models/userInterfaces';
+import type { ILoginPayloadRoot } from '@/shared/models/authInterfaces';
 import { clientSideReactQueryErrorDetection } from '@/shared/usecase/errorHandling';
 import { Form, message, type FormProps } from 'antd';
 import { useRouter } from 'next/navigation';
