@@ -1,15 +1,17 @@
 'use client';
 
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import { CartIcon } from '@/shared/container/Icon/CartIcon';
+import { createCart } from '@/shared/actions/productService';
 import { IAllProductsResponse } from '@/shared/models/productInterfaces';
 import { IReview } from '@/shared/models/generalInterfaces';
 import { MessageIcon } from '@/shared/container/Icon/MessageIcon';
 import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
 import { SwiperSlide } from 'swiper/react';
+import { useMutation } from 'react-query';
 import { VendorCard } from '@/shared/container/Card/VendorCard';
+import BottomBar from '@/shared/container/BottomBar/BottomBar';
 import CoverageAreaSection from './section/CoverageAreaSection';
-import DetailFooter from '@/shared/container/DetailFooter/DetailFooter';
 import DetailHeader from '@/shared/container/DetailHeader/DetailHeader';
 import DetailInfoSection from '@/shared/container/Section/DetailInfoSection';
 import Image from 'next/image';
@@ -41,13 +43,31 @@ const ProductDetailContainer = ({
     },
   ];
 
+  const { mutate: mutateAddToCart, isLoading } = useMutation({
+    mutationFn: createCart,
+    onSuccess: (data) => {
+      if (data?.success) {
+        message.success('Product added to cart successfully!');
+      } else {
+        message.error('Product failed to be added to cart!');
+      }
+    },
+    onError: (error: string | Error) => {
+      if (error instanceof Error) {
+        message.error(error.message);
+      } else {
+        message.error(error as string);
+      }
+    },
+  });
+
   return (
     <div>
       <DetailHeader
         title={product.title}
         header_image_url={product.images[0]}
         target_id={product.id}
-        wishlist_type='product'
+        wishlist_type="product"
         isWishlisted={product.is_wishlist}
       />
       <div className="space-y-5 mb-[64px]">
@@ -106,7 +126,7 @@ const ProductDetailContainer = ({
           reviews={reviewMockData}
         />
       </div>
-      <DetailFooter>
+      <BottomBar>
         <div className="flex items-center gap-2">
           <Button
             icon={<MessageIcon />}
@@ -117,11 +137,13 @@ const ProductDetailContainer = ({
           <Button
             icon={<CartIcon />}
             className="flex items-center justify-center flex-1 rounded-[8px] h-[40px] bg-ny-primary-500 text-white text-body-2"
+            onClick={() => mutateAddToCart(product.id)}
+            loading={isLoading}
           >
             Add to Cart
           </Button>
         </div>
-      </DetailFooter>
+      </BottomBar>
     </div>
   );
 };

@@ -14,8 +14,8 @@ import { SwiperSlide } from 'swiper/react';
 import { TitledSection } from '@/shared/container/Section/TitledSection';
 import { useState } from 'react';
 import { VendorCard } from '@/shared/container/Card/VendorCard';
+import BottomBar from '@/shared/container/BottomBar/BottomBar';
 import CuratorialAuthorSection from './section/CuratorialAuthorSection';
-import DetailFooter from '@/shared/container/DetailFooter/DetailFooter';
 import DetailHeader from '@/shared/container/DetailHeader/DetailHeader';
 import DetailInfoSection from '@/shared/container/Section/DetailInfoSection';
 import formatToRupiah from '@/shared/usecase/formatToRupiah';
@@ -154,14 +154,14 @@ const CuratorialDetailContainer = ({
           </p>
         </section>
       </div>
-      <DetailFooter>
+      <BottomBar>
         <Button
           icon={<LovelyIcon />}
           className="flex items-center justify-center w-full rounded-[8px] h-[40px] bg-ny-primary-500 text-white text-body-2"
         >
           Add to Plan
         </Button>
-      </DetailFooter>
+      </BottomBar>
     </div>
   );
 };

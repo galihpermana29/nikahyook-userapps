@@ -11,7 +11,9 @@ const ProductDetail = async ({ params }: { params: { productId: string } }) => {
 
   return (
     <>
-      <ProductDetailContainer product={data.data} />
+      <ProductDetailContainer
+        product={data.data}
+      />
     </>
   );
 };
