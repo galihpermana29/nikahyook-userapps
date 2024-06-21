@@ -2,8 +2,8 @@ import DetailTitle from '@/shared/container/DetailHeader/DetailTitle';
 import CustomErrorBoundary from '@/shared/container/ErrorBoundary/ErrorBoundary';
 import React, { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import OrderTabs from './container/OrderTabs';
 import TabLoading from './container/Tab/TabLoading/TabLoading';
+import OrderTabs from './container/Tab/OrderTabs';
 
 export default function OrderRootLayout({
   children,
