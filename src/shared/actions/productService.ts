@@ -17,7 +17,7 @@ import {
 } from '@/shared/models/productInterfaces';
 import { errorHandling } from '@/shared/usecase/errorHandling';
 import { getServerSession } from '../usecase/getServerSession';
-import { IAllCartResponse } from '../models/cartInterfaces';
+import { IAllCartResponse, IDeleteCartPayloadRoot, IUpdateCartPayloadRoot } from '../models/cartInterfaces';
 
 // Anything related to product
 
@@ -374,14 +374,9 @@ export async function getAllCart(): Promise<IFetchGeneralResponse<IFetchGeneralR
 
 
 export async function updateCart(
-  product_id: number,
-  quantity: number,
+  payload: IUpdateCartPayloadRoot
 ): Promise<IPostGeneralResponse<IPostGeneralSuccessResponse<any> | string>> {
   const sessionData = await getServerSession();
-  const payload = {
-    product_id: product_id,
-    quantity: quantity,
-  };
 
   const res = await fetch(baseURL + `/carts/${sessionData.user_id}`, {
     method: 'PATCH',
@@ -401,14 +396,9 @@ export async function updateCart(
 }
 
 export async function deleteCart(
-  cart_id: number,
-  product_id: number,
+  payload: IDeleteCartPayloadRoot
 ): Promise<IPostGeneralResponse<IPostGeneralSuccessResponse<any> | string>> {
   const sessionData = await getServerSession();
-  const payload = {
-    cart_id: cart_id,
-    product_id: product_id,
-  };
 
   const res = await fetch(baseURL + `/carts/${sessionData.user_id}`, {
     method: 'DELETE',

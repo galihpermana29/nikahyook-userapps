@@ -1,42 +1,75 @@
 'use client';
 
 import './style.scss';
-import { Button, 
-  Checkbox, 
-  CheckboxProps 
-} from 'antd';
+import { Button, Checkbox, CheckboxProps } from 'antd';
 import { IAllCartResponse } from '@/shared/models/cartInterfaces';
 import { MessageIcon } from '@/shared/container/Icon/MessageIcon';
 import { ReceiveIcon } from '@/shared/container/Icon/ReceiveIcon';
 import BottomBar from '@/shared/container/BottomBar/BottomBar';
 import CartItemCard from './card/CartItemCard';
 import DetailTitle from '@/shared/container/DetailHeader/DetailTitle';
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import useCheckboxState from '../usecase/useCheckboxState';
+import useMutateCart from '../usecase/useMutateCart';
 import useQuantityUpdate from '../usecase/useQuantityUpdate';
-import useMutateCart from '../repositories/useMutateCart';
 
-const CartContainer = ({ cart }: { cart: IAllCartResponse }) => {
+interface ICartContainer {
+  cart: IAllCartResponse;
+}
+
+const CartContainer = ({ cart }: ICartContainer) => {
   const [cartState, setCartState] = useState<IAllCartResponse>(cart);
-  const { checkedList, handleToggleCheckbox, handleToggleAllCheckboxes } =
-    useCheckboxState([]);
+
+  const allProductIds = useMemo(
+    () =>
+      cartState.cart_items.flatMap((item) =>
+        item.products.map((product) => product.product_id)
+      ),
+    [cartState]
+  );
+
+  const {
+    checkedList,
+    isAllChecked,
+    handleToggleCheckbox,
+    handleToggleAllCheckboxes,
+    setCheckedList,
+  } = useCheckboxState([], allProductIds);
+
   const {
     handleIncrement: handleProductIncrement,
     handleDecrement: handleProductDecrement,
   } = useQuantityUpdate(1);
-  const { updateProductQuantity, isUpdating, isDeleting } = useMutateCart({
+
+  const { 
+    updateProductQuantity, 
+    isUpdating, 
+    isDeleting 
+  } = useMutateCart({
     cartState,
     setCartState,
   });
 
-  const handleVendorCheckboxChange = (vendorId: string) => {
+  const handleVendorCheckboxChange = (vendorId: string, checked: boolean) => {
     const productsToChange = cartState.cart_items.find(
       (item) => item.vendor_id === vendorId
     )?.products;
     if (!productsToChange) return;
 
     const productIds = productsToChange.map((product) => product.product_id);
-    productIds.forEach((productId) => handleToggleCheckbox(productId));
+
+    setCheckedList((prev) => {
+      if (checked) {
+        // If checking, add only unchecked products to the list
+        const uncheckedProductIds = productIds.filter(
+          (id) => !prev.includes(id)
+        );
+        return [...prev, ...uncheckedProductIds];
+      } else {
+        // If unchecking, remove all products of this vendor from the list
+        return prev.filter((id) => !productIds.includes(id));
+      }
+    });
   };
 
   const handleIncrement = (productId: number) => {
@@ -50,11 +83,7 @@ const CartContainer = ({ cart }: { cart: IAllCartResponse }) => {
   };
 
   const handleSelectAllCheckboxChange: CheckboxProps['onChange'] = (e) => {
-    const checked = e.target.checked;
-    const allProductIds = cartState.cart_items
-      .flatMap((item) => item.products)
-      .map((product) => product.product_id);
-    handleToggleAllCheckboxes(allProductIds, checked);
+    handleToggleAllCheckboxes(allProductIds, e.target.checked);
   };
 
   return (
@@ -84,7 +113,8 @@ const CartContainer = ({ cart }: { cart: IAllCartResponse }) => {
         <div className="flex justify-between">
           <Checkbox
             className="text-caption-2 text-ny-gray-400"
-            onChange={(e) => handleSelectAllCheckboxChange(e)}
+            checked={isAllChecked}
+            onChange={handleSelectAllCheckboxChange}
           >
             Semua
           </Checkbox>

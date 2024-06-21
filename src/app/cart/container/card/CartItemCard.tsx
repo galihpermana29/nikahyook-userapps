@@ -1,9 +1,13 @@
-import React from 'react';
-import { Checkbox, CheckboxProps, InputNumber } from 'antd';
-import Image from 'next/image';
+import { 
+  Checkbox, 
+  CheckboxProps, 
+  InputNumber 
+} from 'antd';
 import { ICartProduct } from '@/shared/models/cartInterfaces';
-import formatToRupiah from '@/shared/usecase/formatToRupiah';
 import { InputNumberTrashIcon } from '@/shared/container/Icon/InputNumberTrashIcon';
+import formatToRupiah from '@/shared/usecase/formatToRupiah';
+import Image from 'next/image';
+import React from 'react';
 
 interface ICartItemCard {
   vendor_id: string;
@@ -34,12 +38,11 @@ const CartItemCard = ({
     products.some((product) => checkedList.includes(product.product_id));
 
   const handleVendorCheckboxChange: CheckboxProps['onChange'] = (e) => {
-    const checked = e.target.checked;
-    onVendorCheckboxChange(vendor_id, checked);
+    onVendorCheckboxChange(vendor_id, e.target.checked);
   };
 
   return (
-    <div className="px-2 py-3 rounded-lg shadow space-y-2">
+    <div className="px-2 py-3 rounded-lg shadow space-y-3">
       <Checkbox
         value={vendor_id}
         checked={vendorChecked}
@@ -52,7 +55,7 @@ const CartItemCard = ({
       {products.map((product) => (
         <div
           key={product.product_id}
-          className="flex items-center gap-2 w-full"
+          className="grid grid-cols-[auto,auto,1fr] gap-2 items-center"
         >
           <Checkbox
             value={product.product_id}
@@ -62,7 +65,7 @@ const CartItemCard = ({
             }
           />
 
-          <div className="min-w-[100px] min-h-[100px] relative overflow-hidden">
+          <div className="w-[100px] h-[100px] relative overflow-hidden">
             <Image
               src={product.image}
               alt={`${product.title} Image`}
@@ -70,7 +73,8 @@ const CartItemCard = ({
               fill
             />
           </div>
-          <div className="flex flex-col justify-between w-full h-full">
+
+          <div className="flex flex-col justify-between h-full">
             <p className="text-caption-2 font-medium">{product.title}</p>
             <p className="text-caption-1 font-medium text-ny-primary-500">
               {formatToRupiah(product.Price)}
@@ -80,7 +84,7 @@ const CartItemCard = ({
                 addonBefore={
                   <div
                     onClick={() => onDecrement(product.product_id)}
-                    className='cursor-pointer'
+                    className="cursor-pointer"
                   >
                     {product.quantity === 1 ? <InputNumberTrashIcon /> : '-'}
                   </div>
@@ -88,7 +92,7 @@ const CartItemCard = ({
                 addonAfter={
                   <div
                     onClick={() => onIncrement(product.product_id)}
-                    className='cursor-pointer'
+                    className="cursor-pointer"
                   >
                     +
                   </div>
@@ -96,7 +100,7 @@ const CartItemCard = ({
                 value={product.quantity}
                 size="small"
                 className="text-caption-2 max-w-[115px]"
-                disabled={true}
+                readOnly
               />
               <p className="text-caption-2 text-ny-gray-400">*Pcs</p>
             </div>
@@ -107,4 +111,4 @@ const CartItemCard = ({
   );
 };
 
-export default CartItemCard;
+export default React.memo(CartItemCard);

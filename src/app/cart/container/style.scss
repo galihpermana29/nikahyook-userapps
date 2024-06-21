@@ -27,13 +27,9 @@
   align-items: center !important;
 }
 
-.ant-input-number-group-wrapper-outlined.ant-input-number-group-wrapper-disabled .ant-input-number-group-addon {
-  color: #111111 !important;
-  background-color: #fff !important; 
-}
-  
-input:disabled {
-  color: #111111 !important;
-  background-color: #fff !important; 
-}
+.ant-input-number-group-wrapper-outlined 
+  .ant-input-number-group-addon {
+    color: #111111 !important;
+    background-color: #fff !important; 
+  }
   
