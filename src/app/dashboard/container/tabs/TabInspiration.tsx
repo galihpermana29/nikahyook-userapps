@@ -8,7 +8,9 @@ import React from 'react';
 const TabInspiration = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['inspiration-wishlist'],
-    queryFn: () => getAllWishlist('inspiration'),
+    queryFn: () => getAllWishlist('inspiration', {
+      is_pagination: false
+    }),
     refetchOnWindowFocus: false,
   });
 

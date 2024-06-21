@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { ICoverageArea } from '@/shared/models/generalInterfaces';
+import formatToCapitalWord from '@/shared/usecase/formatToCapitalWord';
 
 export interface ICoverageAreaSection {
   coverage_area: ICoverageArea[];
@@ -7,11 +8,13 @@ export interface ICoverageAreaSection {
 
 const CoverageAreaSection = ({ coverage_area }: ICoverageAreaSection) => {
   const formatCoverageArea = (areas?: ICoverageArea[]) => {
-    if (!areas || areas.length === 0) return '';
-    const cities = areas.map((area) => area.city.label).slice(0, 3);
+    if (!areas || areas.length === 0) return '-';
+    const cities = areas
+      .map((area) => formatToCapitalWord(area.city.label))
+      .slice(0, 3);
     const remainingCitiesCount = areas.length - cities.length;
     return remainingCitiesCount > 0
-      ? `${cities.join(', ')} ++ ${remainingCitiesCount} more`
+      ? `${cities.join(', ')} + ${remainingCitiesCount} more`
       : cities.join(', ');
   };
 

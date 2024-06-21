@@ -305,11 +305,12 @@ export async function getAllTags(
 }
 
 export async function getAllWishlist(
-  type: TWishlist
+  type: TWishlist,
+  params?: Record<string, any>
 ): Promise<IFetchGeneralResponse<IFetchGeneralSuccessResponse<any | string>>> {
   const sessionData = await getServerSession();
   const res = await fetch(
-    baseURL + `/wishlists/${sessionData.user_id}/${type}s`,
+    baseURL + `/wishlists/${sessionData.user_id}/${type}s?'` + new URLSearchParams(params),
     {
       method: 'GET',
       headers: {

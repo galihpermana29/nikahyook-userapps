@@ -10,7 +10,9 @@ import SkeletonVerticalCards from '@/shared/container/Skeleton/SkeletonVerticalC
 const TabProduct = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['product-wishlist'],
-    queryFn: () => getAllWishlist('product'),
+    queryFn: () => getAllWishlist('product', {
+      is_pagination: false
+    }),
     refetchOnWindowFocus: false,
   });
 

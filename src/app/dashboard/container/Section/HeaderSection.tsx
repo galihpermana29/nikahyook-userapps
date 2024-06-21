@@ -1,18 +1,13 @@
-'use client';
-
-import { CartIcon } from '@/shared/container/Icon/CartIcon';
+import HeaderDefault from '@/shared/container/Header/HeaderDefault';
 import { ClockIcon } from '@/shared/container/Icon/ClockIcon';
-import { NotificationIcon } from '@/shared/container/Icon/NotificationIcon';
 import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
+import React, { Suspense } from 'react';
 
 type IHeaderSection = {
-  profile_image_url: string;
   children: React.ReactNode;
 };
 
-const HeaderSection = ({ profile_image_url, children }: IHeaderSection) => {
+const HeaderSection = ({ children }: IHeaderSection) => {
   return (
     <section className="w-full py-5 px-4 z-0 h-[248px] relative rounded-b-2xl overflow-hidden flex flex-col gap-8">
       <Image
@@ -22,29 +17,13 @@ const HeaderSection = ({ profile_image_url, children }: IHeaderSection) => {
         className="-z-20 object-cover"
       />
       <div className="absolute top-0 right-0 w-full h-full bg-ny-gray-900 opacity-[60%] -z-10" />
-      <header
-        className='w-full max-w-screen-sm z-30 flex justify-between gap-5 transition-colors duration-150'
+      <Suspense
+        fallback={
+          <div className="w-full h-10 rounded-md animate-pulse bg-ny-gray-200"></div>
+        }
       >
-        <Link href={'/'}>
-          <div className="relative w-[118px] h-6">
-            <Image src={'/assets/logo-white.png'} alt="Logo" fill />
-          </div>
-        </Link>
-
-        <div className="flex items-center gap-3 text-white">
-          <Link href={'/cart'}>
-            <CartIcon />
-          </Link>
-          <Link href={'/notification'}>
-            <NotificationIcon />
-          </Link>
-          <Link href={'/profile'}>
-            <div className="w-6 h-6 bg-ny-gray-100 rounded-lg border border-white relative overflow-hidden">
-              <Image src={profile_image_url} alt="Profile Picture" fill />
-            </div>
-          </Link>
-        </div>
-      </header>
+        <HeaderDefault />
+      </Suspense>
 
       <div className="text-white space-y-2">
         <div>
