@@ -5,12 +5,12 @@ import { LetfArrowIcon } from '../Icon/LeftArrow';
 import React from 'react';
 import { useRouter } from 'next/navigation';
 
-interface IDetailTitle {
+interface IPageTitle {
   title: string;
   children?: React.ReactNode
 }
 
-const DetailTitle = ({ title, children }: IDetailTitle) => {
+const PageTitle = ({ title, children }: IPageTitle) => {
   const router = useRouter();
   return (
     <div className='px-4 py-2 flex justify-between items-center'>
@@ -27,4 +27,4 @@ const DetailTitle = ({ title, children }: IDetailTitle) => {
   );
 };
 
-export default DetailTitle;
+export default PageTitle;

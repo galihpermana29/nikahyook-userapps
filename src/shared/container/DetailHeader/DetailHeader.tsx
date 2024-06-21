@@ -1,6 +1,6 @@
 import { TWishlist } from '@/shared/models/productInterfaces';
 import { WishListButton } from '../Button/WishListButton';
-import DetailTitle from './DetailTitle';
+import PageTitle from '../PageTitle/PageTitle';
 import Image from 'next/image';
 import React from 'react';
 
@@ -15,7 +15,7 @@ type IDetailHeader = {
 const DetailHeader = ({ title, header_image_url, target_id, wishlist_type, isWishlisted }: IDetailHeader) => {
   return (
     <>
-      <DetailTitle title={title} />
+      <PageTitle title={title} />
       <div className="min-h-[270px] relative">
         <WishListButton
           target_id={target_id}

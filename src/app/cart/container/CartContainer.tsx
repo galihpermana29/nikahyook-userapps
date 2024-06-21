@@ -7,7 +7,7 @@ import { MessageIcon } from '@/shared/container/Icon/MessageIcon';
 import { ReceiveIcon } from '@/shared/container/Icon/ReceiveIcon';
 import BottomBar from '@/shared/container/BottomBar/BottomBar';
 import CartItemCard from './card/CartItemCard';
-import DetailTitle from '@/shared/container/DetailHeader/DetailTitle';
+import PageTitle from '@/shared/container/PageTitle/PageTitle';
 import React, { useState, useMemo } from 'react';
 import useCheckboxState from '../usecase/useCheckboxState';
 import useMutateCart from '../usecase/useMutateCart';
@@ -88,12 +88,12 @@ const CartContainer = ({ cart }: ICartContainer) => {
 
   return (
     <div>
-      <DetailTitle title="My Cart">
+      <PageTitle title="My Cart">
         <div className="flex items-center gap-3">
           <MessageIcon />
           <ReceiveIcon />
         </div>
-      </DetailTitle>
+      </PageTitle>
       <section className="p-4 border-t border-ny-gray-100 space-y-3 mb-[76px]">
         {cartState.cart_items.map((item) => (
           <CartItemCard

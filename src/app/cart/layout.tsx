@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import CustomErrorBoundary from '@/shared/container/ErrorBoundary/ErrorBoundary';
-import DetailLoadingSkeleton from '@/shared/container/DetailLoadingSkeleton/DetailLoadingSkeleton';
+import CartLoading from './loading';
 
 export default function CartLayout({
   children,
@@ -10,7 +10,7 @@ export default function CartLayout({
 }>) {
   return (
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
-      <Suspense fallback={<DetailLoadingSkeleton />}>{children}</Suspense>
+      <Suspense fallback={<CartLoading />}>{children}</Suspense>
     </ErrorBoundary>
   );
 }
