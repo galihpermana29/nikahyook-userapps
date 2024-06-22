@@ -4,16 +4,38 @@ import { useQuery } from 'react-query';
 import { useSearchParams } from 'next/navigation';
 import NoResult from '@/shared/container/NoResult/NoResult';
 import SkeletonVerticalCards from '@/shared/container/Skeleton/SkeletonVerticalCards';
+import useInfiniteScroll from '@/shared/usecase/useInfiniteScroll';
+import { Spin } from 'antd';
 
 function TabProduct() {
   const searchParams = useSearchParams();
   const urlQuery = Object.fromEntries(searchParams.entries());
 
+  const { ref, inView, limit, setLimit, hasReachedLimit, setHasReachedLimit } =
+    useInfiniteScroll(6);
+
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['search-product', { ...urlQuery }],
     queryFn: () =>
-      getAllProducts({ status: 'active', is_pagination: false, ...urlQuery }),
+      getAllProducts({
+        status: 'active',
+        is_pagination: true,
+        limit: 6,
+        ...urlQuery,
+      }),
+    onSuccess: (successData) => {
+      if (
+        typeof successData.data !== 'string' &&
+        successData?.data?.meta_data?.total_items > limit
+      ) {
+        setLimit((prev) => prev + 4);
+      } else {
+        setHasReachedLimit(true);
+      }
+    },
   });
+
+  if (inView && !hasReachedLimit) refetch();
 
   if (isLoading) {
     return <SkeletonVerticalCards />;
@@ -45,6 +67,9 @@ function TabProduct() {
       ) : (
         <NoResult />
       )}
+      <div ref={ref} className="w-full mt-4 flex justify-center">
+        {inView && !hasReachedLimit && <Spin />}
+      </div>
     </section>
   );
 }

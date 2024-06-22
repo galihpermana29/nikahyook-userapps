@@ -4,10 +4,15 @@ import { useQuery } from 'react-query';
 import { useSearchParams } from 'next/navigation';
 import NoResult from '@/shared/container/NoResult/NoResult';
 import SkeletonVerticalCards from '@/shared/container/Skeleton/SkeletonVerticalCards';
+import useInfiniteScroll from '@/shared/usecase/useInfiniteScroll';
+import { Spin } from 'antd';
 
 function TabCuratorial() {
   const searchParams = useSearchParams();
   const urlQuery = Object.fromEntries(searchParams.entries());
+
+  const { ref, inView, limit, setLimit, hasReachedLimit, setHasReachedLimit } =
+    useInfiniteScroll(6);
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['search-curatorial', { ...urlQuery }],
@@ -18,7 +23,19 @@ function TabCuratorial() {
         ...urlQuery,
       }),
     refetchOnWindowFocus: false,
+    onSuccess: (successData) => {
+      if (
+        typeof successData.data !== 'string' &&
+        successData?.data?.meta_data?.total_items >= limit
+      ) {
+        setLimit((prev) => prev + 6);
+      } else {
+        setHasReachedLimit(true);
+      }
+    },
   });
+
+  if (inView && !hasReachedLimit) refetch();
 
   if (isLoading) {
     return <SkeletonVerticalCards />;
@@ -47,6 +64,9 @@ function TabCuratorial() {
       ) : (
         <NoResult />
       )}
+      <div ref={ref} className="w-full py-4 flex justify-center">
+        {inView && !hasReachedLimit && <Spin />}
+      </div>
     </section>
   );
 }
