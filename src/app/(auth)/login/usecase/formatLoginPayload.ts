@@ -1,4 +1,4 @@
-import type { ILoginPayloadRoot } from '@/shared/models/userInterfaces';
+import type { ILoginPayloadRoot } from '@/shared/models/authInterfaces';
 
 export function formatLoginPayload<T extends ILoginPayloadRoot>(
   input: T
