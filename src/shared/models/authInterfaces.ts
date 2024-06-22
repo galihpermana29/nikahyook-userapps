@@ -1,8 +1,23 @@
 import type { ILocation } from './generalInterfaces';
-import type { IDetailUserData, ILoginResponseRoot } from './userInterfaces';
+import type { IDetailUserData } from './userInterfaces';
 
 export interface ISessionData extends ILoginResponseRoot {
   user_detail: IDetailUserData;
+}
+
+export interface ILoginResponseRoot {
+  user_id: string;
+  email: string;
+  token: string;
+  permissions: string[];
+  type: string;
+  role_id: number;
+  role_name: string;
+}
+
+export interface ILoginPayloadRoot {
+  email: string;
+  password: string;
 }
 
 export interface IRegisterInputRoot {
