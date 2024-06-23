@@ -1,12 +1,12 @@
 'use client';
 
 import { ProductCard } from '@/shared/container/Card/ProductCard';
-import DetailTitle from '@/shared/container/DetailHeader/DetailTitle';
+import PageTitle from '@/shared/container/PageTitle/PageTitle';
 
 const CuratorialProductContainer = () => {
   return (
     <div>
-      <DetailTitle title="Products" />
+      <PageTitle title="Products" />
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 px-4 py-3 border-t border-ny-gray-400">
         {Array.from({ length: 12 }).map((_, index) => (
           <ProductCard

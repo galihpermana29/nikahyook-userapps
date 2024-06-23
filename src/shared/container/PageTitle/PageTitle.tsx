@@ -1,17 +1,13 @@
 import React from 'react';
 import BackButton from '../Button/BackButton';
 
-interface IDetailTitle {
+interface IPageTitle {
   title: string;
   children?: React.ReactNode;
   withBackButton?: boolean;
 }
 
-const DetailTitle = ({
-  title,
-  children,
-  withBackButton = true,
-}: IDetailTitle) => {
+const PageTitle = ({ title, children, withBackButton = true }: IPageTitle) => {
   return (
     <div className="px-4 py-2 flex justify-between items-center">
       <div className="flex items-center gap-3">
@@ -23,4 +19,4 @@ const DetailTitle = ({
   );
 };
 
-export default DetailTitle;
+export default PageTitle;
