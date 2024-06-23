@@ -38,7 +38,7 @@ function TabProduct() {
   if (inView && !hasReachedLimit) refetch();
 
   if (isLoading) {
-    return <SkeletonVerticalCards />;
+    return <SkeletonVerticalCards amount={6} />;
   }
 
   if (typeof data?.data === 'string') {
@@ -67,7 +67,9 @@ function TabProduct() {
       ) : (
         <NoResult />
       )}
-      <div ref={ref} className="w-full mt-4 flex justify-center">
+      <div
+        ref={ref}
+        className="w-full mt-4 col-span-2 sm:col-span-3 flex justify-center">
         {inView && !hasReachedLimit && <Spin />}
       </div>
     </section>
