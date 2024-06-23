@@ -2,7 +2,7 @@
 
 import FormItem from '@/shared/container/ClientAntd/FormItem/FormItem';
 import type { ISendMessagePayload } from '@/shared/models/chatInterfaces';
-import { Button, Form, Input, message } from 'antd';
+import { Button, Form, Input } from 'antd';
 import QuotedCard from './QuotedProductCard/QuotedCard';
 import useGenerateQuoteProduct from '../usecase/useGenerateQuoteProduct';
 import { IAllUserResponse } from '@/shared/models/userInterfaces';

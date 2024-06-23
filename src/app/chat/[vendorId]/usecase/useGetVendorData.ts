@@ -30,7 +30,7 @@ const vendorDataList = [
 ];
 
 export default function useGetVendorData(vendorId: string) {
-  let vendor = vendorDataList.find(
+  const vendor = vendorDataList.find(
     (vendor) => vendor.vendorId === vendorId
   ) ?? {
     vendorId: '30e7b88d-666b-4251-aeaa-358acf0a80a6',

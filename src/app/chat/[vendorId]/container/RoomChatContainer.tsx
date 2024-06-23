@@ -10,9 +10,9 @@ interface IRoomChatContainer {
 }
 
 const RoomChatContainer = ({ vendor }: IRoomChatContainer) => {
-  const chatsData = useGetBubbleChats(vendor.id);
-  // const chats = groupChatMessagesByDate(chatsData);
+  useGetBubbleChats(vendor.id);
 
+  // const chats = groupChatMessagesByDate(chatsData);
   return (
     <section className="flex flex-col gap-2 px-4 pb-4">
       {/* {Object.keys(chats).map((date) => (
