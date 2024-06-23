@@ -15,7 +15,7 @@ export default function SearchBar() {
       <Input
         name="search"
         prefix={<SearchIcon className="size-fit" />}
-        className="flex py-3"
+        className="flex h-[35px]"
         placeholder="Search vendor"
       />
     </form>
