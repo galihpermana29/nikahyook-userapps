@@ -4,10 +4,15 @@ import { useSearchParams } from 'next/navigation';
 import { VendorCard } from '@/shared/container/Card/VendorCard';
 import NoResult from '@/shared/container/NoResult/NoResult';
 import SkeletonHorizontalCards from '@/shared/container/Skeleton/SkeletonHorizontalCard';
+import useInfiniteScroll from '@/shared/usecase/useInfiniteScroll';
+import { Spin } from 'antd';
 
 function TabVendor() {
   const searchParams = useSearchParams();
   const urlQuery = Object.fromEntries(searchParams.entries());
+
+  const { ref, inView, limit, setLimit, hasReachedLimit, setHasReachedLimit } =
+    useInfiniteScroll(4);
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['search-vendor', { ...urlQuery }],
@@ -15,9 +20,22 @@ function TabVendor() {
       getAllUsers({
         status: 'active',
         type: 'vendor',
+        limit,
         ...urlQuery,
       }),
+    onSuccess: (successData) => {
+      if (
+        typeof successData.data !== 'string' &&
+        successData?.data?.meta_data?.total_items >= limit
+      ) {
+        setLimit((prev) => prev + 4);
+      } else {
+        setHasReachedLimit(true);
+      }
+    },
   });
+
+  if (inView && !hasReachedLimit) refetch();
 
   if (isLoading) {
     return <SkeletonHorizontalCards />;
@@ -35,7 +53,7 @@ function TabVendor() {
             <VendorCard
               key={item.id}
               id={item.id}
-              navigateTo="/"
+              navigateTo={`/vendor/${item.id}`}
               isInWishlist={item.detail?.is_wishlist}
               vendor_name={item.name}
               product_type_name={item.detail?.vendor_type_name}
@@ -50,7 +68,10 @@ function TabVendor() {
         })
       ) : (
         <NoResult />
-      )}
+      )}{' '}
+      <div ref={ref} className="w-full py-4 flex justify-center">
+        {inView && !hasReachedLimit && <Spin />}
+      </div>
     </section>
   );
 }

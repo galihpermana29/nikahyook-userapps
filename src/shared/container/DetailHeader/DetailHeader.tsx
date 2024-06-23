@@ -1,8 +1,8 @@
 import { TWishlist } from '@/shared/models/productInterfaces';
 import { WishListButton } from '../Button/WishListButton';
-import PageTitle from '../PageTitle/PageTitle';
 import Image from 'next/image';
 import React from 'react';
+import PageTitle from '../PageTitle/PageTitle';
 
 type IDetailHeader = {
   title: string;
@@ -12,7 +12,13 @@ type IDetailHeader = {
   isWishlisted: boolean | undefined;
 };
 
-const DetailHeader = ({ title, header_image_url, target_id, wishlist_type, isWishlisted }: IDetailHeader) => {
+const DetailHeader = ({
+  title,
+  header_image_url,
+  target_id,
+  wishlist_type,
+  isWishlisted,
+}: IDetailHeader) => {
   return (
     <>
       <PageTitle title={title} />

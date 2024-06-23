@@ -1,9 +1,9 @@
-import PageTitle from '@/shared/container/PageTitle/PageTitle';
 import CustomErrorBoundary from '@/shared/container/ErrorBoundary/ErrorBoundary';
 import React, { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import TabLoading from './container/Tab/TabLoading/TabLoading';
 import OrderTabs from './container/Tab/OrderTabs';
+import PageTitle from '@/shared/container/PageTitle/PageTitle';
 
 export default function OrderRootLayout({
   children,

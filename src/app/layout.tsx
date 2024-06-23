@@ -5,6 +5,10 @@ import { CookiesProvider } from 'next-client-cookies/server';
 import { Inter } from 'next/font/google';
 import 'swiper/css';
 import './globals.scss';
+import dayjs from 'dayjs';
+import calendar from 'dayjs/plugin/calendar';
+
+dayjs.extend(calendar);
 
 const inter = Inter({ subsets: ['latin'] });
 
