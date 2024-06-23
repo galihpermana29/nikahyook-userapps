@@ -1,11 +1,11 @@
-import DetailTitle from '@/shared/container/DetailHeader/DetailTitle';
+import PageTitle from '@/shared/container/PageTitle/PageTitle';
 import { Button } from 'antd';
 import SkeletonInput from 'antd/es/skeleton/Input';
 
 export default function ChatRoomLoading() {
   return (
     <>
-      <DetailTitle title="Loading..." />
+      <PageTitle title="Loading..." />
 
       <section className="p-4 flex flex-col gap-4">
         {Array(10)

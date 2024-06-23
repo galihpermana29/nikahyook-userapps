@@ -2,7 +2,7 @@
 
 import { ProductCard } from '@/shared/container/Card/ProductCard';
 import { IAllProductsResponse } from '@/shared/models/productInterfaces';
-import DetailTitle from '@/shared/container/DetailHeader/DetailTitle';
+import PageTitle from '@/shared/container/PageTitle/PageTitle';
 import React from 'react';
 
 const VendorProductContainer = ({
@@ -12,7 +12,7 @@ const VendorProductContainer = ({
 }) => {
   return (
     <div>
-      <DetailTitle title="Products From This Vendor" />
+      <PageTitle title="Products From This Vendor" />
       <div className="grid grid-cols-2 gap-4 px-4 py-3 border-t border-ny-gray-400">
         {products.map((product) => (
           <ProductCard

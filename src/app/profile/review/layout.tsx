@@ -1,4 +1,4 @@
-import DetailTitle from '@/shared/container/DetailHeader/DetailTitle';
+import PageTitle from '@/shared/container/PageTitle/PageTitle';
 import CustomErrorBoundary from '@/shared/container/ErrorBoundary/ErrorBoundary';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -11,7 +11,7 @@ export default function ReviewLayout({
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
       <Suspense fallback={<ReviewsLoading />}>
         <main className="flex flex-col size-full min-h-screen gap-5">
-          <DetailTitle title="My Review" />
+          <PageTitle title="My Review" />
           <div className="pb-5 px-4 flex-grow flex">{children}</div>
         </main>
       </Suspense>

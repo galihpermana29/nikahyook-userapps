@@ -1,13 +1,13 @@
 'use client';
 
 import { VendorCard } from '@/shared/container/Card/VendorCard';
-import DetailTitle from '@/shared/container/DetailHeader/DetailTitle';
+import PageTitle from '@/shared/container/PageTitle/PageTitle';
 import React from 'react';
 
 const CuratorialVendorContainer = () => {
   return (
     <div>
-      <DetailTitle title="Vendors" />
+      <PageTitle title="Vendors" />
       <div className="space-y-3 px-4 py-3 border-t border-ny-gray-400">
         {Array.from({ length: 6 }).map((_, index) => (
           <VendorCard

@@ -1,4 +1,4 @@
-import DetailTitle from '@/shared/container/DetailHeader/DetailTitle';
+import PageTitle from '@/shared/container/PageTitle/PageTitle';
 import useGetChats from './usecase/useGetChats';
 import ChatInfo from './container/ChatInfo';
 import SearchBar from './container/SearchBar';
@@ -14,7 +14,7 @@ export default async function ChatsPage({
 
   return (
     <>
-      <DetailTitle withBackButton={false} title="Chats" />
+      <PageTitle withBackButton={false} title="Chats" />
 
       <div className="p-4">
         <SearchBar />

@@ -1,4 +1,4 @@
-import DetailTitle from '@/shared/container/DetailHeader/DetailTitle';
+import PageTitle from '@/shared/container/PageTitle/PageTitle';
 import UserInformation from './container/UserInformation';
 import UserStatistics from './container/UserStatistics';
 import ProfileNavigationButton from './container/ProfileNavigationButton';
@@ -14,7 +14,7 @@ const navigationMenu = [
 export default function ProfilePage() {
   return (
     <main className="flex flex-col size-full min-h-screen gap-5">
-      <DetailTitle title="My Profile" />
+      <PageTitle title="My Profile" />
 
       <div className="flex flex-col gap-5 px-4 flex-grow pb-5">
         <div className="flex flex-col gap-5">
