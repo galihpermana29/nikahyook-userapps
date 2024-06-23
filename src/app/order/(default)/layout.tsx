@@ -1,16 +1,16 @@
-import DetailTitle from '@/shared/container/DetailHeader/DetailTitle';
 import CustomErrorBoundary from '@/shared/container/ErrorBoundary/ErrorBoundary';
 import React, { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import TabLoading from './container/Tab/TabLoading/TabLoading';
 import OrderTabs from './container/Tab/OrderTabs';
+import PageTitle from '@/shared/container/PageTitle/PageTitle';
 
 export default function OrderRootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
-      <DetailTitle title="My Order" />
+      <PageTitle title="My Order" />
       <Suspense fallback={null}>
         <OrderTabs />
       </Suspense>
