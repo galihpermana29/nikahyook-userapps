@@ -10,7 +10,9 @@ import SkeletonHorizontalCards from '@/shared/container/Skeleton/SkeletonHorizon
 const TabVendor = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['vendor-wishlist'],
-    queryFn: () => getAllWishlist('vendor'),
+    queryFn: () => getAllWishlist('vendor', {
+      is_pagination: false
+    }),
     refetchOnWindowFocus: false,
   });
 

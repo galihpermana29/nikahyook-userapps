@@ -9,7 +9,7 @@ import { ProductCard } from '@/shared/container/Card/ProductCard';
 import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
 import { SwiperSlide } from 'swiper/react';
 import { TitledSection } from '@/shared/container/Section/TitledSection';
-import DetailFooter from '@/shared/container/DetailFooter/DetailFooter';
+import BottomBar from '@/shared/container/BottomBar/BottomBar';
 import DetailHeader from '@/shared/container/DetailHeader/DetailHeader';
 import DetailInfoSection from '@/shared/container/Section/DetailInfoSection';
 import Image from 'next/image';
@@ -145,7 +145,7 @@ const VendorDetailContainer = ({
           totalReviews={12}
           reviews={reviewMockData}
         />
-        <DetailFooter>
+        <BottomBar>
           <div className="flex items-center gap-2">
             <Button
               icon={<MessageIcon />}
@@ -154,7 +154,7 @@ const VendorDetailContainer = ({
               Message
             </Button>
           </div>
-        </DetailFooter>
+        </BottomBar>
       </div>
     </div>
   );

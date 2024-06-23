@@ -17,6 +17,7 @@ import {
 } from '@/shared/models/productInterfaces';
 import { errorHandling } from '@/shared/usecase/errorHandling';
 import { getServerSession } from '../usecase/getServerSession';
+import { IAllCartResponse, IDeleteCartPayloadRoot, IUpdateCartPayloadRoot } from '../models/cartInterfaces';
 
 // Anything related to product
 
@@ -249,7 +250,6 @@ export async function createWishlist(
 
   const data = await res.json();
 
-
   return { success: true, data };
 }
 
@@ -305,11 +305,12 @@ export async function getAllTags(
 }
 
 export async function getAllWishlist(
-  type: TWishlist
+  type: TWishlist,
+  params?: Record<string, any>
 ): Promise<IFetchGeneralResponse<IFetchGeneralSuccessResponse<any | string>>> {
   const sessionData = await getServerSession();
   const res = await fetch(
-    baseURL + `/wishlists/${sessionData.user_id}/${type}s`,
+    baseURL + `/wishlists/${sessionData.user_id}/${type}s?'` + new URLSearchParams(params),
     {
       method: 'GET',
       headers: {
@@ -317,6 +318,95 @@ export async function getAllWishlist(
       },
     }
   );
+
+  if (!res.ok) {
+    return errorHandling(res);
+  }
+
+  const data = await res.json();
+
+  return { success: true, data };
+}
+
+export async function createCart(
+  id: number
+): Promise<IPostGeneralResponse<number | string>> {
+  const sessionData = await getServerSession();
+  const payload = {
+    product_id: id,
+    quantity: 1,
+  };
+
+  const res = await fetch(baseURL + `/carts/${sessionData.user_id}`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${sessionData.token}`,
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    return errorHandling(res);
+  }
+
+  const data = await res.json();
+
+  return { success: true, data };
+}
+
+export async function getAllCart(): Promise<IFetchGeneralResponse<IFetchGeneralResponse<IAllCartResponse> | string>> {
+  const sessionData = await getServerSession();
+  const res = await fetch(baseURL + `/carts/${sessionData.user_id}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${sessionData.token}`,
+    },
+  });
+
+  if (!res.ok) {
+    return errorHandling(res);
+  }
+
+  const data = await res.json();
+
+  return { success: true, data };
+}
+
+
+export async function updateCart(
+  payload: IUpdateCartPayloadRoot
+): Promise<IPostGeneralResponse<IPostGeneralSuccessResponse<any> | string>> {
+  const sessionData = await getServerSession();
+
+  const res = await fetch(baseURL + `/carts/${sessionData.user_id}`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${sessionData.token}`,
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    return errorHandling(res);
+  }
+
+  const data = await res.json();
+
+  return { success: true, data };
+}
+
+export async function deleteCart(
+  payload: IDeleteCartPayloadRoot
+): Promise<IPostGeneralResponse<IPostGeneralSuccessResponse<any> | string>> {
+  const sessionData = await getServerSession();
+
+  const res = await fetch(baseURL + `/carts/${sessionData.user_id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${sessionData.token}`,
+    },
+    body: JSON.stringify(payload),
+  });
 
   if (!res.ok) {
     return errorHandling(res);

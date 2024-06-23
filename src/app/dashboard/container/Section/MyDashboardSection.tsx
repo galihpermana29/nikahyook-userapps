@@ -1,3 +1,5 @@
+"use client"
+
 import './style.scss';
 import { BudgetIcon } from '@/shared/container/Icon/BudgetIcon';
 import { GuestIcon } from '@/shared/container/Icon/GuestIcon';

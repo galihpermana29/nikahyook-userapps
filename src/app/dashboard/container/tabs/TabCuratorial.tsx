@@ -10,7 +10,9 @@ import SkeletonVerticalCards from '@/shared/container/Skeleton/SkeletonVerticalC
 const TabCuratorial = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['curatorial-wishlist'],
-    queryFn: () => getAllWishlist('curatorial'),
+    queryFn: () => getAllWishlist('curatorial', {
+      is_pagination: false
+    }),
     refetchOnWindowFocus: false,
   });
 

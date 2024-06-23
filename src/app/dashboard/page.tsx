@@ -1,21 +1,17 @@
-import React from 'react';
-import DashboardContainer from './container/DashboardContainer';
 import { BottomNav } from '@/shared/container/Navigation/BottomNav';
-import { getServerSession } from '@/shared/usecase/getServerSession';
-import { getUserDetail } from '@/shared/actions/userService';
+import DashboardContainer from './container/DashboardContainer';
+import React from 'react';
 
-const Dashboard = async () => {
-  const session = await getServerSession();
+type IDashboard = {
+  searchParams?: { [key: string]: string | string[] | undefined };
+};
 
-  const { data } = await getUserDetail(session.user_id);
-
-  if (typeof data === 'string') {
-    throw Error(data);
-  }
+const Dashboard = async ({ searchParams }: IDashboard) => {
+  const activeTab = (searchParams?.tab as string) || 'dashboard';
 
   return (
     <div className="bg-ny-gray-50">
-      <DashboardContainer profile_url={data.data.profile_image_uri} />
+      <DashboardContainer activeTab={activeTab} />
       <BottomNav />
     </div>
   );

@@ -1,13 +1,11 @@
-'use client';
-
 import {
-  DashboardTabContent,
   DashboardTabHeader,
+  DashboardTabContent,
 } from './tabs/CustomDashboardTabs';
 import HeaderSection from './Section/HeaderSection';
 import MyDashboardSection from './Section/MyDashboardSection';
 import MyWishlistSection from './Section/MyWishlistSection';
-import React, { useState } from 'react';
+import React from 'react';
 
 const tabs = [
   {
@@ -23,24 +21,14 @@ const tabs = [
 ];
 
 type IDashboardContainer = {
-  profile_url: string;
+  activeTab: string;
 };
 
-const DashboardContainer = ({ profile_url }: IDashboardContainer) => {
-  const [activeTab, setActiveTab] = useState('dashboard');
-
-  const handleTabChange = (tab: string) => {
-    setActiveTab(tab);
-  };
-
+const DashboardContainer = ({ activeTab }: IDashboardContainer) => {
   return (
     <div>
-      <HeaderSection profile_image_url={profile_url}>
-        <DashboardTabHeader
-          activeTab={activeTab}
-          onTabChange={handleTabChange}
-          tabs={tabs}
-        />
+      <HeaderSection>
+        <DashboardTabHeader activeTab={activeTab} tabs={tabs} />
       </HeaderSection>
       <DashboardTabContent activeTab={activeTab} tabs={tabs} />
     </div>
