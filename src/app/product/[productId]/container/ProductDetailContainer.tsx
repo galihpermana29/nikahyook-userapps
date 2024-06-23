@@ -17,6 +17,7 @@ import DetailInfoSection from '@/shared/container/Section/DetailInfoSection';
 import Image from 'next/image';
 import React from 'react';
 import ReviewSection from '@/shared/container/Section/ReviewSection';
+import useQuoteProductToChat from '../usecase/useQuoteProductToChat';
 
 const ProductDetailContainer = ({
   product,
@@ -42,6 +43,8 @@ const ProductDetailContainer = ({
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vulputate, nulla ut commodo fermentum, augue enim consectetur diam, ac vulputate dui turpis non ipsum. ',
     },
   ];
+
+  const { onClickMessage } = useQuoteProductToChat(product);
 
   const { mutate: mutateAddToCart, isLoading } = useMutation({
     mutationFn: createCart,
@@ -86,8 +89,7 @@ const ProductDetailContainer = ({
                 key={index}
                 className={`w-[180px] h-[135px] ${index === 0 && 'ml-4'} ${
                   index + 1 === product.images.length && 'mr-4'
-                }`}
-              >
+                }`}>
                 <Image
                   src={image}
                   alt={product.title}
@@ -129,17 +131,17 @@ const ProductDetailContainer = ({
       <BottomBar>
         <div className="flex items-center gap-2">
           <Button
+            onClick={onClickMessage}
+            htmlType="button"
             icon={<MessageIcon />}
-            className="flex items-center justify-center flex-1 rounded-[8px] h-[40px] bg-ny-primary-100 text-ny-primary-500 text-body-2"
-          >
+            className="flex items-center justify-center flex-1 rounded-[8px] h-[40px] bg-ny-primary-100 text-ny-primary-500 text-body-2">
             Message
           </Button>
           <Button
             icon={<CartIcon />}
             className="flex items-center justify-center flex-1 rounded-[8px] h-[40px] bg-ny-primary-500 text-white text-body-2"
             onClick={() => mutateAddToCart(product.id)}
-            loading={isLoading}
-          >
+            loading={isLoading}>
             Add to Cart
           </Button>
         </div>

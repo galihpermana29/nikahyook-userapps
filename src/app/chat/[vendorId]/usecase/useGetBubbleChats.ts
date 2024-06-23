@@ -1,5 +1,12 @@
-import type { IChatBubble } from '@/shared/models/chatInterfaces';
-import { getServerSession } from '@/shared/usecase/getServerSession';
+import type {
+  IChatBubble,
+  TFirebaseChats,
+  TMessages,
+} from '@/shared/models/chatInterfaces';
+import { doc, onSnapshot } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { db } from '../../../../../firebase-config';
+import { getClientSession } from '@/shared/usecase/getClientSession';
 
 // InVilla
 const bubbleChatsInVilla = [
@@ -100,20 +107,29 @@ const allBubbleChats = [
   ...bubbleChatsSweetTreatsBakery,
 ];
 
-export default async function useGetBubbleChats(
-  vendorId: string
-): Promise<IChatBubble[]> {
-  const session = await getServerSession();
+export default function useGetBubbleChats(vendorId: string) {
+  const userSession = getClientSession();
+  const combinedId = userSession.user_id + '.' + vendorId;
 
-  if (!session) {
-    throw new Error('No session detected!');
-  }
-
+  const [allChat, setAllChat] = useState<TMessages[]>([]);
   const vendorChats = allBubbleChats.filter(
     (chat) => chat.vendorId === vendorId
   );
 
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(vendorChats), 500);
-  });
+  useEffect(() => {
+    const getChats = () => {
+      const unsub = onSnapshot(doc(db, 'chats', combinedId), (doc) => {
+        const result = doc.data() as TFirebaseChats;
+        doc.exists() && setAllChat(result?.messages);
+      });
+
+      return () => {
+        unsub();
+      };
+    };
+
+    vendorId && getChats();
+  }, [vendorId]);
+
+  return { vendorChats, allChat };
 }

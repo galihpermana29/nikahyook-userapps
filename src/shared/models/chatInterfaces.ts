@@ -21,3 +21,15 @@ export interface ISendMessagePayload {
   sentAt: string;
   message: string;
 }
+
+export type TMessages = {
+  date: unknown;
+  id: string;
+  product: string;
+  senderId: string;
+  text: string;
+};
+
+export type TFirebaseChats = {
+  messages: TMessages[];
+};

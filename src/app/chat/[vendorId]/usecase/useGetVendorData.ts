@@ -30,8 +30,13 @@ const vendorDataList = [
 ];
 
 export default function useGetVendorData(vendorId: string) {
-  const vendor = vendorDataList.find((vendor) => vendor.vendorId === vendorId);
-  if (!vendor) throw new Error('Vendor data not found!');
+  let vendor = vendorDataList.find(
+    (vendor) => vendor.vendorId === vendorId
+  ) ?? {
+    vendorId: '30e7b88d-666b-4251-aeaa-358acf0a80a6',
+    vendorName: 'In Villa',
+    vendorProfileImage: invillaVendorProfileImage.src,
+  };
 
   return vendor;
 }

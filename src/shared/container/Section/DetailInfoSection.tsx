@@ -12,6 +12,7 @@ type IDetailInfoSection = {
   sold?: number;
   rating?: number;
   totalReview?: number;
+  quantity_label?: string;
 };
 
 const DetailInfoSection = ({
@@ -22,14 +23,24 @@ const DetailInfoSection = ({
   sold,
   rating,
   totalReview,
+  quantity_label = undefined,
 }: IDetailInfoSection) => {
   return (
     <section className="space-y-[6px] px-4 py-3">
       {price && product_type && (
         <div className="flex items-center justify-between">
-          <p className="text-body-2 text-ny-primary-500 font-medium">
-            {`${startFrom ? 'Price From' : ''} ${formatToRupiah(price ?? 0)}`}
-          </p>
+          <div className="flex">
+            <p className="text-body-2 text-ny-primary-500 font-medium">
+              {`${startFrom ? 'Price From' : ''} ${formatToRupiah(price ?? 0)}`}
+            </p>
+            <span>
+              {quantity_label ? (
+                <span className="text-caption-1 text-ny-primary-500 capitalize font-[400]">{`/${quantity_label}`}</span>
+              ) : (
+                ''
+              )}
+            </span>
+          </div>
           <p className="text-caption-1">{product_type}</p>
         </div>
       )}
