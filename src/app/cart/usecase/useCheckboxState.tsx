@@ -1,20 +1,26 @@
-import { 
+import {  
   useState, 
   useEffect, 
-  useCallback
+  useCallback 
 } from 'react';
+
+interface CartItem {
+  vendor_id: string;
+  products: { product_id: number }[];
+}
 
 interface CheckboxState {
   checkedList: number[];
   isAllChecked: boolean;
   handleToggleCheckbox: (productId: number) => void;
   handleToggleAllCheckboxes: (productIds: number[], checked: boolean) => void;
-  setCheckedList: React.Dispatch<React.SetStateAction<number[]>>;
+  handleVendorCheckboxChange: (vendorId: string, checked: boolean) => void;
 }
 
 const useCheckboxState = (
   initialState: number[],
-  allProductIds: number[]
+  allProductIds: number[],
+  cartItems: CartItem[]
 ): CheckboxState => {
   const [checkedList, setCheckedList] = useState<number[]>(initialState);
   const [isAllChecked, setIsAllChecked] = useState(false);
@@ -42,12 +48,37 @@ const useCheckboxState = (
     []
   );
 
+  const handleVendorCheckboxChange = useCallback(
+    (vendorId: string, checked: boolean) => {
+      const productsToChange = cartItems.find(
+        (item) => item.vendor_id === vendorId
+      )?.products;
+      if (!productsToChange) return;
+
+      const productIds = productsToChange.map((product) => product.product_id);
+
+      setCheckedList((prev) => {
+        if (checked) {
+          // If checking, add only unchecked products to the list
+          const uncheckedProductIds = productIds.filter(
+            (id) => !prev.includes(id)
+          );
+          return [...prev, ...uncheckedProductIds];
+        } else {
+          // If unchecking, remove all products of this vendor from the list
+          return prev.filter((id) => !productIds.includes(id));
+        }
+      });
+    },
+    [cartItems]
+  );
+
   return {
     checkedList,
     isAllChecked,
     handleToggleCheckbox,
     handleToggleAllCheckboxes,
-    setCheckedList,
+    handleVendorCheckboxChange,
   };
 };
 

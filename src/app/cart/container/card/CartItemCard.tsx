@@ -1,8 +1,4 @@
-import { 
-  Checkbox, 
-  CheckboxProps, 
-  InputNumber 
-} from 'antd';
+import { Checkbox, CheckboxProps, InputNumber } from 'antd';
 import { ICartProduct } from '@/shared/models/cartInterfaces';
 import { InputNumberTrashIcon } from '@/shared/container/Icon/InputNumberTrashIcon';
 import formatToRupiah from '@/shared/usecase/formatToRupiah';
@@ -13,8 +9,8 @@ interface ICartItemCard {
   vendor_id: string;
   vendor_name: string;
   products: ICartProduct[];
-  onIncrement: (productId: number) => void;
-  onDecrement: (productId: number) => void;
+  onIncrement: (productId: number, quantity: number) => void;
+  onDecrement: (productId: number, quantity: number) => void;
   onProductCheckboxChange: (productId: number, checked: boolean) => void;
   onVendorCheckboxChange: (vendorId: string, checked: boolean) => void;
   checkedList: number[];
@@ -83,7 +79,7 @@ const CartItemCard = ({
               <InputNumber
                 addonBefore={
                   <div
-                    onClick={() => onDecrement(product.product_id)}
+                    onClick={() => onDecrement(product.product_id, -1)}
                     className="cursor-pointer"
                   >
                     {product.quantity === 1 ? <InputNumberTrashIcon /> : '-'}
@@ -91,7 +87,7 @@ const CartItemCard = ({
                 }
                 addonAfter={
                   <div
-                    onClick={() => onIncrement(product.product_id)}
+                    onClick={() => onIncrement(product.product_id, 1)}
                     className="cursor-pointer"
                   >
                     +
