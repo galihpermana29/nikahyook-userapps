@@ -2,15 +2,20 @@ export default function ArrowIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
+      width="10"
+      height="8"
+      viewBox="0 0 10 6"
       fill="none"
-      height="20"
-      viewBox="0 0 20 20"
-      width="20"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+      transform="matrix(6.123233995736766e-17,1,-1,6.123233995736766e-17,0,0)">
       <path
-        d="m12.2197 6.03033c-.2929-.29289-.2929-.76777 0-1.06066s.7677-.29289 1.0606 0l4.5 4.5c.2929.29289.2929.76773 0 1.06063l-4.5 4.5c-.2929.2929-.7677.2929-1.0606 0s-.2929-.7677 0-1.0606l3.9696-3.9697z"
-        fill="currentColor"
-      />
+        d="M8.96004 5.0249L5.70004 1.7649C5.31504 1.3799 4.68504 1.3799 4.30004 1.7649L1.04004 5.0249"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"></path>
     </svg>
   );
 }

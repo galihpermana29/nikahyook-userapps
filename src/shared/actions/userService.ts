@@ -8,8 +8,6 @@ import {
 } from '@/shared/models/generalInterfaces';
 import {
   IAllUserResponse,
-  ILoginPayloadRoot,
-  ILoginResponseRoot,
   type IChangePasswordPayloadRoot,
   type IEditProfileInputRoot,
   type IUserDetailData,
@@ -23,6 +21,8 @@ import type {
   IRegisterResponseRoot,
   ICreateProfileResponseRoot,
   ISessionData,
+  ILoginPayloadRoot,
+  ILoginResponseRoot,
 } from '../models/authInterfaces';
 import { redirect } from 'next/navigation';
 
@@ -166,7 +166,12 @@ export async function login(
     return errorHandling(loginRes);
   }
 
-  const loginData = await loginRes.json();
+  const loginData =
+    (await loginRes.json()) as IFetchGeneralResponse<ILoginResponseRoot>;
+
+  if (loginData.data.type !== 'user') {
+    return { success: false, data: 'Data not found!' };
+  }
 
   const detailRes = await fetch(baseURL + '/users/' + loginData.data.user_id, {
     method: 'GET',
@@ -276,6 +281,6 @@ export async function getUserDetail(
       ? JSON.parse(data.data.detail.json_text)
       : {};
   }
-  
+
   return { success: true, data };
 }
