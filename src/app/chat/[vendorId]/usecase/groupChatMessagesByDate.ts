@@ -1,13 +1,13 @@
-import type { IChatBubble } from '@/shared/models/chatInterfaces';
+import type { TMessages } from '@/shared/models/chatInterfaces';
 import dayjs from 'dayjs';
 
-export default function groupChatMessagesByDate(messages: IChatBubble[]): {
-  [date: string]: IChatBubble[];
+export default function groupChatMessagesByDate(messages: TMessages[]): {
+  [date: string]: TMessages[];
 } {
-  const groupedMessages: { [date: string]: IChatBubble[] } = {};
+  const groupedMessages: { [date: string]: TMessages[] } = {};
 
   messages.forEach((message) => {
-    const date = dayjs(message.sentAt).format('YYYY-MM-DD');
+    const date = dayjs(message.timeStamp).format('YYYY-MM-DD');
 
     if (!groupedMessages[date]) {
       groupedMessages[date] = [];

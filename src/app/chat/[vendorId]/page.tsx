@@ -31,8 +31,10 @@ export default async function VendorRoomChatPage({
   }
 
   return (
-    <>
-      <PageTitle title={detailVendor.data.data.name} />
+    <div className="relative">
+      <div className="fixed z-[99] top-0 left-0 right-0 bg-white">
+        <PageTitle title={detailVendor.data.data.name} />
+      </div>
       <RoomChatContainer vendor={detailVendor.data.data} />
       <SendMessageArea
         vendor={detailVendor.data.data}
@@ -44,6 +46,6 @@ export default async function VendorRoomChatPage({
             : null
         }
       />
-    </>
+    </div>
   );
 }

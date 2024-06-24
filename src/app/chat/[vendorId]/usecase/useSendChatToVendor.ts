@@ -77,6 +77,7 @@ const useSendChatToVendor = (
       [combinedId + '.date']: serverTimestamp(),
       [combinedId + '.lastMessage']: {
         text: text,
+        isRead: true,
       },
     });
 
@@ -89,15 +90,19 @@ const useSendChatToVendor = (
       [combinedId + '.date']: serverTimestamp(),
       [combinedId + '.lastMessage']: {
         text: text,
+        isRead: false,
       },
     });
 
     if (quotedProduct) {
-      router.push(pathname);
+      clearQuoteProduct();
     }
   };
 
-  return { onSendChat };
+  const clearQuoteProduct = () => {
+    router.push(pathname);
+  };
+  return { onSendChat, clearQuoteProduct };
 };
 
 export default useSendChatToVendor;

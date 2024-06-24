@@ -81,6 +81,7 @@ const ProductDetailContainer = ({
           sold={20}
           totalReview={12}
           rating={product.rating}
+          quantity_label={product.quantity_label}
         />
         <section>
           <SwiperContainer>

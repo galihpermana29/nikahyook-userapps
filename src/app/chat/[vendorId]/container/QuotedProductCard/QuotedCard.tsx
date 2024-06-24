@@ -1,7 +1,5 @@
 import formatToRupiah from '@/shared/usecase/formatToRupiah';
 import { Avatar } from 'antd';
-import closeIcon from '../../../../../../public/assets/close.svg';
-import Image from 'next/image';
 
 export type TQuotedCardProduct = {
   productImage: string;
@@ -12,11 +10,16 @@ export type TQuotedCardProduct = {
 
 export default function QuotedCard({
   product,
+  closeComponent,
 }: {
   product: TQuotedCardProduct;
+  closeComponent: React.ReactNode;
 }) {
   return (
-    <div className="py-[12px] px-[8px] flex box-border h-[100px] shadow-sm gap-[12px]">
+    <div
+      className={`py-[12px] px-[8px] bg-white flex box-border rounded-[8px] h-[100px] gap-[12px] ${
+        closeComponent ? 'shadow-sm' : 'shadow-md'
+      }`}>
       <Avatar
         className="size-20 shrink-0"
         shape="square"
@@ -28,7 +31,7 @@ export default function QuotedCard({
           <h1 className="text-caption-2 sm:text-caption-1 line-clamp-2 font-medium">
             {product.productName}
           </h1>
-          <Image src={closeIcon} alt="close" className="cursor-pointer" />
+          {closeComponent}
         </div>
 
         <div className="flex items-center justify-between gap-2">
