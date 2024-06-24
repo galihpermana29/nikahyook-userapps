@@ -37,6 +37,7 @@ export const TopProductsSection = ({
                   isInWishlist={item.is_wishlist}
                   location={item.location.city.label}
                   price={item.price}
+                  quantity_label={item.quantity_label}
                   rating={item.rating}
                   imageUrl={item.images[0]}
                 />

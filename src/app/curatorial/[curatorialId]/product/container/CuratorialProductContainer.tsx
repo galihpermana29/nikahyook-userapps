@@ -16,6 +16,7 @@ const CuratorialProductContainer = () => {
             title="Kempinski Wedding Hall 2"
             location="Arjosari, 65126, Blimbing, Malang, East Java, Indonesia"
             price={15000}
+            quantity_label="pax"
             rating={5}
             imageUrl="https://res.cloudinary.com/dcvnwpyd9/image/upload/v1716742049/nikahyook/tffegtyvok7py9j49tbj.jpg"
             responsive

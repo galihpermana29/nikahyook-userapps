@@ -58,6 +58,7 @@ function TabProduct() {
               title={item.title}
               location={item.location.city.label}
               price={item.price}
+              quantity_label={item.quantity_label}
               rating={item.rating}
               imageUrl={item.images[0]}
               refetchFn={refetch}

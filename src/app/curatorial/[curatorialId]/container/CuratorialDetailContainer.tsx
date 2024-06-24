@@ -41,7 +41,7 @@ const CuratorialDetailContainer = ({
         title={curatorial.name}
         header_image_url={curatorial.images[0]}
         target_id={curatorial.id}
-        wishlist_type='curatorial'
+        wishlist_type="curatorial"
         isWishlisted={curatorial.is_wishlist}
       />
       <div className="space-y-5 mb-[64px]">
@@ -53,8 +53,7 @@ const CuratorialDetailContainer = ({
                 key={index}
                 className={`w-[180px] h-[135px] ${index === 0 && 'ml-4'} ${
                   index + 1 === curatorial.images.length && 'mr-4'
-                }`}
-              >
+                }`}>
                 <Image
                   src={image}
                   alt={curatorial.name}
@@ -81,8 +80,7 @@ const CuratorialDetailContainer = ({
           onLoadMore={handleLoadMoreInspirations}
           onLoadLess={handleLoadLessInspirations}
           inspirationLimit={inspirationLimit}
-          inspirationLength={curatorial.inspirations.length}
-        >
+          inspirationLength={curatorial.inspirations.length}>
           <InspirationGrid
             data={
               curatorial.inspirations.slice(
@@ -95,8 +93,7 @@ const CuratorialDetailContainer = ({
         <TitledSection
           title="Products"
           titleSize="large"
-          navigateTo={`/curatorial/${curatorial.id}/product`}
-        >
+          navigateTo={`/curatorial/${curatorial.id}/product`}>
           <SwiperContainer>
             {curatorial.products
               .slice(0, 10)
@@ -105,13 +102,13 @@ const CuratorialDetailContainer = ({
                   key={item.id}
                   className={`w-fit ${index === 0 && 'ml-4'} ${
                     index + 1 === curatorial.products.length && 'mr-4'
-                  }`}
-                >
+                  }`}>
                   <ProductCard
                     id={item.id}
                     title={item.title}
                     location={item.location.city.label}
                     price={item.price}
+                    quantity_label={item.quantity_label}
                     rating={item.rating}
                     imageUrl={item.images[0]}
                     isInWishlist={item.is_wishlist}
@@ -123,8 +120,7 @@ const CuratorialDetailContainer = ({
         <TitledSection
           title="Vendors"
           titleSize="large"
-          navigateTo={`/curatorial/${curatorial.id}/vendor`}
-        >
+          navigateTo={`/curatorial/${curatorial.id}/vendor`}>
           <div className="space-y-3 px-4">
             {curatorial.vendor.slice(0, 10).map((vendor) => (
               <div key={vendor.id}>
@@ -157,8 +153,7 @@ const CuratorialDetailContainer = ({
       <BottomBar>
         <Button
           icon={<LovelyIcon />}
-          className="flex items-center justify-center w-full rounded-[8px] h-[40px] bg-ny-primary-500 text-white text-body-2"
-        >
+          className="flex items-center justify-center w-full rounded-[8px] h-[40px] bg-ny-primary-500 text-white text-body-2">
           Add to Plan
         </Button>
       </BottomBar>

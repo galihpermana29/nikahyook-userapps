@@ -1,7 +1,7 @@
-import { 
-  IGeneralWishlistResponse, 
-  IFullLocation, 
-  IVendorDetail 
+import {
+  IGeneralWishlistResponse,
+  IFullLocation,
+  IVendorDetail,
 } from './generalInterfaces';
 
 export interface IAllCuratorialResponseRoot {
@@ -23,6 +23,7 @@ export interface IProduct {
   id: number;
   title: string;
   price: number;
+  quantity_label: string;
   location: IFullLocation;
   rating: number;
   images: string[];
