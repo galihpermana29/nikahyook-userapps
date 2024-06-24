@@ -13,7 +13,7 @@ const VendorProductContainer = ({
   return (
     <div>
       <PageTitle title="Products From This Vendor" />
-      <div className="grid grid-cols-2 gap-4 px-4 py-3 border-t border-ny-gray-400">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 px-4 py-3 border-t border-ny-gray-400">
         {products.map((product) => (
           <ProductCard
             id={product.id}
@@ -24,6 +24,7 @@ const VendorProductContainer = ({
             quantity_label={product.quantity_label}
             rating={product.rating}
             imageUrl={product.images[0]}
+            responsive
           />
         ))}
       </div>
