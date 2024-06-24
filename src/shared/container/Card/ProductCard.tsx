@@ -11,11 +11,13 @@ import formatToCapitalWord from '@/shared/usecase/formatToCapitalWord';
 
 interface IProductCard {
   id: number;
+  title: string;
+  location: string;
+  quantity_label: string;
   imageUrl?: string;
-  title?: string;
-  location?: string;
   rating?: number;
   price?: number;
+
   isInWishlist?: boolean;
   responsive?: boolean;
   refetchFn?: any;
@@ -26,6 +28,7 @@ export const ProductCard = ({
   imageUrl,
   location,
   title,
+  quantity_label,
   refetchFn,
   isInWishlist = false,
   responsive = false,
@@ -72,6 +75,7 @@ export const ProductCard = ({
         <div>
           <p className="text-caption-2 text-ny-primary-500">
             {formatToRupiah(price)}
+            <span className="text-caption-3 capitalize">/{quantity_label}</span>
           </p>
           <div className="flex gap-2 justify-between">
             <div className="flex items-center gap-1">

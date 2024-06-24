@@ -21,6 +21,7 @@ const VendorProductContainer = ({
             title={product.title}
             location={product.location.city.label}
             price={product.price}
+            quantity_label={product.quantity_label}
             rating={product.rating}
             imageUrl={product.images[0]}
           />

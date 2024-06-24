@@ -24,7 +24,11 @@ function BudgetListContainer() {
 
       <section className="p-4 pb-24 flex flex-col gap-2">
         {[...Array(10)].map((_, index) => (
-          <CardBudgetList key={index} />
+          <CardBudgetList
+            key={index}
+            onCheckClick={() => {}}
+            isChecked={index > 3}
+          />
         ))}
       </section>
 
