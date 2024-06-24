@@ -1,77 +1,54 @@
-import { IChatOverview } from './../../../shared/models/chatInterfaces';
-import gacoanVendorProfileImage from '@/../public/assets/gacoan.png';
-import invillaVendorProfileImage from '@/../public/assets/invilla.png';
+import { TListChats } from './../../../shared/models/chatInterfaces';
+import { doc, onSnapshot } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { getClientSession } from '@/shared/usecase/getClientSession';
+import { db } from '../../../../firebase-config';
 
-const chatsData = [
-  {
-    vendorId: '30e7b88d-666b-4251-aeaa-358acf0a80a6',
-    vendorName: 'In Villa',
-    vendorProfileImage: invillaVendorProfileImage.src,
-    isRead: true,
-    latestMessage: {
-      sentBy: 'user',
-      sentAt: new Date(2024, 6, 23, 7, 2, 12).toISOString(),
-      message: "We're thinking about June 15th. Is that date open?",
-    },
-  },
-  {
-    vendorId: '43dc4511-9d28-4867-9f87-b9090ca1b4a5',
-    vendorName: 'Gacoan',
-    vendorProfileImage: gacoanVendorProfileImage.src,
-    isRead: true,
-    latestMessage: {
-      sentBy: 'user',
-      sentAt: new Date(2024, 6, 22, 11, 29, 16).toISOString(),
-      message:
-        "Hi, I'm looking to book a wedding venue for next summer. Is the Rosewood Hall available?",
-    },
-  },
-  {
-    vendorId: '89f7a123-456c-789b-0def-123456789abc',
-    vendorName: 'The Flower Boutique',
-    vendorProfileImage: invillaVendorProfileImage.src,
-    isRead: false,
-    latestMessage: {
-      sentBy: 'vendor',
-      sentAt: new Date(2024, 6, 21, 15, 38, 5).toISOString(),
-      message:
-        'Absolutely! We have several floral arrangements that would be perfect for a rustic theme.',
-    },
-  },
-  {
-    vendorId: '9876fedc-ba98-7654-3210-0fedcba98765',
-    vendorName: 'DJ Soundwave',
-    vendorProfileImage: gacoanVendorProfileImage.src,
-    isRead: true,
-    latestMessage: {
-      sentBy: 'user',
-      sentAt: new Date(2024, 6, 19, 9, 45, 22).toISOString(),
-      message:
-        'Could you send me a list of your top 10 most requested wedding songs?',
-    },
-  },
-  {
-    vendorId: '1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p',
-    vendorName: 'Sweet Treats Bakery',
-    vendorProfileImage: invillaVendorProfileImage.src,
-    isRead: false,
-    latestMessage: {
-      sentBy: 'vendor',
-      sentAt: new Date(2024, 6, 18, 17, 2, 58).toISOString(),
-      message:
-        'We can definitely create a custom cake topper with your initials and wedding date.',
-    },
-  },
-] as IChatOverview[];
+export default function useGetChats() {
+  const userSession = getClientSession();
+  const [listAllChat, setListAllChat] = useState<{
+    original: TListChats[];
+    render: TListChats[];
+  }>({ original: [], render: [] });
 
-export default async function useGetChats(options?: { vendorName: string }) {
-  const chats = options
-    ? chatsData.filter((data) =>
-        data.vendorName.toLowerCase().includes(options.vendorName.toLowerCase())
-      )
-    : chatsData;
+  const searchChat = (keyword: string) => {
+    const result = listAllChat.original.filter((dx) =>
+      dx.userInfo.displayName.toLowerCase().includes(keyword.toLowerCase())
+    );
 
-  return new Promise<IChatOverview[]>((resolve) =>
-    setTimeout(() => resolve(chats), 500)
-  );
+    setListAllChat((dx) => ({ ...dx, render: result }));
+  };
+
+  useEffect(() => {
+    const getChats = () => {
+      const unsub = onSnapshot(
+        doc(db, 'userChats', userSession.user_id),
+        (doc) => {
+          const allListChats = doc.data()
+            ? (doc.data() as Record<string, TListChats>)[userSession.user_id]
+            : null;
+
+          const listAllChat = allListChats
+            ? Object.entries(allListChats)
+                .map((dx) => ({
+                  ...dx[1],
+                }))
+                .sort((a: any, b: any) => b.date - a.date)
+            : [];
+          setListAllChat({
+            original: listAllChat as unknown as TListChats[],
+            render: listAllChat as unknown as TListChats[],
+          });
+        }
+      );
+
+      return () => {
+        unsub();
+      };
+    };
+
+    userSession && getChats();
+  }, [userSession.user_id]);
+
+  return { listAllChat, searchChat };
 }

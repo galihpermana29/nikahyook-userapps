@@ -21,6 +21,7 @@ export interface IAllProductsResponse {
   location: IFullLocation;
   coverage_area: ICoverageArea[];
   is_wishlist: boolean;
+  quantity_label: string;
 }
 
 export interface Tag {
