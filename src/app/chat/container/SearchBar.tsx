@@ -1,23 +1,15 @@
 import { SearchIcon } from '@/shared/container/Icon/SearchIcon';
 import { Input } from 'antd';
-import { redirect } from 'next/navigation';
+// import useGetChats from '../usecase/useGetChats';
 
 export default function SearchBar() {
-  async function onSearch(formData: FormData) {
-    'use server';
-
-    const search = formData.get('search');
-    return redirect(`/chat?search=${search}`);
-  }
-
   return (
-    <form action={onSearch}>
-      <Input
-        name="search"
-        prefix={<SearchIcon className="size-fit" />}
-        className="flex h-[35px]"
-        placeholder="Search vendor"
-      />
-    </form>
+    <Input
+      // onChange={(e) => setKeyword(e.target.value)}
+      name="search"
+      prefix={<SearchIcon className="size-fit" />}
+      className="flex h-[35px]"
+      placeholder="Search vendor"
+    />
   );
 }

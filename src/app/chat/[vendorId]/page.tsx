@@ -1,40 +1,51 @@
 import PageTitle from '@/shared/container/PageTitle/PageTitle';
 import React from 'react';
-import DateDivider from '../container/DateDivider';
-import useGetVendorData from './usecase/useGetVendorData';
-import useGetBubbleChats from './usecase/useGetBubbleChats';
-import groupChatMessagesByDate from './usecase/groupChatMessagesByDate';
-import ChatBubble from './container/ChatBubble';
 import SendMessageArea from './container/SendMessageArea';
+import RoomChatContainer from './container/RoomChatContainer';
+import { getUserDetail } from '@/shared/actions/userService';
+import { getProductDetail } from '@/shared/actions/productService';
+import { IAllProductsResponse } from '@/shared/models/productInterfaces';
+import { IFetchGeneralSuccessResponse } from '@/shared/models/generalInterfaces';
 
 export default async function VendorRoomChatPage({
   params,
+  searchParams,
 }: {
   params: { vendorId: string };
+  searchParams: { productId: string };
 }) {
-  const vendorData = await useGetVendorData(params.vendorId);
-  const chatsData = await useGetBubbleChats(params.vendorId);
-  const chats = groupChatMessagesByDate(chatsData);
+  const detailVendor = await getUserDetail(params.vendorId);
+  let detailProductQuoted = Object.prototype.hasOwnProperty.call(
+    searchParams,
+    'productId'
+  )
+    ? await getProductDetail(searchParams.productId)
+    : null;
+
+  if (typeof detailVendor.data === 'string') {
+    throw Error(detailVendor.data);
+  }
+
+  if (typeof detailProductQuoted?.data === 'string') {
+    detailProductQuoted = null;
+  }
 
   return (
-    <>
-      <PageTitle title={vendorData.vendorName} />
-
-      <section className="flex flex-col gap-2 px-4 pb-4">
-        {Object.keys(chats).map((date) => (
-          <div className="flex flex-col gap-2" key={date}>
-            <DateDivider date={date} />
-
-            <div className="flex flex-col gap-5">
-              {chats[date].map((chat) => (
-                <ChatBubble key={chat.userId + chat.vendorId} chat={chat} />
-              ))}
-            </div>
-          </div>
-        ))}
-      </section>
-
-      <SendMessageArea vendorId={vendorData.vendorId} />
-    </>
+    <div className="relative">
+      <div className="fixed z-[99] top-0 left-0 right-0 bg-white">
+        <PageTitle title={detailVendor.data.data.name} />
+      </div>
+      <RoomChatContainer vendor={detailVendor.data.data} />
+      <SendMessageArea
+        vendor={detailVendor.data.data}
+        quotedProduct={
+          detailProductQuoted
+            ? (
+                detailProductQuoted.data as IFetchGeneralSuccessResponse<IAllProductsResponse>
+              ).data
+            : null
+        }
+      />
+    </div>
   );
 }

@@ -1,5 +1,7 @@
 import { Divider } from 'antd';
 import dayjs from 'dayjs';
+import calendar from 'dayjs/plugin/calendar';
+dayjs.extend(calendar);
 
 export default function DateDivider({ date }: { date: string }) {
   const dayjsCalendarConfig = {
