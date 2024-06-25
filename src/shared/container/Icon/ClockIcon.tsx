@@ -1,4 +1,4 @@
-export const ClockIcon = ({ props, fill = 'white' }: { props?: React.SVGProps<SVGSVGElement>, fill: string}) => {
+export const ClockIcon = ({ props, fill = 'white' }: { props?: React.SVGProps<SVGSVGElement>, fill?: string}) => {
   return (
     <svg
       width="16"

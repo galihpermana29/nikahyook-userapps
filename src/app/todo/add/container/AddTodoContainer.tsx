@@ -64,7 +64,7 @@ const AddTodoContainer = ({ categories }: { categories: string[] }) => {
               <>
                 {menu}
                 <Divider style={{ margin: '8px 0' }} />
-                <Space style={{ padding: '0 8px 4px' }}>
+                <Space style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px 4px' }}>
                   <Input
                     placeholder="New category"
                     ref={inputRef}
