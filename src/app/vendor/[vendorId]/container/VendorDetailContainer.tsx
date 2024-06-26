@@ -97,7 +97,7 @@ const VendorDetailContainer = ({
           titleSize="large"
           navigateTo={`${vendor.id}/product`}>
           <SwiperContainer>
-            {products.map((product, index: number) => (
+            {products.slice(0, 10).map((product, index: number) => (
               <SwiperSlide
                 key={product.id}
                 className={`w-fit ${index === 0 ? 'ml-4' : ''} ${
