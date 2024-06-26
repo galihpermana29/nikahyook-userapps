@@ -1,13 +1,14 @@
-import { IReview } from '@/shared/models/generalInterfaces';
+import { IReviewData } from '@/shared/models/generalInterfaces';
 import React from 'react';
 import ReviewCard from '../Card/ReviewCard';
 import { Rate } from 'antd';
 import { StarIcon } from '../Icon/StarIcon';
+import formatRating from '@/shared/usecase/formatRating';
 
 type IReviewSection = {
   avgRating: number;
   totalReviews: number;
-  reviews: IReview[];
+  reviews: IReviewData[];
 };
 
 const ReviewSection = ({
@@ -29,7 +30,7 @@ const ReviewSection = ({
           />
         </div>
         <p className="text-caption-2 text-ny-gray-200">
-          {avgRating.toFixed(1)} ({totalReviews} Reviews)
+          {formatRating(avgRating)} ({totalReviews} Reviews)
         </p>
       </div>
       <div className="space-y-3">

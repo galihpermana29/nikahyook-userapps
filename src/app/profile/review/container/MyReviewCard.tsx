@@ -1,8 +1,8 @@
 import { StarIcon } from '@/shared/container/Icon/StarIcon';
-import type { IReview } from '@/shared/models/generalInterfaces';
+import type { IReviewData } from '@/shared/models/generalInterfaces';
 import { Button, Card, Rate } from 'antd';
 
-export default function MyReviewCard({ review }: { review: IReview }) {
+export default function MyReviewCard({ review }: { review: IReviewData }) {
   return (
     <Card className="drop-shadow" title={review.name} bordered={false}>
       My Review:
@@ -21,7 +21,7 @@ export default function MyReviewCard({ review }: { review: IReview }) {
         </span>
       </div>
       <div className="block rounded-lg border-[1px] bg-ny-gray-100 mt-2 py-2 px-[10px] text-caption-2">
-        {review.comment}
+        {review.description}
       </div>
       <div className="flex justify-end mt-2">
         <Button className="text-caption-2 text-ny-primary-400" type="link">

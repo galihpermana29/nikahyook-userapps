@@ -2,6 +2,7 @@ import {
   IFullLocation,
   IGeneralWishlistResponse,
   ILocation,
+  IReview,
   IVendorDetail,
 } from './generalInterfaces';
 
@@ -27,6 +28,7 @@ export interface IUserVendorDetail {
   avg_rating: number;
   vendor_detail: IVendorDetail;
   is_wishlist: boolean;
+  review: IReview
 }
 
 export interface IUserVendorAdditionalDetail {

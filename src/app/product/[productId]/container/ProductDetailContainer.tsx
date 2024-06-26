@@ -4,7 +4,6 @@ import { Button, message } from 'antd';
 import { CartIcon } from '@/shared/container/Icon/CartIcon';
 import { createCart } from '@/shared/actions/productService';
 import { IAllProductsResponse } from '@/shared/models/productInterfaces';
-import { IReview } from '@/shared/models/generalInterfaces';
 import { MessageIcon } from '@/shared/container/Icon/MessageIcon';
 import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
 import { SwiperSlide } from 'swiper/react';
@@ -24,25 +23,6 @@ const ProductDetailContainer = ({
 }: {
   product: IAllProductsResponse;
 }) => {
-  // This is just temporary data while waiting for backend
-  const reviewMockData: IReview[] = [
-    {
-      profile_image_url:
-        'https://res.cloudinary.com/dcvnwpyd9/image/upload/v1717122421/nikahyook/gxsgo2wdyhnykrgfoxg6.png',
-      name: 'Zidan',
-      rating: 4,
-      comment:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vulputate, nulla ut commodo fermentum, augue enim consectetur diam, ac vulputate dui turpis non ipsum. ',
-    },
-    {
-      profile_image_url:
-        'https://res.cloudinary.com/dcvnwpyd9/image/upload/v1717122421/nikahyook/gxsgo2wdyhnykrgfoxg6.png',
-      name: 'Zidan',
-      rating: 4,
-      comment:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vulputate, nulla ut commodo fermentum, augue enim consectetur diam, ac vulputate dui turpis non ipsum. ',
-    },
-  ];
 
   const { onClickMessage } = useQuoteProductToChat(product);
 
@@ -79,7 +59,7 @@ const ProductDetailContainer = ({
           price={product.price}
           product_type={product.product_type_name}
           sold={20}
-          totalReview={12}
+          totalReview={product.review.total_review}
           rating={product.rating}
           quantity_label={product.quantity_label}
         />
@@ -124,9 +104,9 @@ const ProductDetailContainer = ({
           />
         </section>
         <ReviewSection
-          avgRating={4}
-          totalReviews={12}
-          reviews={reviewMockData}
+          avgRating={product.rating}
+          totalReviews={product.review.total_review}
+          reviews={product.review.review}
         />
       </div>
       <BottomBar>

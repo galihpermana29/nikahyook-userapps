@@ -166,7 +166,7 @@ export async function getProductDetail(
       ? JSON.parse(data.data.vendor.json_text)
       : {};
   }
-
+  
   return { success: true, data };
 }
 

@@ -2,6 +2,7 @@ import {
   ICoverageArea,
   IFullLocation,
   IGeneralWishlistResponse,
+  IReview,
   IVendorDetail,
 } from './generalInterfaces';
 
@@ -22,6 +23,7 @@ export interface IAllProductsResponse {
   coverage_area: ICoverageArea[];
   is_wishlist: boolean;
   quantity_label: string;
+  review: IReview
 }
 
 export interface Tag {
