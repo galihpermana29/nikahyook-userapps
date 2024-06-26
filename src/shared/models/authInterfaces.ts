@@ -5,6 +5,19 @@ export interface ISessionData extends ILoginResponseRoot {
   user_detail: IDetailUserData;
 }
 
+export interface IForgotPasswordPayload {
+  email: string;
+}
+
+export interface IResetPasswordPayload {
+  new_password: string;
+}
+
+export interface IResetPasswordResponseRoot {
+  data: string;
+  status: string;
+}
+
 export interface ILoginResponseRoot {
   user_id: string;
   email: string;

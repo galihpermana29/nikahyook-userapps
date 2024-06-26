@@ -5,7 +5,9 @@
 import {
   IFetchGeneralResponse,
   IFetchGeneralSuccessResponse,
+  type IPostGeneralResponse,
 } from '@/shared/models/generalInterfaces';
+import { IResetPasswordResponseRoot } from './../models/authInterfaces';
 import {
   IAllUserResponse,
   type IChangePasswordPayloadRoot,
@@ -23,6 +25,8 @@ import type {
   ISessionData,
   ILoginPayloadRoot,
   ILoginResponseRoot,
+  IForgotPasswordPayload,
+  IResetPasswordPayload,
 } from '../models/authInterfaces';
 import { redirect } from 'next/navigation';
 
@@ -49,6 +53,63 @@ export async function clearSessions() {
   cookies().delete('client-session');
 
   return redirect('/login');
+}
+
+export async function forgotPassword(
+  payload: IForgotPasswordPayload
+): Promise<IPostGeneralResponse<string>> {
+  const res = await fetch(baseURL + '/auth/forgot-password', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    return errorHandling(res);
+  }
+
+  const { data } = await res.json();
+
+  return { success: true, data };
+}
+
+export async function validateResetToken(token: string) {
+  const res = await fetch(baseURL + '/auth/validate-reset-token', {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) {
+    return errorHandling(res);
+  }
+
+  const data = await res.json();
+
+  return { success: true, data };
+}
+
+export async function resetPassword(
+  payload: IResetPasswordPayload,
+  token: string | null
+): Promise<IFetchGeneralResponse<IResetPasswordResponseRoot | string>> {
+  if (!token) return { success: false, data: 'No token found!' };
+
+  const res = await fetch(baseURL + '/auth/reset-password', {
+    method: 'POST',
+    body: JSON.stringify({ new_password: payload.new_password }),
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) {
+    return errorHandling(res);
+  }
+
+  const data = await res.json();
+
+  return { success: true, data };
 }
 
 export async function register(

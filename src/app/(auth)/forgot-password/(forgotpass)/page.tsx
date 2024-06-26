@@ -1,10 +1,10 @@
 import { Button } from 'antd';
-import ResetPasswordFormContainer from './container/ResetPasswordFormContainer';
 import ForgotPasswordForm from './container/Form/ForgotPasswordForm';
+import ForgotPasswordFormContainer from './container/ForgotPasswordFormContainer';
 
 export default function ForgotPasswordPage() {
   return (
-    <ResetPasswordFormContainer
+    <ForgotPasswordFormContainer
       className="w-full flex flex-col gap-5"
       layout="vertical">
       <ForgotPasswordForm />
@@ -12,6 +12,6 @@ export default function ForgotPasswordPage() {
       <Button type="primary" htmlType="submit">
         Send Email
       </Button>
-    </ResetPasswordFormContainer>
+    </ForgotPasswordFormContainer>
   );
 }
