@@ -3,10 +3,9 @@
 import FormItem from '@/shared/container/ClientAntd/FormItem/FormItem';
 import { InputPassword } from '@/shared/container/ClientAntd/Input/Input';
 import useFormInstance from 'antd/es/form/hooks/useFormInstance';
-import { Button } from 'antd';
 import useValidateConfirmPassword from '@/shared/usecase/useValidateConfirmPassword';
 
-export default function ChangePasswordForm() {
+export default function ResetPasswordForm() {
   const form = useFormInstance();
 
   return (
@@ -14,27 +13,27 @@ export default function ChangePasswordForm() {
       <FormItem
         className="my-0"
         required
-        label="Old Password"
-        name="old_password"
-        rules={[{ required: true, message: 'Please enter your password!' }]}>
-        <InputPassword placeholder="Enter your password here!" />
-      </FormItem>
-
-      <FormItem
-        className="my-0"
-        required
         label="New Password"
         name="new_password"
+        extra={
+          <p className="text-caption-2 mt-2">
+            Password must be at least 8 characters
+          </p>
+        }
         rules={[
           { required: true, message: 'Please enter your new password!' },
+          { min: 8, message: 'Password must be at least 8 characters!' },
         ]}>
-        <InputPassword placeholder="Enter your new password here!" />
+        <InputPassword
+          name="new_password"
+          placeholder="Enter your new password here!"
+        />
       </FormItem>
 
       <FormItem
         className="my-0"
         required
-        label="Confirm Password"
+        label="Re-enter New Password"
         name="confirm_password"
         rules={[
           { required: true, message: 'Please confirm your new password!' },
@@ -43,19 +42,11 @@ export default function ChangePasswordForm() {
             fieldName: 'new_password',
           }),
         ]}>
-        <InputPassword placeholder="Confirm your password" />
+        <InputPassword
+          name="confirm_password"
+          placeholder="Confirm your password"
+        />
       </FormItem>
-
-      <div className="flex items-center pt-3 w-full gap-2 mt-auto">
-        <Button
-          href="/profile"
-          className="w-full text-ny-primary-500 bg-ny-primary-100">
-          Cancel
-        </Button>
-        <Button className="w-full" type="primary" htmlType="submit">
-          Save
-        </Button>
-      </div>
     </>
   );
 }

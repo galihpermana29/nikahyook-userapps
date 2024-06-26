@@ -2,11 +2,11 @@
 
 import { Form, type FormProps } from 'antd';
 import type { ReactNode } from 'react';
-import useMutateChange from '../usecase/useMutateChange';
+import useMutateForgot from '../usecase/useMutateForgot';
 
-export default function ChangePasswordFormContainer(props: FormProps) {
+export default function ForgotPasswordFormContainer(props: FormProps) {
   const [form] = Form.useForm();
-  const { mutate, isLoading } = useMutateChange();
+  const { mutate, isLoading } = useMutateForgot();
 
   return (
     <Form disabled={isLoading} onFinish={mutate} form={form} {...props}>
