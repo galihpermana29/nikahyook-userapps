@@ -28,13 +28,6 @@ export interface IMetaData {
   previous_page: number;
 }
 
-export interface IReview {
-  profile_image_url: string;
-  name: string;
-  rating: number;
-  comment: string;
-}
-
 // Interface for json_text in vendor
 export interface IVendorDetail {
   vendor_description?: string;
@@ -87,4 +80,17 @@ export interface IFullLocation extends ICoverageArea {
 
 export interface IGeneralWishlistResponse {
   user_id: string;
+}
+
+export interface IReview {
+  total_review: number;
+  review: IReviewData[]
+}
+
+export interface IReviewData {
+  user_id: string;
+  name: string;
+  profile_image_uri: string;
+  rating: number;
+  description: string;
 }

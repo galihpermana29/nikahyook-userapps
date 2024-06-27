@@ -5,7 +5,7 @@ import { IAllUserResponse } from '@/shared/models/userInterfaces';
 import { TitledSection } from '@/shared/container/Section/TitledSection';
 import { VendorCard } from '@/shared/container/Card/VendorCard';
 import CustomErrorBoundary from '@/shared/container/ErrorBoundary/ErrorBoundary';
-import EmptySection from '../EmptySection';
+import EmptySection from '@/shared/container/Section/EmptySection';
 
 export const TopVendorsSection = ({
   data,

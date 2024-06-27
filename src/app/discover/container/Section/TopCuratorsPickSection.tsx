@@ -2,12 +2,12 @@
 
 import { CuratorCard } from '@/shared/container/Card/CuratorCard';
 import CustomErrorBoundary from '@/shared/container/ErrorBoundary/ErrorBoundary';
+import EmptySection from '@/shared/container/Section/EmptySection';
 import { TitledSection } from '@/shared/container/Section/TitledSection';
 import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
 import { IAllCuratorialsResponse } from '@/shared/models/productInterfaces';
 import { ErrorBoundary } from 'react-error-boundary';
 import { SwiperSlide } from 'swiper/react';
-import EmptySection from '../EmptySection';
 
 export const TopCuratorsPickSection = ({
   data,

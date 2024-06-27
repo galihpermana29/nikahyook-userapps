@@ -2,23 +2,24 @@
 
 import { ProductCard } from '@/shared/container/Card/ProductCard';
 import PageTitle from '@/shared/container/PageTitle/PageTitle';
+import { IProduct } from '@/shared/models/curatorialInterfaces';
 
-const CuratorialProductContainer = () => {
+const CuratorialProductContainer = ({ products }: { products: IProduct[] }) => {
   return (
     <div>
       <PageTitle title="Products" />
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 px-4 py-3 border-t border-ny-gray-400">
-        {Array.from({ length: 12 }).map((_, index) => (
+        {products.map((product) => (
           <ProductCard
-            id={index}
-            key={index}
-            isInWishlist={false}
-            title="Kempinski Wedding Hall 2"
-            location="Arjosari, 65126, Blimbing, Malang, East Java, Indonesia"
-            price={15000}
-            quantity_label="pax"
-            rating={5}
-            imageUrl="https://res.cloudinary.com/dcvnwpyd9/image/upload/v1716742049/nikahyook/tffegtyvok7py9j49tbj.jpg"
+            key={product.id}
+            id={product.id}
+            title={product.title}
+            location={product.location.city.label}
+            price={product.price}
+            quantity_label={product.quantity_label}
+            rating={product.rating}
+            imageUrl={product.images[0]}
+            isInWishlist={product.is_wishlist}
             responsive
           />
         ))}

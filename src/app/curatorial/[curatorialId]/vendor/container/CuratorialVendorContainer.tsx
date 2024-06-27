@@ -2,30 +2,27 @@
 
 import { VendorCard } from '@/shared/container/Card/VendorCard';
 import PageTitle from '@/shared/container/PageTitle/PageTitle';
+import { IVendor } from '@/shared/models/curatorialInterfaces';
 import React from 'react';
 
-const CuratorialVendorContainer = () => {
+const CuratorialVendorContainer = ({ vendors }: { vendors: IVendor[] }) => {
   return (
     <div>
       <PageTitle title="Vendors" />
       <div className="space-y-3 px-4 py-3 border-t border-ny-gray-400">
-        {Array.from({ length: 6 }).map((_, index) => (
+        {vendors.map((vendor) => (
           <VendorCard
-            key={index}
-            id={'test'}
-            navigateTo="/"
-            vendor_name="Batam Weddings"
-            product_type_name="Vendor Type A"
-            price={15000}
-            rating={5}
-            location="Arjosari, 65126, Blimbing, Malang, East Java, Indonesia"
-            profile_picture_uri="https://res.cloudinary.com/dcvnwpyd9/image/upload/v1717122421/nikahyook/gxsgo2wdyhnykrgfoxg6.png"
-            images={[
-              'https://res.cloudinary.com/dcvnwpyd9/image/upload/v1717122505/nikahyook/k1b9tfwnuqosoyxvshnb.jpg',
-              'https://res.cloudinary.com/dcvnwpyd9/image/upload/v1717122505/nikahyook/k1b9tfwnuqosoyxvshnb.jpg',
-              'https://res.cloudinary.com/dcvnwpyd9/image/upload/v1717122505/nikahyook/k1b9tfwnuqosoyxvshnb.jpg',
-              'https://res.cloudinary.com/dcvnwpyd9/image/upload/v1717122505/nikahyook/k1b9tfwnuqosoyxvshnb.jpg',
-            ]}
+            key={vendor.id}
+            id={vendor.id}
+            navigateTo={`/vendor/${vendor.id}`}
+            vendor_name={vendor.name}
+            product_type_name={vendor.type}
+            price={vendor.lowest_price}
+            rating={vendor.avg_rating}
+            location={vendor.location.city.label}
+            profile_picture_uri={vendor.image}
+            images={vendor.vendor_detail.vendor_album}
+            isInWishlist={vendor.is_wishlist}
           />
         ))}
       </div>

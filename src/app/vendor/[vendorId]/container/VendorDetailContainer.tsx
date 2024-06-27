@@ -3,7 +3,6 @@
 import { Button } from 'antd';
 import { IAllProductsResponse } from '@/shared/models/productInterfaces';
 import { IAllUserResponse } from '@/shared/models/userInterfaces';
-import { IReview } from '@/shared/models/generalInterfaces';
 import { MessageIcon } from '@/shared/container/Icon/MessageIcon';
 import { ProductCard } from '@/shared/container/Card/ProductCard';
 import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
@@ -24,25 +23,6 @@ const VendorDetailContainer = ({
   vendor: IAllUserResponse;
   products: IAllProductsResponse[];
 }) => {
-  // This is just temporary data while waiting for backend
-  const reviewMockData: IReview[] = [
-    {
-      profile_image_url:
-        'https://res.cloudinary.com/dcvnwpyd9/image/upload/v1717122421/nikahyook/gxsgo2wdyhnykrgfoxg6.png',
-      name: 'Zidan',
-      rating: 4,
-      comment:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vulputate, nulla ut commodo fermentum, augue enim consectetur diam, ac vulputate dui turpis non ipsum. ',
-    },
-    {
-      profile_image_url:
-        'https://res.cloudinary.com/dcvnwpyd9/image/upload/v1717122421/nikahyook/gxsgo2wdyhnykrgfoxg6.png',
-      name: 'Zidan',
-      rating: 4,
-      comment:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vulputate, nulla ut commodo fermentum, augue enim consectetur diam, ac vulputate dui turpis non ipsum. ',
-    },
-  ];
 
   const {
     vendor_album,
@@ -69,7 +49,7 @@ const VendorDetailContainer = ({
           startFrom={true}
           product_type={vendor.detail?.vendor_type_name}
           sold={20}
-          totalReview={12}
+          totalReview={vendor.detail?.review.total_review ? vendor.detail.review.total_review : 0}
           rating={vendor.detail?.avg_rating}
         />
         {vendor_album && vendor_album.length > 0 && (
@@ -117,7 +97,7 @@ const VendorDetailContainer = ({
           titleSize="large"
           navigateTo={`${vendor.id}/product`}>
           <SwiperContainer>
-            {products.map((product, index: number) => (
+            {products.slice(0, 10).map((product, index: number) => (
               <SwiperSlide
                 key={product.id}
                 className={`w-fit ${index === 0 ? 'ml-4' : ''} ${
@@ -139,9 +119,9 @@ const VendorDetailContainer = ({
           </SwiperContainer>
         </TitledSection>
         <ReviewSection
-          avgRating={4}
-          totalReviews={12}
-          reviews={reviewMockData}
+          avgRating={vendor.detail?.avg_rating ? vendor.detail.avg_rating : 0}
+          totalReviews={vendor.detail?.review.total_review ? vendor.detail.review.total_review : 0}
+          reviews={vendor.detail?.review.review ? vendor.detail.review.review : []}
         />
         <BottomBar>
           <div className="flex items-center gap-2">

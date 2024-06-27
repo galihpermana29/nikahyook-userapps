@@ -4,7 +4,7 @@ import splitArrayToChunks from '@/shared/usecase/splitArrayToChunks';
 import generateUUID from '@/shared/usecase/generateUUID';
 import { NikahyookLogoIcon } from '../Icon/NikahyookLogoIcon';
 import { IAllInspirationsResponse } from '@/shared/models/productInterfaces';
-import EmptySection from '@/app/discover/container/EmptySection';
+import EmptySection from '../Section/EmptySection';
 
 interface IInspirationGrid {
   data: IAllInspirationsResponse[];

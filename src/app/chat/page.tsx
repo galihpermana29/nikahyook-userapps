@@ -5,7 +5,7 @@ import useGetChats from './usecase/useGetChats';
 import ChatInfo from './container/ChatInfo';
 import SearchBar from './container/SearchBar';
 import { BottomNav } from '@/shared/container/Navigation/BottomNav';
-import EmptySection from '../discover/container/EmptySection';
+import EmptySection from '@/shared/container/Section/EmptySection';
 
 export default function ChatsPage() {
   const { listAllChat } = useGetChats();
