@@ -9,7 +9,7 @@ function SearchPage({
 }) {
   return (
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
-      <SearchContainer defaultTab={searchParams.tab || 'inpiration'} />
+      <SearchContainer defaultTab={searchParams.tab || 'inspiration'} />
     </ErrorBoundary>
   );
 }

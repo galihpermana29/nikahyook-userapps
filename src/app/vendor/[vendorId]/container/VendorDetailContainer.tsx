@@ -15,6 +15,7 @@ import Image from 'next/image';
 import React from 'react';
 import ReviewSection from '@/shared/container/Section/ReviewSection';
 import SocialMediaSection from './section/SocialMediaSection';
+import Link from 'next/link';
 
 const VendorDetailContainer = ({
   vendor,
@@ -23,7 +24,6 @@ const VendorDetailContainer = ({
   vendor: IAllUserResponse;
   products: IAllProductsResponse[];
 }) => {
-
   const {
     vendor_album,
     vendor_description,
@@ -49,7 +49,11 @@ const VendorDetailContainer = ({
           startFrom={true}
           product_type={vendor.detail?.vendor_type_name}
           sold={20}
-          totalReview={vendor.detail?.review.total_review ? vendor.detail.review.total_review : 0}
+          totalReview={
+            vendor.detail?.review.total_review
+              ? vendor.detail.review.total_review
+              : 0
+          }
           rating={vendor.detail?.avg_rating}
         />
         {vendor_album && vendor_album.length > 0 && (
@@ -120,16 +124,24 @@ const VendorDetailContainer = ({
         </TitledSection>
         <ReviewSection
           avgRating={vendor.detail?.avg_rating ? vendor.detail.avg_rating : 0}
-          totalReviews={vendor.detail?.review.total_review ? vendor.detail.review.total_review : 0}
-          reviews={vendor.detail?.review.review ? vendor.detail.review.review : []}
+          totalReviews={
+            vendor.detail?.review.total_review
+              ? vendor.detail.review.total_review
+              : 0
+          }
+          reviews={
+            vendor.detail?.review.review ? vendor.detail.review.review : []
+          }
         />
         <BottomBar>
           <div className="flex items-center gap-2">
-            <Button
-              icon={<MessageIcon />}
-              className="flex items-center justify-center w-full rounded-[8px] h-[40px] bg-ny-primary-100 text-ny-primary-500 text-body-2">
-              Message
-            </Button>
+            <Link href={`/chat/${vendor.id}`} className="w-full">
+              <Button
+                icon={<MessageIcon />}
+                className="flex items-center justify-center w-full rounded-[8px] h-[40px] bg-ny-primary-100 text-ny-primary-500 text-body-2">
+                Message
+              </Button>
+            </Link>
           </div>
         </BottomBar>
       </div>

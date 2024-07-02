@@ -1,12 +1,18 @@
 import type { TListChats } from '@/shared/models/chatInterfaces';
 import { Avatar } from 'antd';
 import dayjs from 'dayjs';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import useMarkAsRead from '../usecase/useMarkAsRead';
 
 export default function ChatInfo({ chat }: { chat: TListChats }) {
+  const router = useRouter();
+  const { markAsRead } = useMarkAsRead(chat);
   return (
-    <Link
-      href={`/chat/${chat.userInfo.uid}`}
+    <div
+      onClick={() => {
+        markAsRead();
+        router.push(`/chat/${chat.userInfo.uid}`);
+      }}
       className="flex gap-3 items-center w-full hover:cursor-pointer hover:bg-slate-100 p-[8px] hover:rounded-[5px]">
       <Avatar
         shape="circle"
@@ -19,7 +25,7 @@ export default function ChatInfo({ chat }: { chat: TListChats }) {
             {chat.userInfo.displayName}
           </span>
           <span className="font-semibold text-[10px]">
-            {dayjs(chat.date.toDate()).format('HH.mm')}
+            {dayjs(chat?.date?.toDate()).format('HH.mm')}
           </span>
         </div>
         <div className="flex items-center justify-between gap-4">
@@ -35,6 +41,6 @@ export default function ChatInfo({ chat }: { chat: TListChats }) {
           )}
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
