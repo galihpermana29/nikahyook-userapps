@@ -1,17 +1,18 @@
 'use client';
 
 import './style.scss';
-import { Button, Checkbox, CheckboxProps } from 'antd';
+import { Button, Checkbox, CheckboxProps, message } from 'antd';
 import { IAllCartResponse } from '@/shared/models/cartInterfaces';
 import { MessageIcon } from '@/shared/container/Icon/MessageIcon';
 import { ReceiveIcon } from '@/shared/container/Icon/ReceiveIcon';
 import BottomBar from '@/shared/container/BottomBar/BottomBar';
 import CartItemCard from './card/CartItemCard';
+import NoResult from '@/shared/container/NoResult/NoResult';
 import PageTitle from '@/shared/container/PageTitle/PageTitle';
 import React, { useState, useMemo } from 'react';
 import useCheckboxState from '../usecase/useCheckboxState';
 import useMutateCart from '../usecase/useMutateCart';
-import NoResult from '@/shared/container/NoResult/NoResult';
+import useMutateOrder from '../usecase/useMutateOrder';
 
 interface ICartContainer {
   cart: IAllCartResponse;
@@ -43,6 +44,16 @@ const CartContainer = ({ cart }: ICartContainer) => {
 
   const handleSelectAllCheckboxChange: CheckboxProps['onChange'] = (e) => {
     handleToggleAllCheckboxes(allProductIds, e.target.checked);
+  };
+
+  const { handleCreateOrder, isCreatingOrder } = useMutateOrder();
+
+  const handleCheckout = () => {
+    if (checkedList.length === 0) {
+      message.warning('Please select at least one product to checkout');
+      return;
+    }
+    handleCreateOrder(checkedList);
   };
 
   return (
@@ -82,8 +93,9 @@ const CartContainer = ({ cart }: ICartContainer) => {
                 All
               </Checkbox>
               <Button
+                onClick={handleCheckout}
                 className="flex items-center justify-center w-fit rounded-[8px] h-[40px] bg-ny-primary-500 text-white text-body-2"
-                loading={isUpdating || isDeleting}
+                loading={isUpdating || isDeleting || isCreatingOrder}
               >
                 Checkout
               </Button>
