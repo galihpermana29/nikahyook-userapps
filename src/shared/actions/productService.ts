@@ -17,7 +17,11 @@ import {
 } from '@/shared/models/productInterfaces';
 import { errorHandling } from '@/shared/usecase/errorHandling';
 import { getServerSession } from '../usecase/getServerSession';
-import { IAllCartResponse, IDeleteCartPayloadRoot, IUpdateCartPayloadRoot } from '../models/cartInterfaces';
+import {
+  IAllCartResponse,
+  IDeleteCartPayloadRoot,
+  IUpdateCartPayloadRoot,
+} from '../models/cartInterfaces';
 
 // Anything related to product
 
@@ -166,7 +170,7 @@ export async function getProductDetail(
       ? JSON.parse(data.data.vendor.json_text)
       : {};
   }
-  
+
   return { success: true, data };
 }
 
@@ -310,7 +314,9 @@ export async function getAllWishlist(
 ): Promise<IFetchGeneralResponse<IFetchGeneralSuccessResponse<any | string>>> {
   const sessionData = await getServerSession();
   const res = await fetch(
-    baseURL + `/wishlists/${sessionData.user_id}/${type}s?'` + new URLSearchParams(params),
+    baseURL +
+      `/wishlists/${sessionData.user_id}/${type}s?'` +
+      new URLSearchParams(params),
     {
       method: 'GET',
       headers: {
@@ -354,7 +360,9 @@ export async function createCart(
   return { success: true, data };
 }
 
-export async function getAllCart(): Promise<IFetchGeneralResponse<IFetchGeneralResponse<IAllCartResponse> | string>> {
+export async function getAllCart(): Promise<
+  IFetchGeneralResponse<IFetchGeneralResponse<IAllCartResponse> | string>
+> {
   const sessionData = await getServerSession();
   const res = await fetch(baseURL + `/carts/${sessionData.user_id}`, {
     method: 'GET',
@@ -371,7 +379,6 @@ export async function getAllCart(): Promise<IFetchGeneralResponse<IFetchGeneralR
 
   return { success: true, data };
 }
-
 
 export async function updateCart(
   payload: IUpdateCartPayloadRoot
@@ -402,6 +409,31 @@ export async function deleteCart(
 
   const res = await fetch(baseURL + `/carts/${sessionData.user_id}`, {
     method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${sessionData.token}`,
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    return errorHandling(res);
+  }
+
+  const data = await res.json();
+
+  return { success: true, data };
+}
+
+export async function createOrder(
+  productIds: number[]
+): Promise<IPostGeneralResponse<IPostGeneralSuccessResponse<any> | string>> {
+  const sessionData = await getServerSession();
+  const payload = {
+    product_ids: productIds,
+  };
+
+  const res = await fetch(baseURL + '/orders', {
+    method: 'POST',
     headers: {
       Authorization: `Bearer ${sessionData.token}`,
     },

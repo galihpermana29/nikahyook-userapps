@@ -17,12 +17,15 @@ import Image from 'next/image';
 import React from 'react';
 import ReviewSection from '@/shared/container/Section/ReviewSection';
 import useQuoteProductToChat from '../usecase/useQuoteProductToChat';
+import { useRouter } from 'next/navigation';
 
 const ProductDetailContainer = ({
   product,
 }: {
   product: IAllProductsResponse;
 }) => {
+
+  const router = useRouter();
 
   const { onClickMessage } = useQuoteProductToChat(product);
 
@@ -52,6 +55,12 @@ const ProductDetailContainer = ({
         target_id={product.id}
         wishlist_type="product"
         isWishlisted={product.is_wishlist}
+        titleIcon={
+          <CartIcon
+            className='text-ny-primary-500'
+            onClick={() => router.push('/cart')}
+          />
+        }
       />
       <div className="space-y-5 mb-[64px]">
         <DetailInfoSection
@@ -68,9 +77,8 @@ const ProductDetailContainer = ({
             {product.images.map((image, index) => (
               <SwiperSlide
                 key={index}
-                className={`w-[180px] h-[135px] ${index === 0 && 'ml-4'} ${
-                  index + 1 === product.images.length && 'mr-4'
-                }`}>
+                className={`w-[180px] h-[135px] ${index === 0 && 'ml-4'} ${index + 1 === product.images.length && 'mr-4'
+                  }`}>
                 <Image
                   src={image}
                   alt={product.title}

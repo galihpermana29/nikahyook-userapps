@@ -10,6 +10,7 @@ type IDetailHeader = {
   target_id: number | string;
   wishlist_type: TWishlist;
   isWishlisted: boolean | undefined;
+  titleIcon?: React.ReactNode;
 };
 
 const DetailHeader = ({
@@ -18,10 +19,13 @@ const DetailHeader = ({
   target_id,
   wishlist_type,
   isWishlisted,
+  titleIcon
 }: IDetailHeader) => {
   return (
     <>
-      <PageTitle title={title} />
+      <PageTitle title={title}>
+        {titleIcon}
+      </PageTitle>
       <div className="min-h-[270px] relative">
         <WishListButton
           target_id={target_id}
