@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic';
 import TabLoading from '../container/Tab/TabLoading/TabLoading';
+import FailedTab from '../container/Tab/FailedTabSection/FailedTab';
 
 const OrderedTab = dynamic(
   () => import('../container/Tab/OrderedTabSection/OrderedTab'),
@@ -56,6 +57,11 @@ export default function useGetOrderTabs(): Tab[] {
       key: 'finished',
       label: 'Finished',
       component: <FinishedTab />,
+    },
+    {
+      key: 'failed',
+      label: 'Failed',
+      component: <FailedTab />,
     },
   ];
 }
