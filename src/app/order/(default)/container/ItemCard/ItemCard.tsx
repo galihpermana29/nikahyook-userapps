@@ -9,14 +9,17 @@ type TOrderItemProps = {
 };
 
 export default function ItemCard(props: TOrderItemProps) {
-  const hasFooter = props.secondaryButton || props.primaryButton;
+  const hasFooter = !!props.secondaryButton || !!props.primaryButton;
+  const vendorName = props.item.order_details[0].vendor_name;
 
-  return props.item.order_details.map((product) => (
+  return (
     <Card
-      key={product.id}
+      key={props.item.id}
       classNames={{ body: 'space-y-3' }}
-      title={product.vendor_name}>
-      <OrderedProduct key={product.product_id} product={product} />
+      title={vendorName}>
+      {props.item.order_details.map((product) => (
+        <OrderedProduct key={product.product_id} orderDetail={product} />
+      ))}
 
       {hasFooter ? <Divider /> : null}
 
@@ -28,5 +31,5 @@ export default function ItemCard(props: TOrderItemProps) {
         </div>
       ) : null}
     </Card>
-  ));
+  );
 }

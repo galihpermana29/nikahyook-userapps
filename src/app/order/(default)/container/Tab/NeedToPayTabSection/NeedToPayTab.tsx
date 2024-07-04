@@ -20,7 +20,7 @@ const UploadReceiptModal = dynamic(
 
 export default function NeedToPayTab() {
   const {
-    data: needToPayItems,
+    data: needToPayOrders,
     isLoading,
     isError,
     error,
@@ -38,7 +38,7 @@ export default function NeedToPayTab() {
 
   if (isError) throw error;
   if (isLoading) return <TabLoading />;
-  if (!needToPayItems || needToPayItems.data.length === 0)
+  if (!needToPayOrders || needToPayOrders.data.length === 0)
     return <NeedToPayEmpty />;
 
   return (
@@ -53,13 +53,13 @@ export default function NeedToPayTab() {
         </Modal>
       ) : null}
 
-      {needToPayItems.data.map((orderedItem) => (
+      {needToPayOrders.data.map((order) => (
         <ItemCard
-          key={orderedItem.id}
-          item={orderedItem}
+          key={order.id}
+          item={order}
           secondaryButton={
             <Button
-              href={`/order/details/${orderedItem.id}`}
+              href={`/order/details/${order.id}`}
               type="primary"
               className="bg-ny-primary-100 text-ny-primary-500 block w-full">
               See Billing
@@ -67,7 +67,7 @@ export default function NeedToPayTab() {
           }
           primaryButton={
             <Button
-              onClick={() => openModal('upload-receipt', orderedItem.id)}
+              onClick={() => openModal('upload-receipt', order.id)}
               type="primary"
               className="block w-full">
               Upload Receipt

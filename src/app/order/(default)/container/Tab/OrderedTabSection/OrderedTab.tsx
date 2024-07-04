@@ -4,13 +4,13 @@ import { getOrders } from '@/shared/actions/orderService';
 import OrderedTabEmpty from './OrderedTabEmpty';
 
 export default async function OrderedTab() {
-  const orders = await getOrders('waiting for approval').catch(
+  const { data: orders } = await getOrders('waiting for approval').catch(
     (error: Error) => {
       throw error;
     }
   );
 
-  if (orders.data.length === 0 || !orders) return <OrderedTabEmpty />;
+  if (orders.length === 0 || !orders) return <OrderedTabEmpty />;
 
   return (
     <div className="flex flex-col w-full gap-4 justify-center">
@@ -21,7 +21,7 @@ export default async function OrderedTab() {
         showIcon
       />
 
-      {orders.data.map((order) => (
+      {orders.map((order) => (
         <ItemCard key={order.id} item={order} />
       ))}
     </div>

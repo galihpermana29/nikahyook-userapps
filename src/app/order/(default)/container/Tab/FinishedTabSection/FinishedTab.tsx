@@ -11,17 +11,13 @@ import dynamic from 'next/dynamic';
 import useGetOrders from '../../../usecase/useGetOrders';
 import FinishedTabEmpty from './FinishedTabEmpty';
 
-const AddReviewModal = dynamic(() => import('../../Modal/AddReviewModal'), {
-  loading: () => <ModalLoading />,
-});
-
 const SeeInvoiceModal = dynamic(() => import('../../Modal/SeeInvoiceModal'), {
   loading: () => <ModalLoading />,
 });
 
 export default function FinishedTab() {
   const {
-    data: finishedItems,
+    data: finishedOrders,
     isLoading,
     isError,
     error,
@@ -31,10 +27,6 @@ export default function FinishedTab() {
   const orderId = modalState.isOpen ? modalState.id?.toString() : undefined;
 
   const modalType = {
-    'add-review': {
-      title: 'Add Review',
-      element: <AddReviewModal closeModal={closeModal} orderId={orderId} />,
-    },
     'see-invoice': {
       title: 'Invoice',
       element: <SeeInvoiceModal orderId={orderId} closeModal={closeModal} />,
@@ -43,7 +35,7 @@ export default function FinishedTab() {
 
   if (isError) throw error;
   if (isLoading) return <TabLoading />;
-  if (!finishedItems || finishedItems.data.length === 0)
+  if (!finishedOrders || finishedOrders.data.length === 0)
     return <FinishedTabEmpty />;
 
   return (
@@ -58,28 +50,30 @@ export default function FinishedTab() {
         </Modal>
       ) : null}
 
-      {finishedItems.data.map((finishedItem) => (
-        <ItemCard
-          key={finishedItem.id}
-          item={finishedItem}
-          secondaryButton={
-            <Button
-              onClick={() => openModal('add-review', finishedItem.id)}
-              type="primary"
-              className="bg-ny-primary-100 text-ny-primary-500 block w-full">
-              Add Review
-            </Button>
-          }
-          primaryButton={
-            <Button
-              onClick={() => openModal('see-invoice', finishedItem.id)}
-              type="primary"
-              className="block w-full">
-              See Invoice
-            </Button>
-          }
-        />
-      ))}
+      {finishedOrders.data.map((order) => {
+        return (
+          <ItemCard
+            key={order.id}
+            item={order}
+            secondaryButton={
+              <Button
+                href={`/order/review/${order.id}`}
+                type="primary"
+                className="bg-ny-primary-100 text-ny-primary-500 block w-full">
+                Add Review
+              </Button>
+            }
+            primaryButton={
+              <Button
+                onClick={() => openModal('see-invoice', order.id)}
+                type="primary"
+                className="block w-full">
+                See Invoice
+              </Button>
+            }
+          />
+        );
+      })}
     </div>
   );
 }

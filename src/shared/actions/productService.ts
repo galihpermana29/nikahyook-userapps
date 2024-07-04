@@ -14,10 +14,17 @@ import {
   IAllVendorTypeResponse,
   Tag,
   TWishlist,
+  type IAddProductReviewPayload,
+  type IProductReviewData,
+  type IProductReviewResponseData,
 } from '@/shared/models/productInterfaces';
 import { errorHandling } from '@/shared/usecase/errorHandling';
 import { getServerSession } from '../usecase/getServerSession';
-import { IAllCartResponse, IDeleteCartPayloadRoot, IUpdateCartPayloadRoot } from '../models/cartInterfaces';
+import {
+  IAllCartResponse,
+  IDeleteCartPayloadRoot,
+  IUpdateCartPayloadRoot,
+} from '../models/cartInterfaces';
 
 // Anything related to product
 
@@ -166,7 +173,7 @@ export async function getProductDetail(
       ? JSON.parse(data.data.vendor.json_text)
       : {};
   }
-  
+
   return { success: true, data };
 }
 
@@ -310,7 +317,9 @@ export async function getAllWishlist(
 ): Promise<IFetchGeneralResponse<IFetchGeneralSuccessResponse<any | string>>> {
   const sessionData = await getServerSession();
   const res = await fetch(
-    baseURL + `/wishlists/${sessionData.user_id}/${type}s?'` + new URLSearchParams(params),
+    baseURL +
+      `/wishlists/${sessionData.user_id}/${type}s?'` +
+      new URLSearchParams(params),
     {
       method: 'GET',
       headers: {
@@ -354,7 +363,9 @@ export async function createCart(
   return { success: true, data };
 }
 
-export async function getAllCart(): Promise<IFetchGeneralResponse<IFetchGeneralResponse<IAllCartResponse> | string>> {
+export async function getAllCart(): Promise<
+  IFetchGeneralResponse<IFetchGeneralResponse<IAllCartResponse> | string>
+> {
   const sessionData = await getServerSession();
   const res = await fetch(baseURL + `/carts/${sessionData.user_id}`, {
     method: 'GET',
@@ -371,7 +382,6 @@ export async function getAllCart(): Promise<IFetchGeneralResponse<IFetchGeneralR
 
   return { success: true, data };
 }
-
 
 export async function updateCart(
   payload: IUpdateCartPayloadRoot
@@ -413,6 +423,80 @@ export async function deleteCart(
   }
 
   const data = await res.json();
+
+  return { success: true, data };
+}
+
+export async function addReview(
+  productId: number,
+  payload: IAddProductReviewPayload
+): Promise<IFetchGeneralResponse<IProductReviewResponseData>> {
+  const sessionData = await getServerSession();
+  const response = await fetch(baseURL + `/reviews/${productId}`, {
+    method: 'POST',
+    body: JSON.stringify(payload),
+    headers: {
+      Authorization: `Bearer ${sessionData.token}`,
+    },
+  });
+
+  if (!response.ok) {
+    const error = await errorHandling(response);
+    throw new Error(error.data);
+  }
+
+  const data =
+    (await response.json()) as IFetchGeneralResponse<IProductReviewResponseData>;
+
+  return { success: true, data: data.data };
+}
+
+export async function getReview(
+  productId: number
+): Promise<IFetchGeneralResponse<IProductReviewData | undefined>> {
+  const sessionData = await getServerSession();
+  const searchParams = new URLSearchParams({ user_id: sessionData.user_id });
+  const response = await fetch(baseURL + '/reviews?' + searchParams, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${sessionData.token}`,
+    },
+  });
+
+  if (!response.ok) {
+    const error = await errorHandling(response);
+    throw new Error(error.data);
+  }
+
+  const { data } = (await response.json()) as IFetchGeneralResponse<
+    IProductReviewData[]
+  >;
+
+  const returned = data.find((review) => review.product_id === productId);
+
+  return { success: true, data: returned };
+}
+
+export async function editReview(
+  productId: number,
+  payload: IAddProductReviewPayload
+): Promise<IFetchGeneralResponse<IProductReviewResponseData>> {
+  const sessionData = await getServerSession();
+  const response = await fetch(baseURL + '/reviews/' + productId, {
+    method: 'PATCH',
+    body: JSON.stringify(payload),
+    headers: {
+      Authorization: `Bearer ${sessionData.token}`,
+    },
+  });
+
+  if (!response.ok) {
+    const error = await errorHandling(response);
+    throw new Error(error.data);
+  }
+
+  const { data } =
+    (await response.json()) as IFetchGeneralResponse<IProductReviewResponseData>;
 
   return { success: true, data };
 }

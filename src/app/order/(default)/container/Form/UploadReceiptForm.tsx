@@ -10,6 +10,7 @@ export default function UploadReceiptForm() {
           formFieldName="payment_file_uri"
         />
       </FormItem>
+
       <FormItem
         required
         className="my-0 hidden"

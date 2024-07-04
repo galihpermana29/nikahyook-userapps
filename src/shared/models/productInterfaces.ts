@@ -23,7 +23,7 @@ export interface IAllProductsResponse {
   coverage_area: ICoverageArea[];
   is_wishlist: boolean;
   quantity_label: string;
-  review: IReview
+  review: IReview;
 }
 
 export interface Tag {
@@ -90,3 +90,21 @@ export interface IAllInspirationsWishlistResponse
 }
 
 export type TWishlist = 'inspiration' | 'product' | 'vendor' | 'curatorial';
+
+export interface IProductReviewData {
+  user_id: string;
+  product_id: number;
+  title: string;
+  rating: number;
+  description: string;
+}
+
+export interface IAddProductReviewPayload {
+  rating: number;
+  description: string;
+}
+
+export interface IProductReviewResponseData {
+  product_id: number;
+  user_id: string;
+}
