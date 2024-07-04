@@ -12,7 +12,7 @@ const useMutateOrder = () => {
       onSuccess: (data) => {
         if (data.success) {
           message.success('Order created successfully!');
-          router.push('/discover');
+          router.push('/order');
         } else {
           message.error('Failed to create order, please try again');
         }

@@ -3,7 +3,7 @@ import CartContainer from './container/CartContainer';
 
 export const dynamic = 'force-dynamic';
 
-const Cart = async () => {
+const Cart = async () => {  
   const { data } = await getAllCart();
 
   if (typeof data === 'string') {

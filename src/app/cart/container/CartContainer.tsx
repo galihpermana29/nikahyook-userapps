@@ -1,15 +1,24 @@
 'use client';
 
 import './style.scss';
-import { Button, Checkbox, CheckboxProps, message } from 'antd';
+import { 
+  Button, 
+  Checkbox, 
+  CheckboxProps, 
+  message 
+} from 'antd';
 import { IAllCartResponse } from '@/shared/models/cartInterfaces';
 import { MessageIcon } from '@/shared/container/Icon/MessageIcon';
 import { ReceiveIcon } from '@/shared/container/Icon/ReceiveIcon';
 import BottomBar from '@/shared/container/BottomBar/BottomBar';
 import CartItemCard from './card/CartItemCard';
+import formatToRupiah from '@/shared/usecase/formatToRupiah';
 import NoResult from '@/shared/container/NoResult/NoResult';
 import PageTitle from '@/shared/container/PageTitle/PageTitle';
-import React, { useState, useMemo } from 'react';
+import React, { 
+  useState, 
+  useMemo 
+} from 'react';
 import useCheckboxState from '../usecase/useCheckboxState';
 import useMutateCart from '../usecase/useMutateCart';
 import useMutateOrder from '../usecase/useMutateOrder';
@@ -37,10 +46,11 @@ const CartContainer = ({ cart }: ICartContainer) => {
     handleVendorCheckboxChange,
   } = useCheckboxState([], allProductIds, cartState.cart_items);
 
-  const { updateProductQuantity, isUpdating, isDeleting } = useMutateCart({
-    cartState,
-    setCartState,
-  });
+  const { updateProductQuantity, isUpdating, isDeleting, totalPrice } =
+    useMutateCart({
+      cartState,
+      setCartState,
+    });
 
   const handleSelectAllCheckboxChange: CheckboxProps['onChange'] = (e) => {
     handleToggleAllCheckboxes(allProductIds, e.target.checked);
@@ -92,13 +102,22 @@ const CartContainer = ({ cart }: ICartContainer) => {
               >
                 All
               </Checkbox>
-              <Button
-                onClick={handleCheckout}
-                className="flex items-center justify-center w-fit rounded-[8px] h-[40px] bg-ny-primary-500 text-white text-body-2"
-                loading={isUpdating || isDeleting || isCreatingOrder}
-              >
-                Checkout
-              </Button>
+              <div className="flex items-center gap-2">
+                <div className="text-right">
+                  <p className="text-caption-2">Total</p>
+                  <p className="text-caption-1 text-ny-primary-500 font-semibold">
+                    {formatToRupiah(totalPrice)}
+                  </p>
+                </div>
+                <Button
+                  onClick={handleCheckout}
+                  className="flex items-center justify-center w-fit rounded-[8px] h-[40px] bg-ny-primary-500 text-white text-body-2"
+                  loading={isUpdating || isDeleting || isCreatingOrder}
+                  disabled={checkedList.length <= 0}
+                >
+                  Checkout
+                </Button>
+              </div>
             </div>
           </BottomBar>
         </>

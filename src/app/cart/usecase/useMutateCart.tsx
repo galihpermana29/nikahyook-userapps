@@ -7,7 +7,13 @@ import {
 } from '@/shared/models/cartInterfaces';
 import { updateCart, deleteCart } from '@/shared/actions/productService';
 import { useDebounce } from '@uidotdev/usehooks';
-import { useCallback, useEffect, useState, useRef } from 'react';
+import { 
+  useCallback, 
+  useEffect, 
+  useState, 
+  useRef 
+} from 'react';
+import useCalculateTotalPrice from './useCalculateTotalPrice';
 
 interface useMutateCartProps {
   cartState: IAllCartResponse;
@@ -24,17 +30,21 @@ const useMutateCart = ({ cartState, setCartState }: useMutateCartProps) => {
   const [debouncedPayload, setDebouncedPayload] =
     useState<DebouncedPayload | null>(null);
   const debouncedValue = useDebounce(debouncedPayload, 600);
-  // if request failed refert back to this cart state
+  // Ref to store the last valid cart state in case of failed requests
   const lastValidCartRef = useRef<IAllCartResponse>(cartState);
+  const { totalPrice, updateTotalPrice, revertTotalPrice } =
+    useCalculateTotalPrice(cartState, lastValidCartRef);
 
   const { mutate: mutateUpdateCart, isLoading: isUpdating } = useMutation({
     mutationFn: (payload: IUpdateCartPayloadRoot) => updateCart(payload),
     onSuccess: (data) => {
       if (data?.success) {
         lastValidCartRef.current = cartState;
+        updateTotalPrice(cartState);
       } else {
         message.error('Cart failed to be updated!');
         setCartState(lastValidCartRef.current);
+        revertTotalPrice();
       }
     },
     onError: (error: string | Error) => {
@@ -44,6 +54,7 @@ const useMutateCart = ({ cartState, setCartState }: useMutateCartProps) => {
         message.error(error as string);
       }
       setCartState(lastValidCartRef.current);
+      revertTotalPrice();
     },
   });
 
@@ -53,9 +64,11 @@ const useMutateCart = ({ cartState, setCartState }: useMutateCartProps) => {
       if (data?.success) {
         message.success('Product removed from cart successfully!');
         lastValidCartRef.current = cartState;
+        updateTotalPrice(cartState);
       } else {
         message.error('Failed to remove product from cart!');
         setCartState(lastValidCartRef.current);
+        revertTotalPrice();
       }
     },
     onError: (error: string | Error) => {
@@ -65,6 +78,7 @@ const useMutateCart = ({ cartState, setCartState }: useMutateCartProps) => {
         message.error(error as string);
       }
       setCartState(lastValidCartRef.current);
+      revertTotalPrice();
     },
   });
 
@@ -116,7 +130,6 @@ const useMutateCart = ({ cartState, setCartState }: useMutateCartProps) => {
             ),
           }));
           setCartState({ ...cartState, cart_items: updatedCartItems });
-          // Set the debounced quantity
           setDebouncedPayload({
             productId,
             quantity: newQuantity,
@@ -127,10 +140,12 @@ const useMutateCart = ({ cartState, setCartState }: useMutateCartProps) => {
     },
     [cartState, setCartState, mutateDeleteCart]
   );
+
   return {
     updateProductQuantity,
     isUpdating,
     isDeleting,
+    totalPrice,
   };
 };
 
