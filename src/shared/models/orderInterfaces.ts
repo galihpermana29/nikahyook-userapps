@@ -28,3 +28,12 @@ export interface IOrderDetail {
   price: number;
   description: string | null;
 }
+
+export interface IOrderPaymentInput {
+  status: TOrderStatus;
+  payment_file_uri: string;
+}
+export interface IOrderPaymentPayload {
+  status: TOrderStatus;
+  payment_file_uri: string[];
+}

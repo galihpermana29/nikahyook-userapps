@@ -4,7 +4,11 @@ import type {
   IFetchGeneralResponse,
   IFetchGeneralSuccessResponse,
 } from '../models/generalInterfaces';
-import type { IOrder, TOrderStatus } from '../models/orderInterfaces';
+import type {
+  IOrder,
+  IOrderPaymentPayload,
+  TOrderStatus,
+} from '../models/orderInterfaces';
 import convertObjectToQueryParams from '../usecase/convertObjectToQueryParams';
 import { errorHandling } from '../usecase/errorHandling';
 import { getServerSession } from '../usecase/getServerSession';
@@ -60,6 +64,30 @@ export async function getOrderDetail(
   }
 
   const data = (await response.json()) as IFetchGeneralSuccessResponse<IOrder>;
+
+  return { success: true, data: data.data };
+}
+
+export async function updateOrderPayment(
+  id: IOrder['id'],
+  payload: IOrderPaymentPayload
+): Promise<IFetchGeneralResponse<string>> {
+  const session = await getServerSession();
+
+  const response = await fetch(endpoint + '/orders/' + id, {
+    method: 'PATCH',
+    body: JSON.stringify(payload),
+    headers: {
+      Authorization: `Bearer ${session.token}`,
+    },
+  });
+
+  if (!response.ok) {
+    const error = await errorHandling(response);
+    throw new Error(error.data);
+  }
+
+  const data = (await response.json()) as IFetchGeneralSuccessResponse<string>;
 
   return { success: true, data: data.data };
 }

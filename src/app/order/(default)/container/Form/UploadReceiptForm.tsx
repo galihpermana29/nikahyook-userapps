@@ -3,11 +3,19 @@ import { FileUploaderWrapper } from '@/shared/container/FileUploaderWrapper/File
 
 export default function UploadReceiptForm() {
   return (
-    <FormItem required className="my-0" name="receipt">
-      <FileUploaderWrapper
-        className="mx-auto w-full flex justify-center"
-        formFieldName="receipt"
+    <>
+      <FormItem required className="my-0" name="payment_file_uri">
+        <FileUploaderWrapper
+          className="mx-auto w-full flex justify-center"
+          formFieldName="payment_file_uri"
+        />
+      </FormItem>
+      <FormItem
+        required
+        className="my-0 hidden"
+        name="status"
+        initialValue={'payment in review'}
       />
-    </FormItem>
+    </>
   );
 }
