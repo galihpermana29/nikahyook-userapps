@@ -1,15 +1,15 @@
 'use client';
 
 import ItemCard from '../../ItemCard/ItemCard';
-import generateUUID from '@/shared/usecase/generateUUID';
 import { Button, Modal } from 'antd';
-import useGetNeedToPayItems from '../../../usecase/useGetNeedToPayItems';
 import TabLoading from '../TabLoading/TabLoading';
 import useModalReducer, {
   type IModalDefinition,
 } from '@/shared/usecase/useModalReducer';
 import dynamic from 'next/dynamic';
 import ModalLoading from '../../Modal/ModalLoading';
+import useGetOrders from '../../../usecase/useGetOrders';
+import NeedToPayEmpty from './NeedToPayEmpty';
 
 const UploadReceiptModal = dynamic(
   () => import('../../Modal/UploadReceiptModal'),
@@ -24,7 +24,7 @@ export default function NeedToPayTab() {
     isLoading,
     isError,
     error,
-  } = useGetNeedToPayItems();
+  } = useGetOrders('waiting for payment');
 
   const { openModal, closeModal, modalState } = useModalReducer();
   const orderId = modalState.isOpen ? modalState.id?.toString() : undefined;
@@ -38,7 +38,8 @@ export default function NeedToPayTab() {
 
   if (isError) throw error;
   if (isLoading) return <TabLoading />;
-  if (!needToPayItems) return;
+  if (!needToPayItems || needToPayItems.data.length === 0)
+    return <NeedToPayEmpty />;
 
   return (
     <div className="flex flex-col w-full gap-4 justify-center">
@@ -52,13 +53,13 @@ export default function NeedToPayTab() {
         </Modal>
       ) : null}
 
-      {needToPayItems.map((orderedItem, index) => (
+      {needToPayItems.data.map((orderedItem) => (
         <ItemCard
-          key={orderedItem.vendorName + index + generateUUID()}
+          key={orderedItem.id}
           item={orderedItem}
           secondaryButton={
             <Button
-              href={`/order/details/${orderedItem.orderId}`}
+              href={`/order/details/${orderedItem.id}`}
               type="primary"
               className="bg-ny-primary-100 text-ny-primary-500 block w-full">
               See Billing
@@ -66,7 +67,7 @@ export default function NeedToPayTab() {
           }
           primaryButton={
             <Button
-              onClick={() => openModal('upload-receipt', orderedItem.orderId)}
+              onClick={() => openModal('upload-receipt', orderedItem.id)}
               type="primary"
               className="block w-full">
               Upload Receipt

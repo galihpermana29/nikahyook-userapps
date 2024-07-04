@@ -10,13 +10,13 @@ export default function OrderDetailHeader({ order }: { order: IOrder }) {
         <div className="flex items-center gap-20 justify-center">
           <div className="flex flex-col gap-[2px] items-center">
             <span className="text-caption-2 text-ny-gray-400">Order Id</span>
-            <span className="text-body-1 font-medium">#{order.orderId}</span>
+            <span className="text-body-1 font-medium">#{order.id}</span>
           </div>
 
           <div className="flex flex-col gap-[2px] items-center">
             <span className="text-caption-2 text-ny-gray-400">Date</span>
             <span className="text-body-1 font-medium">
-              {dayjs(order.orderDate).format('DD/MM/YY')}
+              {dayjs(order.order_time).format('DD/MM/YY')}
             </span>
           </div>
         </div>

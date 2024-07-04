@@ -1,12 +1,12 @@
 'use client';
 
 import ArrowIcon from '@/shared/container/Icon/ArrowIcon';
-import type { IOrderProduct } from '@/shared/models/orderInterfaces';
+import type { IOrderDetail } from '@/shared/models/orderInterfaces';
 import formatToRupiah from '@/shared/usecase/formatToRupiah';
 import { Avatar } from 'antd';
 import { useState } from 'react';
 
-export default function ProductCard({ product }: { product: IOrderProduct }) {
+export default function ProductCard({ product }: { product: IOrderDetail }) {
   const [expanded, setExpanded] = useState(false);
 
   function handleOpen() {
@@ -19,22 +19,22 @@ export default function ProductCard({ product }: { product: IOrderProduct }) {
         <Avatar
           className="size-20 shrink-0"
           shape="square"
-          src={product.productImage}
+          src={product.image}
         />
 
         <div className="flex flex-col justify-between w-full">
           <h1 className="text-caption-2 sm:text-caption-1 line-clamp-2 font-medium">
-            {product.productName}
+            {product.product_title}
           </h1>
 
           <div className="flex items-end justify-between">
             <div className="flex flex-col items-start gap-0">
               <span className="text-ny-primary-500 text-caption-1 font-medium">
-                {formatToRupiah(product.productPrice)}
+                {formatToRupiah(product.price)}
               </span>
 
               <span className="text-caption-2 line-clamp-1 text-ny-gray-400">
-                {product.productQty} Pcs
+                {product.quantity} {product.quantity_label}
               </span>
             </div>
 
@@ -49,7 +49,9 @@ export default function ProductCard({ product }: { product: IOrderProduct }) {
 
       {expanded && (
         <div className="text-caption-1 block bg-ny-info-100 text-ny-info-500 border border-ny-info-500 rounded-lg p-4 text-justify">
-          {product.productDescription}
+          {product.description === '' || !product.description
+            ? 'No product description provided.'
+            : product.description}
         </div>
       )}
     </div>
