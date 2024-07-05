@@ -500,3 +500,28 @@ export async function editReview(
 
   return { success: true, data };
 }
+
+export async function createOrder(
+  productIds: number[]
+): Promise<IPostGeneralResponse<IPostGeneralSuccessResponse<any> | string>> {
+  const sessionData = await getServerSession();
+  const payload = {
+    product_ids: productIds,
+  };
+
+  const res = await fetch(baseURL + '/orders', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${sessionData.token}`,
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    return errorHandling(res);
+  }
+
+  const data = await res.json();
+
+  return { success: true, data };
+}
