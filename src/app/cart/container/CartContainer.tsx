@@ -1,11 +1,11 @@
 'use client';
 
 import './style.scss';
-import { 
-  Button, 
-  Checkbox, 
-  CheckboxProps, 
-  message 
+import {
+  Button,
+  Checkbox,
+  CheckboxProps,
+  message
 } from 'antd';
 import { IAllCartResponse } from '@/shared/models/cartInterfaces';
 import { MessageIcon } from '@/shared/container/Icon/MessageIcon';
@@ -15,9 +15,9 @@ import CartItemCard from './card/CartItemCard';
 import formatToRupiah from '@/shared/usecase/formatToRupiah';
 import NoResult from '@/shared/container/NoResult/NoResult';
 import PageTitle from '@/shared/container/PageTitle/PageTitle';
-import React, { 
-  useState, 
-  useMemo 
+import React, {
+  useState,
+  useMemo
 } from 'react';
 import useCheckboxState from '../usecase/useCheckboxState';
 import useMutateCart from '../usecase/useMutateCart';
@@ -46,11 +46,12 @@ const CartContainer = ({ cart }: ICartContainer) => {
     handleVendorCheckboxChange,
   } = useCheckboxState([], allProductIds, cartState.cart_items);
 
-  const { updateProductQuantity, isUpdating, isDeleting, totalPrice } =
-    useMutateCart({
-      cartState,
-      setCartState,
-    });
+  const {
+    updateProductQuantity,
+    isUpdating,
+    isDeleting,
+    totalPrice
+  } = useMutateCart({ cartState, setCartState, checkedList });
 
   const handleSelectAllCheckboxChange: CheckboxProps['onChange'] = (e) => {
     handleToggleAllCheckboxes(allProductIds, e.target.checked);

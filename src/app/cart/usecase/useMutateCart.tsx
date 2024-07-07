@@ -7,17 +7,18 @@ import {
 } from '@/shared/models/cartInterfaces';
 import { updateCart, deleteCart } from '@/shared/actions/productService';
 import { useDebounce } from '@uidotdev/usehooks';
-import { 
-  useCallback, 
-  useEffect, 
-  useState, 
-  useRef 
+import {
+  useCallback,
+  useEffect,
+  useState,
+  useRef
 } from 'react';
 import useCalculateTotalPrice from './useCalculateTotalPrice';
 
 interface useMutateCartProps {
   cartState: IAllCartResponse;
   setCartState: React.Dispatch<React.SetStateAction<IAllCartResponse>>;
+  checkedList: number[];
 }
 
 interface DebouncedPayload {
@@ -26,21 +27,24 @@ interface DebouncedPayload {
   previousQuantity: number;
 }
 
-const useMutateCart = ({ cartState, setCartState }: useMutateCartProps) => {
+const useMutateCart = ({ cartState, setCartState, checkedList }: useMutateCartProps) => {
   const [debouncedPayload, setDebouncedPayload] =
     useState<DebouncedPayload | null>(null);
   const debouncedValue = useDebounce(debouncedPayload, 600);
   // Ref to store the last valid cart state in case of failed requests
   const lastValidCartRef = useRef<IAllCartResponse>(cartState);
-  const { totalPrice, updateTotalPrice, revertTotalPrice } =
-    useCalculateTotalPrice(cartState, lastValidCartRef);
+  const {
+    totalPrice,
+    updateTotalPrice,
+    revertTotalPrice
+  } = useCalculateTotalPrice(cartState, lastValidCartRef, checkedList);
 
   const { mutate: mutateUpdateCart, isLoading: isUpdating } = useMutation({
     mutationFn: (payload: IUpdateCartPayloadRoot) => updateCart(payload),
     onSuccess: (data) => {
       if (data?.success) {
         lastValidCartRef.current = cartState;
-        updateTotalPrice(cartState);
+        updateTotalPrice(cartState, checkedList);
       } else {
         message.error('Cart failed to be updated!');
         setCartState(lastValidCartRef.current);
@@ -64,7 +68,7 @@ const useMutateCart = ({ cartState, setCartState }: useMutateCartProps) => {
       if (data?.success) {
         message.success('Product removed from cart successfully!');
         lastValidCartRef.current = cartState;
-        updateTotalPrice(cartState);
+        updateTotalPrice(cartState, checkedList);
       } else {
         message.error('Failed to remove product from cart!');
         setCartState(lastValidCartRef.current);
