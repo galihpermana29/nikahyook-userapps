@@ -64,12 +64,20 @@ export default function FinishedTab() {
               </Button>
             }
             primaryButton={
-              <Button
-                onClick={() => openModal('see-invoice', order.id)}
-                type="primary"
-                className="block w-full">
-                See Invoice
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button
+                  onClick={() => openModal('see-invoice', order.id)}
+                  type="primary"
+                  className="block w-full">
+                  See Invoice
+                </Button>
+                <Button
+                  href={`/order/details/${order.id}`}
+                  type="primary"
+                  className="block w-full">
+                  See Detail
+                </Button>
+              </div>
             }
           />
         );

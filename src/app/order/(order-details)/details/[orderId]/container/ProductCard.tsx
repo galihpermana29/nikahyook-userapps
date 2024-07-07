@@ -34,7 +34,7 @@ export default function ProductCard({ product }: { product: IOrderDetail }) {
               </span>
 
               <span className="text-caption-2 line-clamp-1 text-ny-gray-400">
-                {product.quantity} {product.quantity_label}
+                {product.quantity} {product.quantity_label.toLowerCase()}
               </span>
             </div>
 
