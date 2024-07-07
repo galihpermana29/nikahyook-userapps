@@ -16,7 +16,9 @@ export default function OrderDetailHeader({ order }: { order: IOrder }) {
           <div className="flex flex-col gap-[2px] items-center">
             <span className="text-caption-2 text-ny-gray-400">Date</span>
             <span className="text-body-1 font-medium">
-              {dayjs(order.order_time).format('DD/MM/YY')}
+              {dayjs(order.order_time, 'DD-MM-YYYY HH:mm:ss').format(
+                'DD MM YYYY HH:mm a'
+              )}
             </span>
           </div>
         </div>

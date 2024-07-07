@@ -1,3 +1,5 @@
+'use client';
+
 import {
   addReview,
   editReview,
@@ -25,6 +27,9 @@ export default function useProductReview(productId: number) {
   >({
     queryKey: ['review-query', { productId }],
     queryFn: () => getReview(productId),
+    onError: (error) => {
+      message.error(error.message);
+    },
   });
 
   const addReviewMutation = useMutation<
@@ -37,6 +42,9 @@ export default function useProductReview(productId: number) {
     onSuccess: () => {
       message.success('Successfully added a review!');
     },
+    onError: (error) => {
+      message.error(error.message);
+    },
   });
 
   const editReviewMutation = useMutation<
@@ -48,6 +56,9 @@ export default function useProductReview(productId: number) {
     mutationFn: editProductReview,
     onSuccess: () => {
       message.success('Successfully edited a review!');
+    },
+    onError: (error) => {
+      message.error(error.message);
     },
   });
 

@@ -3,12 +3,8 @@ import { getOrders } from '@/shared/actions/orderService';
 import FailedTabEmpty from './FailedTabEmpty';
 
 export default async function FailedTab() {
-  const failedOrders = await getOrders('order failed').catch((error: Error) => {
-    throw error;
-  });
-
-  if (failedOrders.data.length === 0 || !failedOrders)
-    return <FailedTabEmpty />;
+  const failedOrders = await getOrders('order failed');
+  if (failedOrders.data.length === 0) return <FailedTabEmpty />;
 
   return (
     <div className="flex flex-col w-full gap-4 justify-center">

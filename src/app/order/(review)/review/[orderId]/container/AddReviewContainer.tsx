@@ -37,7 +37,7 @@ export default function AddReviewContainer({
       onFinish={shouldEdit ? editReview : addReview}
       initialValues={initialValues}
       onFinishFailed={(e) =>
-        message.error(e.errorFields.flatMap((e) => e.errors + '\n'))
+        message.error(e.errorFields.flatMap((e) => e.errors).join('\n'))
       }
       className="flex flex-col gap-4 w-full">
       <AddReviewForm />

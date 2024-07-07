@@ -9,8 +9,9 @@ type TOrderItemProps = {
 };
 
 export default function ItemCard(props: TOrderItemProps) {
-  const hasFooter = !!props.secondaryButton || !!props.primaryButton;
   const vendorName = props.item.order_details[0].vendor_name;
+  const hasFooter =
+    Boolean(props.secondaryButton) || Boolean(props.primaryButton);
 
   return (
     <Card

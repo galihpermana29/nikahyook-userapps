@@ -4,11 +4,7 @@ import { getOrders } from '@/shared/actions/orderService';
 import PaidTabEmpty from './PaidTabEmpty';
 
 export default async function PaidTab() {
-  const { data: paidOrders } = await getOrders('payment in review').catch(
-    (error: Error) => {
-      throw error;
-    }
-  );
+  const { data: paidOrders } = await getOrders('payment in review');
 
   if (paidOrders.length === 0) return <PaidTabEmpty />;
 

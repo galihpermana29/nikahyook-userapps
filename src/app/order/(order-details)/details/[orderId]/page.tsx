@@ -1,6 +1,5 @@
 import OrderDetailHeader from './container/OrderDetailHeader';
 import ProductCard from './container/ProductCard';
-import { notFound } from 'next/navigation';
 import { getOrderDetail } from '@/shared/actions/orderService';
 
 export default async function OrderDetailsPage({
@@ -8,13 +7,7 @@ export default async function OrderDetailsPage({
 }: Readonly<{
   params: { orderId: string };
 }>) {
-  const order = await getOrderDetail(parseInt(params.orderId)).catch(
-    (error: Error) => {
-      throw error;
-    }
-  );
-
-  if (!order.data) return notFound();
+  const order = await getOrderDetail(parseInt(params.orderId));
 
   return (
     <div className="flex flex-col gap-5 w-full">

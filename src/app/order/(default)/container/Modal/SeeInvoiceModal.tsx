@@ -45,6 +45,7 @@ export default function SeeInvoiceModal({
       <ModalFooter
         primaryButton={
           <Button
+            target="_blank"
             disabled={!order.data.invoice_file_uri}
             href={order.data.invoice_file_uri ?? undefined}
             className="w-full"

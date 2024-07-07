@@ -4,13 +4,9 @@ import { getOrders } from '@/shared/actions/orderService';
 import OrderedTabEmpty from './OrderedTabEmpty';
 
 export default async function OrderedTab() {
-  const { data: orders } = await getOrders('waiting for approval').catch(
-    (error: Error) => {
-      throw error;
-    }
-  );
+  const { data: orders } = await getOrders('waiting for approval');
 
-  if (orders.length === 0 || !orders) return <OrderedTabEmpty />;
+  if (orders.length === 0) return <OrderedTabEmpty />;
 
   return (
     <div className="flex flex-col w-full gap-4 justify-center">

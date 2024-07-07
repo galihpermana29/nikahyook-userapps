@@ -6,11 +6,7 @@ export default async function OrderPriceDetail({
 }: {
   orderId: string;
 }) {
-  const order = await getOrderDetail(parseInt(orderId)).catch(
-    (error: Error) => {
-      throw error;
-    }
-  );
+  const order = await getOrderDetail(parseInt(orderId));
 
   if (!order.data) return null;
 

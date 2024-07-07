@@ -2,6 +2,7 @@ import CustomErrorBoundary from '@/shared/container/ErrorBoundary/ErrorBoundary'
 import React, { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import PageTitle from '@/shared/container/PageTitle/PageTitle';
+import ReviewPageLoading from './loading';
 
 export default function OrderRootLayout({
   children,
@@ -10,7 +11,12 @@ export default function OrderRootLayout({
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
       <PageTitle title="Review" />
 
-      <Suspense fallback={null}>
+      <Suspense
+        fallback={
+          <main className="p-4">
+            <ReviewPageLoading />
+          </main>
+        }>
         <main className="p-4">{children}</main>
       </Suspense>
     </ErrorBoundary>
