@@ -17,7 +17,7 @@ export default async function OrderedTab() {
         showIcon
       />
 
-      {orders.map((order) => (
+      {orders.toReversed().map((order) => (
         <ItemCard key={order.id} item={order} />
       ))}
     </div>

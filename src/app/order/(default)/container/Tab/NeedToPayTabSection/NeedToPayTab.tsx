@@ -53,7 +53,7 @@ export default function NeedToPayTab() {
         </Modal>
       ) : null}
 
-      {needToPayOrders.data.map((order) => (
+      {needToPayOrders.data.toReversed().map((order) => (
         <ItemCard
           key={order.id}
           item={order}

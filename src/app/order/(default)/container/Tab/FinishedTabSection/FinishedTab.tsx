@@ -50,7 +50,7 @@ export default function FinishedTab() {
         </Modal>
       ) : null}
 
-      {finishedOrders.data.map((order) => {
+      {finishedOrders.data.toReversed().map((order) => {
         return (
           <ItemCard
             key={order.id}

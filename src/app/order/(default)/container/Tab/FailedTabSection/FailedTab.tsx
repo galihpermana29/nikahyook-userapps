@@ -8,7 +8,7 @@ export default async function FailedTab() {
 
   return (
     <div className="flex flex-col w-full gap-4 justify-center">
-      {failedOrders.data.map((failedOrder) => (
+      {failedOrders.data.toReversed().map((failedOrder) => (
         <ItemCard key={failedOrder.id} item={failedOrder} />
       ))}
     </div>

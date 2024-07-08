@@ -455,7 +455,11 @@ export async function getReview(
   productId: number
 ): Promise<IFetchGeneralResponse<IProductReviewData | undefined>> {
   const sessionData = await getServerSession();
-  const searchParams = new URLSearchParams({ user_id: sessionData.user_id });
+  const searchParams = new URLSearchParams({
+    user_id: sessionData.user_id,
+    product_id: productId.toString(),
+  });
+
   const response = await fetch(baseURL + '/reviews?' + searchParams, {
     method: 'GET',
     headers: {
@@ -468,13 +472,10 @@ export async function getReview(
     throw new Error(error.data);
   }
 
-  const { data } = (await response.json()) as IFetchGeneralResponse<
-    IProductReviewData[]
-  >;
+  const { data } =
+    (await response.json()) as IFetchGeneralResponse<IProductReviewData>;
 
-  const returned = data.find((review) => review.product_id === productId);
-
-  return { success: true, data: returned };
+  return { success: true, data };
 }
 
 export async function editReview(
