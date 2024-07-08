@@ -1,17 +1,17 @@
 import formatToRupiah from '@/shared/usecase/formatToRupiah';
-import useGetOrderDetail from '../usecase/useGetOrderDetail';
+import { getOrderDetail } from '@/shared/actions/orderService';
 
 export default async function OrderPriceDetail({
   orderId,
 }: {
   orderId: string;
 }) {
-  const order = await useGetOrderDetail(orderId);
+  const order = await getOrderDetail(parseInt(orderId));
 
-  if (!order) return null;
+  if (!order.data) return null;
 
-  const totalPrice = order.products.reduce(
-    (curr, val) => curr + val.productPrice,
+  const totalPrice = order.data.order_details.reduce(
+    (curr, val) => curr + val.price,
     0
   );
 

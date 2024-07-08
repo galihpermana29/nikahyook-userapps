@@ -14,6 +14,9 @@ import {
   IAllVendorTypeResponse,
   Tag,
   TWishlist,
+  type IAddProductReviewPayload,
+  type IProductReviewData,
+  type IProductReviewResponseData,
 } from '@/shared/models/productInterfaces';
 import { errorHandling } from '@/shared/usecase/errorHandling';
 import { getServerSession } from '../usecase/getServerSession';
@@ -420,6 +423,81 @@ export async function deleteCart(
   }
 
   const data = await res.json();
+
+  return { success: true, data };
+}
+
+export async function addReview(
+  productId: number,
+  payload: IAddProductReviewPayload
+): Promise<IFetchGeneralResponse<IProductReviewResponseData>> {
+  const sessionData = await getServerSession();
+  const response = await fetch(baseURL + `/reviews/${productId}`, {
+    method: 'POST',
+    body: JSON.stringify(payload),
+    headers: {
+      Authorization: `Bearer ${sessionData.token}`,
+    },
+  });
+
+  if (!response.ok) {
+    const error = await errorHandling(response);
+    throw new Error(error.data);
+  }
+
+  const data =
+    (await response.json()) as IFetchGeneralResponse<IProductReviewResponseData>;
+
+  return { success: true, data: data.data };
+}
+
+export async function getReview(
+  productId: number
+): Promise<IFetchGeneralResponse<IProductReviewData | undefined>> {
+  const sessionData = await getServerSession();
+  const searchParams = new URLSearchParams({
+    user_id: sessionData.user_id,
+    product_id: productId.toString(),
+  });
+
+  const response = await fetch(baseURL + '/reviews?' + searchParams, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${sessionData.token}`,
+    },
+  });
+
+  if (!response.ok) {
+    const error = await errorHandling(response);
+    throw new Error(error.data);
+  }
+
+  const { data } =
+    (await response.json()) as IFetchGeneralResponse<IProductReviewData>;
+
+  return { success: true, data };
+}
+
+export async function editReview(
+  productId: number,
+  payload: IAddProductReviewPayload
+): Promise<IFetchGeneralResponse<IProductReviewResponseData>> {
+  const sessionData = await getServerSession();
+  const response = await fetch(baseURL + '/reviews/' + productId, {
+    method: 'PATCH',
+    body: JSON.stringify(payload),
+    headers: {
+      Authorization: `Bearer ${sessionData.token}`,
+    },
+  });
+
+  if (!response.ok) {
+    const error = await errorHandling(response);
+    throw new Error(error.data);
+  }
+
+  const { data } =
+    (await response.json()) as IFetchGeneralResponse<IProductReviewResponseData>;
 
   return { success: true, data };
 }

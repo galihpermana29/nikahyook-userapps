@@ -1,10 +1,12 @@
 import { Alert } from 'antd';
-import generateUUID from '@/shared/usecase/generateUUID';
 import ItemCard from '../../ItemCard/ItemCard';
-import useGetPaidItems from '../../../usecase/useGetPaidItems';
+import { getOrders } from '@/shared/actions/orderService';
+import PaidTabEmpty from './PaidTabEmpty';
 
 export default async function PaidTab() {
-  const paidItems = await useGetPaidItems();
+  const { data: paidOrders } = await getOrders('payment in review');
+
+  if (paidOrders.length === 0) return <PaidTabEmpty />;
 
   return (
     <div className="flex flex-col w-full gap-4 justify-center">
@@ -15,11 +17,8 @@ export default async function PaidTab() {
         showIcon
       />
 
-      {paidItems.map((paidItem, index) => (
-        <ItemCard
-          key={paidItem.vendorName + index + generateUUID()}
-          item={paidItem}
-        />
+      {paidOrders.toReversed().map((order) => (
+        <ItemCard key={order.id} item={order} />
       ))}
     </div>
   );

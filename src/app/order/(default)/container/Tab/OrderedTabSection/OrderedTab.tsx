@@ -1,10 +1,12 @@
 import { Alert } from 'antd';
-import generateUUID from '@/shared/usecase/generateUUID';
 import ItemCard from '../../ItemCard/ItemCard';
-import useGetOrderedItems from '../../../usecase/useGetOrderedItems';
+import { getOrders } from '@/shared/actions/orderService';
+import OrderedTabEmpty from './OrderedTabEmpty';
 
 export default async function OrderedTab() {
-  const orderedItems = await useGetOrderedItems();
+  const { data: orders } = await getOrders('waiting for approval');
+
+  if (orders.length === 0) return <OrderedTabEmpty />;
 
   return (
     <div className="flex flex-col w-full gap-4 justify-center">
@@ -15,11 +17,8 @@ export default async function OrderedTab() {
         showIcon
       />
 
-      {orderedItems.map((orderedItem, index) => (
-        <ItemCard
-          key={orderedItem.vendorName + index + generateUUID()}
-          item={orderedItem}
-        />
+      {orders.toReversed().map((order) => (
+        <ItemCard key={order.id} item={order} />
       ))}
     </div>
   );

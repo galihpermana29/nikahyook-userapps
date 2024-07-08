@@ -1,17 +1,39 @@
-// this is only for typing mock data
-// might need to change later when API is ready
-
-export interface IOrderProduct {
-  productName: string;
-  productPrice: number;
-  productQty: number;
-  productImage: string;
-  productDescription: string;
-}
+export type TOrderStatus =
+  | 'waiting for approval'
+  | 'waiting for payment'
+  | 'payment in review'
+  | 'payment done'
+  | 'order failed';
 
 export interface IOrder {
-  orderId: number;
-  vendorName: string;
-  orderDate: string;
-  products: IOrderProduct[];
+  id: number;
+  user_id: string;
+  user_name: string;
+  status: TOrderStatus;
+  order_time: string;
+  order_details: IOrderDetail[];
+  invoice_file_uri: string | null;
+  payments_file_uri: string | null;
+}
+
+export interface IOrderDetail {
+  id: number;
+  vendor_id: string;
+  vendor_name: string;
+  product_id: number;
+  product_title: string;
+  quantity: number;
+  quantity_label: string;
+  image: string;
+  price: number;
+  description: string | null;
+}
+
+export interface IOrderPaymentInput {
+  status: TOrderStatus;
+  payment_file_uri: string;
+}
+export interface IOrderPaymentPayload {
+  status: TOrderStatus;
+  payment_file_uri: string[];
 }

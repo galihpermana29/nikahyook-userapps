@@ -1,5 +1,4 @@
 import type { IOrder } from '@/shared/models/orderInterfaces';
-import generateUUID from '@/shared/usecase/generateUUID';
 import { Card, Divider } from 'antd';
 import OrderedProduct from '../OrderedProduct/OrderedProduct';
 
@@ -10,15 +9,17 @@ type TOrderItemProps = {
 };
 
 export default function ItemCard(props: TOrderItemProps) {
-  const hasFooter = props.secondaryButton || props.primaryButton;
+  const vendorName = props.item.order_details[0].vendor_name;
+  const hasFooter =
+    Boolean(props.secondaryButton) || Boolean(props.primaryButton);
 
   return (
-    <Card classNames={{ body: 'space-y-3' }} title={props.item.vendorName}>
-      {props.item.products.map((product, index) => (
-        <OrderedProduct
-          key={product.productName + index + generateUUID()}
-          product={product}
-        />
+    <Card
+      key={props.item.id}
+      classNames={{ body: 'space-y-3' }}
+      title={vendorName}>
+      {props.item.order_details.map((product) => (
+        <OrderedProduct key={product.product_id} orderDetail={product} />
       ))}
 
       {hasFooter ? <Divider /> : null}

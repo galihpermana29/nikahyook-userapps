@@ -14,7 +14,9 @@ export default function OrderDetailRootLayout({
       <PageTitle title="Billing" />
 
       <Suspense fallback={<TabLoading withAlert />}>
-        <main className="p-4 flex flex-grow">{children}</main>
+        <main className="p-4 flex flex-grow min-h-[calc(100vh-112px)]">
+          {children}
+        </main>
       </Suspense>
 
       <OrderPriceDetail orderId={params.orderId} />

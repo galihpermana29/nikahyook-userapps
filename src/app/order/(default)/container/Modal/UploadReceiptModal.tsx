@@ -1,8 +1,12 @@
+'use client';
+
 import type { TModalReducerReturn } from '@/shared/usecase/useModalReducer';
-import { Form, message } from 'antd';
+import { Form } from 'antd';
 import UploadReceiptForm from '../Form/UploadReceiptForm';
 import ModalFooter from './ModalFooter';
 import { useForm } from 'antd/es/form/Form';
+import type { IOrderPaymentInput } from '@/shared/models/orderInterfaces';
+import useUploadReceipt from '../../usecase/useUploadReceipt';
 
 export default function UploadReceiptModal({
   closeModal,
@@ -11,21 +15,16 @@ export default function UploadReceiptModal({
   orderId: string | undefined;
   closeModal: TModalReducerReturn['closeModal'];
 }) {
-  const [form] = useForm();
   if (!orderId) return;
 
-  function handleOnUploadReceipt(id: string) {
-    return message.success(
-      `Upload receipt! ID: ${id}, form: ${JSON.stringify(
-        form.getFieldsValue()
-      )}`
-    );
-  }
+  const [form] = useForm();
+  const { mutate, isLoading } = useUploadReceipt({ id: orderId, closeModal });
 
   return (
-    <Form
+    <Form<IOrderPaymentInput>
       form={form}
-      onFinish={() => handleOnUploadReceipt(orderId)}
+      onFinish={mutate}
+      disabled={isLoading}
       className="flex flex-col gap-5 justify-center pt-3">
       <UploadReceiptForm />
 
