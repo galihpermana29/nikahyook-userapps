@@ -17,14 +17,21 @@ const SectionGuest = async () => {
         />
         <div className="flex items-center justify-between mb-2 gap-3 text-caption-1 font-medium">
           <h2>Guest Attending</h2>
-          <Link href={'/budget/guest'}>
-            <Button type="text" className="text-ny-primary-500 font-medium">
-              Edit
-            </Button>
-          </Link>
+          <div className="flex items-center gap-0">
+            <Link href={'/budget/guest'}>
+              <Button type="text" className="text-ny-primary-500 font-medium">
+                Set attending
+              </Button>
+            </Link>
+            <Link href={'/budget/guest/list'}>
+              <Button type="text" className="text-ny-primary-500 font-medium">
+                See guests
+              </Button>
+            </Link>
+          </div>
         </div>
         <p className="text-heading-5 text-ny-primary-500 font-semibold">
-          {data.target_guest}
+          {data.total_guest} / {data.target_guest}
         </p>
       </div>
     </section>

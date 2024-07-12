@@ -4,9 +4,11 @@ import { Form, InputNumber } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import FormButtonGroup from '../../container/Group/FormButtonGroup';
 import { useSetTargetAttending } from '../usecase/useSetTargetAttending';
+import { useRouter } from 'next/navigation';
 
 function GuestContainer() {
   const [guestForm] = useForm();
+  const router = useRouter();
   const { mutate } = useSetTargetAttending();
 
   return (
@@ -28,7 +30,7 @@ function GuestContainer() {
       </Form>
 
       <FormButtonGroup
-        onCancel={() => guestForm.resetFields()}
+        onCancel={() => router.push('/budget')}
         onSubmit={() => guestForm.submit()}
       />
     </main>

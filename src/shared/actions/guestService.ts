@@ -10,6 +10,7 @@ import type {
   TGuestAttending,
   TGuestGroup,
   TUpdateGuestAttendingPayload,
+  TUpdateGuestGroup,
 } from '../models/guestInterfaces';
 import { errorHandling } from '../usecase/errorHandling';
 import { getServerSession } from '../usecase/getServerSession';
@@ -162,11 +163,13 @@ export const deleteGuestGroup = async (
 };
 
 export const updateGuestGroup = async (
+  payload: TUpdateGuestGroup,
   id: TGuestGroup['id']
 ): Promise<IFetchGeneralResponse<TGuestGroup['id']>> => {
   const session = await getServerSession();
   const response = await fetch(endpoint + `/guests/${id}`, {
     method: 'PATCH',
+    body: JSON.stringify(payload),
     headers: {
       Authorization: `Bearer ${session.token}`,
     },
