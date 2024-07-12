@@ -5,7 +5,7 @@ import { message } from 'antd';
 import { useRouter } from 'next/navigation';
 import { useMutation } from 'react-query';
 
-export const useCreateBudget = () => {
+export const useCreateBudget = (callbackUrl?: string | null) => {
   const router = useRouter();
   return useMutation<
     IFetchGeneralResponse<number>,
@@ -18,7 +18,7 @@ export const useCreateBudget = () => {
       message.error(err.message);
     },
     onSuccess: () => {
-      router.push('/budget');
+      router.push(callbackUrl ?? '/budget');
     },
   });
 };

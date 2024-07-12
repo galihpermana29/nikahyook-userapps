@@ -6,9 +6,13 @@ import { useForm } from 'antd/es/form/Form';
 import { useCreateBudget } from '../../usecase/useCreateBudget';
 import { getAllocationCategorySelectOptions } from '../../repositories/getAllocationCategorySelectOptions';
 
-function BudgetAddContainer() {
+function BudgetAddContainer({
+  callbackUrl,
+}: {
+  callbackUrl: string | undefined;
+}) {
   const [addBudgetForm] = useForm();
-  const { mutate } = useCreateBudget();
+  const { mutate } = useCreateBudget(callbackUrl);
 
   return (
     <main>

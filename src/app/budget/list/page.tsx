@@ -53,7 +53,9 @@ async function BudgetList({
         )}
       </section>
 
-      <Link className="p-4 bg-white border-t" href={'/budget/add'}>
+      <Link
+        className="p-4 bg-white border-t sticky bottom-0"
+        href={`/budget/add?callback-url=/budget/list`}>
         <Button
           type="primary"
           className="flex w-full items-center justify-center gap-1 bg-gradient-to-r from-ny-primary-500 to-ny-primary-300 border-none py-5">
