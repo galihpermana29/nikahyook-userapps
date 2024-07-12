@@ -1,11 +1,9 @@
-import { getAttendingGuests } from '@/shared/actions/guestService';
 import { Button } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
+import React from 'react';
 
-const SectionGuest = async () => {
-  const { data } = await getAttendingGuests();
-
+export const SectionGuestLoading = () => {
   return (
     <section className="px-4 pt-10">
       <div className="rounded-lg p-3 bg-ny-primary-100 relative z-0 overflow-hidden">
@@ -23,12 +21,8 @@ const SectionGuest = async () => {
             </Button>
           </Link>
         </div>
-        <p className="text-heading-5 text-ny-primary-500 font-semibold">
-          {data.target_guest}
-        </p>
+        <div className="h-7 w-full rounded-md animate-pulse bg-ny-primary-200" />
       </div>
     </section>
   );
 };
-
-export default SectionGuest;
