@@ -28,27 +28,27 @@ export const formatAllocationsData = (
 
   const allocations: TAllocation[] = [
     {
-      label: 'Venue',
+      label: 'venue' as const,
       nominal: data.venue_nominal,
       percentage: data.venue_percentage,
     },
     {
-      label: 'Food',
+      label: 'food' as const,
       nominal: data.food_nomnal,
       percentage: data.food_percentage,
     },
     {
-      label: 'Fashion',
+      label: 'fashion' as const,
       nominal: data.fashion_nominal,
       percentage: data.fashion_percentage,
     },
     {
-      label: 'Service',
+      label: 'service' as const,
       nominal: data.service_nominal,
       percentage: data.service_percentage,
     },
     {
-      label: 'Others',
+      label: 'others' as const,
       nominal: data.other_nominal,
       percentage: data.other_percentage,
     },

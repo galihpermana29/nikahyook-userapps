@@ -7,6 +7,8 @@ import { useGetBudgetAllocations } from '../../usecase/useGetBudgetAllocations';
 import { formatAllocationsData } from '../../repositories/formatAllocationsData';
 import formatToRupiah from '@/shared/usecase/formatToRupiah';
 import { SectionBudgetAllocationLoading } from '../Loading/SectionBudgetAllocationLoading';
+import { AllocationLegendNode } from '../AllocationLegendNode';
+import formatToCapitalWord from '@/shared/usecase/formatToCapitalWord';
 
 function SectionBudgetAllocation() {
   ChartJS.register(ArcElement, Tooltip);
@@ -18,13 +20,7 @@ function SectionBudgetAllocation() {
     <TitledSection title="Budget Allocation" navigateTo="/budget/list">
       <div className="mx-4 flex items-center p-5 gap-4 rounded-lg shadow">
         <div className="basis-1/2 md:basis-3/5">
-          <Doughnut
-            className="w-full"
-            options={{
-              plugins: { legend: undefined },
-            }}
-            data={chartData}
-          />
+          <Doughnut className="w-full" data={chartData} />
         </div>
         <div className="grow shrink-0 flex flex-col gap-4">
           {allocations.map((allocation) => (
@@ -34,8 +30,10 @@ function SectionBudgetAllocation() {
               }>
               <div className="flex text-caption-3 justify-between gap-3 items-center">
                 <div className="flex items-center gap-1">
-                  <div className="w-2 h-2 rounded-full bg-ny-primary-900"></div>
-                  <h3 className="text-ny-gray-400">{allocation.label}</h3>
+                  <AllocationLegendNode type={allocation.label} />
+                  <h3 className="text-ny-gray-400">
+                    {formatToCapitalWord(allocation.label)}
+                  </h3>
                 </div>
                 <p className="text-ny-info-500 font-medium">
                   {allocation.percentage}

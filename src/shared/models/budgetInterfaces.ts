@@ -35,7 +35,7 @@ export type TBudgetAllocation = {
 };
 
 export type TAllocation = {
-  label: string;
+  label: TBudgetCategory;
   nominal: number;
   percentage: string;
 };
