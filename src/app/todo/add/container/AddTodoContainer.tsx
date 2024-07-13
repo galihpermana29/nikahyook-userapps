@@ -1,113 +1,46 @@
 'use client';
 
 import BottomBar from '@/shared/container/BottomBar/BottomBar';
-import { CalenderIcon } from '@/shared/container/Icon/CalenderIcon';
-import { ClockIcon } from '@/shared/container/Icon/ClockIcon';
-import {
-  Button,
-  DatePicker,
-  Divider,
-  Form,
-  Input,
-  InputRef,
-  Select,
-  Space,
-  TimePicker,
-} from 'antd';
+import { Button, message } from 'antd';
 import { useForm } from 'antd/es/form/Form';
-import React, { useRef, useState } from 'react';
+import AddTodoForm from './form/AddTodoForm';
+import { addTodo } from '@/shared/actions/todoService';
+import { IPostTodoPayload } from '@/shared/models/todoInterfaces';
+import { useRouter } from 'next/navigation';
 
 const AddTodoContainer = ({ categories }: { categories: string[] }) => {
   const [form] = useForm();
-  const timeFormat = 'HH:mm';
-  const [items, setItems] = useState(categories);
-  const [name, setName] = useState('');
-  const inputRef = useRef<InputRef>(null);
+  const router = useRouter();
 
-  const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
-  };
+  const handleMutate = async (values: any) => {
+    const payload: IPostTodoPayload = {
+      name: values.name,
+      category_name: values.category,
+      date: values.date.format('YYYY-MM-DD'),
+      time: values.time.format('HH:mm:ss'),
+      status: 'unresolved',
+    };
 
-  const addItem = (
-    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
-  ) => {
-    e.preventDefault();
-    if (name && !items.includes(name)) {
-      setItems([...items, name]);
-      setName('');
-      setTimeout(() => {
-        inputRef.current?.focus();
-      }, 0);
+    try {
+      const ress = await addTodo(payload);
+      if (ress.success) {
+        message.success('Todo added successfully!');
+        router.push('/todo');
+      } else {
+        message.error('Failed to add todo. Please try again.');
+      }
+    } catch (error) {
+      message.error('An error occurred while adding the todo.');
     }
   };
 
   return (
     <main className="border-t border-t-ny-gray-100">
-      <Form form={form} layout="vertical" className="p-4">
-        <Form.Item
-          name={'name'}
-          label="Name"
-          className="mb-3"
-          rules={[{ required: true, message: 'Name is required!' }]}
-        >
-          <Input placeholder="Enter budget name" />
-        </Form.Item>
-        <Form.Item
-          name={'category'}
-          label="Category"
-          className="mb-3"
-          rules={[{ required: true, message: 'Category is required!' }]}
-        >
-          <Select
-            placeholder="Enter or choose category"
-            dropdownRender={(menu) => (
-              <>
-                {menu}
-                <Divider style={{ margin: '8px 0' }} />
-                <Space style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 8px 4px' }}>
-                  <Input
-                    placeholder="New category"
-                    ref={inputRef}
-                    value={name}
-                    onChange={onNameChange}
-                    onKeyDown={(e) => e.stopPropagation()}
-                  />
-                  <Button type="primary" onClick={addItem}>
-                    Add item
-                  </Button>
-                </Space>
-              </>
-            )}
-            options={items.map((item) => ({ label: item, value: item }))}
-          />
-        </Form.Item>
-        <Form.Item
-          name={'date'}
-          label="Date"
-          className="mb-3"
-          rules={[{ required: true, message: 'Date is required!' }]}
-        >
-          <DatePicker
-            placeholder="Choose date"
-            className="w-full"
-            suffixIcon={<CalenderIcon />}
-          />
-        </Form.Item>
-        <Form.Item
-          name={'time'}
-          label="Time"
-          className="mb-3"
-          rules={[{ required: true, message: 'Time is required!' }]}
-        >
-          <TimePicker
-            placeholder="Choose time"
-            format={timeFormat}
-            className="w-full"
-            suffixIcon={<ClockIcon fill="#292D32" />}
-          />
-        </Form.Item>
-      </Form>
-
+      <AddTodoForm
+        form={form}
+        categories={categories}
+        handleMutate={handleMutate}
+      />
       <BottomBar>
         <div className="flex items-center gap-2">
           <Button

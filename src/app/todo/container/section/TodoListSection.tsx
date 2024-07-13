@@ -1,11 +1,11 @@
 import { Button } from 'antd';
-import { ITodo } from '@/shared/models/todoInterfaces';
+import { ITodoo } from '@/shared/models/todoInterfaces';
 import { PlusIcon } from '@/shared/container/Icon/PlusIcon';
 import generateUUID from '@/shared/usecase/generateUUID';
 import NoResult from '@/shared/container/NoResult/NoResult';
 import TodoCard from '../card/TodoCard';
 
-const TodoListSection = ({ todo }: { todo: ITodo[] }) => {
+const TodoListSection = ({ todo }: { todo: ITodoo[] }) => {
   return (
     <section>
       <Button
@@ -15,7 +15,7 @@ const TodoListSection = ({ todo }: { todo: ITodo[] }) => {
       >
         Add New To Do
       </Button>
-      <div className='max-h-[40vh] overflow-auto space-y-3'>
+      <div className="max-h-[40vh] overflow-auto space-y-3">
         {todo.length > 0 ? (
           todo.map((data) => <TodoCard key={generateUUID()} data={data} />)
         ) : (

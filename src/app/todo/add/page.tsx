@@ -1,13 +1,15 @@
 import AddTodoContainer from './container/AddTodoContainer';
 import PageTitle from '@/shared/container/PageTitle/PageTitle';
 import React from 'react';
-import useGetTodo from '../usecase/useGetTodo';
+import { getAllTodos } from '@/shared/actions/todoService';
 
 const AddTodo = async () => {
-  const { data } = await useGetTodo();
+  const { data } = await getAllTodos();
+
+  if (typeof data === 'string') throw Error(data);
 
   const categoriesSet = new Set(
-    data.map((todo) => todo.category).filter(Boolean)
+    data.data.todos.map((todo) => todo.category_name).filter(Boolean)
   );
   const categories = Array.from(categoriesSet);
 
