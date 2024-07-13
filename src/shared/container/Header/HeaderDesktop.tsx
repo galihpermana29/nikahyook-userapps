@@ -15,7 +15,7 @@ function HeaderDesktop() {
 
   const excludedPaths = ['/login', '/register', '/forgot-password'];
 
-  if (excludedPaths.includes(pathName)) return;
+  if (excludedPaths.some((path) => pathName.includes(path))) return;
 
   return (
     <nav className="sticky hidden md:flex top-0 px-8 lg:px-[60px] py-[18px] bg-ny-primary-500 text-white z-30  justify-between items-center gap-5">

@@ -13,8 +13,15 @@ export default function LoginLayout({
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
       <Suspense fallback={<AuthGroupLoading />}>
         <div className="p-6 md:p-0 flex min-h-screen items-center justify-center">
-          <div className="relative basis-1/2 h-screen md:block">
-            <Image src={'/assets/auth-side-image.png'} alt="side image" fill />
+          <div className="relative basis-1/2 h-screen hidden md:block">
+            <div className="fixed top-0 w-1/2 h-screen">
+              <Image
+                src={'/assets/auth-side-image.png'}
+                alt="side image"
+                fill
+                className="object-cover"
+              />
+            </div>
           </div>
           {children}
         </div>
