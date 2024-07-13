@@ -1,22 +1,23 @@
 import { ITodoo } from '@/shared/models/todoInterfaces';
 import { Progress } from 'antd';
 import { Suspense } from 'react';
+import { useGenerateNextDue } from '../../usecase/useGenerateNextDue';
 import HeaderDefault from '@/shared/container/Header/HeaderDefault';
 import HeaderTodo from '../Group/HeaderTodo';
 
 interface IHeaderSection {
   todo: ITodoo[];
   progress: number;
-  total_task: number;
-  resolved_task: number;
+  total_tasks: number;
 }
 
-const HeaderSection = ({
-  todo,
-  progress,
-  total_task,
-  resolved_task,
-}: IHeaderSection) => {
+const HeaderSection = ({ todo, progress, total_tasks }: IHeaderSection) => {
+  const nextDue = useGenerateNextDue(todo);
+
+  const resolvedTasks = todo.filter(
+    (todo) => todo.status === 'resolved'
+  ).length;
+
   return (
     <section className="bg-gradient-to-r from-ny-primary-500 via-ny-primary-400 to-ny-primary-300 px-4 py-5 space-y-6">
       <Suspense
@@ -30,12 +31,12 @@ const HeaderSection = ({
         <div className="flex-1">
           <p className="text-caption-2 font-medium">Total Task</p>
           <p className="text-heading-6 font-semibold">
-            {resolved_task}/{total_task}
+            {resolvedTasks}/{total_tasks}
           </p>
         </div>
         <div className="flex-1">
           <p className="text-caption-2 font-medium">Next Due</p>
-          <p className="text-heading-6 font-semibold">5 Mins</p>
+          <p className="text-heading-6 font-semibold">{nextDue}</p>
         </div>
       </div>
       <div>
@@ -50,7 +51,7 @@ const HeaderSection = ({
           trailColor="#FC9CA9"
         />
       </div>
-      <HeaderTodo todo={todo} />
+      <HeaderTodo todo={todo.slice(0, 3)} />
     </section>
   );
 };
