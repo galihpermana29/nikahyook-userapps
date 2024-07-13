@@ -39,7 +39,7 @@ function TabInspiration() {
   if (inView && !hasReachedLimit) refetch();
 
   if (isLoading) {
-    return <InspirationGrid data={[...Array(4)]} animated />;
+    return <InspirationGrid data={[...Array(8)]} animated />;
   }
 
   if (typeof data?.data === 'string') {

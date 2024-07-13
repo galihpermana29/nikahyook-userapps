@@ -46,33 +46,37 @@ function TabVendor() {
   }
 
   return (
-    <section className="px-4 flex flex-col gap-2">
-      {data?.data && data?.data?.data?.length > 0 ? (
-        data.data.data.map((item) => {
-          return (
-            <VendorCard
-              key={item.id}
-              id={item.id}
-              navigateTo={`/vendor/${item.id}`}
-              isInWishlist={item.detail?.is_wishlist}
-              vendor_name={item.name}
-              product_type_name={item.detail?.vendor_type_name}
-              price={item.detail?.lowest_price}
-              rating={item.detail?.avg_rating}
-              location={item.detail?.location.city.label}
-              profile_picture_uri={item.profile_image_uri}
-              images={JSON.parse(item.detail?.json_text as string).vendor_album}
-              refetchFn={refetch}
-            />
-          );
-        })
-      ) : (
-        <NoResult />
-      )}{' '}
+    <>
+      <section className="px-4 grid grid-cols-1 md:grid-cols-2 gap-2">
+        {data?.data && data?.data?.data?.length > 0 ? (
+          data.data.data.map((item) => {
+            return (
+              <VendorCard
+                key={item.id}
+                id={item.id}
+                navigateTo={`/vendor/${item.id}`}
+                isInWishlist={item.detail?.is_wishlist}
+                vendor_name={item.name}
+                product_type_name={item.detail?.vendor_type_name}
+                price={item.detail?.lowest_price}
+                rating={item.detail?.avg_rating}
+                location={item.detail?.location.city.label}
+                profile_picture_uri={item.profile_image_uri}
+                images={
+                  JSON.parse(item.detail?.json_text as string).vendor_album
+                }
+                refetchFn={refetch}
+              />
+            );
+          })
+        ) : (
+          <NoResult />
+        )}{' '}
+      </section>
       <div ref={ref} className="w-full py-4 flex justify-center">
         {inView && !hasReachedLimit && <Spin />}
       </div>
-    </section>
+    </>
   );
 }
 

@@ -10,9 +10,10 @@ import SkeletonVerticalCards from '@/shared/container/Skeleton/SkeletonVerticalC
 const TabCuratorial = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['curatorial-wishlist'],
-    queryFn: () => getAllWishlist('curatorial', {
-      is_pagination: false
-    }),
+    queryFn: () =>
+      getAllWishlist('curatorial', {
+        is_pagination: false,
+      }),
     refetchOnWindowFocus: false,
   });
 
@@ -31,7 +32,7 @@ const TabCuratorial = () => {
   }
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
       {curatorialData.curatorials.map((curatorial) => (
         <CuratorCard
           key={generateUUID()}

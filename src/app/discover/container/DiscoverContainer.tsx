@@ -27,7 +27,7 @@ const DiscoverContainer = async () => {
     location: userLocationCode,
   });
   const { data: inspirationsData } = await getAllInspirations({
-    limit: 4,
+    limit: 8,
     status: 'active',
   });
   const { data: vendorsData } = await getAllUsers({

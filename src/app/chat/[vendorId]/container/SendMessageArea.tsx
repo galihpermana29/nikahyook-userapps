@@ -33,7 +33,7 @@ export default function SendMessageArea({
         form.resetFields();
       }}
       form={form}
-      className="w-full fixed bottom-0 max-w-screen-sm">
+      className="w-full fixed bottom-0 max-w-screen-md">
       {quotedProductResult && (
         <div className="z-[100]">
           <QuotedCard

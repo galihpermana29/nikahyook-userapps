@@ -8,7 +8,7 @@ import FilterIcon from '@/shared/container/Icon/FilterIcon';
 
 function BudgetListContainer() {
   return (
-    <main>
+    <main className="max-w-screen-md mx-auto md:mt-5">
       <SubrouteHeader
         title="Budget List"
         extraComponent={
