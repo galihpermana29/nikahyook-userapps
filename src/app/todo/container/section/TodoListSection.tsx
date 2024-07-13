@@ -15,7 +15,7 @@ const TodoListSection = ({ todo }: { todo: ITodoo[] }) => {
       >
         Add New To Do
       </Button>
-      <div className="max-h-[40vh] overflow-auto space-y-3">
+      <div className="max-h-[40vh] overflow-auto space-y-3 pb-10">
         {todo.length > 0 ? (
           todo.map((data) => <TodoCard key={generateUUID()} data={data} />)
         ) : (
