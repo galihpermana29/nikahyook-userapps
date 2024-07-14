@@ -12,7 +12,7 @@ export const SearchContainer = ({ defaultTab }: { defaultTab: string }) => {
   const [filterForm] = useForm();
 
   return (
-    <div className="pb-4">
+    <div className="pb-4 max-w-screen-md mx-auto">
       <HeaderDiscover
         inputPlaceholder={
           defaultTab.charAt(0).toUpperCase() + defaultTab.slice(1)

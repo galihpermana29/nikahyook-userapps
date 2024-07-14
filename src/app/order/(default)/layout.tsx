@@ -10,14 +10,16 @@ export default function OrderRootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
-      <PageTitle title="My Order" />
-      <Suspense fallback={null}>
-        <OrderTabs />
-      </Suspense>
+      <div>
+        <PageTitle title="My Order" />
+        <Suspense fallback={null}>
+          <OrderTabs />
+        </Suspense>
 
-      <Suspense fallback={<TabLoading withAlert />}>
-        <main className="px-4 pb-4">{children}</main>
-      </Suspense>
+        <Suspense fallback={<TabLoading withAlert />}>
+          <main className="px-4 pb-4">{children}</main>
+        </Suspense>
+      </div>
     </ErrorBoundary>
   );
 }

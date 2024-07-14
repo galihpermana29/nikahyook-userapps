@@ -10,9 +10,10 @@ import SkeletonHorizontalCards from '@/shared/container/Skeleton/SkeletonHorizon
 const TabVendor = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['vendor-wishlist'],
-    queryFn: () => getAllWishlist('vendor', {
-      is_pagination: false
-    }),
+    queryFn: () =>
+      getAllWishlist('vendor', {
+        is_pagination: false,
+      }),
     refetchOnWindowFocus: false,
   });
 
@@ -31,7 +32,7 @@ const TabVendor = () => {
   }
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
       {vendorsData.vendors.map((vendor) => (
         <VendorCard
           key={generateUUID()}

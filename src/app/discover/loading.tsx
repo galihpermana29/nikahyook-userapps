@@ -2,7 +2,7 @@ import generateUUID from '@/shared/usecase/generateUUID';
 
 const DiscoverLoading = () => {
   return (
-    <div className="flex p-5 flex-col gap-5">
+    <div className="flex p-5 flex-col gap-5 max-w-screen-md mx-auto">
       <div className="w-full h-[248px] bg-ny-gray-100 rounded-lg animate-pulse"></div>
 
       {[...Array(3)].map(() => (

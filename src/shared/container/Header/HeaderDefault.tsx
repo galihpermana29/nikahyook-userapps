@@ -9,7 +9,7 @@ async function HeaderDefault() {
 
   return (
     <header
-      className={`w-full max-w-screen-sm z-30 flex items-center justify-between gap-5 transition-colors duration-150`}>
+      className={`w-full md:hidden z-30 flex items-center justify-between gap-5 transition-colors duration-150`}>
       <Link href={'/'}>
         <div className="relative w-[118px] h-6">
           <Image src={'/assets/logo-white.png'} alt="Logo" fill />

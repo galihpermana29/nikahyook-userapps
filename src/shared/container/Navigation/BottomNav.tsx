@@ -12,7 +12,7 @@ export const BottomNav = () => {
   const pathName = usePathname();
 
   return (
-    <nav className="fixed bottom-0 text-caption-3 font-medium text-ny-primary-200 w-full max-w-screen-sm bg-white z-30 grid grid-cols-5 px-2 justify-between">
+    <nav className="fixed bottom-0 text-caption-3 font-medium text-ny-primary-200 w-full max-w-screen-md mx-auto md:hidden bg-white z-30 grid grid-cols-5 px-2 justify-between">
       <BottomNavItem
         href="/discover"
         label="Home"
