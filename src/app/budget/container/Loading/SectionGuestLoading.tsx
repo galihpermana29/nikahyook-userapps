@@ -1,10 +1,9 @@
-import { getAttendingGuests } from '@/shared/actions/guestService';
+import { Button } from 'antd';
 import Image from 'next/image';
-import { DropdownContainer } from '../DropdownContainer';
+import Link from 'next/link';
+import React from 'react';
 
-const SectionGuest = async () => {
-  const { data } = await getAttendingGuests();
-
+export const SectionGuestLoading = () => {
   return (
     <section className="px-4 pt-10">
       <div className="rounded-lg p-3 bg-ny-primary-100 relative z-0 overflow-hidden">
@@ -16,14 +15,14 @@ const SectionGuest = async () => {
         />
         <div className="flex items-center justify-between mb-2 gap-3 text-caption-1 font-medium">
           <h2>Guest Attending</h2>
-          <DropdownContainer currentTargetGuestAttending={data.target_guest} />
+          <Link href={'/budget/guest'}>
+            <Button type="text" className="text-ny-primary-500 font-medium">
+              Edit
+            </Button>
+          </Link>
         </div>
-        <p className="text-heading-5 text-ny-primary-500 font-semibold">
-          {data.total_guest} / {data.target_guest}
-        </p>
+        <div className="h-7 w-full rounded-md animate-pulse bg-ny-primary-200" />
       </div>
     </section>
   );
 };
-
-export default SectionGuest;
