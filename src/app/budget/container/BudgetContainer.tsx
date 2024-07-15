@@ -10,7 +10,7 @@ import { SectionBudgetListLoading } from './Loading/SectionBudgetListLoading';
 
 function BudgetContainer() {
   return (
-    <main className="flex flex-col gap-5 pb-24">
+    <main className="flex flex-col gap-5 pb-24 max-w-screen-md mx-auto md:mt-5">
       <Suspense fallback={<SectionHeroLoading />}>
         <SectionHero />
       </Suspense>

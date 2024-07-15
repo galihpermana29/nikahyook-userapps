@@ -32,7 +32,7 @@ export default async function VendorRoomChatPage({
 
   return (
     <div className="relative">
-      <div className="fixed z-[99] top-0 left-0 right-0 bg-white">
+      <div className="fixed md:static z-[99] top-0 left-0 right-0 bg-white">
         <PageTitle title={detailVendor.data.data.name} />
       </div>
       <RoomChatContainer vendor={detailVendor.data.data} />

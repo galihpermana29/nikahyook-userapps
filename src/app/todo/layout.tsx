@@ -8,7 +8,9 @@ export default function TodoLyout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
-      <Suspense fallback={<TodoLoading />}>{children}</Suspense>
+      <Suspense fallback={<TodoLoading />}>
+        <div className="max-w-screen-md mx-auto md:mt-5">{children}</div>
+      </Suspense>
     </ErrorBoundary>
   );
 }

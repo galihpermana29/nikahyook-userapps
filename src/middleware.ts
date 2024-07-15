@@ -16,6 +16,9 @@ export async function middleware(request: NextRequest) {
   const currentUser = request.cookies.get('session')?.value;
   const refererHeader = request.headers.get('referer');
 
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-pathname', request.nextUrl.pathname);
+
   // removes base url
   const referer = refererHeader?.replace(baseUrl, '').split('?')[0];
   const pathname = request.nextUrl.pathname.replace(baseUrl, '').split('?')[0];
@@ -59,6 +62,12 @@ export async function middleware(request: NextRequest) {
     const redirectPath = referer ?? '/';
     return Response.redirect(new URL(redirectPath, request.url));
   }
+
+  return NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  });
 }
 
 export const config = {

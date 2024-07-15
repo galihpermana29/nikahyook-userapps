@@ -58,7 +58,7 @@ function SearchTabs({
   return (
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
       <Tabs
-        centered
+        // centered
         defaultActiveKey={defaultTab}
         activeKey={activeTab}
         items={items}

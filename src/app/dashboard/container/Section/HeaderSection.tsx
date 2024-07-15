@@ -9,7 +9,7 @@ type IHeaderSection = {
 
 const HeaderSection = ({ children }: IHeaderSection) => {
   return (
-    <section className="w-full py-5 px-4 z-0 h-[248px] relative rounded-b-2xl overflow-hidden flex flex-col gap-8">
+    <section className="w-full py-5 px-4 z-0 h-[248px] relative rounded-b-2xl md:rounded-t-2xl overflow-hidden flex flex-col justify-between md:justify-end gap-8">
       <Image
         src={'/assets/dashboard-banner.png'}
         alt="Banner Image"
@@ -20,8 +20,7 @@ const HeaderSection = ({ children }: IHeaderSection) => {
       <Suspense
         fallback={
           <div className="w-full h-10 rounded-md animate-pulse bg-ny-gray-200"></div>
-        }
-      >
+        }>
         <HeaderDefault />
       </Suspense>
 

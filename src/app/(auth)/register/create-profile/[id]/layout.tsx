@@ -3,6 +3,7 @@ import CreateProfileLoading from './loading';
 import Title from '@/app/(auth)/container/Title';
 import { getServerSession } from '@/shared/usecase/getServerSession';
 import { redirect } from 'next/navigation';
+import LogoImage from '@/app/(auth)/container/LogoImage';
 
 export default async function CreateProfileLayout({
   children,
@@ -18,6 +19,7 @@ export default async function CreateProfileLayout({
 
   return (
     <>
+      <LogoImage />
       <Title title="Tell us who you are" />
       <Suspense fallback={<CreateProfileLoading />}>{children}</Suspense>
     </>

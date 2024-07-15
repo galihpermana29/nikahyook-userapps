@@ -19,7 +19,7 @@ function SectionBudgetAllocation() {
   return (
     <TitledSection title="Budget Allocation" navigateTo="/budget/list">
       <div className="mx-4 flex items-center p-5 gap-4 rounded-lg shadow">
-        <div className="basis-1/2 md:basis-3/5">
+        <div className="basis-1/2 sm:basis-1/3 md:basis-1/4">
           <Doughnut className="w-full" data={chartData} />
         </div>
         <div className="grow shrink-0 flex flex-col gap-4">
