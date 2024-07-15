@@ -6,7 +6,10 @@ import type { TGuestGroup } from '@/shared/models/guestInterfaces';
 import { message } from 'antd';
 import { useMutation, useQueryClient } from 'react-query';
 
-export const useDeleteGuestGroup = (id: TGuestGroup['id']) => {
+export const useDeleteGuestGroup = (
+  id: TGuestGroup['id'],
+  name: TGuestGroup['name']
+) => {
   const queryClient = useQueryClient();
   return useMutation<IFetchGeneralResponse<TGuestGroup['id']>, Error>({
     mutationKey: ['delete-guest-group', { id }],
@@ -14,7 +17,7 @@ export const useDeleteGuestGroup = (id: TGuestGroup['id']) => {
       return deleteGuestGroup(id);
     },
     onSuccess: () => {
-      message.success('Successfully deleted group!');
+      message.success(`Successfully deleted guest ${name}!`);
       queryClient.refetchQueries('get-lists-of-guests');
     },
     onError: (err) => {

@@ -18,28 +18,29 @@ function SectionBudgetAllocation() {
 
   return (
     <TitledSection title="Budget Allocation" navigateTo="/budget/list">
-      <div className="mx-4 flex items-center p-5 gap-4 rounded-lg shadow">
-        <div className="basis-1/2 sm:basis-1/3 md:basis-1/4">
-          <Doughnut className="w-full" data={chartData} />
+      <div className="mx-4 flex items-center p-5 gap-4 sm:gap-8 rounded-lg shadow">
+        <div className="basis-1/2 sm:basis-1/3 w-full shrink-0 flex">
+          <Doughnut className="w-full shrink-0" data={chartData} />
         </div>
-        <div className="grow shrink-0 flex flex-col gap-4">
+        <div className="flex flex-col gap-4 w-full">
           {allocations.map((allocation) => (
             <div
+              className="flex flex-col gap-1 w-full"
               key={
                 allocation.label + allocation.nominal + allocation.percentage
               }>
-              <div className="flex text-caption-3 justify-between gap-3 items-center">
-                <div className="flex items-center gap-1">
+              <div className="flex text-caption-3 justify-between gap-3 items-center w-full">
+                <div className="flex items-center gap-2">
                   <AllocationLegendNode type={allocation.label} />
-                  <h3 className="text-ny-gray-400">
+                  <h3 className="text-ny-gray-400 text-caption-1">
                     {formatToCapitalWord(allocation.label)}
                   </h3>
                 </div>
-                <p className="text-ny-info-500 font-medium">
+                <p className="text-ny-info-500 font-medium text-caption-1">
                   {allocation.percentage}
                 </p>
               </div>
-              <p className="text-caption-2 font-semibold">
+              <p className="font-semibold text-caption-1 line-clamp-1">
                 {formatToRupiah(allocation.nominal)}
               </p>
             </div>

@@ -10,7 +10,7 @@ function BudgetAdd({
 
   return (
     <>
-      <SubrouteHeader title="Add Budget" />
+      <SubrouteHeader backUrl={callbackUrl} title="Add Budget" />
       <BudgetAddContainer callbackUrl={callbackUrl} />
     </>
   );

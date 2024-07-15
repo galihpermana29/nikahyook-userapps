@@ -102,7 +102,7 @@ export const getGuestGroup = async (
       Authorization: `Bearer ${session.token}`,
     },
     next: {
-      tags: ['get-guest-group'],
+      tags: [`get-guest-group-${id}`],
     },
   });
 
@@ -135,6 +135,7 @@ export const createGuestGroup = async (
   }
 
   const data = (await response.json()) as IFetchGeneralSuccessResponse<string>;
+  revalidateTag('get-lists-of-guests');
 
   return { success: true, data: data.data };
 };

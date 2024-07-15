@@ -6,12 +6,15 @@ import type {
   TGuestGroup,
   TUpdateGuestGroup,
 } from '@/shared/models/guestInterfaces';
+import type { TModalReducerReturn } from '@/shared/usecase/useModalReducer';
 import { message } from 'antd';
-import { useRouter } from 'next/navigation';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 
-export const useEditGuestGroup = (id: TGuestGroup['id']) => {
-  const router = useRouter();
+export const useEditGuestGroup = (
+  id: TGuestGroup['id'],
+  closeModal: TModalReducerReturn['closeModal']
+) => {
+  const queryClient = useQueryClient();
   return useMutation<
     IFetchGeneralResponse<TGuestGroup['id']>,
     Error,
@@ -22,7 +25,10 @@ export const useEditGuestGroup = (id: TGuestGroup['id']) => {
       return updateGuestGroup(payload, id);
     },
     onSuccess: () => {
-      router.push('/budget/guest/list');
+      message.success('Succesfully edited guest!');
+      queryClient.invalidateQueries(['get-lists-of-guests']);
+      queryClient.invalidateQueries(['get-guest-group', { id }]);
+      closeModal();
     },
     onError: (err) => {
       message.error(err.message);

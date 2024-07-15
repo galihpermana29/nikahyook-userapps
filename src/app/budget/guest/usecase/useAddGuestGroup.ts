@@ -6,12 +6,14 @@ import type {
   TCreateGuestGroupsPayload,
   TGuestGroupRoot,
 } from '@/shared/models/guestInterfaces';
+import type { TModalReducerReturn } from '@/shared/usecase/useModalReducer';
 import { message } from 'antd';
-import { useRouter } from 'next/navigation';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 
-export const useAddGuestGroup = () => {
-  const router = useRouter();
+export const useAddGuestGroup = (
+  closeModal: TModalReducerReturn['closeModal']
+) => {
+  const queryClient = useQueryClient();
   return useMutation<IFetchGeneralResponse<string>, Error, TGuestGroupRoot>({
     mutationKey: ['add-guest-group'],
     mutationFn: async (value: TGuestGroupRoot) => {
@@ -19,7 +21,9 @@ export const useAddGuestGroup = () => {
       return createGuestGroup(payload);
     },
     onSuccess: () => {
-      router.push('/budget/guest/list');
+      queryClient.invalidateQueries(['get-lists-of-guests']);
+      message.success('Successfully added guest group!');
+      closeModal();
     },
     onError: (err) => {
       message.error(err.message);
