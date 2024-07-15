@@ -7,6 +7,7 @@ import {
 import { errorHandling } from '@/shared/usecase/errorHandling';
 import { getServerSession } from '../usecase/getServerSession';
 import { IAllTodoResponse, IPostTodoPayload } from '../models/todoInterfaces';
+import { revalidateTag } from 'next/cache';
 
 const baseURL = process.env.NEXT_PUBLIC_API as string;
 
@@ -21,6 +22,9 @@ export async function getAllTodos(
     headers: {
       Authorization: `Bearer ${sessionData.token}`,
     },
+    next: {
+      tags: ['get-user-todos']
+    }
   });
 
   if (!res.ok) {
@@ -45,6 +49,9 @@ export async function updateTodo(
     headers: {
       Authorization: `Bearer ${sessionData.token}`,
     },
+    next: {
+      tags: ['update-user-todo']
+    }
   });
 
   if (!res.ok) {
@@ -52,6 +59,7 @@ export async function updateTodo(
   }
 
   const data = await res.json();
+  revalidateTag('get-user-todos');
 
   return { success: true, data };
 }
@@ -68,6 +76,9 @@ export async function addTodo(
     headers: {
       Authorization: `Bearer ${sessionData.token}`,
     },
+    next: {
+      tags: ['add-user-todo']
+    }
   });
 
   if (!res.ok) {

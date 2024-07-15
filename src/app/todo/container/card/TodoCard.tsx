@@ -7,6 +7,7 @@ import {
 import { ITodoo } from '@/shared/models/todoInterfaces';
 import React, { useState } from 'react';
 import useMutateTodo from '../../usecase/useMutateTodo';
+import { useFormatTime } from '../../usecase/useFormatTime';
 
 const TodoCard = ({ data }: { data: ITodoo }) => {
   const [checked, setChecked] = useState<boolean>(data.status === 'resolved');
@@ -36,7 +37,7 @@ const TodoCard = ({ data }: { data: ITodoo }) => {
         <div className="space-y-2">
           <h3 className="text-caption-1 font-medium">{data.name}</h3>
           <p className="text-caption-2 text-ny-gray-400">
-            {data.date} - {data.time}
+            {data.date} - {useFormatTime(data.time)}
           </p>
         </div>
       </div>

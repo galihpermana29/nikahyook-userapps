@@ -1,4 +1,5 @@
 import { ITodoo } from '@/shared/models/todoInterfaces';
+import { useFormatTime } from '../../usecase/useFormatTime';
 
 const HeaderTodo = ({ todo }: { todo: ITodoo[] }) => {
   return (
@@ -12,7 +13,7 @@ const HeaderTodo = ({ todo }: { todo: ITodoo[] }) => {
             {item.name}
           </h2>
           <p className="text-caption-2 text-ny-gray-400 line-clamp-1">
-            {item.date} - {item.time}
+            {item.date} - {useFormatTime(item.time)}
           </p>
         </div>
       ))}

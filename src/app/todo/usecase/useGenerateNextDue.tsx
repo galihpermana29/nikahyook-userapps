@@ -33,19 +33,17 @@ export const useGenerateNextDue = (todos: ITodoo[]) => {
   const hours = Math.floor((diff % 1440) / 60);
   const minutes = diff % 60;
 
-  let result = '';
-
   if (days > 0) {
-    result += `${days} day${days !== 1 ? 's' : ''} `;
+    return `${days} day${days !== 1 ? 's' : ''}`;
   }
 
-  if (hours > 0 || days > 0) {
-    result += `${hours} hour${hours !== 1 ? 's' : ''} `;
+  if (hours > 0) {
+    return `${hours} hour${hours !== 1 ? 's' : ''}`;
   }
 
-  if (minutes > 0 || (days === 0 && hours === 0)) {
-    result += `${minutes} minute${minutes !== 1 ? 's' : ''}`;
+  if (minutes > 0) {
+    return `${minutes} minute${minutes !== 1 ? 's' : ''}`;
   }
 
-  return result.trim();
+  return 'Due now';
 };
