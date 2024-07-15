@@ -1,18 +1,19 @@
-import { TODO_MOCKDATA } from '../../models/TodoMockData';
+import { ITodoo } from '@/shared/models/todoInterfaces';
+import { useFormatTime } from '../../usecase/useFormatTime';
 
-const HeaderTodo = () => {
+const HeaderTodo = ({ todo }: { todo: ITodoo[] }) => {
   return (
     <div className="h-4 grid grid-cols-3 gap-3 text-black">
-      {TODO_MOCKDATA.slice(0, 3).map((data, index) => (
+      {todo.map((item, index) => (
         <div
           key={index}
-          className='bg-white space-y-2 w-full py-2 px-3 rounded-lg shadow'
+          className="bg-white space-y-2 w-full py-2 px-3 rounded-lg shadow"
         >
           <h2 className="text-caption-1 font-medium line-clamp-1">
-            {data.name}
+            {item.name}
           </h2>
           <p className="text-caption-2 text-ny-gray-400 line-clamp-1">
-            {data.date} - {data.time}
+            {item.date} - {useFormatTime(item.time)}
           </p>
         </div>
       ))}

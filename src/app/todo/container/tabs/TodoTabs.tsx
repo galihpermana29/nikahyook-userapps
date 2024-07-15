@@ -2,14 +2,20 @@
 
 import './style.scss';
 import { ErrorBoundary } from 'react-error-boundary';
+import { ITodoo } from '@/shared/models/todoInterfaces';
 import { Tabs } from 'antd';
 import { theme } from 'antd';
 import { useState } from 'react';
 import CustomErrorBoundary from '@/shared/container/ErrorBoundary/ErrorBoundary';
 import useGenerateTab from '../../usecase/useGenerateTab';
-import { ITodo } from '@/shared/models/todoInterfaces';
 
-function TodoTabs({ defaultTab, todo }: { defaultTab: string; todo: ITodo[] }) {
+function TodoTabs({
+  defaultTab,
+  todo,
+}: {
+  defaultTab: string;
+  todo: ITodoo[];
+}) {
   const [activeTab, setActiveTab] = useState(defaultTab);
 
   const { tabs } = useGenerateTab(todo, activeTab);
