@@ -7,7 +7,7 @@ import { Suspense } from 'react';
 
 export const HeroSection = () => {
   return (
-    <section className="w-full bg-ny-primary-500 py-5 px-4 z-0 h-[248px] relative rounded-b-2xl overflow-hidden flex flex-col justify-between">
+    <section className="w-full bg-ny-primary-500 py-5 px-4 z-0 h-[248px] relative rounded-b-2xl md:rounded-t-2xl overflow-hidden flex flex-col justify-between md:justify-end">
       <Image
         src={'/assets/discover-banner.png'}
         alt="Banner Image"

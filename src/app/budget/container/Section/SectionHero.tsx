@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 
 function SectionHero() {
   return (
-    <section className="text-white bg-gradient-to-r from-ny-primary-500 via-ny-primary-400 to-ny-primary-300 py-5 px-4 flex flex-col gap-6">
+    <section className="text-white bg-gradient-to-r md:rounded-lg from-ny-primary-500 via-ny-primary-400 to-ny-primary-300 py-5 px-4 flex flex-col gap-6">
       <Suspense
         fallback={
           <div className="w-full h-10 rounded-md animate-pulse bg-ny-gray-200"></div>
@@ -40,7 +40,7 @@ function SectionHero() {
         />
       </div>
 
-      <div className="h-4 grid grid-cols-3 gap-3 text-black">
+      <div className="h-4 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 text-black">
         <div className="bg-white space-y-2 w-full py-2 px-3 rounded-lg shadow">
           <h2 className="text-caption-1 font-medium line-clamp-1">
             Photographer

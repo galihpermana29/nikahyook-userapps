@@ -19,7 +19,7 @@ export const TopVendorsSection = ({
       <TitledSection
         title={`Vendors Near ${location.toLowerCase()}`}
         navigateTo="/search?tab=vendor">
-        <div className="flex flex-col px-4 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 px-4 gap-3">
           {data.length === 0 ? (
             <EmptySection message="There are currently no vendors..." />
           ) : (
