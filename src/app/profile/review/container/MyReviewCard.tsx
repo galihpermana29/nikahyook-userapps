@@ -1,8 +1,12 @@
 import { StarIcon } from '@/shared/container/Icon/StarIcon';
-import type { IReviewData } from '@/shared/models/generalInterfaces';
+import type { IProductReviewData } from '@/shared/models/productInterfaces';
 import { Button, Card, Rate } from 'antd';
 
-export default function MyReviewCard({ review }: { review: IReviewData }) {
+export default function MyReviewCard({
+  review,
+}: {
+  review: IProductReviewData;
+}) {
   return (
     <Card className="drop-shadow" title={review.product_name} bordered={false}>
       My Review:

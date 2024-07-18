@@ -89,10 +89,8 @@ export interface IReview {
 
 export interface IReviewData {
   user_id: string;
-  user_name: string;
-  product_id: number;
-  product_image: string;
-  product_name: string;
+  name: string;
+  profile_image_uri: string;
   rating: number;
   description: string;
 }
