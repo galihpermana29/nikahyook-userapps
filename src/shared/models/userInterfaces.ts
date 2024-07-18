@@ -28,7 +28,7 @@ export interface IUserVendorDetail {
   avg_rating: number;
   vendor_detail: IVendorDetail;
   is_wishlist: boolean;
-  review: IReview
+  review: IReview;
 }
 
 export interface IUserVendorAdditionalDetail {
@@ -102,4 +102,32 @@ export interface IVendorWishlist {
 
 export interface IAllVendorWishlistResponse extends IGeneralWishlistResponse {
   vendors: IVendorWishlist[];
+}
+
+export interface IUserStatisticsResponseRoot {
+  total_budget: number;
+  progress_budget: string;
+  total_inspiration: number;
+  total_guest: number;
+  total_vendor: number;
+  total_todo_done: number;
+  total_todo: number;
+  progress_todo: string;
+  total_review: number;
+}
+
+export interface IUserStatistics {
+  inspirations: number;
+  guests: number;
+  vendors: number;
+  reviews: number;
+  todo: {
+    total: number;
+    done: number;
+    progress: number;
+  };
+  budget: {
+    total: number;
+    progress: string;
+  };
 }

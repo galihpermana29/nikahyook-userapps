@@ -13,6 +13,8 @@ import {
   type IChangePasswordPayloadRoot,
   type IEditProfileInputRoot,
   type IUserDetailData,
+  type IUserStatistics,
+  type IUserStatisticsResponseRoot,
 } from '@/shared/models/userInterfaces';
 import { errorHandling } from '@/shared/usecase/errorHandling';
 import { cookies, headers } from 'next/headers';
@@ -350,3 +352,46 @@ export async function getUserDetail(
 
   return { success: true, data };
 }
+
+export const getUserStatistics = async (): Promise<
+  IFetchGeneralResponse<IUserStatistics>
+> => {
+  const session = await getServerSession();
+
+  const response = await fetch(
+    baseURL + `/users/${session.user_id}/statistics`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${session.token}`,
+      },
+      next: {
+        tags: ['get-user-statistics'],
+      },
+    }
+  );
+
+  if (!response.ok) {
+    const error = await errorHandling(response);
+    throw new Error(error.data);
+  }
+
+  const { data } =
+    (await response.json()) as IFetchGeneralSuccessResponse<IUserStatisticsResponseRoot>;
+
+  const returnedData = {
+    budget: { progress: data.progress_budget, total: data.total_budget },
+    guests: data.total_guest,
+    inspirations: data.total_inspiration,
+    reviews: data.total_review,
+    vendors: data.total_vendor,
+    todo: {
+      done: data.total_todo_done,
+      total: data.total_todo,
+      progress:
+        parseFloat((data.total_todo_done / data.total_todo).toFixed(2)) * 100,
+    },
+  } as IUserStatistics;
+
+  return { success: true, data: returnedData };
+};
