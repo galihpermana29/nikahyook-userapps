@@ -84,13 +84,15 @@ export interface IGeneralWishlistResponse {
 
 export interface IReview {
   total_review: number;
-  review: IReviewData[]
+  review: IReviewData[];
 }
 
 export interface IReviewData {
   user_id: string;
-  name: string;
-  profile_image_uri: string;
+  user_name: string;
+  product_id: number;
+  product_image: string;
+  product_name: string;
   rating: number;
   description: string;
 }
