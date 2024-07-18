@@ -84,7 +84,7 @@ export interface IGeneralWishlistResponse {
 
 export interface IReview {
   total_review: number;
-  review: IReviewData[]
+  review: IReviewData[];
 }
 
 export interface IReviewData {

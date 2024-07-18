@@ -44,3 +44,18 @@
   display: unset !important;
   width: 100% !important;
 }
+
+// this is to allow horizontal scrolling on antds tab
+.ant-tabs-nav-wrap {
+  overflow-x: auto !important;
+}
+
+// this is just to disable scrollbar
+.ant-tabs-nav-wrap {
+  @apply no-scrollbar
+}
+
+// while this is to fix a weird flickering visual bugs with tabs
+.ant-tabs-nav-operations {
+  display: none !important;
+}

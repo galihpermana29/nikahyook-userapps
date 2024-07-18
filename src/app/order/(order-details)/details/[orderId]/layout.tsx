@@ -11,7 +11,9 @@ export default function OrderDetailRootLayout({
 }: Readonly<{ children: React.ReactNode; params: { orderId: string } }>) {
   return (
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
-      <PageTitle title="Billing" />
+      <div className="sticky top-0 z-10 bg-white">
+        <PageTitle title="Billing" />
+      </div>
 
       <Suspense fallback={<TabLoading withAlert />}>
         <main className="p-4 flex flex-grow min-h-[calc(100vh-112px)]">

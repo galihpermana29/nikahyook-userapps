@@ -8,12 +8,13 @@ export type TOrderStatus =
 export interface IOrder {
   id: number;
   user_id: string;
-  user_name: string;
   status: TOrderStatus;
   order_time: string;
   order_details: IOrderDetail[];
   invoice_file_uri: string | null;
   payments_file_uri: string | null;
+  payment_file_uri_with_timestamp: string | null;
+  total_price: number;
 }
 
 export interface IOrderDetail {

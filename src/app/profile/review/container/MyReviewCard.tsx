@@ -1,10 +1,14 @@
 import { StarIcon } from '@/shared/container/Icon/StarIcon';
-import type { IReviewData } from '@/shared/models/generalInterfaces';
+import type { IProductReviewData } from '@/shared/models/productInterfaces';
 import { Button, Card, Rate } from 'antd';
 
-export default function MyReviewCard({ review }: { review: IReviewData }) {
+export default function MyReviewCard({
+  review,
+}: {
+  review: IProductReviewData;
+}) {
   return (
-    <Card className="drop-shadow" title={review.name} bordered={false}>
+    <Card className="drop-shadow" title={review.product_name} bordered={false}>
       My Review:
       <div className="flex items-center gap-8">
         <Rate
@@ -24,8 +28,11 @@ export default function MyReviewCard({ review }: { review: IReviewData }) {
         {review.description}
       </div>
       <div className="flex justify-end mt-2">
-        <Button className="text-caption-2 text-ny-primary-400" type="link">
-          See Review
+        <Button
+          href={`/product/${review.product_id}`}
+          className="text-caption-2 text-ny-primary-400 px-0"
+          type="link">
+          See product
         </Button>
       </div>
     </Card>

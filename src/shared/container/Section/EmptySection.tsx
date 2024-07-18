@@ -14,7 +14,9 @@ function EmptySection({
       </div>
       <div className="flex flex-col gap-2 text-center justify-center">
         {title ? <p className="text-caption-1 font-medium">{title}</p> : null}
-        <p className="text-ny-gray-400 text-xs font-medium">{message}</p>
+        <p className="text-ny-gray-400 text-xs font-medium max-w-80">
+          {message}
+        </p>
       </div>
     </div>
   );

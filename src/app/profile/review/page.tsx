@@ -1,32 +1,25 @@
-import type { IReviewData } from '@/shared/models/generalInterfaces';
+import EmptySection from '@/shared/container/Section/EmptySection';
 import MyReviewCard from './container/MyReviewCard';
+import { getReview } from '@/shared/actions/productService';
 
-const reviews: IReviewData[] = [
-  {
-    user_id: '123',
-    profile_image_uri:
-      'https://res.cloudinary.com/dcvnwpyd9/image/upload/v1717122421/nikahyook/gxsgo2wdyhnykrgfoxg6.png',
-    name: 'White Kebaya Shimmer Shimmer Splendid',
-    rating: 4,
-    description:
-      'Wah kebaya ini sangat cantik sehingga semua tamu yang hadir terpukau. Bahannya mulus semulus kulit bayi, seputih bihun, dan sekeren mudryk ❤️',
-  },
-  {
-    user_id: '123',
-    profile_image_uri:
-      'https://res.cloudinary.com/dcvnwpyd9/image/upload/v1717122421/nikahyook/gxsgo2wdyhnykrgfoxg6.png',
-    name: 'White Kebaya Shimmer Shimmer Splendid',
-    rating: 4,
-    description:
-      'Wah kebaya ini sangat cantik sehingga semua tamu yang hadir terpukau. Bahannya mulus semulus kulit bayi, seputih bihun, dan sekeren mudryk ❤️ ',
-  },
-];
+export default async function ReviewPage() {
+  const reviews = await getReview();
 
-export default function ReviewPage() {
+  if (!reviews.data)
+    return (
+      <EmptySection
+        title="No reviews yet"
+        message="You've never done a review. Please place an order on the product of your choice and do a review!"
+      />
+    );
+
   return (
     <div className="flex flex-col gap-3 w-full justify-start">
-      {reviews.map((review, index) => (
-        <MyReviewCard key={'review' + review.name + index} review={review} />
+      {reviews.data.map((review) => (
+        <MyReviewCard
+          key={review.user_id + review.product_id}
+          review={review}
+        />
       ))}
     </div>
   );

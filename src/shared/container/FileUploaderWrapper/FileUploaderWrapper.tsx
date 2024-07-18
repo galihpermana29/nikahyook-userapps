@@ -33,7 +33,7 @@ const FileUploaderWrapper = React.forwardRef<
       | undefined;
 
     // add state to track files being uploaded
-    const [uploadingFiles, setUploadingFiles] = useState<RcFile[]>([]);
+    const [isUploading, setIsUploading] = useState(false);
     // state for listed file to show
     const [fileList, setFileList] = useState<UploadFile[]>(
       // default to an empty array if no form field value yet
@@ -104,9 +104,9 @@ const FileUploaderWrapper = React.forwardRef<
 
       // try uploading the file
       try {
-        setUploadingFiles([...uploadingFiles, file]); // add to list of uploading files
+        setIsUploading(true); // add to list of uploading files
         await mutation.mutate(file);
-        setUploadingFiles(uploadingFiles.filter((f) => f.uid !== file.uid)); // remove from uploading list when finished
+        setIsUploading(false); // remove from uploading list when finished
       } catch (error) {
         // if error then early exit by giving an error
         message.error('Error!' + (error as string));
@@ -138,12 +138,6 @@ const FileUploaderWrapper = React.forwardRef<
       } // remove the URL from the form field on file removal
     };
 
-    const isItemUploading = (item: UploadFile) => {
-      // check if an item provided is currently uploading
-      // by checking if its in uploadingFiles state
-      return uploadingFiles.some((file) => file.uid === item.uid);
-    };
-
     return (
       <Upload
         ref={ref}
@@ -154,9 +148,10 @@ const FileUploaderWrapper = React.forwardRef<
         accept={accept}
         beforeUpload={handleBeforeUpload}
         onRemove={handleRemove}
+        // TODO: this doesnt seem to work, idk how to fix it
         // use item render to get the currently uploaded/uploading files
-        itemRender={(originNode, file) =>
-          isItemUploading(file) ? ( // check if file is being uploaded
+        itemRender={(originNode) =>
+          isUploading ? ( // check if file is being uploaded
             <Spin /> // show loading spinner if file is being uploaded
           ) : (
             originNode // show the original item (thumbnail, etc.) if not

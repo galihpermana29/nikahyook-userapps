@@ -7,6 +7,7 @@ import type { TModalReducerReturn } from '@/shared/usecase/useModalReducer';
 import { message } from 'antd';
 import { useMutation, useQueryClient } from 'react-query';
 import transformOrderPaymentInput from '../repository/transformOrderPaymentInput';
+import { useRouter } from 'next/navigation';
 
 type TUseUploadReceiptParams = {
   id: string;
@@ -15,6 +16,7 @@ type TUseUploadReceiptParams = {
 
 export default function useUploadReceipt(params: TUseUploadReceiptParams) {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   return useMutation<IFetchGeneralResponse<string>, Error, IOrderPaymentInput>({
     mutationFn: async (value: IOrderPaymentInput) => {
@@ -33,6 +35,7 @@ export default function useUploadReceipt(params: TUseUploadReceiptParams) {
       queryClient.refetchQueries(['waiting for payment']);
       message.success('Successfully uploaded payment receipt!');
       params.closeModal();
+      router.push('/order?type=paid');
     },
     onError: (error) => {
       message.error(`Something went wrong! ${error.message}`);

@@ -22,7 +22,7 @@ export default function useProductReview(productId: number) {
     editReview(productId, value);
 
   const reviewQuery = useQuery<
-    IFetchGeneralResponse<IProductReviewData | undefined>,
+    IFetchGeneralResponse<IProductReviewData[] | undefined>,
     Error
   >({
     queryKey: ['review-query', { productId }],
