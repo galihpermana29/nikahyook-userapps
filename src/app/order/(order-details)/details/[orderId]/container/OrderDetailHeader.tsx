@@ -7,7 +7,7 @@ export default function OrderDetailHeader({ order }: { order: IOrder }) {
     <div className="flex flex-col gap-2 w-full">
       <h1 className="text-body-2">Order Details</h1>
       <ColorfulBackgroundCard className="p-3 rounded-lg">
-        <div className="flex items-center gap-20 justify-center">
+        <div className="flex items-center gap-6 sm:gap-20 justify-center text-center">
           <div className="flex flex-col gap-[2px] items-center">
             <span className="text-caption-2 text-ny-gray-400">Order Id</span>
             <span className="text-body-1 font-medium">#{order.id}</span>
@@ -15,11 +15,14 @@ export default function OrderDetailHeader({ order }: { order: IOrder }) {
 
           <div className="flex flex-col gap-[2px] items-center">
             <span className="text-caption-2 text-ny-gray-400">Date</span>
-            <span className="text-body-1 font-medium">
-              {dayjs(order.order_time, 'DD-MM-YYYY HH:mm:ss').format(
-                'DD/MM/YYYY HH:mm a'
-              )}
-            </span>
+            <div className="flex gap-2 items-center justify-center text-body-1 font-medium flex-wrap">
+              <span>
+                {dayjs(order.order_time, 'DD-MM-YYYY').format('DD/MM/YYYY')}
+              </span>
+              <span>
+                {dayjs(order.order_time, 'HH:mm:ss').format('HH:mm a')}
+              </span>
+            </div>
           </div>
         </div>
       </ColorfulBackgroundCard>

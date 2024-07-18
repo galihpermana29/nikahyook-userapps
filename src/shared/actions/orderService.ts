@@ -1,5 +1,6 @@
 'use server';
 
+import { revalidateTag } from 'next/cache';
 import type {
   IFetchGeneralResponse,
   IFetchGeneralSuccessResponse,
@@ -32,6 +33,9 @@ export async function getOrders(
     method: 'GET',
     headers: {
       Authorization: `Bearer ${session.token}`,
+    },
+    next: {
+      tags: [`get-orders-${status}`],
     },
   });
 
@@ -86,6 +90,8 @@ export async function updateOrderPayment(
     const error = await errorHandling(response);
     throw new Error(error.data);
   }
+
+  revalidateTag(`get-orders-${payload.status}`);
 
   const data = (await response.json()) as IFetchGeneralSuccessResponse<string>;
 

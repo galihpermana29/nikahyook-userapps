@@ -17,7 +17,7 @@ export default async function PaidTab() {
         showIcon
       />
 
-      {paidOrders.toReversed().map((order) => (
+      {paidOrders.map((order) => (
         <ItemCard key={order.id} item={order} />
       ))}
     </div>
