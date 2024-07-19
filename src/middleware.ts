@@ -16,6 +16,10 @@ export async function middleware(request: NextRequest) {
   const currentUser = request.cookies.get('session')?.value;
   const refererHeader = request.headers.get('referer');
 
+  const oAuthStatus = request.cookies.get('oAuthStatus')?.value
+    ? JSON.parse(request.cookies.get('oAuthStatus')?.value as string)
+    : null;
+
   // removes base url
   const referer = refererHeader?.replace(baseUrl, '').split('?')[0];
   const pathname = request.nextUrl.pathname.replace(baseUrl, '').split('?')[0];
@@ -26,6 +30,12 @@ export async function middleware(request: NextRequest) {
   //   - if on '/forgot-password/reset' with no token, redirect to '/forgot-password'.
   //   - if on '/forgot-password' with a valid token, redirect to '/forgot-password/reset'.
   if (!currentUser) {
+    if (oAuthStatus) {
+      if (pathname !== '/register') {
+        const queryURL = new URLSearchParams(oAuthStatus);
+        return Response.redirect(new URL(`/register?${queryURL}`, request.url));
+      }
+    }
     if (!isAuthPath(pathname)) {
       return Response.redirect(new URL('/login', request.url));
     }
@@ -53,10 +63,10 @@ export async function middleware(request: NextRequest) {
   // and tries to access one of auth paths
   if (currentUser && isAuthPath(pathname)) {
     if (isAuthPath(referer)) {
-      return Response.redirect(new URL('/', request.url));
+      return Response.redirect(new URL('/discover', request.url));
     }
 
-    const redirectPath = referer ?? '/';
+    const redirectPath = referer ?? '/discover';
     return Response.redirect(new URL(redirectPath, request.url));
   }
 }

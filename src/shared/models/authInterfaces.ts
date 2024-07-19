@@ -28,9 +28,37 @@ export interface ILoginResponseRoot {
   role_name: string;
 }
 
+export interface ILoginResponseOAuthRoot {
+  is_registered: boolean;
+  user_id: string;
+  email: string;
+  token: string;
+  permissions: any;
+  type: string;
+  status: string;
+  role_id: number;
+  role_name: string;
+}
+
 export interface ILoginPayloadRoot {
   email: string;
   password: string;
+}
+
+export interface ILoginOAuthResponseRoot {
+  is_registered: boolean;
+  user_id: string;
+  email: string;
+  token: string;
+  permissions: any;
+  type: string;
+  status: string;
+  role_id: number;
+  role_name: string;
+}
+
+export interface ILoginOAuthPayloadRoot {
+  token_email: string;
 }
 
 export interface IRegisterInputRoot {

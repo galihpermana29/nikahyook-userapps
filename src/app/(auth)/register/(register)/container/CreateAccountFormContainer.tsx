@@ -5,12 +5,15 @@ import { clientSideReactQueryErrorDetection } from '@/shared/usecase/errorHandli
 import { registerThenLogin } from '@/shared/usecase/registerThenLogin';
 import { Form, message, type FormProps } from 'antd';
 import { useRouter } from 'next/navigation';
-import type { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { useMutation } from 'react-query';
+import useHandleInitialOAuth from '../usecase/useHandleInitialOAuth';
 
 export default function CreateAccountFormContainer(props: FormProps) {
   const [form] = Form.useForm();
   const router = useRouter();
+
+  useHandleInitialOAuth(form);
 
   const { mutate, isLoading } = useMutation({
     mutationFn: registerThenLogin,
