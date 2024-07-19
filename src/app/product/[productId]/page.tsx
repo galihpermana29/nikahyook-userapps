@@ -1,4 +1,4 @@
-import { getProductDetail } from '../../../shared/actions/productService';
+import { getProductDetail, getProductSold } from '../../../shared/actions/productService';
 import ProductDetailContainer from './container/ProductDetailContainer';
 import React from 'react';
 
@@ -9,10 +9,15 @@ const ProductDetail = async ({ params }: { params: { productId: string } }) => {
     throw Error(data);
   }
 
+  const { data: productSoldData } = await getProductSold(params.productId);
+
+  if (typeof productSoldData === 'string') throw Error(productSoldData);
+
   return (
     <>
       <ProductDetailContainer
         product={data.data}
+        productSold={productSoldData.data}
       />
     </>
   );

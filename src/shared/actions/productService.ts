@@ -12,6 +12,7 @@ import {
   IAllProductsResponse,
   IAllProductTypeResponse,
   IAllVendorTypeResponse,
+  IProductSoldResponseData,
   Tag,
   TWishlist,
   type IAddProductReviewPayload,
@@ -521,6 +522,30 @@ export async function createOrder(
       Authorization: `Bearer ${sessionData.token}`,
     },
     body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    return errorHandling(res);
+  }
+
+  const data = await res.json();
+
+  return { success: true, data };
+}
+
+export async function getProductSold(
+  id: string
+): Promise<
+  IFetchGeneralResponse<
+    IFetchGeneralSuccessResponse<IProductSoldResponseData> | string
+  >
+> {
+  const sessionData = await getServerSession();
+  const res = await fetch(baseURL + `/products/${id}/total-sold`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${sessionData.token}`,
+    },
   });
 
   if (!res.ok) {
