@@ -27,6 +27,7 @@ import type {
   ILoginResponseRoot,
   IForgotPasswordPayload,
   IResetPasswordPayload,
+  ILoginOAuthResponseRoot,
 } from '../models/authInterfaces';
 import { redirect } from 'next/navigation';
 
@@ -220,6 +221,45 @@ export async function editProfile(
   return { success: true, data };
 }
 
+export async function loginOauth(payload: {
+  token_email: string;
+}): Promise<IFetchGeneralResponse<ILoginOAuthResponseRoot | string>> {
+  const loginRes = await fetch(baseURL + '/auth/login-google', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  });
+
+  if (!loginRes.ok) {
+    return errorHandling(loginRes);
+  }
+
+  const loginData =
+    (await loginRes.json()) as IFetchGeneralResponse<ILoginOAuthResponseRoot>;
+
+  return { success: true, data: loginData.data };
+}
+
+export async function getDetailForLoginCookies(
+  id: string,
+  token: string,
+  loginData: ILoginResponseRoot | ILoginOAuthResponseRoot
+) {
+  const detailRes = await fetch(baseURL + '/users/' + id, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!detailRes.ok) {
+    return errorHandling(detailRes);
+  }
+
+  const userDetail = await detailRes.json();
+
+  await setSessions({ ...loginData, user_detail: userDetail.data });
+}
+
 export async function login(
   payload: ILoginPayloadRoot
 ): Promise<IFetchGeneralResponse<ILoginResponseRoot | string>> {
@@ -239,20 +279,25 @@ export async function login(
     return { success: false, data: 'Data not found!' };
   }
 
-  const detailRes = await fetch(baseURL + '/users/' + loginData.data.user_id, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${loginData.data.token}`,
-    },
-  });
+  await getDetailForLoginCookies(
+    loginData.data.user_id,
+    loginData.data.token,
+    loginData.data
+  );
+  // const detailRes = await fetch(baseURL + '/users/' + loginData.data.user_id, {
+  //   method: 'GET',
+  //   headers: {
+  //     Authorization: `Bearer ${loginData.data.token}`,
+  //   },
+  // });
 
-  if (!detailRes.ok) {
-    return errorHandling(detailRes);
-  }
+  // if (!detailRes.ok) {
+  //   return errorHandling(detailRes);
+  // }
 
-  const userDetail = await detailRes.json();
+  // const userDetail = await detailRes.json();
 
-  await setSessions({ ...loginData.data, user_detail: userDetail.data });
+  // await setSessions({ ...loginData.data, user_detail: userDetail.data });
 
   return { success: true, data: loginData.data };
 }

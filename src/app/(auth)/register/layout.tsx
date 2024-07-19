@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function RegisterLayout({
+export default async function RegisterLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

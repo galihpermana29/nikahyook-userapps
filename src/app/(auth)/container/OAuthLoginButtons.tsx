@@ -1,5 +1,8 @@
+'use client';
+
 import GoogleIcon from '@/shared/container/Icon/GoogleIcon';
 import { Button, Divider } from 'antd';
+import { signIn } from 'next-auth/react';
 
 type OAuthLoginButtonsProps = {
   loading?: boolean;
@@ -25,6 +28,7 @@ export default function OAuthLoginButtons(props: OAuthLoginButtonsProps) {
 
       {OAuthProviders.map((provider) => (
         <Button
+          onClick={() => signIn('google', { callbackUrl: '/discover' })}
           key={`provider-${provider.name}`}
           disabled={props.loading}
           className="w-full flex items-center justify-center gap-2 bg-ny-primary-100 text-ny-primary-500"

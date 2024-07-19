@@ -16,7 +16,8 @@ export interface IAllUserResponse {
   role_name: string;
   status: string;
   profile_image_uri: string;
-  detail?: IUserVendorDetail;
+  detail: IUserVendorDetail;
+  phone_number: string;
 }
 
 export interface IUserVendorDetail {
@@ -28,7 +29,7 @@ export interface IUserVendorDetail {
   avg_rating: number;
   vendor_detail: IVendorDetail;
   is_wishlist: boolean;
-  review: IReview
+  review: IReview;
 }
 
 export interface IUserVendorAdditionalDetail {
