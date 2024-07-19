@@ -1,7 +1,7 @@
-import { ITodoo } from '@/shared/models/todoInterfaces';
+import { ITodo } from '@/shared/models/todoInterfaces';
 import dayjs from 'dayjs';
 
-export const useGenerateNextDue = (todos: ITodoo[]) => {
+export const useGenerateNextDue = (todos: ITodo[]) => {
   const now = dayjs();
   const unresolved = todos.filter((todo) => todo.status !== 'resolved');
 

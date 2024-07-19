@@ -14,9 +14,16 @@ const Todo = async () => {
 
   if (typeof data === 'string') throw Error(data);
 
+  const { data: unresolvedData } = await getAllTodos({
+    status: 'unresolved',
+    user_id: sessionData.user_id,
+  });
+
+  if (typeof unresolvedData === 'string') throw Error(unresolvedData);
+
   return (
     <main>
-      <TodoContainer data={data.data} />
+      <TodoContainer data={data.data} unresolvedData={unresolvedData.data.todos} />
       <BottomNav />
     </main>
   );
