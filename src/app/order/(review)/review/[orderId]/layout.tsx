@@ -9,7 +9,9 @@ export default function OrderRootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
-      <PageTitle title="Review" />
+      <div className="sticky top-0">
+        <PageTitle title="Review" />
+      </div>
 
       <Suspense
         fallback={

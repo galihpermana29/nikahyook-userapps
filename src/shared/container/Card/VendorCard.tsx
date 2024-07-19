@@ -58,31 +58,33 @@ export const VendorCard = ({
   return (
     <div
       onClick={() => router.push(navigateTo)}
-      className="shadow-md cursor-pointer flex flex-col gap-[6px] bg-white rounded-lg w-full p-2 text-caption-2 hover:bg-ny-gray-100/25 transition-colors duration-150">
-      <div className="flex gap-2 items-center">
-        <div className="min-w-[50px] min-h-[50px] relative overflow-hidden rounded-md bg-ny-gray-100 aspect-square flex justify-center items-center">
-          {displayedProfilePicture}
-        </div>
-        <div className="flex w-full justify-between gap-2">
-          <div>
-            <h3 className="text-caption-2 font-medium line-clamp-1">
-              {vendor_name ?? '-'}
-            </h3>
-            <p className="text-caption-3 text-ny-gray-400">
-              {product_type_name ?? '-'}
-            </p>
+      className="shadow-md cursor-pointer flex flex-col justify-between gap-[6px] bg-white rounded-lg w-full p-2 text-caption-2 hover:bg-ny-gray-100/25 transition-colors duration-150">
+      <div className="space-y-[6px]">
+        <div className="flex gap-2 items-center">
+          <div className="min-w-[50px] min-h-[50px] relative overflow-hidden rounded-md bg-ny-gray-100 aspect-square flex justify-center items-center">
+            {displayedProfilePicture}
           </div>
-          <WishListButton
-            target_id={id}
-            wishlist_type="vendor"
-            isActive={isInWishlist}
-            refetch={refetchFn}
-          />
+          <div className="flex w-full justify-between gap-2">
+            <div>
+              <h3 className="text-caption-2 font-medium line-clamp-1">
+                {vendor_name ?? '-'}
+              </h3>
+              <p className="text-caption-3 text-ny-gray-400">
+                {product_type_name ?? '-'}
+              </p>
+            </div>
+            <WishListButton
+              target_id={id}
+              wishlist_type="vendor"
+              isActive={isInWishlist}
+              refetch={refetchFn}
+            />
+          </div>
         </div>
+        <p className="text-caption-2 text-ny-primary-500">
+          Price From {formatToRupiah(price)}
+        </p>
       </div>
-      <p className="text-caption-2 text-ny-primary-500">
-        Price From {formatToRupiah(price)}
-      </p>
       <div className="grid grid-cols-4 gap-[6px]">
         {filteredImages &&
           filteredImages.map((img, index) => (

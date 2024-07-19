@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import CustomErrorBoundary from '@/shared/container/ErrorBoundary/ErrorBoundary';
-import BudgetListLoading from './loadng';
+import BudgetListLoading from './loading';
 
 export default function BudgetListLayout({
   children,

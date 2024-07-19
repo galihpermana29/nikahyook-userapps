@@ -16,14 +16,22 @@ export async function middleware(request: NextRequest) {
   const currentUser = request.cookies.get('session')?.value;
   const refererHeader = request.headers.get('referer');
 
+
   const oAuthStatus = request.cookies.get('oAuthStatus')?.value
     ? JSON.parse(request.cookies.get('oAuthStatus')?.value as string)
     : null;
+
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-pathname', request.nextUrl.pathname);
+
 
   // removes base url
   const referer = refererHeader?.replace(baseUrl, '').split('?')[0];
   const pathname = request.nextUrl.pathname.replace(baseUrl, '').split('?')[0];
   const searchParams = request.nextUrl.searchParams;
+
+  if (pathname === '/')
+    return NextResponse.redirect(new URL('/discover', request.url));
 
   // handle unauthenticated user access:
   //   - redirect to login if not on an authorized path.
@@ -69,6 +77,12 @@ export async function middleware(request: NextRequest) {
     const redirectPath = referer ?? '/discover';
     return Response.redirect(new URL(redirectPath, request.url));
   }
+
+  return NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  });
 }
 
 export const config = {

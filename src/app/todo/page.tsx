@@ -1,13 +1,22 @@
 import { BottomNav } from '@/shared/container/Navigation/BottomNav';
+import { getAllTodos } from '@/shared/actions/todoService';
+import { getServerSession } from '@/shared/usecase/getServerSession';
 import TodoContainer from './container/TodoContainer';
-import useGetTodo from './usecase/useGetTodo';
+
+export const dynamic = 'force-dynamic';
 
 const Todo = async () => {
-  const { data } = await useGetTodo();
+  const sessionData = await getServerSession();
+
+  const { data } = await getAllTodos({
+    user_id: sessionData.user_id,
+  });
+
+  if (typeof data === 'string') throw Error(data);
 
   return (
     <main>
-      <TodoContainer todo={data} />
+      <TodoContainer data={data.data} />
       <BottomNav />
     </main>
   );

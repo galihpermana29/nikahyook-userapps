@@ -3,9 +3,11 @@ import Link from 'next/link';
 import { ReactNode } from 'react';
 
 function SubrouteHeader({
+  backUrl,
   extraComponent,
   title,
 }: {
+  backUrl?: string;
   extraComponent?: ReactNode;
   title: string;
 }) {
@@ -14,7 +16,7 @@ function SubrouteHeader({
       <div className="flex items-center justify-between gap-2 p-4 border-b">
         <div className="flex items-center gap-2">
           <Link
-            href={'/budget'}
+            href={backUrl ?? '/budget'}
             className="hover:bg-ny-gray-100/30 transition-colors duration-150 rounded-lg">
             <LetfArrowIcon className="shrink-0" />
           </Link>

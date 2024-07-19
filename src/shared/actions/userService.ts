@@ -15,7 +15,7 @@ import {
   type IUserDetailData,
 } from '@/shared/models/userInterfaces';
 import { errorHandling } from '@/shared/usecase/errorHandling';
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { getServerSession } from '../usecase/getServerSession';
 import type {
   ICreateProfilePayloadRoot,
@@ -59,9 +59,14 @@ export async function clearSessions() {
 export async function forgotPassword(
   payload: IForgotPasswordPayload
 ): Promise<IPostGeneralResponse<string>> {
+  const headerProto = headers().get('x-forwarded-proto');
+  const headerForwardedHost = headers().get('x-forwarded-host');
   const res = await fetch(baseURL + '/auth/forgot-password', {
     method: 'POST',
     body: JSON.stringify(payload),
+    headers: {
+      Origin: `${headerProto}://${headerForwardedHost}/`,
+    },
   });
 
   if (!res.ok) {

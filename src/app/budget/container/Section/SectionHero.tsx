@@ -1,10 +1,15 @@
+import { getUserBudgets } from '@/shared/actions/budgetService';
 import HeaderDefault from '@/shared/container/Header/HeaderDefault';
+import formatToRupiah from '@/shared/usecase/formatToRupiah';
 import { Progress } from 'antd';
 import { Suspense } from 'react';
+import { BudgetGroup } from '../Group/BudgetGroup';
 
-function SectionHero() {
+async function SectionHero() {
+  const { data } = await getUserBudgets();
+
   return (
-    <section className="text-white bg-gradient-to-r from-ny-primary-500 via-ny-primary-400 to-ny-primary-300 py-5 px-4 flex flex-col gap-6">
+    <section className="text-white relative h-full -mb-[4.25rem] bg-gradient-to-r from-ny-primary-500 via-ny-primary-400 to-ny-primary-300 py-5 px-4 flex flex-col gap-6">
       <Suspense
         fallback={
           <div className="w-full h-10 rounded-md animate-pulse bg-ny-gray-200"></div>
@@ -16,13 +21,13 @@ function SectionHero() {
         <div>
           <h2>Total Budget</h2>
           <p className="text-heading-6 font-bold line-clamp-1">
-            Rp 300.000.000
+            {formatToRupiah(parseInt(data.total_budget))}
           </p>
         </div>
         <div>
           <h2>Total Spend</h2>
           <p className="text-heading-6 font-bold line-clamp-1">
-            Rp 150.000.000
+            {formatToRupiah(parseInt(data.total_spend))}
           </p>
         </div>
       </div>
@@ -30,38 +35,26 @@ function SectionHero() {
       <div>
         <div className="flex justify-between gap-5 text-caption-1 font-medium">
           <h2>Progress</h2>
-          <p>10%</p>
+          <p>{data.progress}%</p>
         </div>
         <Progress
-          percent={10}
+          percent={parseFloat(data.progress)}
           showInfo={false}
           strokeColor="#ffffff"
           trailColor="#FC9CA9"
         />
       </div>
 
-      <div className="h-4 grid grid-cols-3 gap-3 text-black">
-        <div className="bg-white space-y-2 w-full py-2 px-3 rounded-lg shadow">
-          <h2 className="text-caption-1 font-medium line-clamp-1">
-            Photographer
-          </h2>
-          <p className="text-caption-2 text-ny-gray-400 line-clamp-1">
-            Rp2.200.000
-          </p>
-        </div>
-        <div className="bg-white space-y-2 w-full py-2 px-3 rounded-lg shadow">
-          <h2 className="text-caption-1 font-medium line-clamp-1">Souvenir</h2>
-          <p className="text-caption-2 text-ny-gray-400 line-clamp-1">
-            Rp1.300.000
-          </p>
-        </div>
-        <div className="bg-white space-y-2 w-full py-2 px-3 rounded-lg shadow">
-          <h2 className="text-caption-1 font-medium line-clamp-1">Venue</h2>
-          <p className="text-caption-2 text-ny-gray-400 line-clamp-1">
-            Rp56.000.000
-          </p>
-        </div>
+      <div className="h-full pb-4 grid grid-flow-col overflow-x-auto no-scrollbar w-full gap-3 text-black">
+        {data.budgets.map((budget) => (
+          <BudgetGroup
+            key={budget.id}
+            name={budget.name}
+            nominal={budget.nominal}
+          />
+        ))}
       </div>
+      <div className="bg-white h-[21%] z-0 left-0 absolute bottom-0 w-full" />
     </section>
   );
 }

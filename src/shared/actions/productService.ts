@@ -452,13 +452,17 @@ export async function addReview(
 }
 
 export async function getReview(
-  productId: number
-): Promise<IFetchGeneralResponse<IProductReviewData | undefined>> {
+  productId?: number
+): Promise<IFetchGeneralResponse<IProductReviewData[] | undefined>> {
   const sessionData = await getServerSession();
-  const searchParams = new URLSearchParams({
-    user_id: sessionData.user_id,
-    product_id: productId.toString(),
-  });
+  const searchParams = new URLSearchParams(
+    productId
+      ? {
+          user_id: sessionData.user_id,
+          product_id: productId.toString(),
+        }
+      : { user_id: sessionData.user_id }
+  );
 
   const response = await fetch(baseURL + '/reviews?' + searchParams, {
     method: 'GET',
@@ -472,8 +476,9 @@ export async function getReview(
     throw new Error(error.data);
   }
 
-  const { data } =
-    (await response.json()) as IFetchGeneralResponse<IProductReviewData>;
+  const { data } = (await response.json()) as IFetchGeneralResponse<
+    IProductReviewData[]
+  >;
 
   return { success: true, data };
 }

@@ -2,14 +2,14 @@ import {
   Button, 
   TabsProps 
 } from 'antd';
-import { ITodo } from '@/shared/models/todoInterfaces';
+import { ITodoo } from '@/shared/models/todoInterfaces';
 import { useMemo } from 'react';
 import TodoListSection from '../container/section/TodoListSection';
 
-const useGenerateTab = (todos: ITodo[], activeTab: string) => {
+const useGenerateTab = (todos: ITodoo[], activeTab: string) => {
   const tabs: TabsProps['items'] = useMemo(() => {
     const categoriesSet = new Set(
-      todos.map((todo) => todo.category).filter(Boolean)
+      todos.map((todo) => todo.category_name).filter(Boolean)
     );
     const categories = Array.from(categoriesSet);
 
@@ -43,7 +43,9 @@ const useGenerateTab = (todos: ITodo[], activeTab: string) => {
           </Button>
         ),
         children: (
-          <TodoListSection todo={todos.filter((todo) => todo.resolved)} />
+          <TodoListSection
+            todo={todos.filter((todo) => todo.status === 'resolved')}
+          />
         ),
       },
       ...categories.map((category) => ({
@@ -60,7 +62,8 @@ const useGenerateTab = (todos: ITodo[], activeTab: string) => {
         children: (
           <TodoListSection
             todo={todos.filter(
-              (todo) => todo.category === category && !todo.resolved
+              (todo) =>
+                todo.category_name === category && todo.status != 'resolved'
             )}
           />
         ),

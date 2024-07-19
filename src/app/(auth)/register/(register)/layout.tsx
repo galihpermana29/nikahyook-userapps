@@ -8,9 +8,9 @@ export default function RegisterMainLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
+    <div className="w-full">
       <Title title="Create an account" />
       <Suspense fallback={<RegisterLoading />}>{children}</Suspense>
-    </>
+    </div>
   );
 }

@@ -1,18 +1,26 @@
-import { Checkbox } from 'antd';
+import { BudgetCheckbox } from '../BudgetCheckbox';
+import type { TBudget } from '@/shared/models/budgetInterfaces';
+import formatToRupiah from '@/shared/usecase/formatToRupiah';
+import formatToCapitalWord from '@/shared/usecase/formatToCapitalWord';
+import { BudgetTrash } from '../BudgetTrash';
 
 interface ICardBudgetList {
-  isChecked?: boolean;
-  onCheckClick: () => void;
+  budget: TBudget;
 }
 
-function CardBudgetList({ isChecked = false, onCheckClick }: ICardBudgetList) {
+function CardBudgetList({ budget }: ICardBudgetList) {
+  const isChecked = budget.status === 'paid';
+
   return (
     <div className="border rounded-lg py-2 px-3 flex justify-between items-center gap-3">
-      <div>
-        <h3 className="text-caption-1 font-medium mb-1">
-          The Apurva Kempinski Bali
-        </h3>
-        <p className="text-caption-2 text-ny-gray-400">Rp2.200.000</p>
+      <div className="flex items-center gap-3">
+        <BudgetCheckbox key={budget.id} id={budget.id} isChecked={isChecked} />
+        <div>
+          <h3 className="text-caption-1 font-medium mb-1">{budget.name}</h3>
+          <p className="text-caption-2 text-ny-gray-400">
+            {formatToRupiah(budget.nominal)}
+          </p>
+        </div>
       </div>
       <div className="flex items-center gap-3">
         <div className="text-end">
@@ -22,9 +30,11 @@ function CardBudgetList({ isChecked = false, onCheckClick }: ICardBudgetList) {
             }`}>
             {isChecked ? 'Paid' : 'Need To Buy'}
           </h4>
-          <p className="text-caption-3 text-ny-gray-400">Venue</p>
+          <p className="text-caption-3 text-ny-gray-400">
+            {formatToCapitalWord(budget.category)}
+          </p>
         </div>
-        <Checkbox checked={isChecked} onClick={onCheckClick} />
+        <BudgetTrash id={budget.id} />
       </div>
     </div>
   );

@@ -93,8 +93,10 @@ export type TWishlist = 'inspiration' | 'product' | 'vendor' | 'curatorial';
 
 export interface IProductReviewData {
   user_id: string;
+  user_name: string;
   product_id: number;
-  title: string;
+  product_image: string;
+  product_name: string;
   rating: number;
   description: string;
 }

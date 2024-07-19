@@ -1,12 +1,16 @@
-import { ITodo } from '@/shared/models/todoInterfaces';
+import { IAllTodoResponse } from '@/shared/models/todoInterfaces';
 import HeaderSection from './section/HeaderSection';
 import TodoTabs from './tabs/TodoTabs';
 
-const TodoContainer = ({ todo }: { todo: ITodo[] }) => {
+const TodoContainer = async ({ data }: { data: IAllTodoResponse }) => {
   return (
     <main>
-      <HeaderSection />
-      <TodoTabs todo={todo} defaultTab="all" />
+      <HeaderSection
+        todo={data.todos}
+        progress={parseInt(data.progress, 10)}
+        total_tasks={data.total_tasks}
+      />
+      <TodoTabs todo={data.todos} defaultTab="all" />
     </main>
   );
 };

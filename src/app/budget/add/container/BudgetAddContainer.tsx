@@ -3,13 +3,24 @@
 import { Form, Input, InputNumber, Select } from 'antd';
 import FormButtonGroup from '../../container/Group/FormButtonGroup';
 import { useForm } from 'antd/es/form/Form';
+import { useCreateBudget } from '../../usecase/useCreateBudget';
+import { getAllocationCategorySelectOptions } from '../../repositories/getAllocationCategorySelectOptions';
 
-function BudgetAddContainer() {
+function BudgetAddContainer({
+  callbackUrl,
+}: {
+  callbackUrl: string | undefined;
+}) {
   const [addBudgetForm] = useForm();
+  const { mutate } = useCreateBudget(callbackUrl);
 
   return (
     <main>
-      <Form form={addBudgetForm} layout="vertical" className="p-4">
+      <Form
+        onFinish={mutate}
+        form={addBudgetForm}
+        layout="vertical"
+        className="p-4">
         <Form.Item
           name={'name'}
           label="Name"
@@ -18,7 +29,7 @@ function BudgetAddContainer() {
           <Input placeholder="Enter budget name" />
         </Form.Item>
         <Form.Item
-          name={'price'}
+          name={'nominal'}
           label="Nominal"
           className="mb-3"
           rules={[{ required: true, message: 'Nominal is required!' }]}>
@@ -38,7 +49,10 @@ function BudgetAddContainer() {
           label="Category"
           className="mb-3"
           rules={[{ required: true, message: 'Category is required!' }]}>
-          <Select placeholder="Choose budget allocation category" />
+          <Select
+            options={getAllocationCategorySelectOptions()}
+            placeholder="Choose budget allocation category"
+          />
         </Form.Item>
       </Form>
 

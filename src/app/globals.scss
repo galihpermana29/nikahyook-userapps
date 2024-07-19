@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+  }
+
 .ant-upload-list {
     .ant-upload {
         width: 100% !important;
@@ -15,4 +27,35 @@
     width: 100% !important;
     height: 187px !important;
     aspect-ratio: 1/1 !important;
+}
+
+.ant-tabs-nav {
+  width: 100% !important;
+}
+
+.ant-tabs-tab {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+.ant-tabs-nav > div:nth-of-type(1) {
+  display: unset !important;
+  width: 100% !important;
+}
+
+// this is to allow horizontal scrolling on antds tab
+.ant-tabs-nav-wrap {
+  overflow-x: auto !important;
+}
+
+// this is just to disable scrollbar
+.ant-tabs-nav-wrap {
+  @apply no-scrollbar
+}
+
+// while this is to fix a weird flickering visual bugs with tabs
+.ant-tabs-nav-operations {
+  display: none !important;
 }
