@@ -1,14 +1,13 @@
 import ClientSideLayout from '@/shared/container/ClientSideLayout/ClientSideLayout';
+import HeaderDesktop from '@/shared/container/Header/HeaderDesktop';
 import { ConfigProvider } from 'antd';
+import dayjs from 'dayjs';
+import calendar from 'dayjs/plugin/calendar';
 import type { Metadata } from 'next';
 import { CookiesProvider } from 'next-client-cookies/server';
 import { Inter } from 'next/font/google';
 import 'swiper/css';
 import './globals.scss';
-import dayjs from 'dayjs';
-import calendar from 'dayjs/plugin/calendar';
-import HeaderDesktop from '@/shared/container/Header/HeaderDesktop';
-import { headers } from 'next/headers';
 
 dayjs.extend(calendar);
 
@@ -24,10 +23,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const currentUrl = headers().get('x-pathname');
-
-  const authPaths = ['/login', '/register', '/forgot-password'];
-
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -40,11 +35,7 @@ export default function RootLayout({
           <CookiesProvider>
             <ClientSideLayout>
               <HeaderDesktop />
-              <div
-                className={`${
-                  !authPaths.some((path) => currentUrl?.includes(path)) &&
-                  'max-w-screen-md mx-auto md:mt-5'
-                }`}>
+              <div className={'max-w-screen-md mx-auto md:mt-5'}>
                 {children}
               </div>
             </ClientSideLayout>

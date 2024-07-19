@@ -24,6 +24,9 @@ export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname.replace(baseUrl, '').split('?')[0];
   const searchParams = request.nextUrl.searchParams;
 
+  if (pathname === '/')
+    return NextResponse.redirect(new URL('/discover', request.url));
+
   // handle unauthenticated user access:
   //   - redirect to login if not on an authorized path.
   //   - if on '/forgot-password/reset' with no token, redirect to '/forgot-password'.
