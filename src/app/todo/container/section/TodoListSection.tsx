@@ -1,11 +1,11 @@
 import { Button } from 'antd';
-import { ITodoo } from '@/shared/models/todoInterfaces';
+import { ITodo } from '@/shared/models/todoInterfaces';
 import { PlusIcon } from '@/shared/container/Icon/PlusIcon';
 import generateUUID from '@/shared/usecase/generateUUID';
 import NoResult from '@/shared/container/NoResult/NoResult';
 import TodoCard from '../card/TodoCard';
 
-const TodoListSection = ({ todo }: { todo: ITodoo[] }) => {
+const TodoListSection = ({ todo }: { todo: ITodo[] }) => {
   return (
     <section>
       <Button

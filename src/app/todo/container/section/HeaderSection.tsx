@@ -1,4 +1,5 @@
-import { ITodoo } from '@/shared/models/todoInterfaces';
+import dayjs from 'dayjs';
+import { ITodo } from '@/shared/models/todoInterfaces';
 import { Progress } from 'antd';
 import { Suspense } from 'react';
 import { useGenerateNextDue } from '../../usecase/useGenerateNextDue';
@@ -6,20 +7,32 @@ import HeaderDefault from '@/shared/container/Header/HeaderDefault';
 import HeaderTodo from '../Group/HeaderTodo';
 
 interface IHeaderSection {
-  todo: ITodoo[];
+  todo: ITodo[];
+  unresolvedTodo: ITodo[];
   progress: number;
   total_tasks: number;
 }
 
-const HeaderSection = ({ todo, progress, total_tasks }: IHeaderSection) => {
+const HeaderSection = ({ todo, unresolvedTodo, progress, total_tasks }: IHeaderSection) => {
   const nextDue = useGenerateNextDue(todo);
 
   const resolvedTasks = todo.filter(
     (todo) => todo.status === 'resolved'
   ).length;
 
+  const nextDueTodo = unresolvedTodo
+    .filter(item => {
+      const itemDateTime = dayjs(`${item.date} ${item.time}`);
+      return itemDateTime.isAfter(dayjs());
+    })
+    .sort((a, b) => {
+      const dateTimeA = dayjs(`${a.date} ${a.time}`);
+      const dateTimeB = dayjs(`${b.date} ${b.time}`);
+      return dateTimeA.diff(dateTimeB);
+    });
+
   return (
-    <section className="bg-gradient-to-r from-ny-primary-500 via-ny-primary-400 to-ny-primary-300 px-4 py-5 space-y-6 md:rounded-lg">
+    <section className="bg-gradient-to-r from-ny-primary-500 via-ny-primary-400 to-ny-primary-300 px-4 pt-5 pb-12 space-y-4 md:rounded-lg relative">
       <Suspense
         fallback={
           <div className="w-full h-10 rounded-md animate-pulse bg-ny-gray-200"></div>
@@ -50,7 +63,9 @@ const HeaderSection = ({ todo, progress, total_tasks }: IHeaderSection) => {
           trailColor="#FC9CA9"
         />
       </div>
-      <HeaderTodo todo={todo.slice(0, 3)} />
+      <div className="absolute -bottom-8 left-4 right-4">
+        <HeaderTodo todos={nextDueTodo} />
+      </div>
     </section>
   );
 };

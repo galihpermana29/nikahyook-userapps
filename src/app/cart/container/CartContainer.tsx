@@ -22,12 +22,16 @@ import React, {
 import useCheckboxState from '../usecase/useCheckboxState';
 import useMutateCart from '../usecase/useMutateCart';
 import useMutateOrder from '../usecase/useMutateOrder';
+import { useRouter } from 'next/navigation';
 
 interface ICartContainer {
   cart: IAllCartResponse;
 }
 
 const CartContainer = ({ cart }: ICartContainer) => {
+
+  const router = useRouter();
+
   const [cartState, setCartState] = useState<IAllCartResponse>(cart);
 
   const allProductIds = useMemo(
@@ -71,8 +75,14 @@ const CartContainer = ({ cart }: ICartContainer) => {
     <div>
       <PageTitle title="My Cart">
         <div className="flex items-center gap-3">
-          <MessageIcon />
-          <ReceiveIcon />
+          <MessageIcon 
+          className='size-6 cursor-pointer'
+          onClick={() => router.push('/chat')}
+           />
+          <ReceiveIcon 
+          className='size-6 cursor-pointer' 
+          onClick={() => router.push('/order?type=ordered')}
+          />
         </div>
       </PageTitle>
       {cartState.cart_items.length === 0 ? (

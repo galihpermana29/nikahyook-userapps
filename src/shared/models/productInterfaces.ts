@@ -110,3 +110,7 @@ export interface IProductReviewResponseData {
   product_id: number;
   user_id: string;
 }
+
+export interface IProductSoldResponseData {
+  total_product_sold: number;
+}

@@ -4,12 +4,12 @@ import {
   Checkbox, 
   CheckboxProps 
 } from 'antd';
-import { ITodoo } from '@/shared/models/todoInterfaces';
+import { ITodo } from '@/shared/models/todoInterfaces';
 import React, { useState } from 'react';
 import useMutateTodo from '../../usecase/useMutateTodo';
 import { useFormatTime } from '../../usecase/useFormatTime';
 
-const TodoCard = ({ data }: { data: ITodoo }) => {
+const TodoCard = ({ data }: { data: ITodo }) => {
   const [checked, setChecked] = useState<boolean>(data.status === 'resolved');
   const { handleUpdateTodo, isUpdatingTodo } = useMutateTodo();
 

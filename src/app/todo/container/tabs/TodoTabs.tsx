@@ -2,7 +2,7 @@
 
 import './style.scss';
 import { ErrorBoundary } from 'react-error-boundary';
-import { ITodoo } from '@/shared/models/todoInterfaces';
+import { ITodo } from '@/shared/models/todoInterfaces';
 import { Tabs } from 'antd';
 import { theme } from 'antd';
 import { useState } from 'react';
@@ -14,7 +14,7 @@ function TodoTabs({
   todo,
 }: {
   defaultTab: string;
-  todo: ITodoo[];
+  todo: ITodo[];
 }) {
   const [activeTab, setActiveTab] = useState(defaultTab);
 

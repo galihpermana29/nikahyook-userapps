@@ -1,18 +1,10 @@
-export interface ITodo {
-  name: string;
-  category: string;
-  date: string;
-  time: string;
-  resolved: boolean;
-}
-
 export interface IAllTodoResponse {
-  todos: ITodoo[];
+  todos: ITodo[];
   total_tasks: number;
   progress: string;
 }
 
-export interface ITodoo {
+export interface ITodo {
   id: number;
   name: string;
   category_id: number;

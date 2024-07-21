@@ -3,7 +3,7 @@
 import { Button, message } from 'antd';
 import { CartIcon } from '@/shared/container/Icon/CartIcon';
 import { createCart } from '@/shared/actions/productService';
-import { IAllProductsResponse } from '@/shared/models/productInterfaces';
+import { IAllProductsResponse, IProductSoldResponseData } from '@/shared/models/productInterfaces';
 import { MessageIcon } from '@/shared/container/Icon/MessageIcon';
 import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
 import { SwiperSlide } from 'swiper/react';
@@ -21,8 +21,10 @@ import { useRouter } from 'next/navigation';
 
 const ProductDetailContainer = ({
   product,
+  productSold,
 }: {
   product: IAllProductsResponse;
+  productSold: IProductSoldResponseData
 }) => {
 
   const router = useRouter();
@@ -57,7 +59,7 @@ const ProductDetailContainer = ({
         isWishlisted={product.is_wishlist}
         titleIcon={
           <CartIcon
-            className='text-ny-primary-500'
+            className='text-ny-primary-500 cursor-pointer'
             onClick={() => router.push('/cart')}
           />
         }
@@ -67,7 +69,7 @@ const ProductDetailContainer = ({
           title={product.title}
           price={product.price}
           product_type={product.product_type_name}
-          sold={20}
+          sold={productSold.total_product_sold}
           totalReview={product.review.total_review}
           rating={product.rating}
           quantity_label={product.quantity_label}
