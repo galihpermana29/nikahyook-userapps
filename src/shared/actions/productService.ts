@@ -26,7 +26,7 @@ import {
   IDeleteCartPayloadRoot,
   IUpdateCartPayloadRoot,
 } from '../models/cartInterfaces';
-
+import { revalidateTag } from 'next/cache';
 // Anything related to product
 
 const baseURL = process.env.NEXT_PUBLIC_API as string;
@@ -360,6 +360,7 @@ export async function createCart(
   }
 
   const data = await res.json();
+  revalidateTag('all-cart');
 
   return { success: true, data };
 }
@@ -373,12 +374,14 @@ export async function getAllCart(): Promise<
     headers: {
       Authorization: `Bearer ${sessionData.token}`,
     },
+    next: {
+      tags: ['all-cart'],
+    },
   });
 
   if (!res.ok) {
     return errorHandling(res);
   }
-
   const data = await res.json();
 
   return { success: true, data };
@@ -402,6 +405,7 @@ export async function updateCart(
   }
 
   const data = await res.json();
+  revalidateTag('all-cart');
 
   return { success: true, data };
 }
@@ -424,6 +428,7 @@ export async function deleteCart(
   }
 
   const data = await res.json();
+  revalidateTag('all-cart');
 
   return { success: true, data };
 }
