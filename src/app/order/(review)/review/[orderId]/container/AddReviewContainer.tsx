@@ -25,7 +25,9 @@ export default function AddReviewContainer({
   if (isLoading && failureCount < 2) return <AddReviewFormLoading />;
 
   const initialValues =
-    data && data.data ? formatQueryData(data.data[0]) : undefined;
+    data && data.data && data.data.length > 0
+      ? formatQueryData(data.data[0])
+      : undefined;
   const shouldEdit = initialValues !== undefined;
   const isMutating = isAddingReview || isEditingReview;
 

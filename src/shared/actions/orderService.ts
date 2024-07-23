@@ -13,6 +13,10 @@ import type {
 import convertObjectToQueryParams from '../usecase/convertObjectToQueryParams';
 import { errorHandling } from '../usecase/errorHandling';
 import { getServerSession } from '../usecase/getServerSession';
+import {
+  createAdminNotification,
+  createNotification,
+} from './notificationService';
 
 const endpoint = process.env.NEXT_PUBLIC_API;
 if (!endpoint)
@@ -96,4 +100,26 @@ export async function updateOrderPayment(
   const data = (await response.json()) as IFetchGeneralSuccessResponse<string>;
 
   return { success: true, data: data.data };
+}
+
+export async function notifyUpdatePayment(id: IOrder['id']) {
+  const session = await getServerSession();
+  const { data: order } = await getOrderDetail(id);
+
+  await Promise.all([
+    await createNotification({
+      title: 'Payment received!',
+      description: `${session.user_detail.name} has made a payment!`,
+      user_id: order.order_details[0].vendor_id,
+      status: 'unread',
+    }),
+
+    await createAdminNotification({
+      title: 'A payment has been made!',
+      description: `${session.user_detail.name} has made a payment!`,
+      status: 'unread',
+    }),
+  ]);
+
+  return;
 }

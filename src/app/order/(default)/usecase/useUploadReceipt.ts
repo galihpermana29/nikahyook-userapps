@@ -8,6 +8,7 @@ import { message } from 'antd';
 import { useMutation, useQueryClient } from 'react-query';
 import transformOrderPaymentInput from '../repository/transformOrderPaymentInput';
 import { useRouter } from 'next/navigation';
+import { useNotifyPayment } from './useNotifyPayment';
 
 type TUseUploadReceiptParams = {
   id: string;
@@ -15,6 +16,7 @@ type TUseUploadReceiptParams = {
 };
 
 export default function useUploadReceipt(params: TUseUploadReceiptParams) {
+  const { mutate: notify } = useNotifyPayment(parseInt(params.id));
   const queryClient = useQueryClient();
   const router = useRouter();
 
@@ -32,6 +34,7 @@ export default function useUploadReceipt(params: TUseUploadReceiptParams) {
       message.loading('Uploading receipt...');
     },
     onSuccess: () => {
+      notify();
       queryClient.refetchQueries(['waiting for payment']);
       message.success('Successfully uploaded payment receipt!');
       params.closeModal();

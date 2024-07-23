@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { CartIcon } from '../Icon/CartIcon';
 import { NotificationIcon } from '../Icon/NotificationIcon';
+import { NotificationBadge } from '../NotificationBadge/NotificationBadge';
 
 async function HeaderDefault() {
   const sessionData = await getServerSession();
@@ -24,8 +25,10 @@ async function HeaderDefault() {
         </Link>
         <Link
           href={'/notification'}
-          className="rounded-md p-1 hover:bg-ny-primary-200 hover:bg-opacity-35 transition-all duration-150">
-          <NotificationIcon />
+          className="rounded-md p-2 pb-[2px] hover:bg-ny-primary-200 hover:bg-opacity-35 transition-all duration-150">
+          <NotificationBadge>
+            <NotificationIcon color="white" />
+          </NotificationBadge>
         </Link>
         <Link href={'/profile'} className="p-1">
           <div className="w-6 h-6 bg-ny-gray-100 rounded-lg border border-white relative overflow-hidden">

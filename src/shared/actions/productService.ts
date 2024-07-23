@@ -27,6 +27,12 @@ import {
   IUpdateCartPayloadRoot,
 } from '../models/cartInterfaces';
 import { revalidateTag } from 'next/cache';
+import {
+  createAdminNotification,
+  createNotification,
+} from './notificationService';
+import type { IOrder } from '../models/orderInterfaces';
+import { getOrderDetail } from './orderService';
 // Anything related to product
 
 const baseURL = process.env.NEXT_PUBLIC_API as string;
@@ -457,6 +463,24 @@ export async function addReview(
   return { success: true, data: data.data };
 }
 
+export async function notifyAddReview(productId: IAllProductsResponse['id']) {
+  const { user_detail } = await getServerSession();
+  const { data: product } = (await getProductDetail(
+    productId.toString()
+  )) as IFetchGeneralResponse<
+    IFetchGeneralSuccessResponse<IAllProductsResponse>
+  >;
+
+  await createNotification({
+    title: `You got a new review!`,
+    description: `${user_detail.name} has made a review for the product ${product.data.title}`,
+    user_id: product.data.vendor_id,
+    status: 'unread',
+  });
+
+  return;
+}
+
 export async function getReview(
   productId?: number
 ): Promise<IFetchGeneralResponse<IProductReviewData[] | undefined>> {
@@ -515,7 +539,9 @@ export async function editReview(
 
 export async function createOrder(
   productIds: number[]
-): Promise<IPostGeneralResponse<IPostGeneralSuccessResponse<any> | string>> {
+): Promise<
+  IPostGeneralResponse<IPostGeneralSuccessResponse<IOrder['id'][]> | string>
+> {
   const sessionData = await getServerSession();
   const payload = {
     product_ids: productIds,
@@ -536,6 +562,31 @@ export async function createOrder(
   const data = await res.json();
 
   return { success: true, data };
+}
+
+export async function notifyNewOrder(ids: IOrder['id'][]) {
+  const session = await getServerSession();
+
+  ids.forEach(async (id) => {
+    const { data: order } = await getOrderDetail(id);
+
+    await Promise.all([
+      await createNotification({
+        title: "There's a new order!",
+        description: `${session.user_detail.name} has made a new order!`,
+        user_id: order.order_details[0].vendor_id,
+        status: 'unread',
+      }),
+
+      await createAdminNotification({
+        title: 'An order has been made!',
+        description: `${session.user_detail.name} has made a new order for vendor ${order.order_details[0].vendor_name}!`,
+        status: 'unread',
+      }),
+    ]);
+  });
+
+  return;
 }
 
 export async function getProductSold(
