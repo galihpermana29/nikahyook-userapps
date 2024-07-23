@@ -3,9 +3,13 @@ import dayjs from 'dayjs';
 import React from 'react';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 
 dayjs.extend(customParseFormat);
 dayjs.extend(relativeTime);
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export const NotificationCard = ({
   notification,
@@ -22,10 +26,10 @@ export const NotificationCard = ({
           {notification.title}
         </span>
         <span className="text-caption-2 text-ny-gray-500">
-          {dayjs(
-            notification.notification_time,
-            'DD-MM-YYYY HH:mm:ss'
-          ).fromNow()}
+          {dayjs(notification.notification_time, 'DD-MM-YYYY HH:mm:ss')
+            .tz('Asia/Jakarta')
+            .local()
+            .fromNow()}
         </span>
       </div>
       <p className="text-caption-1">{notification.description}</p>
