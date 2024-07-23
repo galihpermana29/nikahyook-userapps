@@ -13,8 +13,10 @@ import {
 } from '@/shared/models/productInterfaces';
 import { message } from 'antd';
 import { useMutation, useQuery } from 'react-query';
+import { useNotifyReview } from './useNotifyReview';
 
 export default function useProductReview(productId: number) {
+  const { mutate: notify } = useNotifyReview(productId);
   const addProductReview = (value: IAddProductReviewPayload) =>
     addReview(productId, value);
 
@@ -39,7 +41,8 @@ export default function useProductReview(productId: number) {
   >({
     mutationKey: ['add-review', { productId }],
     mutationFn: addProductReview,
-    onSuccess: () => {
+    onSuccess: async () => {
+      notify();
       message.success('Successfully added a review!');
     },
     onError: (error) => {
@@ -55,6 +58,7 @@ export default function useProductReview(productId: number) {
     mutationKey: ['edit-review', { productId }],
     mutationFn: editProductReview,
     onSuccess: () => {
+      notify();
       message.success('Successfully edited a review!');
     },
     onError: (error) => {

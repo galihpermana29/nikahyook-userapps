@@ -8,5 +8,9 @@ export type TNotification = {
 };
 
 export type TNotificationStatus = 'read' | 'unread';
-export type TNotificationPayload = Omit<TNotification, 'id'>;
+export type TNotificationPayload = Omit<
+  TNotification,
+  'id' | 'notification_time'
+>;
+export type TAdminNotificationPayload = Omit<TNotificationPayload, 'user_id'>;
 export type TUpdateNotificationPayload = Partial<TNotificationPayload>;

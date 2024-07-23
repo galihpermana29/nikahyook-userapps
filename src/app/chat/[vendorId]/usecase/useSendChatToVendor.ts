@@ -14,6 +14,7 @@ import { getClientSession } from '@/shared/usecase/getClientSession';
 import { usePathname, useRouter } from 'next/navigation';
 import dayjs from 'dayjs';
 import { TQuotedCardProduct } from '../container/QuotedProductCard/QuotedCard';
+import { useNotifyChat } from './useNotifyChat';
 
 const useSendChatToVendor = (
   vendor: IAllUserResponse,
@@ -23,6 +24,7 @@ const useSendChatToVendor = (
   const router = useRouter();
   const pathname = usePathname();
   const combinedId: string = user.user_id + '.' + vendor.id;
+  const { mutate: notify } = useNotifyChat(vendor.id);
 
   const onSendChat = async (text: string) => {
     // check if this is new chat or not,
@@ -94,6 +96,7 @@ const useSendChatToVendor = (
       },
     });
 
+    notify();
     if (quotedProduct) {
       clearQuoteProduct();
     }

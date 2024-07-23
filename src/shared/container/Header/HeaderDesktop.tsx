@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 import { CartIcon } from '../Icon/CartIcon';
 import { NotificationIcon } from '../Icon/NotificationIcon';
 import HeaderDesktopNavItem from './HeaderDesktopNavItem';
+import { NotificationBadge } from '../NotificationBadge/NotificationBadge';
 
 function HeaderDesktop() {
   const sessionData = getClientSession();
@@ -66,8 +67,10 @@ function HeaderDesktop() {
         </Link>
         <Link
           href={'/notification'}
-          className="rounded-md p-2 hover:bg-ny-primary-200 hover:bg-opacity-35 transition-all duration-150">
-          <NotificationIcon />
+          className="rounded-md p-2 pb-[2px] hover:bg-ny-primary-200 hover:bg-opacity-35 transition-all duration-150">
+          <NotificationBadge>
+            <NotificationIcon color="white" />
+          </NotificationBadge>
         </Link>
         <Link href={'/profile'} className="p-1">
           <div className="w-6 h-6 bg-ny-gray-100 rounded-lg border border-white relative overflow-hidden">
