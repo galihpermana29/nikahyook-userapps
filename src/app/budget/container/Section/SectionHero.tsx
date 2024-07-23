@@ -3,7 +3,8 @@ import HeaderDefault from '@/shared/container/Header/HeaderDefault';
 import formatToRupiah from '@/shared/usecase/formatToRupiah';
 import { Progress } from 'antd';
 import { Suspense } from 'react';
-import { BudgetGroup } from '../Group/BudgetGroup';
+import { SectionUnpaidBudgets } from './SectionUnpaidBudgets';
+import { SectionUnpaidBudgetsLoading } from '../Loading/SectionUnpaidBudgetsLoading';
 
 async function SectionHero() {
   const { data } = await getUserBudgets();
@@ -45,15 +46,9 @@ async function SectionHero() {
         />
       </div>
 
-      <div className="h-full pb-4 grid grid-flow-col overflow-x-auto no-scrollbar w-full gap-3 text-black">
-        {data.budgets.map((budget) => (
-          <BudgetGroup
-            key={budget.id}
-            name={budget.name}
-            nominal={budget.nominal}
-          />
-        ))}
-      </div>
+      <Suspense fallback={<SectionUnpaidBudgetsLoading />}>
+        <SectionUnpaidBudgets />
+      </Suspense>
       <div className="bg-white h-[21%] z-0 left-0 absolute bottom-0 w-full" />
     </section>
   );
