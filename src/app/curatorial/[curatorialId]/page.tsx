@@ -13,11 +13,7 @@ const CuratorialDetail = async ({
     throw Error(data);
   }
 
-  return (
-    <>
-      <CuratorialDetailContainer curatorial={data.data} />
-    </>
-  );
+  return <CuratorialDetailContainer curatorial={data.data} />;
 };
 
 export default CuratorialDetail;
