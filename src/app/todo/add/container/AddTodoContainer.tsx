@@ -22,8 +22,8 @@ const AddTodoContainer = ({ categories }: { categories: string[] }) => {
     };
 
     try {
-      const ress = await addTodo(payload);
-      if (ress.success) {
+      const res = await addTodo(payload);
+      if (res.success) {
         message.success('Todo added successfully!');
         router.push('/todo');
       } else {
@@ -45,14 +45,12 @@ const AddTodoContainer = ({ categories }: { categories: string[] }) => {
         <div className="flex items-center gap-2">
           <Button
             className="flex items-center justify-center flex-1 rounded-[8px] h-[40px] bg-ny-primary-100 text-ny-primary-500 text-body-2"
-            onClick={() => form.resetFields()}
-          >
+            onClick={() => form.resetFields()}>
             Cancel
           </Button>
           <Button
             className="flex items-center justify-center flex-1 rounded-[8px] h-[40px] bg-ny-primary-500 text-white text-body-2"
-            onClick={() => form.submit()}
-          >
+            onClick={() => form.submit()}>
             Save
           </Button>
         </div>

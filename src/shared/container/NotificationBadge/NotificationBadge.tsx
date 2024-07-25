@@ -12,7 +12,5 @@ export const NotificationBadge = ({
 }) => {
   const mounted = useMounted();
   const notificationCount = useGetNotificationsCount();
-  if (!mounted) return <Badge count={0}>{children}</Badge>;
-
-  return <Badge count={notificationCount}>{children}</Badge>;
+  return <Badge count={mounted ? notificationCount : 0}>{children}</Badge>;
 };
