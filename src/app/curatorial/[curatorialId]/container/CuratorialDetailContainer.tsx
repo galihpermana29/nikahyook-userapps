@@ -1,25 +1,22 @@
 'use client';
 
-import { Button } from 'antd';
+import { ProductCard } from '@/shared/container/Card/ProductCard';
+import { VendorCard } from '@/shared/container/Card/VendorCard';
+import DetailHeader from '@/shared/container/DetailHeader/DetailHeader';
+import { InspirationGrid } from '@/shared/container/Grid/InspirationGrid';
+import DetailInfoSection from '@/shared/container/Section/DetailInfoSection';
+import { TitledSection } from '@/shared/container/Section/TitledSection';
+import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
 import {
   IAllCuratorialResponseRoot,
   IProduct,
 } from '@/shared/models/curatorialInterfaces';
 import { IAllInspirationsResponse } from '@/shared/models/productInterfaces';
-import { InspirationGrid } from '@/shared/container/Grid/InspirationGrid';
-import { LovelyIcon } from '@/shared/container/Icon/LovelyIcon';
-import { ProductCard } from '@/shared/container/Card/ProductCard';
-import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
-import { SwiperSlide } from 'swiper/react';
-import { TitledSection } from '@/shared/container/Section/TitledSection';
-import { useState } from 'react';
-import { VendorCard } from '@/shared/container/Card/VendorCard';
-import BottomBar from '@/shared/container/BottomBar/BottomBar';
-import CuratorialAuthorSection from './section/CuratorialAuthorSection';
-import DetailHeader from '@/shared/container/DetailHeader/DetailHeader';
-import DetailInfoSection from '@/shared/container/Section/DetailInfoSection';
 import formatToRupiah from '@/shared/usecase/formatToRupiah';
 import Image from 'next/image';
+import { useState } from 'react';
+import { SwiperSlide } from 'swiper/react';
+import CuratorialAuthorSection from './section/CuratorialAuthorSection';
 const CuratorialDetailContainer = ({
   curatorial,
 }: {
@@ -150,13 +147,13 @@ const CuratorialDetailContainer = ({
           </p>
         </section>
       </div>
-      <BottomBar>
+      {/* <BottomBar>
         <Button
           icon={<LovelyIcon />}
           className="flex items-center justify-center w-full rounded-[8px] h-[40px] bg-ny-primary-500 text-white text-body-2">
           Add to Plan
         </Button>
-      </BottomBar>
+      </BottomBar> */}
     </div>
   );
 };

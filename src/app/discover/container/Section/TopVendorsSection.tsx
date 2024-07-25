@@ -19,11 +19,11 @@ export const TopVendorsSection = ({
       <TitledSection
         title={`Vendors Near ${location.toLowerCase()}`}
         navigateTo="/search?tab=vendor">
-        <div className="grid grid-cols-1 md:grid-cols-2 px-4 gap-3">
-          {data.length === 0 ? (
-            <EmptySection message="There are currently no vendors..." />
-          ) : (
-            data.map((item) => (
+        {data.length === 0 ? (
+          <EmptySection message="There are currently no vendors..." />
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 px-4 gap-3">
+            {data.map((item) => (
               <VendorCard
                 key={item.id}
                 id={item.id}
@@ -39,9 +39,9 @@ export const TopVendorsSection = ({
                   JSON.parse(item.detail?.json_text as string).vendor_album
                 }
               />
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        )}
       </TitledSection>
     </ErrorBoundary>
   );
