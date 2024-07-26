@@ -34,9 +34,9 @@ export default function RootLayout({
           }}>
           <CookiesProvider>
             <ClientSideLayout>
-              <HeaderDesktop />
-              <div className={'max-w-screen-md mx-auto md:mt-5'}>
-                {children}
+              <div className="flex flex-col w-full gap-5 min-h-dvh">
+                <HeaderDesktop />
+                <div className="max-w-screen-md w-full mx-auto">{children}</div>
               </div>
             </ClientSideLayout>
           </CookiesProvider>

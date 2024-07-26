@@ -12,7 +12,7 @@ function SubrouteHeader({
   title: string;
 }) {
   return (
-    <header>
+    <header className="sticky top-0 md:top-[76px] bg-white z-10">
       <div className="flex items-center justify-between gap-2 p-4 border-b">
         <div className="flex items-center gap-2">
           <Link
