@@ -12,7 +12,7 @@ const NotificationRootLayout = ({
 }>) => {
   return (
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
-      <main className="flex flex-col">
+      <main className="grid grid-rows-[auto_1fr] min-h-dvh">
         <div className="flex items-center justify-between">
           <PageTitle title="Notification" />
           <MarkAllAsRead />

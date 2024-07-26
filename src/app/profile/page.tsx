@@ -11,10 +11,15 @@ const navigationMenu = [
   { label: 'Contact & Information', href: '/profile/contact' },
 ];
 
-export default function ProfilePage() {
+export default function ProfilePage({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
+  const callbackUrl = searchParams.callbackUrl as string | undefined;
   return (
     <main className="flex flex-col size-full min-h-screen gap-5">
-      <PageTitle title="My Profile" />
+      <PageTitle backUrl={callbackUrl ?? '/discover'} title="My Profile" />
 
       <div className="flex flex-col gap-5 px-4 flex-grow pb-5">
         <div className="flex flex-col gap-5">
@@ -24,7 +29,16 @@ export default function ProfilePage() {
 
         <div className="flex flex-col gap-3 w-full flex-grow">
           {navigationMenu.map((menu) => (
-            <ProfileNavigationButton key={menu.href} {...menu} />
+            <ProfileNavigationButton
+              key={menu.href}
+              label={menu.label}
+              href={
+                callbackUrl
+                  ? menu.href +
+                    `?callbackUrl=/profile?callbackUrl=${callbackUrl}`
+                  : menu.href
+              }
+            />
           ))}
         </div>
 

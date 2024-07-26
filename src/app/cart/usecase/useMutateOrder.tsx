@@ -16,7 +16,7 @@ const useMutateOrder = () => {
         if (data.success) {
           notify((data.data as IPostGeneralSuccessResponse<number[]>).data);
           message.success('Order created successfully!');
-          router.push('/order?type=ordered');
+          router.push('/order?type=ordered&callbackUrl=/cart');
         } else {
           message.error('Failed to create order, please try again');
         }

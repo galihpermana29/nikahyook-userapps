@@ -1,12 +1,7 @@
 'use client';
 
 import './style.scss';
-import {
-  Button,
-  Checkbox,
-  CheckboxProps,
-  message
-} from 'antd';
+import { Button, Checkbox, CheckboxProps, message } from 'antd';
 import { IAllCartResponse } from '@/shared/models/cartInterfaces';
 import { MessageIcon } from '@/shared/container/Icon/MessageIcon';
 import { ReceiveIcon } from '@/shared/container/Icon/ReceiveIcon';
@@ -15,22 +10,20 @@ import CartItemCard from './card/CartItemCard';
 import formatToRupiah from '@/shared/usecase/formatToRupiah';
 import NoResult from '@/shared/container/NoResult/NoResult';
 import PageTitle from '@/shared/container/PageTitle/PageTitle';
-import React, {
-  useState,
-  useMemo
-} from 'react';
+import React, { useState, useMemo } from 'react';
 import useCheckboxState from '../usecase/useCheckboxState';
 import useMutateCart from '../usecase/useMutateCart';
 import useMutateOrder from '../usecase/useMutateOrder';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 interface ICartContainer {
   cart: IAllCartResponse;
 }
 
 const CartContainer = ({ cart }: ICartContainer) => {
-
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl');
 
   const [cartState, setCartState] = useState<IAllCartResponse>(cart);
 
@@ -50,12 +43,8 @@ const CartContainer = ({ cart }: ICartContainer) => {
     handleVendorCheckboxChange,
   } = useCheckboxState([], allProductIds, cartState.cart_items);
 
-  const {
-    updateProductQuantity,
-    isUpdating,
-    isDeleting,
-    totalPrice
-  } = useMutateCart({ cartState, setCartState, checkedList });
+  const { updateProductQuantity, isUpdating, isDeleting, totalPrice } =
+    useMutateCart({ cartState, setCartState, checkedList });
 
   const handleSelectAllCheckboxChange: CheckboxProps['onChange'] = (e) => {
     handleToggleAllCheckboxes(allProductIds, e.target.checked);
@@ -73,15 +62,31 @@ const CartContainer = ({ cart }: ICartContainer) => {
 
   return (
     <div>
-      <PageTitle title="My Cart">
+      <PageTitle
+        backUrl={
+          callbackUrl && callbackUrl.length > 0 ? callbackUrl : '/discover'
+        }
+        title="My Cart">
         <div className="flex items-center gap-3">
-          <MessageIcon 
-          className='size-6 cursor-pointer'
-          onClick={() => router.push('/chat')}
-           />
-          <ReceiveIcon 
-          className='size-6 cursor-pointer' 
-          onClick={() => router.push('/order?type=ordered')}
+          <MessageIcon
+            className="size-6 cursor-pointer"
+            onClick={() =>
+              router.push(
+                callbackUrl
+                  ? `/chat?callbackUrl=/cart?callbackUrl=${callbackUrl}`
+                  : '/chat?callbackUrl=/cart'
+              )
+            }
+          />
+          <ReceiveIcon
+            className="size-6 cursor-pointer"
+            onClick={() =>
+              router.push(
+                callbackUrl
+                  ? `/order?type=ordered&callbackUrl=/cart?callbackUrl=${callbackUrl}`
+                  : '/order?type=ordered&callbackUrl=/cart'
+              )
+            }
           />
         </div>
       </PageTitle>
@@ -109,8 +114,7 @@ const CartContainer = ({ cart }: ICartContainer) => {
               <Checkbox
                 className="text-caption-2 text-ny-gray-400"
                 checked={isAllChecked}
-                onChange={handleSelectAllCheckboxChange}
-              >
+                onChange={handleSelectAllCheckboxChange}>
                 All
               </Checkbox>
               <div className="flex items-center gap-2">
@@ -124,8 +128,7 @@ const CartContainer = ({ cart }: ICartContainer) => {
                   onClick={handleCheckout}
                   className="flex items-center justify-center w-fit rounded-[8px] h-[40px] bg-ny-primary-500 text-white text-body-2"
                   loading={isUpdating || isDeleting || isCreatingOrder}
-                  disabled={checkedList.length <= 0}
-                >
+                  disabled={checkedList.length <= 0}>
                   Checkout
                 </Button>
               </div>

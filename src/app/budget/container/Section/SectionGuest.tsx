@@ -12,7 +12,7 @@ const SectionGuest = async () => {
           src={'/assets/bg-budget-guest.png'}
           alt="Gradient Background"
           fill
-          className="-z-10 object-cover"
+          className="-z-10 object-cover pointer-events-none"
         />
         <div className="flex items-center justify-between mb-2 gap-3 text-caption-1 font-medium">
           <h2>Guest Attending</h2>
