@@ -3,9 +3,12 @@
 import { Button } from 'antd';
 import React from 'react';
 import { useReadAllNotifications } from '../usecase/useReadAllNotifications';
+import { useGetNotificationsCount } from '@/shared/usecase/useGetNotificationsCount';
 
 export const MarkAllAsRead = () => {
   const { mutate: readAll } = useReadAllNotifications();
+  const count = useGetNotificationsCount();
+  if (count === 0) return;
   return (
     <Button
       onClick={() => readAll()}

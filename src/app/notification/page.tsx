@@ -2,7 +2,6 @@ import { getNotifications } from '@/shared/actions/notificationService';
 import React, { Suspense } from 'react';
 import { NotificationCard } from './container/NotificationCard';
 import { ReadNotifications } from './container/ReadNotifications';
-import NotificationLoading from './loading';
 
 const NotificationPage = async () => {
   const notifications = await getNotifications('unread');
@@ -25,7 +24,15 @@ const NotificationPage = async () => {
       ))}
 
       {/* Getting read notifications is expected to take longer than getting the unread ones, components is separated to reduce loading time */}
-      <Suspense fallback={<NotificationLoading />}>
+      <Suspense
+        fallback={
+          <div className="flex flex-col gap-3">
+            <div className="bg-ny-gray-100 rounded-lg h-24 animate-pulse" />
+            <div className="bg-ny-gray-100 rounded-lg h-24 animate-pulse" />
+            <div className="bg-ny-gray-100 rounded-lg h-24 animate-pulse" />
+            <div className="bg-ny-gray-100 rounded-lg h-24 animate-pulse" />
+          </div>
+        }>
         <ReadNotifications showDivider={hasNewNotifications} />
       </Suspense>
     </div>

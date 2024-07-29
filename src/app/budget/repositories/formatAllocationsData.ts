@@ -54,5 +54,15 @@ export const formatAllocationsData = (
     },
   ];
 
+  if (datasets[0].data.some((value) => isNaN(value))) {
+    return {
+      allocations,
+      chartData: {
+        labels: ['No Data'],
+        datasets: [{ data: [100], backgroundColor: '#F1F1F1' }],
+      },
+    };
+  }
+
   return { allocations, chartData: { labels, datasets } };
 };

@@ -10,10 +10,10 @@ async function SectionHero() {
   const { data } = await getUserBudgets();
 
   return (
-    <section className="text-white relative h-full -mb-[4.25rem] bg-gradient-to-r from-ny-primary-500 via-ny-primary-400 to-ny-primary-300 py-5 px-4 flex flex-col gap-6">
+    <section className="text-white relative h-full -mb-[4.25rem] bg-gradient-to-r from-ny-primary-500 via-ny-primary-400 to-ny-primary-300 py-5 px-4 flex flex-col gap-6 md:rounded-lg">
       <Suspense
         fallback={
-          <div className="w-full h-10 rounded-md animate-pulse bg-ny-gray-200"></div>
+          <div className="w-full h-10 rounded-md animate-pulse bg-ny-gray-200" />
         }>
         <HeaderDefault />
       </Suspense>
@@ -49,7 +49,10 @@ async function SectionHero() {
       <Suspense fallback={<SectionUnpaidBudgetsLoading />}>
         <SectionUnpaidBudgets />
       </Suspense>
-      <div className="bg-white h-[21%] z-0 left-0 absolute bottom-0 w-full" />
+
+      {data.budgets.length > 0 && data.total_budget !== data.total_spend ? (
+        <div className="bg-white h-[21%] z-0 left-0 absolute bottom-0 w-full" />
+      ) : null}
     </section>
   );
 }

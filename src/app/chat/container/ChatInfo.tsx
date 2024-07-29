@@ -16,7 +16,11 @@ export default function ChatInfo({ chat }: { chat: TListChats }) {
       className="flex gap-3 items-center w-full hover:cursor-pointer hover:bg-slate-100 p-[8px] hover:rounded-[5px]">
       <Avatar
         shape="circle"
-        src={chat.userInfo.displayPicture}
+        src={
+          chat.userInfo.displayPicture?.length > 0
+            ? chat.userInfo.displayPicture
+            : '/assets/default-profile-picture.jpg'
+        }
         className="size-[50px] shrink-0"
       />
       <div className="flex flex-col gap-1 w-full">

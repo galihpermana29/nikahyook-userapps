@@ -1,5 +1,5 @@
 import { TListChats } from '@/shared/models/chatInterfaces';
-import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../../firebase-config';
 import { getClientSession } from '@/shared/usecase/getClientSession';
 
@@ -15,7 +15,6 @@ const useMarkAsRead = (chat: TListChats) => {
         displayName: chat.userInfo.displayName,
         displayPicture: chat.userInfo.displayPicture,
       },
-      [combinedId + '.date']: serverTimestamp(),
       [combinedId + '.lastMessage']: {
         text: chat.lastMessage.text,
         isRead: true,

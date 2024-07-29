@@ -13,14 +13,12 @@ import React from 'react';
 import { useGetStatistics } from '../../usecase/useGetStatistics';
 import CustomErrorBoundary from '@/shared/container/ErrorBoundary/ErrorBoundary';
 import formatToRupiah from '@/shared/usecase/formatToRupiah';
+import { MyDashboardLoadingSection } from './MyDashboardLoadingSection';
 
 const MyDashboardSection = () => {
   const { data: result, isLoading, isError, error } = useGetStatistics();
 
-  if (isLoading)
-    return (
-      <div className="flex w-full h-[28rem] animate-pulse bg-ny-gray-300 rounded-lg mt-4" />
-    );
+  if (isLoading) return <MyDashboardLoadingSection />;
   if (isError) return <CustomErrorBoundary error={error} />;
   if (!result) return;
 
