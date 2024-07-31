@@ -160,6 +160,8 @@ export const deleteGuestGroup = async (
     TGuestGroup['id']
   >;
 
+  revalidateTag('get-lists-of-guests');
+  revalidateTag('get-attending-guests');
   return { success: true, data: data.data };
 };
 
@@ -185,5 +187,7 @@ export const updateGuestGroup = async (
     TGuestGroup['id']
   >;
 
+  revalidateTag('get-lists-of-guests');
+  revalidateTag('get-attending-guests');
   return { success: true, data: data.data };
 };
