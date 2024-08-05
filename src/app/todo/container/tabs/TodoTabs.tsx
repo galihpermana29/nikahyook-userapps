@@ -1,43 +1,35 @@
 'use client';
 
-import './style.scss';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ITodo } from '@/shared/models/todoInterfaces';
-import { Tabs } from 'antd';
-import { theme } from 'antd';
-import { useState } from 'react';
+import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
+import { SwiperSlide } from 'swiper/react';
+import { useState, useCallback } from 'react';
 import CustomErrorBoundary from '@/shared/container/ErrorBoundary/ErrorBoundary';
 import useGenerateTab from '../../usecase/useGenerateTab';
 
-function TodoTabs({
-  defaultTab,
-  todo,
-}: {
-  defaultTab: string;
-  todo: ITodo[];
-}) {
+function TodoTabs({ defaultTab, todo }: { defaultTab: string; todo: ITodo[] }) {
   const [activeTab, setActiveTab] = useState(defaultTab);
 
-  const { tabs } = useGenerateTab(todo, activeTab);
-
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
-
-  const handleTabChange = (key: string) => {
+  const handleTabChange = useCallback((key: string) => {
     setActiveTab(key);
-  };
+  }, []);
+
+  const { tabs } = useGenerateTab(todo, activeTab, handleTabChange);
+  const activeContent = tabs.find((tab) => tab.key === activeTab)?.children;
 
   return (
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
-      <Tabs
-        defaultActiveKey={defaultTab}
-        activeKey={activeTab}
-        items={tabs}
-        tabBarStyle={{ backgroundColor: colorBgContainer, padding: 0 }}
-        onChange={handleTabChange}
-        className="p-4 mt-8"
-      />
+      <div className="px-4 pt-4 mt-8">
+        <SwiperContainer>
+          {tabs.map((tab) => (
+            <SwiperSlide key={tab.key} className="!w-auto">
+              {tab.label}
+            </SwiperSlide>
+          ))}
+        </SwiperContainer>
+      </div>
+      <div className="p-4">{activeContent}</div>
     </ErrorBoundary>
   );
 }
