@@ -3,7 +3,10 @@
 import { Button, message } from 'antd';
 import { CartIcon } from '@/shared/container/Icon/CartIcon';
 import { createCart } from '@/shared/actions/productService';
-import { IAllProductsResponse, IProductSoldResponseData } from '@/shared/models/productInterfaces';
+import {
+  IAllProductsResponse,
+  IProductSoldResponseData,
+} from '@/shared/models/productInterfaces';
 import { MessageIcon } from '@/shared/container/Icon/MessageIcon';
 import { SwiperContainer } from '@/shared/container/Swiper/SwiperContainer';
 import { SwiperSlide } from 'swiper/react';
@@ -18,15 +21,17 @@ import React from 'react';
 import ReviewSection from '@/shared/container/Section/ReviewSection';
 import useQuoteProductToChat from '../usecase/useQuoteProductToChat';
 import { useRouter } from 'next/navigation';
+import { TopProductsSection } from '@/app/discover/container/Section/TopProductsSection';
 
 const ProductDetailContainer = ({
   product,
   productSold,
+  listOfRecomendationProduct,
 }: {
   product: IAllProductsResponse;
-  productSold: IProductSoldResponseData
+  productSold: IProductSoldResponseData;
+  listOfRecomendationProduct: IAllProductsResponse[];
 }) => {
-
   const router = useRouter();
 
   const { onClickMessage } = useQuoteProductToChat(product);
@@ -59,7 +64,7 @@ const ProductDetailContainer = ({
         isWishlisted={product.is_wishlist}
         titleIcon={
           <CartIcon
-            className='text-ny-primary-500 cursor-pointer'
+            className="text-ny-primary-500 cursor-pointer"
             onClick={() => router.push('/cart')}
           />
         }
@@ -79,8 +84,9 @@ const ProductDetailContainer = ({
             {product.images.map((image, index) => (
               <SwiperSlide
                 key={index}
-                className={`w-[180px] h-[135px] ${index === 0 && 'ml-4'} ${index + 1 === product.images.length && 'mr-4'
-                  }`}>
+                className={`w-[180px] h-[135px] ${index === 0 && 'ml-4'} ${
+                  index + 1 === product.images.length && 'mr-4'
+                }`}>
                 <Image
                   src={image}
                   alt={product.title}
@@ -111,6 +117,12 @@ const ProductDetailContainer = ({
             profile_picture_uri={product.vendor.image}
             images={product.vendor.vendor_detail.vendor_album}
             isInWishlist={product.vendor.is_wishlist}
+          />
+        </section>
+        <section>
+          <TopProductsSection
+            data={listOfRecomendationProduct}
+            purpose="Recomendation"
           />
         </section>
         <ReviewSection
