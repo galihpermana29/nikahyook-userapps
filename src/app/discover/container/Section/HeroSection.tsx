@@ -18,7 +18,7 @@ export const HeroSection = () => {
         fallback={
           <div className="w-full h-10 rounded-md animate-pulse bg-ny-gray-200"></div>
         }>
-        <HeaderDefault />
+        <HeaderDefault callbackUrl="/discover" />
       </Suspense>
       <Link href="/search" className="w-full">
         <Input

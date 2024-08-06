@@ -4,7 +4,11 @@ import { Button, type ButtonProps } from 'antd';
 import { LetfArrowIcon } from '../Icon/LeftArrow';
 import { useRouter } from 'next/navigation';
 
-export default function BackButton(props: ButtonProps) {
+type BackButtonProps = ButtonProps & {
+  to?: string;
+};
+
+export default function BackButton({ to, ...props }: BackButtonProps) {
   const router = useRouter();
 
   return (
@@ -12,7 +16,7 @@ export default function BackButton(props: ButtonProps) {
       {...props}
       type="link"
       icon={<LetfArrowIcon />}
-      onClick={() => router.back()}
+      onClick={() => (to ? router.push(to) : router.back())}
     />
   );
 }

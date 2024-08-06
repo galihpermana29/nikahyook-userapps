@@ -5,14 +5,16 @@ import FormButtonGroup from '../../container/Group/FormButtonGroup';
 import { useForm } from 'antd/es/form/Form';
 import { useCreateBudget } from '../../usecase/useCreateBudget';
 import { getAllocationCategorySelectOptions } from '../../repositories/getAllocationCategorySelectOptions';
+import { useState } from 'react';
 
 function BudgetAddContainer({
   callbackUrl,
 }: {
   callbackUrl: string | undefined;
 }) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [addBudgetForm] = useForm();
-  const { mutate } = useCreateBudget(callbackUrl);
+  const { mutate } = useCreateBudget(setIsSubmitting, callbackUrl);
 
   return (
     <main>
@@ -57,6 +59,7 @@ function BudgetAddContainer({
       </Form>
 
       <FormButtonGroup
+        isSubmitting={isSubmitting}
         onCancel={() => addBudgetForm.resetFields()}
         onSubmit={() => addBudgetForm.submit()}
       />

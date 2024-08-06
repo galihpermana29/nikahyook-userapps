@@ -5,7 +5,7 @@ import { CartIcon } from '../Icon/CartIcon';
 import { NotificationIcon } from '../Icon/NotificationIcon';
 import { NotificationBadge } from '../NotificationBadge/NotificationBadge';
 
-async function HeaderDefault() {
+async function HeaderDefault({ callbackUrl }: { callbackUrl?: string }) {
   const sessionData = await getServerSession();
 
   return (
@@ -19,18 +19,26 @@ async function HeaderDefault() {
 
       <div className="flex items-center gap-2 text-white">
         <Link
-          href={'/cart'}
+          href={callbackUrl ? `/cart?callbackUrl=${callbackUrl}` : '/cart'}
           className="rounded-md p-1 hover:bg-ny-primary-200 hover:bg-opacity-35 transition-all duration-150">
           <CartIcon />
         </Link>
         <Link
-          href={'/notification'}
+          href={
+            callbackUrl
+              ? `/notification?callbackUrl=${callbackUrl}`
+              : '/notification'
+          }
           className="rounded-md p-2 pb-[2px] hover:bg-ny-primary-200 hover:bg-opacity-35 transition-all duration-150">
           <NotificationBadge>
             <NotificationIcon color="white" />
           </NotificationBadge>
         </Link>
-        <Link href={'/profile'} className="p-1">
+        <Link
+          href={
+            callbackUrl ? `/profile?callbackUrl=${callbackUrl}` : '/profile'
+          }
+          className="p-1">
           <div className="w-6 h-6 bg-ny-gray-100 rounded-lg border border-white relative overflow-hidden">
             <Image
               src={

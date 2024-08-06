@@ -6,6 +6,7 @@ import useGetBubbleChats from '../usecase/useGetBubbleChats';
 import { IAllUserResponse } from '@/shared/models/userInterfaces';
 import ChatBubble from './ChatBubble';
 import { useEffect, useRef } from 'react';
+import useMounted from '@/shared/usecase/useMounted';
 
 interface IRoomChatContainer {
   vendor: IAllUserResponse;
@@ -13,6 +14,7 @@ interface IRoomChatContainer {
 
 const RoomChatContainer = ({ vendor }: IRoomChatContainer) => {
   const ref: any = useRef();
+  const mounted = useMounted();
 
   const { allChat } = useGetBubbleChats(vendor.id);
   const chats = groupChatMessagesByDate(allChat);
@@ -25,10 +27,10 @@ const RoomChatContainer = ({ vendor }: IRoomChatContainer) => {
     }
   }, [chats]);
 
+  if (!mounted) return <div className="h-dvh w-full" />;
+
   return (
-    <section
-      className="flex flex-col gap-2 px-4 pb-4 overflow-y-auto"
-      style={{ height: 'calc(100vh - 55px)' }}>
+    <section className="flex flex-col gap-2 px-4 pb-4">
       {Object.keys(chats).map((date) => (
         <div className="flex flex-col gap-2" key={date}>
           <DateDivider date={date} />

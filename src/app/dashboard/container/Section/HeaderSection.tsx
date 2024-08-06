@@ -31,7 +31,7 @@ const HeaderSection = async ({ children }: IHeaderSection) => {
         fallback={
           <div className="w-full h-10 rounded-md animate-pulse bg-ny-gray-200"></div>
         }>
-        <HeaderDefault />
+        <HeaderDefault callbackUrl="/dashboard" />
       </Suspense>
 
       <div className="text-white space-y-2">

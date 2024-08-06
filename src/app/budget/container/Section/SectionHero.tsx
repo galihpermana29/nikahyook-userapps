@@ -15,7 +15,7 @@ async function SectionHero() {
         fallback={
           <div className="w-full h-10 rounded-md animate-pulse bg-ny-gray-200" />
         }>
-        <HeaderDefault />
+        <HeaderDefault callbackUrl="/budget" />
       </Suspense>
 
       <div className="grid grid-cols-2 gap-2 text-caption-2">

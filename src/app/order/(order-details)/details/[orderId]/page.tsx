@@ -7,14 +7,14 @@ export default async function OrderDetailsPage({
 }: Readonly<{
   params: { orderId: string };
 }>) {
-  const order = await getOrderDetail(parseInt(params.orderId));
+  const { data: order } = await getOrderDetail(parseInt(params.orderId));
 
   return (
     <div className="flex flex-col gap-5 w-full">
-      <OrderDetailHeader order={order.data} />
+      <OrderDetailHeader order={order} />
       <div className="space-y-2">
         <h1 className="text-body-2">Products</h1>
-        {order.data.order_details.map((product) => (
+        {order.order_details.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>

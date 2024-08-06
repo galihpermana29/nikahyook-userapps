@@ -13,7 +13,12 @@ interface IHeaderSection {
   total_tasks: number;
 }
 
-const HeaderSection = ({ todo, unresolvedTodo, progress, total_tasks }: IHeaderSection) => {
+const HeaderSection = ({
+  todo,
+  unresolvedTodo,
+  progress,
+  total_tasks,
+}: IHeaderSection) => {
   const nextDue = useGenerateNextDue(todo);
 
   const resolvedTasks = todo.filter(
@@ -21,7 +26,7 @@ const HeaderSection = ({ todo, unresolvedTodo, progress, total_tasks }: IHeaderS
   ).length;
 
   const nextDueTodo = unresolvedTodo
-    .filter(item => {
+    .filter((item) => {
       const itemDateTime = dayjs(`${item.date} ${item.time}`);
       return itemDateTime.isAfter(dayjs());
     })
@@ -37,7 +42,7 @@ const HeaderSection = ({ todo, unresolvedTodo, progress, total_tasks }: IHeaderS
         fallback={
           <div className="w-full h-10 rounded-md animate-pulse bg-ny-gray-200"></div>
         }>
-        <HeaderDefault />
+        <HeaderDefault callbackUrl="/todo" />
       </Suspense>
       <div className="flex items-center gap-3 text-white">
         <div className="flex-1">

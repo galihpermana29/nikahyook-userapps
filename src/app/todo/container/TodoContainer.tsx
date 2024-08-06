@@ -2,7 +2,14 @@ import { IAllTodoResponse, ITodo } from '@/shared/models/todoInterfaces';
 import HeaderSection from './section/HeaderSection';
 import TodoTabs from './tabs/TodoTabs';
 
-const TodoContainer = async ({ data, unresolvedData }: { data: IAllTodoResponse, unresolvedData: ITodo[] }) => {
+const TodoContainer = async ({
+  data,
+  unresolvedData,
+}: {
+  data: IAllTodoResponse;
+  unresolvedData: ITodo[];
+  callbackUrl?: string;
+}) => {
   return (
     <main>
       <HeaderSection

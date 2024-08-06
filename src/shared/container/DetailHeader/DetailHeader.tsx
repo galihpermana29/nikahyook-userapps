@@ -11,6 +11,7 @@ type IDetailHeader = {
   wishlist_type: TWishlist;
   isWishlisted: boolean | undefined;
   titleIcon?: React.ReactNode;
+  callbackUrl?: string;
 };
 
 const DetailHeader = ({
@@ -20,10 +21,13 @@ const DetailHeader = ({
   wishlist_type,
   isWishlisted,
   titleIcon,
+  callbackUrl,
 }: IDetailHeader) => {
   return (
     <>
-      <PageTitle title={title}>{titleIcon}</PageTitle>
+      <PageTitle backUrl={callbackUrl} title={title}>
+        {titleIcon}
+      </PageTitle>
       <div className="min-h-[270px] relative md:rounded-2xl md:mt-5 overflow-hidden">
         <WishListButton
           target_id={target_id}

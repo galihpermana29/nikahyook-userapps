@@ -1,6 +1,10 @@
 import ColorfulBackgroundCard from '@/shared/container/ColorfulBackgroundCard/ColorfulBackgroundCard';
 import type { IOrder } from '@/shared/models/orderInterfaces';
 import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
+dayjs.extend(customParseFormat);
+dayjs.extend(localizedFormat);
 
 export default function OrderDetailHeader({ order }: { order: IOrder }) {
   return (
@@ -17,10 +21,7 @@ export default function OrderDetailHeader({ order }: { order: IOrder }) {
             <span className="text-caption-2 text-ny-gray-400">Date</span>
             <div className="flex gap-2 items-center justify-center text-body-1 font-medium flex-wrap">
               <span>
-                {dayjs(order.order_time, 'DD-MM-YYYY').format('DD/MM/YYYY')}
-              </span>
-              <span>
-                {dayjs(order.order_time, 'HH:mm:ss').format('HH:mm a')}
+                {dayjs(order.order_time, 'DD-MM-YYYY HH:mm:ss').format('LLL')}
               </span>
             </div>
           </div>
