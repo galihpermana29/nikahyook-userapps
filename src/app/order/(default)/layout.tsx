@@ -4,6 +4,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import TabLoading from './container/Tab/TabLoading/TabLoading';
 import OrderTabs from './container/Tab/OrderTabs';
 import PageTitle from '@/shared/container/PageTitle/PageTitle';
+import { BottomNav } from '@/shared/container/Navigation/BottomNav';
 
 export default function OrderRootLayout({
   children,
@@ -19,6 +20,7 @@ export default function OrderRootLayout({
 
       <Suspense fallback={<TabLoading withAlert />}>
         <main className="px-4 pb-4">{children}</main>
+        <BottomNav />
       </Suspense>
     </ErrorBoundary>
   );

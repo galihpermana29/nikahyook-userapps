@@ -12,14 +12,18 @@ import { SwiperSlide } from 'swiper/react';
 export const TopProductsSection = ({
   data,
   location = '',
+  purpose = '',
 }: {
   data: IAllProductsResponse[];
   location?: string;
+  purpose?: string;
 }) => {
   return (
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
       <TitledSection
-        title={`Products Near ${location.toLowerCase()}`}
+        title={`Products  ${
+          location ? `Near ${location.toLowerCase()}` : purpose
+        }`}
         navigateTo="/search?tab=product">
         <SwiperContainer>
           {data.length === 0 ? (
