@@ -26,6 +26,7 @@ const DiscoverContainer = async () => {
     status: 'active',
     location: userLocationCode,
   });
+
   const { data: inspirationsData } = await getAllInspirations({
     limit: 8,
     status: 'active',

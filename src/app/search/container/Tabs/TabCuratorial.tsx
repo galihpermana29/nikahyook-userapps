@@ -20,6 +20,7 @@ function TabCuratorial() {
       getAllCuratorials({
         status: 'active',
         is_pagination: false,
+        limit,
         ...urlQuery,
       }),
     refetchOnWindowFocus: false,

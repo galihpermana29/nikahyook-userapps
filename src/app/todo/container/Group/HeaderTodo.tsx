@@ -10,7 +10,7 @@ const HeaderTodo = ({ todos }: { todos: ITodo[] }) => {
     <div className="relative">
       <SwiperContainer>
         {todos.map((item, index) => (
-          <SwiperSlide key={index} className="w-[30%]">
+          <SwiperSlide key={index} className="w-[40%] sm:w-[30%]">
             <div className="bg-white space-y-2 w-full py-2 px-3 rounded-lg shadow h-full">
               <h2 className="text-caption-1 font-medium line-clamp-1">
                 {item.name}

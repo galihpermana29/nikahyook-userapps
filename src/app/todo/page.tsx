@@ -22,7 +22,7 @@ const Todo = async () => {
   if (typeof unresolvedData === 'string') throw Error(unresolvedData);
 
   return (
-    <main className="grid grid-rows-[1fr_auto] min-h-dvh">
+    <main className='flex flex-col justify-between min-h-screen'>
       <TodoContainer
         data={data.data}
         unresolvedData={unresolvedData.data.todos}

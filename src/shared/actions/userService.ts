@@ -154,13 +154,12 @@ export async function createProfile(
   if (!res.ok) {
     return errorHandling(res);
   }
-
   const data = await res.json();
 
   const oldUserDetail = sessionData.user_detail;
 
   const newUserDetail = {
-    ...sessionData.user_detail.detail,
+    wedding_date: payload.detail.wedding_date,
     json_text: payload.detail.json_text,
     location: payload.detail.location,
   } as IUserDetailData;

@@ -5,6 +5,10 @@ import useParseUserJsonText from '@/shared/usecase/useParseUserJsonText';
 import Image from 'next/image';
 import React, { Suspense } from 'react';
 
+import relativeTime from 'dayjs/plugin/relativeTime';
+import dayjs from 'dayjs';
+dayjs.extend(relativeTime);
+
 type IHeaderSection = {
   children: React.ReactNode;
 };
@@ -14,7 +18,6 @@ const HeaderSection = async ({ children }: IHeaderSection) => {
 
   const userDetail = user_detail?.detail;
   const userJsonText = useParseUserJsonText(userDetail?.json_text);
-
   return (
     <section className="w-full py-5 px-4 z-0 h-[248px] relative rounded-b-2xl md:rounded-t-2xl overflow-hidden flex flex-col justify-between md:justify-end gap-8">
       <Image
@@ -36,13 +39,21 @@ const HeaderSection = async ({ children }: IHeaderSection) => {
           <h1 className="text-heading-6 font-semibold">
             {userJsonText?.groom_name} & {userJsonText?.bride_name}
           </h1>
-          <h2 className="text-caption-2 font-medium">Modern Wedding Outdoor</h2>
+          <h2 className="text-caption-2 font-medium">
+            {userJsonText.plan_for === '0' ? 'Reception' : 'Marriage Ceremony'}
+          </h2>
         </div>
         <div className="flex items-center text-caption-2 gap-2">
           <ClockIcon />
-          <p>35 Weeks</p>
-          <p>5 Days</p>
-          <p>5 Hours</p>
+          <p className="capitalize">
+            {dayjs(userDetail.wedding_date).diff(dayjs(), 'month')} Month
+          </p>
+          <p className="capitalize">
+            {dayjs(userDetail.wedding_date).diff(dayjs(), 'day') % 30} Day
+          </p>
+          <p className="capitalize">
+            {dayjs(userDetail.wedding_date).diff(dayjs(), 'hour') % 24} Hour
+          </p>
         </div>
       </div>
 

@@ -14,13 +14,13 @@ function TabProduct() {
   const { ref, inView, limit, setLimit, hasReachedLimit, setHasReachedLimit } =
     useInfiniteScroll(6);
 
-  const { data, isLoading, refetch } = useQuery({
+  const { data, isLoading, refetch, isFetching } = useQuery({
     queryKey: ['search-product', { ...urlQuery }],
     queryFn: () =>
       getAllProducts({
         status: 'active',
         is_pagination: true,
-        limit: 6,
+        limit,
         ...urlQuery,
       }),
     onSuccess: (successData) => {
@@ -28,7 +28,7 @@ function TabProduct() {
         typeof successData.data !== 'string' &&
         successData?.data?.meta_data?.total_items > limit
       ) {
-        setLimit((prev) => prev + 4);
+        setLimit((prev) => prev + 6);
       } else {
         setHasReachedLimit(true);
       }
@@ -37,7 +37,7 @@ function TabProduct() {
 
   if (inView && !hasReachedLimit) refetch();
 
-  if (isLoading) {
+  if (isLoading && isFetching) {
     return <SkeletonVerticalCards amount={8} />;
   }
 

@@ -10,7 +10,7 @@ function NoResult({
   description = "We didn't find what you were looking for. Try using different keywords or double-checking the spelling.",
 }: INoResult) {
   return (
-    <div className="flex flex-col gap-2 text-center px-5 w-full col-span-2 sm:col-span-3 items-center justify-center h-[70vh] md:h-[50vh]">
+    <div className="flex flex-col gap-2 text-center px-5 w-full col-span-2 sm:col-span-3 md:col-span-5 items-center justify-center h-[70vh] md:h-[50vh]">
       <div className="relative w-56 aspect-square">
         <Image
           src={'/assets/search-not-found.png'}
