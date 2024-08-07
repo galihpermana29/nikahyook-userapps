@@ -32,7 +32,6 @@ const VendorDetailContainer = ({
     tiktok,
     facebook,
   } = vendor.detail?.vendor_detail || {};
-
   return (
     <div>
       <DetailHeader
@@ -48,7 +47,7 @@ const VendorDetailContainer = ({
           price={vendor.detail?.lowest_price}
           startFrom={true}
           product_type={vendor.detail?.vendor_type_name}
-          sold={20}
+          sold={(vendor.detail as any).total_product_sold}
           totalReview={
             vendor.detail?.review.total_review
               ? vendor.detail.review.total_review
