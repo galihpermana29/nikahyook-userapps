@@ -23,6 +23,9 @@ import useQuoteProductToChat from '../usecase/useQuoteProductToChat';
 import { useRouter } from 'next/navigation';
 import { TopProductsSection } from '@/app/discover/container/Section/TopProductsSection';
 
+import { PhotoProvider, PhotoView } from 'react-photo-view';
+import 'react-photo-view/dist/react-photo-view.css';
+
 const ProductDetailContainer = ({
   product,
   productSold,
@@ -80,22 +83,26 @@ const ProductDetailContainer = ({
           quantity_label={product.quantity_label}
         />
         <section>
-          <SwiperContainer>
-            {product.images.map((image, index) => (
-              <SwiperSlide
-                key={index}
-                className={`w-[180px] h-[135px] ${index === 0 && 'ml-4'} ${
-                  index + 1 === product.images.length && 'mr-4'
-                }`}>
-                <Image
-                  src={image}
-                  alt={product.title}
-                  className="object-cover rounded-lg"
-                  fill
-                />
-              </SwiperSlide>
-            ))}
-          </SwiperContainer>
+          <PhotoProvider>
+            <SwiperContainer>
+              {product.images.map((image, index) => (
+                <SwiperSlide
+                  key={index}
+                  className={`w-[180px] h-[135px] ${index === 0 && 'ml-4'} ${
+                    index + 1 === product.images.length && 'mr-4'
+                  }`}>
+                  <PhotoView src={image} key={index}>
+                    <Image
+                      src={image}
+                      alt={product.title}
+                      className="object-cover rounded-lg"
+                      fill
+                    />
+                  </PhotoView>
+                </SwiperSlide>
+              ))}
+            </SwiperContainer>
+          </PhotoProvider>
         </section>
         <CoverageAreaSection coverage_area={product.coverage_area} />
         <section className="space-y-3 px-4">

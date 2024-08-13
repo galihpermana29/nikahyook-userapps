@@ -22,7 +22,7 @@ export const HeroSection = () => {
       </Suspense>
       <Link href="/search" className="w-full">
         <Input
-          placeholder="Search Inspiration"
+          placeholder="Search inspiration, product, vendor, and curatorial"
           prefix={<SearchIcon />}
           className="py-2 rounded-lg"
         />

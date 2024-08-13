@@ -28,7 +28,7 @@ export default function FinishedTab() {
 
   const modalType = {
     'see-invoice': {
-      title: 'Invoice',
+      title: 'Receipt',
       element: <SeeInvoiceModal orderId={orderId} closeModal={closeModal} />,
     },
   } as Record<string, IModalDefinition>;
@@ -69,7 +69,7 @@ export default function FinishedTab() {
                   onClick={() => openModal('see-invoice', order.id)}
                   type="primary"
                   className="block w-full">
-                  See Invoice
+                  See Receipt
                 </Button>
                 <Button
                   href={`/order/details/${order.id}`}

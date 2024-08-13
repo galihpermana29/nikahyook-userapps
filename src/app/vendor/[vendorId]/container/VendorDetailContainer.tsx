@@ -16,7 +16,8 @@ import React from 'react';
 import ReviewSection from '@/shared/container/Section/ReviewSection';
 import SocialMediaSection from './section/SocialMediaSection';
 import Link from 'next/link';
-
+import { PhotoProvider, PhotoView } from 'react-photo-view';
+import 'react-photo-view/dist/react-photo-view.css';
 const VendorDetailContainer = ({
   vendor,
   products,
@@ -57,22 +58,26 @@ const VendorDetailContainer = ({
         />
         {vendor_album && vendor_album.length > 0 && (
           <section>
-            <SwiperContainer>
-              {vendor_album?.map((image, index) => (
-                <SwiperSlide
-                  key={index}
-                  className={`w-[180px] h-[135px] ${
-                    index === 0 ? 'ml-4' : ''
-                  } ${index + 1 === vendor_album?.length ? 'mr-4' : ''}`}>
-                  <Image
-                    src={image}
-                    alt={vendor.name}
-                    className="object-cover rounded-lg"
-                    fill
-                  />
-                </SwiperSlide>
-              ))}
-            </SwiperContainer>
+            <PhotoProvider>
+              <SwiperContainer>
+                {vendor_album?.map((image, index) => (
+                  <SwiperSlide
+                    key={index}
+                    className={`w-[180px] h-[135px] ${
+                      index === 0 ? 'ml-4' : ''
+                    } ${index + 1 === vendor_album?.length ? 'mr-4' : ''}`}>
+                    <PhotoView src={image} key={index}>
+                      <Image
+                        src={image}
+                        alt={vendor.name}
+                        className="object-cover rounded-lg"
+                        fill
+                      />
+                    </PhotoView>
+                  </SwiperSlide>
+                ))}
+              </SwiperContainer>
+            </PhotoProvider>
           </section>
         )}
         <section className="space-y-3 px-4">

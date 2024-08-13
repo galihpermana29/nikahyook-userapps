@@ -9,7 +9,7 @@ export default async function OrderedTab() {
   if (orders.length === 0) return <OrderedTabEmpty />;
 
   return (
-    <div className="flex flex-col w-full gap-4 justify-center">
+    <div className="flex flex-col w-full gap-4">
       <Alert
         className="text-ny-info-500"
         message="Your order is awaiting for approval"

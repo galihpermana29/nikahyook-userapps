@@ -3,6 +3,8 @@ import { WishListButton } from '../Button/WishListButton';
 import Image from 'next/image';
 import React from 'react';
 import PageTitle from '../PageTitle/PageTitle';
+import { PhotoProvider, PhotoView } from 'react-photo-view';
+import 'react-photo-view/dist/react-photo-view.css';
 
 type IDetailHeader = {
   title: string;
@@ -24,7 +26,7 @@ const DetailHeader = ({
   callbackUrl,
 }: IDetailHeader) => {
   return (
-    <>
+    <PhotoProvider>
       <PageTitle backUrl={callbackUrl} title={title}>
         {titleIcon}
       </PageTitle>
@@ -35,14 +37,16 @@ const DetailHeader = ({
           isActive={isWishlisted}
           className="absolute right-2 bottom-2 z-10"
         />
-        <Image
-          className="object-cover"
-          src={header_image_url}
-          alt={`${title} header image`}
-          fill
-        />
+        <PhotoView src={header_image_url}>
+          <Image
+            className="object-cover"
+            src={header_image_url}
+            alt={`${title} header image`}
+            fill
+          />
+        </PhotoView>
       </div>
-    </>
+    </PhotoProvider>
   );
 };
 

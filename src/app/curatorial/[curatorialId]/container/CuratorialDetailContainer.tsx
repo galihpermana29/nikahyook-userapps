@@ -17,6 +17,9 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { SwiperSlide } from 'swiper/react';
 import CuratorialAuthorSection from './section/CuratorialAuthorSection';
+import { PhotoProvider, PhotoView } from 'react-photo-view';
+import 'react-photo-view/dist/react-photo-view.css';
+
 const CuratorialDetailContainer = ({
   curatorial,
 }: {
@@ -44,22 +47,26 @@ const CuratorialDetailContainer = ({
       <div className="space-y-5 mb-[64px]">
         <DetailInfoSection title={curatorial.name} />
         <section>
-          <SwiperContainer>
-            {curatorial.images.map((image, index) => (
-              <SwiperSlide
-                key={index}
-                className={`w-[180px] h-[135px] ${index === 0 && 'ml-4'} ${
-                  index + 1 === curatorial.images.length && 'mr-4'
-                }`}>
-                <Image
-                  src={image}
-                  alt={curatorial.name}
-                  className="object-cover rounded-lg"
-                  fill
-                />
-              </SwiperSlide>
-            ))}
-          </SwiperContainer>
+          <PhotoProvider>
+            <SwiperContainer>
+              {curatorial.images.map((image, index) => (
+                <SwiperSlide
+                  key={index}
+                  className={`w-[180px] h-[135px] ${index === 0 && 'ml-4'} ${
+                    index + 1 === curatorial.images.length && 'mr-4'
+                  }`}>
+                  <PhotoView key={index} src={image}>
+                    <Image
+                      src={image}
+                      alt={curatorial.name}
+                      className="object-cover rounded-lg"
+                      fill
+                    />
+                  </PhotoView>
+                </SwiperSlide>
+              ))}
+            </SwiperContainer>
+          </PhotoProvider>
         </section>
         <CuratorialAuthorSection
           expert_name={curatorial.expert_name}

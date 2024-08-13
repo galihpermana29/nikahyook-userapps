@@ -31,7 +31,7 @@ export default function NeedToPayTab() {
 
   const modalType = {
     'upload-receipt': {
-      title: 'Upload Receipt',
+      title: 'Upload Payment Receipt',
       element: <UploadReceiptModal closeModal={closeModal} orderId={orderId} />,
     },
   } as Record<string, IModalDefinition>;
@@ -70,7 +70,7 @@ export default function NeedToPayTab() {
               onClick={() => openModal('upload-receipt', order.id)}
               type="primary"
               className="block w-full">
-              Upload Receipt
+              Upload Payment Receipt
             </Button>
           }
         />
