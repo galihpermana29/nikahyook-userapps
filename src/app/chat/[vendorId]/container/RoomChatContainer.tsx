@@ -30,7 +30,7 @@ const RoomChatContainer = ({ vendor }: IRoomChatContainer) => {
   if (!mounted) return <div className="h-dvh w-full" />;
 
   return (
-    <section className="flex flex-col gap-2 px-4 pb-4">
+    <section className="flex flex-col gap-2 px-4 pb-4 flex-grow">
       {Object.keys(chats).map((date) => (
         <div className="flex flex-col gap-2" key={date}>
           <DateDivider date={date} />

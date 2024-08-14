@@ -9,10 +9,8 @@ export default function OrderRootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
-      <div>
-        <Suspense fallback={<OrderLoading />}>{children}</Suspense>
-        <BottomNav />
-      </div>
+      <Suspense fallback={<OrderLoading />}>{children}</Suspense>
+      <BottomNav />
     </ErrorBoundary>
   );
 }
