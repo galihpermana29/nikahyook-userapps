@@ -28,5 +28,14 @@ export const BudgetCheckbox = ({ id, isChecked }: IBudgetCheckboxProps) => {
     }
   }, [isError]);
 
-  return <Checkbox checked={checked} onClick={onCheckClick} />;
+  return (
+    <Checkbox
+      checked={checked}
+      onClick={(e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        onCheckClick();
+      }}
+    />
+  );
 };
