@@ -20,7 +20,7 @@ export default function ChatsPage() {
         withBackButton={callbackUrl && callbackUrl.length > 0 ? true : false}
         title="Chats"
       />
-      <div className="px-4 flex flex-col gap-3 size-full">
+      <div className="px-4 flex flex-col gap-3 size-full min-h-[calc(100dvh-59px-68px)] md:min-h-0">
         <SearchBar search={searchChat} />
         <section className="flex flex-col gap-2">
           {listAllChat.render.length > 0 ? (

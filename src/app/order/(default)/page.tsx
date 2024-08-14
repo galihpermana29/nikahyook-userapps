@@ -24,16 +24,18 @@ export default function OrderPage({
 
   return (
     <ErrorBoundary FallbackComponent={CustomErrorBoundary}>
-      <div className="sticky top-0 md:top-8 z-[1] bg-white">
-        <PageTitle backUrl={callbackUrl ?? '/profile'} title="My Order" />
-        <Suspense fallback={null}>
-          <OrderTabs />
+      <div className="min-h-[calc(100dvh-68px)] md:min-h-0">
+        <div className="sticky top-0 md:top-8 z-[1] bg-white">
+          <PageTitle backUrl={callbackUrl ?? '/profile'} title="My Order" />
+          <Suspense fallback={null}>
+            <OrderTabs />
+          </Suspense>
+        </div>
+
+        <Suspense fallback={<TabLoading withAlert />}>
+          <main className="px-4 pb-4">{tabToDisplay.component}</main>
         </Suspense>
       </div>
-
-      <Suspense fallback={<TabLoading withAlert />}>
-        <main className="px-4 pb-4">{tabToDisplay.component}</main>
-      </Suspense>
     </ErrorBoundary>
   );
 }

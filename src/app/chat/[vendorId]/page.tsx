@@ -31,7 +31,7 @@ export default async function VendorRoomChatPage({
   }
 
   return (
-    <div className="grid grid-rows-[auto_1fr_auto]">
+    <div className="grid grid-rows-[auto_1fr_auto] min-h-dvh md:min-h-[calc(100dvh-76.5px-20px)]">
       <PageTitle title={detailVendor.data.data.name} />
       <RoomChatContainer vendor={detailVendor.data.data} />
       <SendMessageArea
