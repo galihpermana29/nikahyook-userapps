@@ -6,7 +6,11 @@ import {
 } from '@/shared/models/generalInterfaces';
 import { errorHandling } from '@/shared/usecase/errorHandling';
 import { getServerSession } from '../usecase/getServerSession';
-import { IAllTodoResponse, IPostTodoPayload } from '../models/todoInterfaces';
+import {
+  IAllTodoResponse,
+  IPostTodoPayload,
+  ITodo,
+} from '../models/todoInterfaces';
 import { revalidateTag } from 'next/cache';
 
 const baseURL = process.env.NEXT_PUBLIC_API as string;
@@ -23,8 +27,33 @@ export async function getAllTodos(
       Authorization: `Bearer ${sessionData.token}`,
     },
     next: {
-      tags: ['get-user-todos']
-    }
+      tags: ['get-user-todos'],
+    },
+  });
+
+  if (!res.ok) {
+    return errorHandling(res);
+  }
+
+  const data = await res.json();
+
+  return { success: true, data };
+}
+
+export async function getTodoById(
+  id: number
+): Promise<
+  IFetchGeneralResponse<IFetchGeneralSuccessResponse<ITodo> | string>
+> {
+  const sessionData = await getServerSession();
+  const res = await fetch(baseURL + '/todos/' + id, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${sessionData.token}`,
+    },
+    next: {
+      tags: ['get-detail-todos'],
+    },
   });
 
   if (!res.ok) {
@@ -50,8 +79,8 @@ export async function updateTodo(
       Authorization: `Bearer ${sessionData.token}`,
     },
     next: {
-      tags: ['update-user-todo']
-    }
+      tags: ['update-user-todo'],
+    },
   });
 
   if (!res.ok) {
@@ -77,8 +106,8 @@ export async function addTodo(
       Authorization: `Bearer ${sessionData.token}`,
     },
     next: {
-      tags: ['add-user-todo']
-    }
+      tags: ['add-user-todo'],
+    },
   });
 
   if (!res.ok) {
@@ -86,6 +115,29 @@ export async function addTodo(
   }
 
   const data = await res.json();
+
+  return { success: true, data };
+}
+
+export async function deleteTodo(
+  id: number
+): Promise<
+  IFetchGeneralResponse<IFetchGeneralSuccessResponse<IAllTodoResponse> | string>
+> {
+  const sessionData = await getServerSession();
+  const res = await fetch(baseURL + '/todos/' + id, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${sessionData.token}`,
+    },
+  });
+
+  if (!res.ok) {
+    return errorHandling(res);
+  }
+
+  const data = await res.json();
+  revalidateTag('get-user-todos');
 
   return { success: true, data };
 }

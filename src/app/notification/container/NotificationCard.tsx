@@ -26,9 +26,8 @@ export const NotificationCard = ({
           {notification.title}
         </span>
         <span className="text-caption-2 text-ny-gray-500">
-          {dayjs(notification.notification_time, 'DD-MM-YYYY HH:mm:ss')
-            .tz('Asia/Jakarta')
-            .local()
+          {dayjs
+            .utc(notification.notification_time, 'DD-MM-YYYY HH:mm:ss')
             .fromNow()}
         </span>
       </div>
