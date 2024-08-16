@@ -40,7 +40,7 @@ async function BudgetList({
         }
       />
 
-      <section className="p-4 pb-24 flex flex-col flex-grow gap-2 border-2">
+      <section className="p-4 pb-24 flex flex-col flex-grow gap-2 ">
         {budgets.length > 0 ? (
           budgets.map((budget) => (
             <CardBudgetList key={budget.id} budget={budget} />
