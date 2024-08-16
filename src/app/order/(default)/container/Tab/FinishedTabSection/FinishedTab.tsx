@@ -1,19 +1,10 @@
 'use client';
 
 import ItemCard from '../../ItemCard/ItemCard';
-import { Button, Modal } from 'antd';
-import useModalReducer, {
-  type IModalDefinition,
-} from '@/shared/usecase/useModalReducer';
+import { Button } from 'antd';
 import TabLoading from '../TabLoading/TabLoading';
-import ModalLoading from '../../Modal/ModalLoading';
-import dynamic from 'next/dynamic';
 import useGetOrders from '../../../usecase/useGetOrders';
 import FinishedTabEmpty from './FinishedTabEmpty';
-
-const SeeInvoiceModal = dynamic(() => import('../../Modal/SeeInvoiceModal'), {
-  loading: () => <ModalLoading />,
-});
 
 export default function FinishedTab() {
   const {
@@ -23,16 +14,6 @@ export default function FinishedTab() {
     error,
   } = useGetOrders('payment done');
 
-  const { openModal, closeModal, modalState } = useModalReducer();
-  const orderId = modalState.isOpen ? modalState.id?.toString() : undefined;
-
-  const modalType = {
-    'see-invoice': {
-      title: 'Receipt',
-      element: <SeeInvoiceModal orderId={orderId} closeModal={closeModal} />,
-    },
-  } as Record<string, IModalDefinition>;
-
   if (isError) throw error;
   if (isLoading) return <TabLoading />;
   if (!finishedOrders || finishedOrders.data.length === 0)
@@ -40,16 +21,6 @@ export default function FinishedTab() {
 
   return (
     <div className="flex flex-col w-full gap-4 justify-center">
-      {modalState.isOpen ? (
-        <Modal
-          open={modalState.isOpen}
-          onCancel={closeModal}
-          footer={null}
-          title={modalType[modalState.type]['title']}>
-          {modalType[modalState.type]['element']}
-        </Modal>
-      ) : null}
-
       {finishedOrders.data.map((order) => {
         return (
           <ItemCard
@@ -65,12 +36,15 @@ export default function FinishedTab() {
             }
             primaryButton={
               <div className="flex items-center gap-2">
-                <Button
-                  onClick={() => openModal('see-invoice', order.id)}
-                  type="primary"
-                  className="block w-full">
-                  See Receipt
-                </Button>
+                {order.invoice_file_uri ? (
+                  <Button
+                    target="_blank"
+                    href={order.invoice_file_uri}
+                    type="primary"
+                    className="block w-full">
+                    See Receipt
+                  </Button>
+                ) : null}
                 <Button
                   href={`/order/details/${order.id}`}
                   type="primary"
