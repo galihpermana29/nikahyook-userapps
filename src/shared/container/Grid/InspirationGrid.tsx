@@ -7,6 +7,7 @@ import { IAllInspirationsResponse } from '@/shared/models/productInterfaces';
 import EmptySection from '../Section/EmptySection';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
+import Link from 'next/link';
 interface IInspirationGrid {
   data: IAllInspirationsResponse[];
   animated?: boolean;
@@ -25,7 +26,6 @@ export const InspirationGrid = ({
   padding = true,
 }: IInspirationGrid) => {
   const dataChunks: IAllInspirationsResponse[][] = splitArrayToChunks(data);
-
   return (
     <div
       className={`grid grid-cols-1 md:grid-cols-2 gap-2 ${
@@ -51,16 +51,26 @@ export const InspirationGrid = ({
 
                   {item && (
                     <>
-                      {item?.image && (
-                        <PhotoView key={index} src={item.image}>
-                          <Image
-                            src={item.image}
-                            alt="Inspiration Picture"
-                            fill
-                            className="object-cover"
-                          />
-                        </PhotoView>
-                      )}
+                      {item?.image &&
+                        (item.name.includes('product-') ? (
+                          <Link href={`/product/${item.id}`}>
+                            <Image
+                              src={item.image}
+                              alt="Inspiration Picture"
+                              fill
+                              className="object-cover"
+                            />
+                          </Link>
+                        ) : (
+                          <PhotoView key={index} src={item.image}>
+                            <Image
+                              src={item.image}
+                              alt="Inspiration Picture"
+                              fill
+                              className="object-cover"
+                            />
+                          </PhotoView>
+                        ))}
                       {showWishlist && (
                         <WishListButton
                           target_id={item.id}

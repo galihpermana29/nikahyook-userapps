@@ -73,7 +73,7 @@ export async function getAllInspirations(
 > {
   const sessionData = await getServerSession();
   const res = await fetch(
-    baseURL + '/inspirations?' + new URLSearchParams(params),
+    baseURL + '/inspirations/top?' + new URLSearchParams(params),
     {
       method: 'GET',
       headers: {
